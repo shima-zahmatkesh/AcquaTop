@@ -25,7 +25,7 @@ public class Main {
 		int numberOfUsers=100;
 		ArrayList<String> userList=null;
 			
-		FileWriter followerFile=new FileWriter(new File("G:/acquaProj/followerFile.txt"));
+		FileWriter followerFile=new FileWriter(new File("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followerFile.txt"));
 		long lCursor = -1;
 		IDs friendsIDs = twitter.getFriendsIDs("verified", lCursor);
 		//System.out.println(twitter.showUser("verified").getName());

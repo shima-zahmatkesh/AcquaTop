@@ -58,7 +58,7 @@ public class twitterStreamCollector {
 		br = null;
 		fis = null;
 		
-		final FileWriter fw=new FileWriter(new File("g:/acquaProj/twitterStream.txt"));
+		final FileWriter fw=new FileWriter(new File("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterStream.txt"));
 	    TwitterStream tStream = new TwitterStreamFactory(cb.build()).getInstance();
 	    // sample() method internally creates a thread which manipulates TwitterStream and calls these adequate listener methods continuously.
 	    StatusListener listener = new StatusListener() {
@@ -122,7 +122,7 @@ public class twitterStreamCollector {
 		BufferedReader br;
 		String         line;
 try{
-		fis = new FileInputStream("G:/acquaProj/followers.csv");
+		fis = new FileInputStream("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followers.csv");
 		br = new BufferedReader(new InputStreamReader(fis));
 }catch(IOException)
 		
