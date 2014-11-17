@@ -117,4 +117,14 @@ public class twitterStreamCollector {
 		}
 		
 	}
+	public void parseStream(){
+		InputStream    fis;
+		BufferedReader br;
+		String         line;
+try{
+		fis = new FileInputStream("G:/acquaProj/followers.csv");
+		br = new BufferedReader(new InputStreamReader(fis));
+}catch(IOException)
+		
+	}
 }
