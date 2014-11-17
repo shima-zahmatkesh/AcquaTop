@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-//import com.fasterxml.jackson.databind.ObjectMapper;
 
 import twitter4j.JSONArray;
 import twitter4j.JSONObject;
