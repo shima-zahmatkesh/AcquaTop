@@ -33,14 +33,14 @@ public class Main {
 		long[] ids = friendsIDs.getIDs();
 		int idIndex = 0;
 		for(int l = 0; l < 30; l++){
-		long[] lookupIds = new long[100];
-		for(int i = 0; i<100; i++){
-		lookupIds[i]=ids[idIndex++];
-		}
-		ResponseList<User> users = twitter.lookupUsers(lookupIds);
-		for(User u : users){
-		     followerFile.write(u.getId()+ ",\"" +u.getScreenName()+"\","+ u.getName()+ "," +u.getFollowersCount()+","+System.currentTimeMillis()+"\n");
-		  }
+			long[] lookupIds = new long[100];
+			for(int i = 0; i<100; i++){
+				lookupIds[i]=ids[idIndex++];
+			}
+			ResponseList<User> users = twitter.lookupUsers(lookupIds);
+			for(User u : users){
+				followerFile.write(u.getId()+ ",\"" +u.getScreenName()+"\","+ u.getName()+ "," +u.getFollowersCount()+","+System.currentTimeMillis()+"\n");
+			}
 		}
 		
 		  followerFile.flush();

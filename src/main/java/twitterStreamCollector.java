@@ -41,7 +41,7 @@ public class twitterStreamCollector {
 		BufferedReader br;
 		String         line;
 
-		fis = new FileInputStream("G:/acquaProj/followers.csv");
+		fis = new FileInputStream("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followers.csv");
 		br = new BufferedReader(new InputStreamReader(fis));
 		
 		
@@ -80,7 +80,7 @@ public class twitterStreamCollector {
 		        		 if(mid==ume.getId()){
 		        			 String rawJSON = TwitterObjectFactory.getRawJSON(status);
 		        			 try {
-		        				 System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+		        				 //System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		        				 fw.write(rawJSON+"\n");
 								fw.flush();
 							} catch (IOException e) {
@@ -117,16 +117,5 @@ public class twitterStreamCollector {
 		}
 		
 	}
-	public void parseStream(){
-		InputStream    fis;
-		BufferedReader br;
-		String         line;
-try{
-		fis = new FileInputStream("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followers.csv");
-		br = new BufferedReader(new InputStreamReader(fis));
-}catch(IOException e){
-	e.printStackTrace();
-}
-		
-	}
+	
 }
