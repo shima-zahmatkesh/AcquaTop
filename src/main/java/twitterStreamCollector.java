@@ -124,7 +124,9 @@ public class twitterStreamCollector {
 try{
 		fis = new FileInputStream("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followers.csv");
 		br = new BufferedReader(new InputStreamReader(fis));
-}catch(IOException)
+}catch(IOException e){
+	e.printStackTrace();
+}
 		
 	}
 }
