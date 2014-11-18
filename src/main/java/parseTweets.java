@@ -29,7 +29,7 @@ public class ParseTweets {
 			long start=new Long("1416074389529");
 			int windowSize=30;
 			
-			fis = new FileInputStream("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterStream.txt");
+			fis = new FileInputStream("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followerSnapshotsFile2.txt");
 			br = new BufferedReader(new InputStreamReader(fis));
 			String line = br.readLine();
 			
