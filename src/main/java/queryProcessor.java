@@ -1,3 +1,6 @@
+import java.awt.image.ReplicateScaleFilter;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -9,10 +12,10 @@ public class queryProcessor {
 	TwitterFollowerCollector tfc;
 	HashMap<Long, Integer> initialCache;
 	public static long start=new Long("1416244704221");
-	public static int WindowSize=30;
+	public static int windowSize=30;
 	public queryProcessor(){
 		tsc= new twitterStreamCollector();
-		tsc.extractWindow(WindowSize, "D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterStream.txt");
+		tsc.extractWindow(windowSize, "D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterStream.txt");
 		//tsc.windows.get(1);  ==>  firstWindow
 		tfc=new TwitterFollowerCollector();				
 		initialCache = tfc.getFollowerListFromDB(start); //gets the first window
@@ -23,42 +26,27 @@ public class queryProcessor {
 	public interface JoinOperator{
 		public void process(long timeStamp);
 	}
-	//----------------------------------------------------------------------------------------
-	public class DWJoinOperator implements JoinOperator{
-		public void process(long timeStamp){
-			long windowDiff = timeStamp-start;
-			int index=((int)windowDiff)/WindowSize;			
-			HashMap<Long,Integer> MentionList = tsc.windows.get(index);
-			//we join mentionList with initial cache and return result
-			Iterator it= MentionList.keySet().iterator();
-			while(it.hasNext()){
-				long userId=Long.parseLong(it.next().toString());
-				Integer userFollowers = initialCache.get(userId);
-				System.out.println(userId +" "+MentionList.get(userId)+" "+userFollowers);
-			}
-			
-		}
-	}
+	
 	//----------------------------------------------------------------------------------------
 	public class OracleJoinOperator implements JoinOperator{
 		public void process(long timeStamp){
-			HashMap<Long, Integer> currentFollowerCount=
+			FileWriter OracleJ=new FileWriter(new File("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/joinOutput/DWJoinOutput.txt"));
+			HashMap<Long, Integer> currentFollowerCount=tfc.getFollowerListFromDB(timeStamp);
 			long windowDiff = timeStamp-start;
-			int index=((int)windowDiff)/WindowSize;			
-			HashMap<Long,Integer> MentionList = tsc.windows.get(index);
+			int index=((int)windowDiff)/windowSize;			
+			HashMap<Long,Integer> mentionList = tsc.windows.get(index);
 			//we join mentionList with initial cache and return result
-			Iterator it= MentionList.keySet().iterator();
+			Iterator it= mentionList.keySet().iterator();
 			while(it.hasNext()){
 				long userId=Long.parseLong(it.next().toString());
-				Integer userFollowers = initialCache.get(userId);
-				System.out.println(userId +" "+MentionList.get(userId)+" "+userFollowers);
-			}
-			
+				Integer userFollowers = currentFollowerCount.get(userId);
+				OracleJ.write(userId +" "+mentionList.get(userId)+" "+userFollowers+"\n");
+			}			
 		}
 	}
 	//----------------------------------------------------------------------------------------
 	public abstract class ApproximateJoinOperator implements JoinOperator{
-		protected Map<long,int> replica;
+		protected HashMap<Long, Integer> replica;
 		protected int updateBudget;
 
 		public void process(long timestamp){
@@ -69,11 +57,36 @@ public class queryProcessor {
 		}
 		protected abstract Set<long> updatePolicy();
 	}
-	
+	//----------------------------------------------------------------------------------------
+		public class DWJoinOperator implements ApproximateJoinOperator{
+			
+			public void process(long timeStamp){
+				
+				FileWriter DWJ=new FileWriter(new File("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/joinOutput/DWJoinOutput.txt"));
+				
+				long windowDiff = timeStamp-start;
+				int index=((int)windowDiff)/windowSize;			
+				HashMap<Long,Integer> mentionList = tsc.windows.get(index);
+				//we join mentionList with initial cache and return result
+				Iterator it= mentionList.keySet().iterator();
+				while(it.hasNext()){
+					long userId=Long.parseLong(it.next().toString());
+					Integer userFollowers = replica.get(userId);
+					DWJ.write(userId +" "+mentionList.get(userId)+" "+userFollowers+"\n");
+				}
+				
+			}
+			protected abstract Set<long> updatePolicy();
+		}
+		//----------------------------------------------------------------------------------------
 	public class BaselineJoinOperator extends ApproximateJoinOperator{
 		protected Set<long> updatePolicy(){
 		//decide which rows to update and return the list
 		//it must satisfy the updateBudget constraint!
+			Iterator it = replica.keySet().iterator();
+			while(it.hasNext()){
+				
+			}
 		}
 	}
 	public static void main(String[] args){
