@@ -33,16 +33,18 @@ import twitter4j.conf.ConfigurationBuilder;
 
 public class twitterStreamCollector {
 	private ConfigurationBuilder cb;
-	public ArrayList<HashMap> windows;
-	public twitterStreamCollector(){
+	public ArrayList<HashMap<Long, Integer>> windows;
+	public twitterStreamCollector(){windows=null;}//constructor for not listening
+	//constructor for listening
+	/*public twitterStreamCollector(){
 		cb = new ConfigurationBuilder();
 		cb.setDebugEnabled(true)
 		  .setOAuthConsumerKey("4DLiYUzihQwpTrmzy8sGw")
 		  .setOAuthConsumerSecret("gqIMoivaCuf1XuDVeOkPADYozc0ddV7ccxngDNSk")
 		  .setOAuthAccessToken("96538292-6MuEd3YcQ1ClJVtQ9OceeOd4dlzm8ZhMeshUcTpRJ")
 		  .setOAuthAccessTokenSecret("6lqQnvDKCP9sUwP8cJnZYD1iDWrvhhQXdeVWQfTImx4");
-		windows=new ArrayList<HashMap>();
-	}
+	}*/
+	
 	public void listen(String userListToMonitor, String OutputStreamFile){
 		try{
 			InputStream    fis;
@@ -121,7 +123,7 @@ public class twitterStreamCollector {
 			e.printStackTrace();
 		}
 	}
-	public void extractWindow(int windowMinutesLength, String StreamFile){
+	public ArrayList<HashMap<Long, Integer>> extractWindow(int windowMinutesLength, String StreamFile){		
 		try{
 			OutputStream    fos;
 			BufferedWriter bw;
@@ -136,8 +138,8 @@ public class twitterStreamCollector {
 			br = new BufferedReader(new InputStreamReader(fis));
 			String line = br.readLine();
 			
-			ArrayList<HashMap> windows=new ArrayList<HashMap>();
-			HashMap<String ,Integer> mapOfUserMentions=new HashMap<String, Integer>();
+			//ArrayList<HashMap<String,Integer>> windows=new ArrayList<HashMap<String,Integer>>();
+			HashMap<Long ,Integer> mapOfUserMentions=new HashMap<Long, Integer>();
 			
 			
 			while(line!=null){
@@ -149,12 +151,12 @@ public class twitterStreamCollector {
 					JSONArray jsonMentionArray=jsonEntities.getJSONArray("user_mentions");
 					 for (int i = 0; i < jsonMentionArray.length(); i++) {
 					        JSONObject explrObject = jsonMentionArray.getJSONObject(i);
-					        String mentionedUser = explrObject.get("screen_name").toString();
+					        String mentionedUser = explrObject.get("id").toString();
 					        Object numberOfMentions = mapOfUserMentions.get(mentionedUser);
 					        if(numberOfMentions!=null){
-					        	mapOfUserMentions.put(mentionedUser,Integer.parseInt(numberOfMentions.toString())+1);
+					        	mapOfUserMentions.put(Long.parseLong(mentionedUser),Integer.parseInt(numberOfMentions.toString())+1);
 					        }else{
-					        	mapOfUserMentions.put(mentionedUser,1);
+					        	mapOfUserMentions.put(Long.parseLong(mentionedUser),1);
 					        }
 					}
 				}else
@@ -162,7 +164,7 @@ public class twitterStreamCollector {
 						start=current;
 						System.out.println(mapOfUserMentions.toString());
 						bw.write(mapOfUserMentions.toString()+"\n");
-						windows.add((HashMap)mapOfUserMentions.clone());						
+						windows.add((HashMap<Long,Integer>)mapOfUserMentions.clone());						
 						mapOfUserMentions.clear();
 						continue;
 						}
@@ -171,16 +173,17 @@ public class twitterStreamCollector {
 			br.close();
 			bw.flush();
 			bw.close();
+			return windows;
 			
-		}catch(Exception e){e.printStackTrace();}
+		}catch(Exception e){e.printStackTrace(); return null;}
 		
 	}
 	public static void main(String[] args)
 	{
 		twitterStreamCollector tsc=new twitterStreamCollector();
-		tsc.listen("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followers.csv", "D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterStream.txt");
-		tsc.extractWindow(30, "D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterStream.txt");
-		tsc.windows.get(1);
+		//tsc.listen("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followers.csv", "D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterStream.txt");
+		ArrayList<HashMap<Long, Integer>> windows = tsc.extractWindow(30, "D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterStream.txt");
+		windows.get(1);
 	}
 	
 }

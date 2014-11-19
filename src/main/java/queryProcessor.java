@@ -1,8 +1,21 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+
 
 public class queryProcessor {
 	JoinOperator join;
+	twitterStreamCollector tsc;
+	TwitterFollowerCollector tfc;
+	HashMap<Long, Integer> initialCache;
+	public static long start=new Long("1416244704221");
+	public static int WindowSize=30;
 	public queryProcessor(){
-		
+		tsc= new twitterStreamCollector();
+		tsc.extractWindow(WindowSize, "D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterStream.txt");
+		//tsc.windows.get(1);  ==>  firstWindow
+		tfc=new TwitterFollowerCollector();				
+		initialCache = tfc.getFollowerListFromDB(start); //gets the first window
 	}
 	public void evaluateQuery(long timeStamp){
 		join.process(timeStamp);
@@ -11,8 +24,36 @@ public class queryProcessor {
 		public void process(long timeStamp);
 	}
 	//----------------------------------------------------------------------------------------
-	public class oracleJoinOperator implements JoinOperator{
-		public void process(long timeStamp){}
+	public class DWJoinOperator implements JoinOperator{
+		public void process(long timeStamp){
+			long windowDiff = timeStamp-start;
+			int index=((int)windowDiff)/WindowSize;			
+			HashMap<Long,Integer> MentionList = tsc.windows.get(index);
+			//we join mentionList with initial cache and return result
+			Iterator it= MentionList.keySet().iterator();
+			while(it.hasNext()){
+				long userId=Long.parseLong(it.next().toString());
+				Integer userFollowers = initialCache.get(userId);
+				System.out.println(userId +" "+MentionList.get(userId)+" "+userFollowers);
+			}
+			
+		}
+	}
+	//----------------------------------------------------------------------------------------
+	public class DWJoinOperator implements JoinOperator{
+		public void process(long timeStamp){
+			long windowDiff = timeStamp-start;
+			int index=((int)windowDiff)/WindowSize;			
+			HashMap<Long,Integer> MentionList = tsc.windows.get(index);
+			//we join mentionList with initial cache and return result
+			Iterator it= MentionList.keySet().iterator();
+			while(it.hasNext()){
+				long userId=Long.parseLong(it.next().toString());
+				Integer userFollowers = initialCache.get(userId);
+				System.out.println(userId +" "+MentionList.get(userId)+" "+userFollowers);
+			}
+			
+		}
 	}
 	//----------------------------------------------------------------------------------------
 	public abstract class ApproximateJoinOperator implements JoinOperator{
