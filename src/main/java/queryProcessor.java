@@ -40,8 +40,9 @@ public class queryProcessor {
 		}
 	}
 	//----------------------------------------------------------------------------------------
-	public class DWJoinOperator implements JoinOperator{
+	public class OracleJoinOperator implements JoinOperator{
 		public void process(long timeStamp){
+			HashMap<Long, Integer> currentFollowerCount=
 			long windowDiff = timeStamp-start;
 			int index=((int)windowDiff)/WindowSize;			
 			HashMap<Long,Integer> MentionList = tsc.windows.get(index);
