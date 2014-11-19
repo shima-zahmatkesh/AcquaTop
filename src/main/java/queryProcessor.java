@@ -1,6 +1,7 @@
 import java.awt.image.ReplicateScaleFilter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -11,7 +12,7 @@ public class queryProcessor {
 	JoinOperator join;
 	twitterStreamCollector tsc;
 	TwitterFollowerCollector tfc;
-	HashMap<Long, Integer> initialCache;
+	//HashMap<Long, Integer> initialCache;
 	public static long start=new Long("1416244704221");
 	public static int windowSize=30;
 	public queryProcessor(){
@@ -19,7 +20,7 @@ public class queryProcessor {
 		tsc.extractWindow(windowSize, "D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterStream.txt");
 		//tsc.windows.get(1);  ==>  firstWindow
 		tfc=new TwitterFollowerCollector();				
-		initialCache = tfc.getFollowerListFromDB(start); //gets the first window
+		//initialCache = tfc.getFollowerListFromDB(start); //gets the first window
 	}
 	public void evaluateQuery(long timeStamp){
 		join.process(timeStamp);
@@ -31,7 +32,10 @@ public class queryProcessor {
 	//----------------------------------------------------------------------------------------
 	public class OracleJoinOperator implements JoinOperator{
 		public void process(long timeStamp){
-			FileWriter OracleJ=new FileWriter(new File("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/joinOutput/DWJoinOutput.txt"));
+			FileWriter OracleJ;
+			try {
+				OracleJ = new FileWriter(new File("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/joinOutput/DWJoinOutput.txt"));
+			
 			HashMap<Long, Integer> currentFollowerCount=tfc.getFollowerListFromDB(timeStamp);
 			long windowDiff = timeStamp-start;
 			int index=((int)windowDiff)/windowSize;			
@@ -42,7 +46,11 @@ public class queryProcessor {
 				long userId=Long.parseLong(it.next().toString());
 				Integer userFollowers = currentFollowerCount.get(userId);
 				OracleJ.write(userId +" "+mentionList.get(userId)+" "+userFollowers+"\n");
-			}			
+			}	
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	//----------------------------------------------------------------------------------------
@@ -52,8 +60,10 @@ public class queryProcessor {
 
 		public void process(long timeStamp){
 			
-			FileWriter J=new FileWriter(new File("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/joinOutput/"+this.getClass().toString()+"Output.txt"));
-
+			FileWriter J;
+			try {
+				J = new FileWriter(new File("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/joinOutput/"+this.getClass().toString()+"Output.txt"));
+			
 			//invoke FollowerTable::getFollowers(user,ts) and updates the replica
 			for(long id : updatePolicy()){
 				replica.put(id,tfc.getUserFollowerFromDB(timeStamp, id));
@@ -70,7 +80,11 @@ public class queryProcessor {
 				Integer userFollowers = replica.get(userId);
 				J.write(userId +" "+mentionList.get(userId)+" "+userFollowers+"\n");
 			}
-			
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 		}
 		protected abstract HashSet<Long> updatePolicy();
 	}
@@ -84,12 +98,13 @@ public class queryProcessor {
 		}
 		//----------------------------------------------------------------------------------------
 	public class BaselineJoinOperator extends ApproximateJoinOperator{
-		protected Set<long> updatePolicy(){
+		protected HashSet<Long> updatePolicy(){
 		//decide which rows to update and return the list
 		//it must satisfy the updateBudget constraint!
 			Iterator it = replica.keySet().iterator();
 			while(it.hasNext()){
-				
+				Long userId = Long.parseLong(it.next().toString());
+				replica.get(userId).
 			}
 		}
 	}
