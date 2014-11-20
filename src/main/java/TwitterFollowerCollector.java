@@ -78,7 +78,6 @@ public class TwitterFollowerCollector {
 	  followerFile.close();
 		}catch(Exception e){e.printStackTrace();}	
 }
-	
 	public void importFollowerFileIntoDB(String FollowerFile){
 		Connection c = null;
 		Statement stmt = null;

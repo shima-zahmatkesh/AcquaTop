@@ -34,7 +34,7 @@ import twitter4j.conf.ConfigurationBuilder;
 public class twitterStreamCollector {
 	private ConfigurationBuilder cb;
 	public ArrayList<HashMap<Long, Integer>> windows;
-	public twitterStreamCollector(){windows=null;}//constructor for not listening
+	public twitterStreamCollector(){windows=new ArrayList<HashMap<Long,Integer>>();}//constructor for not listening
 	//constructor for listening
 	/*public twitterStreamCollector(){
 		cb = new ConfigurationBuilder();
@@ -132,7 +132,7 @@ public class twitterStreamCollector {
 			InputStream    fis;
 			BufferedReader br;
 			
-			long start=new Long("1416074389529");
+			long start=queryProcessor.start;
 			
 			fis = new FileInputStream(StreamFile);//"D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followerSnapshotsFile2.txt");
 			br = new BufferedReader(new InputStreamReader(fis));
