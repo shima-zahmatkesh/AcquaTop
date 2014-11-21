@@ -14,7 +14,10 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 import twitter4j.IDs;
 import twitter4j.JSONArray;
@@ -40,6 +43,32 @@ public class TwitterFollowerCollector {
 		  .setOAuthAccessTokenSecret("6lqQnvDKCP9sUwP8cJnZYD1iDWrvhhQXdeVWQfTImx4");
 		snapshots = new HashMap<Long,HashMap<Long,Integer>>();
 	}*/
+	public HashMap<Long, Integer> readIntialUserSet(String userListFilePath){
+		HashMap<Long, Integer> result = new HashMap<Long, Integer>();
+		InputStream    fis;
+		BufferedReader br;
+		try{
+		fis = new FileInputStream(userListFilePath);//"D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followers.csv");
+		br = new BufferedReader(new InputStreamReader(fis));
+		
+		
+		String br1 = br.readLine();
+		String[] idStr = br1.split(",");
+		String br2=br.readLine();
+		String[] idStr2 = br2.split(",");
+		final long[] monitoredIds=new long[idStr.length];
+		for(int o=0;o<idStr.length;o++)
+		{
+			//monitoredIds[o]=Long.parseLong(idStr[o]);
+			result.put(Long.parseLong(idStr[o]), Integer.parseInt(idStr2[o]));
+		}
+		br.close();
+		}catch(Exception e){e.printStackTrace();}
+		
+		br = null;
+		fis = null;
+		return result;
+	}
 	public void captureSnapshots(String userListFilePath, String snapshotOutputPath){		
 	TwitterFactory tf = new TwitterFactory(cb.build());
 	Twitter twitter = tf.getInstance();
@@ -48,24 +77,14 @@ public class TwitterFollowerCollector {
 		try{
 	FileWriter followerFile=new FileWriter(new File(snapshotOutputPath));//"D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followerSnapshotsFile2.txt"));
 	/////////////////////////////////////////////////////
-	InputStream    fis;
-	BufferedReader br;
-	
-	fis = new FileInputStream(userListFilePath);//"D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followers.csv");
-	br = new BufferedReader(new InputStreamReader(fis));
-	
-	
-	String br1 = br.readLine();
-	String[] idStr = br1.split(",");
-	final long[] monitoredIds=new long[idStr.length];
-	for(int o=0;o<idStr.length;o++)
-	{
-		monitoredIds[o]=Long.parseLong(idStr[o]);
+	Set<Long> InitialUserFollowerSet= readIntialUserSet(userListFilePath).keySet();
+	long[] monitoredIds=new long[InitialUserFollowerSet.size()];
+	Iterator<Long> it = InitialUserFollowerSet.iterator();
+	int i=0;
+	while(it.hasNext()){
+		monitoredIds[i]=Long.parseLong(it.next().toString());
+		i++;
 	}
-	br.close();
-	br = null;
-	fis = null;
-	
 	for(int y=0;y<30;y++){
 		ResponseList<User> users = twitter.lookupUsers(monitoredIds);
 			for(User u : users){
@@ -176,13 +195,42 @@ public class TwitterFollowerCollector {
 	    }
 	    return followers;
 	}
-	
+	public HashMap<Long,Integer> getInitialUserFollowersFromDB(){
+		HashMap<Long,Integer> result=new HashMap<Long, Integer>();
+		Connection c = null;
+	    Statement stmt = null;
+	    try {
+	      Class.forName("org.sqlite.JDBC");
+	      c = DriverManager.getConnection("jdbc:sqlite:test.db");
+	      c.setAutoCommit(false);
+	      stmt = c.createStatement();
+	      String sql="SELECT B.USERID, B.FOLLOWERCOUNT "+
+	    		  " FROM (SELECT USERID, MIN(TIMESTAMP) AS MINTS  FROM BKG  " + 
+	    				  " GROUP BY USERID) A JOIN BKG B ON A.USERID=B.USERID AND A.MINTS=B.TIMESTAMP";
+	      System.out.println(sql);
+	      ResultSet rs = stmt.executeQuery( sql);
+	      
+	      while ( rs.next() ) {
+	         long userId = rs.getLong("USERID");
+	         int followerCount  = rs.getInt("FOLLOWERCOUNT");
+	         result.put(userId, followerCount);
+	      }
+	      rs.close();
+	      stmt.close();
+	      c.close();
+	    } catch ( Exception e ) {
+	      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+	      System.exit(0);
+	    }
+	    return result;
+	}
 	
 	public static void main(String[] args){
 		TwitterFollowerCollector tfc=new TwitterFollowerCollector();
 		//tfc.captureSnapshots("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followers.csv","D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followerSnapshotsFile2.txt");
 		//note that followerSnapshotFile should have been sorted based on timestamp
 		//tfc.importFollowerFileIntoDB("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followerSnapshotsFile2.txt");
+		HashMap<Long,Integer> initialCache = tfc.getInitialUserFollowersFromDB();
 		long time=new Long("1416244704221");
 		long userid= new Long("118288671");
 		HashMap<Long,Integer> list = tfc.getFollowerListFromDB(time); //gets the first window

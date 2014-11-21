@@ -34,7 +34,14 @@ import twitter4j.conf.ConfigurationBuilder;
 public class twitterStreamCollector {
 	private ConfigurationBuilder cb;
 	public ArrayList<HashMap<Long, Integer>> windows;
-	public twitterStreamCollector(){windows=new ArrayList<HashMap<Long,Integer>>();}//constructor for not listening
+	public static long[] monitoredIds;
+	public static String[] monitorNames;
+	//constructor for not listening
+	public twitterStreamCollector(){
+		windows=new ArrayList<HashMap<Long,Integer>>();
+		extractUserIds("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followers.csv");
+	}
+	
 	//constructor for listening
 	/*public twitterStreamCollector(){
 		cb = new ConfigurationBuilder();
@@ -44,30 +51,33 @@ public class twitterStreamCollector {
 		  .setOAuthAccessToken("96538292-6MuEd3YcQ1ClJVtQ9OceeOd4dlzm8ZhMeshUcTpRJ")
 		  .setOAuthAccessTokenSecret("6lqQnvDKCP9sUwP8cJnZYD1iDWrvhhQXdeVWQfTImx4");
 	}*/
-	
-	public void listen(String userListToMonitor, String OutputStreamFile){
+	public static void extractUserIds(String userListToMonitor){
 		try{
 			InputStream    fis;
-			BufferedReader br;
-			String         line;
+		BufferedReader br;
+		String         line;
 
-			fis = new FileInputStream(userListToMonitor);//"D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followers.csv");
-			br = new BufferedReader(new InputStreamReader(fis));
+		fis = new FileInputStream(userListToMonitor);//"D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followers.csv");
+		br = new BufferedReader(new InputStreamReader(fis));
+	
+	
+		String br1 = br.readLine();
+		String[] idStr = br1.split(",");
+		monitoredIds=new long[idStr.length];
 		
+		for(int o=0;o<idStr.length;o++)
+		{
+			monitoredIds[o]=Long.parseLong(idStr[o]);
+		}
+		String br2=br.readLine();
+		monitorNames=br2.split(",");
+		br.close();
+		br = null;
+		fis = null;}catch(Exception e){e.printStackTrace();}
 		
-			String br1 = br.readLine();
-			String[] idStr = br1.split(",");
-			final long[] monitoredIds=new long[idStr.length];
-			for(int o=0;o<idStr.length;o++)
-			{
-				monitoredIds[o]=Long.parseLong(idStr[o]);
-			}
-			String br2=br.readLine();
-			String[] monitorNames=br2.split(",");
-			br.close();
-			br = null;
-			fis = null;
-		
+	}
+	public void listen( String OutputStreamFile){
+		try{
 			final FileWriter fw=new FileWriter(new File(OutputStreamFile));//"D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterStream.txt"));
 			TwitterStream tStream = new TwitterStreamFactory(cb.build()).getInstance();
 			// sample() method internally creates a thread which manipulates TwitterStream and calls these adequate listener methods continuously.
@@ -152,6 +162,13 @@ public class twitterStreamCollector {
 					 for (int i = 0; i < jsonMentionArray.length(); i++) {
 					        JSONObject explrObject = jsonMentionArray.getJSONObject(i);
 					        String mentionedUser = explrObject.get("id").toString();
+					        int p=0;
+					        for(p=0;p<monitoredIds.length;p++)
+					        	{
+					        		if(monitoredIds[p]==Long.parseLong(mentionedUser))
+					        			break;
+					        	}
+					        if(p==monitoredIds.length) continue;
 					        Object numberOfMentions = mapOfUserMentions.get(mentionedUser);
 					        if(numberOfMentions!=null){
 					        	mapOfUserMentions.put(Long.parseLong(mentionedUser),Integer.parseInt(numberOfMentions.toString())+1);
@@ -161,9 +178,9 @@ public class twitterStreamCollector {
 					}
 				}else
 					{
+						bw.write(start+" TO "+current +" Window : "+mapOfUserMentions.toString()+"\n");	
 						start=current;
-						System.out.println(mapOfUserMentions.toString());
-						bw.write(mapOfUserMentions.toString()+"\n");
+						System.out.println(mapOfUserMentions.toString());						
 						windows.add((HashMap<Long,Integer>)mapOfUserMentions.clone());						
 						mapOfUserMentions.clear();
 						continue;

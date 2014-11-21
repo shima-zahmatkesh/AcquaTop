@@ -18,14 +18,23 @@ public class queryProcessor {
 	JoinOperator join;
 	twitterStreamCollector tsc;
 	TwitterFollowerCollector tfc;
+	protected HashMap<Long, Integer> followerReplica;
+	protected HashMap<Long,Long> userInfoUpdateTime;
+	protected int updateBudget;
 	//HashMap<Long, Integer> initialCache;
-	public static long start=new Long("1416244287915");
+	public static long start=new Long("1416244306470");//select min(TIMESTAMP) + 30000 from BKG 
 	public static int windowSize=30;
 	public queryProcessor(){
+		tfc=new TwitterFollowerCollector();				
 		tsc= new twitterStreamCollector();
 		tsc.extractWindow(windowSize, "D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterStream.txt");
-		//tsc.windows.get(1);  ==>  firstWindow
-		tfc=new TwitterFollowerCollector();				
+		followerReplica=new HashMap<Long, Integer>();
+		userInfoUpdateTime = new HashMap<Long, Long>();
+		followerReplica = tfc.getInitialUserFollowersFromDB(); // ==>  firstWindow
+		Iterator it = followerReplica.keySet().iterator();
+		while(it.hasNext()){
+			userInfoUpdateTime.put(Long.parseLong(it.next().toString()),start);//follower info is according to the end of first window
+		}
 		//initialCache = tfc.getFollowerListFromDB(start); //gets the first window
 	}
 	public void evaluateQuery(long timeStamp){
@@ -62,16 +71,17 @@ public class queryProcessor {
 	}
 	//----------------------------------------------------------------------------------------
 	public abstract class ApproximateJoinOperator implements JoinOperator{
-		
-		protected HashMap<Long, Integer> followerReplica;
-		protected HashMap<Long,Long> userInfoUpdateTime;
-		protected int updateBudget;
-
-		public void process(long timeStamp){
-			FileWriter J;
-			try {
-				J = new FileWriter(new File("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/joinOutput/"+this.getClass().toString()+"Output.txt"));
+		public  FileWriter J;
+		public ApproximateJoinOperator(){
+			try{
+			J = new FileWriter(new File("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/joinOutput/"+this.getClass().toString()+"Output.txt"));
+			}catch(Exception e){e.printStackTrace();}
 			
+		}
+		public void process(long timeStamp){
+			
+			try {
+				
 			
 			//process the join
 			
@@ -97,6 +107,7 @@ public class queryProcessor {
 			}
 
 		}
+		public void close(){try{J.flush();J.close();}catch(Exception e){e.printStackTrace();}}
 		protected abstract HashSet<Long> updatePolicy(Iterator<Long> candidateUserSetIterator);
 	}
 	//----------------------------------------------------------------------------------------
@@ -146,9 +157,11 @@ public class queryProcessor {
 		long time=qp.start;
 		int windowCount=0;
 		while(windowCount<30){
-			time+=windowCount*queryProcessor.windowSize*1000;
+			time = time + windowCount*queryProcessor.windowSize*1000;
+			System.out.println(time);
 			bj.process(time);
 			windowCount++;
 		}
+		bj.close();
 	}
 }
