@@ -22,7 +22,7 @@ public class queryProcessor {
 	protected HashMap<Long,Long> userInfoUpdateTime;
 	protected int updateBudget;
 	//HashMap<Long, Integer> initialCache;
-	public static long start=new Long("1416244306470");//select min(TIMESTAMP) + 30000 from BKG 
+	public static long start=1416244306470L;//select min(TIMESTAMP) + 30000 from BKG 
 	public static int windowSize=30;
 	public queryProcessor(){
 		tfc=new TwitterFollowerCollector();				
@@ -46,28 +46,36 @@ public class queryProcessor {
 	
 	//----------------------------------------------------------------------------------------
 	public class OracleJoinOperator implements JoinOperator{
-		public void process(long timeStamp){
-			FileWriter OracleJ;
-			try {
-				OracleJ = new FileWriter(new File("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/joinOutput/DWJoinOutput.txt"));
+		public  FileWriter J;
+		public OracleJoinOperator(){
+			try{
+			J = new FileWriter(new File("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/joinOutput/"+this.getClass().toString()+"Output.txt"));
+			}catch(Exception e){e.printStackTrace();}
 			
+		}
+		public void process(long timeStamp){
+			try {
+				
 			HashMap<Long, Integer> currentFollowerCount=tfc.getFollowerListFromDB(timeStamp);
 			long windowDiff = timeStamp-start;
 			if (windowDiff==0) return;
-			int index=((int)windowDiff)/windowSize;			
+			int index=((int)windowDiff)/(windowSize*1000);			
 			HashMap<Long,Integer> mentionList = tsc.windows.get(index);
 			//we join mentionList with initial cache and return result
 			Iterator it= mentionList.keySet().iterator();
 			while(it.hasNext()){
 				long userId=Long.parseLong(it.next().toString());
 				Integer userFollowers = currentFollowerCount.get(userId);
-				OracleJ.write(userId +" "+mentionList.get(userId)+" "+userFollowers+"\n");
-			}	
+				J.write(userId +" "+mentionList.get(userId)+" "+userFollowers+"\n");
+			}
+			
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
 		}
+		public void close(){try{J.flush();J.close();}catch(Exception e ){e.printStackTrace();}}
 	}
 	//----------------------------------------------------------------------------------------
 	public abstract class ApproximateJoinOperator implements JoinOperator{
@@ -81,10 +89,7 @@ public class queryProcessor {
 		public void process(long timeStamp){
 			
 			try {
-				
-			
-			//process the join
-			
+			//process the join			
 			long windowDiff = timeStamp-start;
 			if (windowDiff==0) return;
 			int index=((int)windowDiff)/(windowSize*1000);			
@@ -154,14 +159,20 @@ public class queryProcessor {
 	public static void main(String[] args){
 		queryProcessor qp=new queryProcessor();		
 		BaselineJoinOperator bj=qp.new BaselineJoinOperator();
-		long time=qp.start;
+		OracleJoinOperator oj = qp.new OracleJoinOperator();
+		DWJoinOperator dwj = qp.new DWJoinOperator();
+		long time=queryProcessor.start;
 		int windowCount=0;
 		while(windowCount<30){
-			time = time + windowCount*queryProcessor.windowSize*1000;
-			System.out.println(time);
+			time = time + 30000;
+			//System.out.println(time +" "+windowCount+" "+queryProcessor.windowSize);
+			oj.process(time);
 			bj.process(time);
+			dwj.process(time);
 			windowCount++;
 		}
 		bj.close();
+		oj.close();
+		dwj.close();
 	}
 }

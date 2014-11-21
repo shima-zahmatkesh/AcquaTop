@@ -151,7 +151,7 @@ public class TwitterFollowerCollector {
 	      String sql="SELECT B.USERID, B.FOLLOWERCOUNT "+
 	    		  " FROM (SELECT USERID, MAX(TIMESTAMP) AS MAXTS  FROM BKG  WHERE TIMESTAMP < "+timeStamp + 
 	    				  " GROUP BY USERID) A JOIN BKG B ON A.USERID=B.USERID AND A.MAXTS=B.TIMESTAMP";
-	      System.out.println(sql);
+	      //System.out.println(sql);
 	      ResultSet rs = stmt.executeQuery( sql);
 	      
 	      while ( rs.next() ) {
