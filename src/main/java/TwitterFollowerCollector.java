@@ -204,7 +204,7 @@ public class TwitterFollowerCollector {
 	      c = DriverManager.getConnection("jdbc:sqlite:test.db");
 	      c.setAutoCommit(false);
 	      stmt = c.createStatement();
-	      String sql="SELECT B.USERID, B.FOLLOWERCOUNT "+
+	      String sql="SELECT B.USERID, B.FOLLOWERCOUNT, A.MINTS"+
 	    		  " FROM (SELECT USERID, MIN(TIMESTAMP) AS MINTS  FROM BKG  " + 
 	    				  " GROUP BY USERID) A JOIN BKG B ON A.USERID=B.USERID AND A.MINTS=B.TIMESTAMP";
 	      System.out.println(sql);
@@ -213,6 +213,7 @@ public class TwitterFollowerCollector {
 	      while ( rs.next() ) {
 	         long userId = rs.getLong("USERID");
 	         int followerCount  = rs.getInt("FOLLOWERCOUNT");
+	         long timeStamp = rs.getLong("MINTS");
 	         result.put(userId, followerCount);
 	      }
 	      rs.close();

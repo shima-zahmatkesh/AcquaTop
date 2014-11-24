@@ -24,7 +24,9 @@ public class queryProcessor {
 	//HashMap<Long, Integer> initialCache;
 	public static long start=1416244306470L;//select min(TIMESTAMP) + 30000 from BKG 
 	public static int windowSize=30;
-	public queryProcessor(){
+	public queryProcessor(int ub){//class JoinOperator){
+		//updateBudget and join should be initiated
+		updateBudget=ub;
 		tfc=new TwitterFollowerCollector();				
 		tsc= new twitterStreamCollector();
 		tsc.extractWindow(windowSize, "D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterStream.txt");
@@ -49,7 +51,7 @@ public class queryProcessor {
 		public  FileWriter J;
 		public OracleJoinOperator(){
 			try{
-			J = new FileWriter(new File("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/joinOutput/"+this.getClass().toString()+"Output.txt"));
+			J = new FileWriter(new File("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/joinOutput/"+this.getClass().getSimpleName()+"Output.txt"));
 			}catch(Exception e){e.printStackTrace();}
 			
 		}
@@ -61,12 +63,12 @@ public class queryProcessor {
 			if (windowDiff==0) return;
 			int index=((int)windowDiff)/(windowSize*1000);			
 			HashMap<Long,Integer> mentionList = tsc.windows.get(index);
-			//we join mentionList with initial cache and return result
+			//we join current window of mentionList with initial cache and return result
 			Iterator it= mentionList.keySet().iterator();
 			while(it.hasNext()){
 				long userId=Long.parseLong(it.next().toString());
 				Integer userFollowers = currentFollowerCount.get(userId);
-				J.write(userId +" "+mentionList.get(userId)+" "+userFollowers+"\n");
+				J.write(userId +" "+mentionList.get(userId)+" "+userFollowers+" "+timeStamp+"\n");
 			}
 			
 			} catch (IOException e) {
@@ -80,14 +82,13 @@ public class queryProcessor {
 	//----------------------------------------------------------------------------------------
 	public abstract class ApproximateJoinOperator implements JoinOperator{
 		public  FileWriter J;
-		public ApproximateJoinOperator(){
+		public ApproximateJoinOperator(){			
 			try{
-			J = new FileWriter(new File("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/joinOutput/"+this.getClass().toString()+"Output.txt"));
+			J = new FileWriter(new File("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/joinOutput/"+this.getClass().getSimpleName()+"Output.txt"));
 			}catch(Exception e){e.printStackTrace();}
 			
 		}
-		public void process(long timeStamp){
-			
+		public void process(long timeStamp){			
 			try {
 			//process the join			
 			long windowDiff = timeStamp-start;
@@ -97,20 +98,19 @@ public class queryProcessor {
 			//invoke FollowerTable::getFollowers(user,ts) and updates the replica for a subset of users that exist in stream
 			for(long id : updatePolicy(mentionList.keySet().iterator())){
 				followerReplica.put(id,tfc.getUserFollowerFromDB(timeStamp, id));
-				userInfoUpdateTime.put(id, System.currentTimeMillis());
+				userInfoUpdateTime.put(id, timeStamp);
 			}
 			//we join mentionList with initial cache and return result	
 			Iterator it= mentionList.keySet().iterator();
 			while(it.hasNext()){
 				long userId=Long.parseLong(it.next().toString());
 				Integer userFollowers = followerReplica.get(userId);
-				J.write(userId +" "+mentionList.get(userId)+" "+userFollowers+"\n");
+				J.write(userId +" "+mentionList.get(userId)+" "+userFollowers+" "+timeStamp+"\n");
 			}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
 		}
 		public void close(){try{J.flush();J.close();}catch(Exception e){e.printStackTrace();}}
 		protected abstract HashSet<Long> updatePolicy(Iterator<Long> candidateUserSetIterator);
@@ -157,7 +157,7 @@ public class queryProcessor {
 		}
 	}
 	public static void main(String[] args){
-		queryProcessor qp=new queryProcessor();		
+		queryProcessor qp=new queryProcessor(10);		
 		BaselineJoinOperator bj=qp.new BaselineJoinOperator();
 		OracleJoinOperator oj = qp.new OracleJoinOperator();
 		DWJoinOperator dwj = qp.new DWJoinOperator();
@@ -167,8 +167,10 @@ public class queryProcessor {
 			time = time + 30000;
 			//System.out.println(time +" "+windowCount+" "+queryProcessor.windowSize);
 			oj.process(time);
+			dwj.process(time);//why the error rate of DW doesn't show a constant increase? while in fact since the quality of information is decreasing during time, it must be a constant decrease
+			//dwj and bj are sharing the same replica so changes over the replica of one affect changes over the replica of other
 			bj.process(time);
-			dwj.process(time);
+			
 			windowCount++;
 		}
 		bj.close();
