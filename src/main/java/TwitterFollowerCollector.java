@@ -139,7 +139,7 @@ public class TwitterFollowerCollector {
 	      e.printStackTrace();}
 	    
 	}
-	public HashMap<Long,Integer> getFollowerListFromDB(long timeStamp){
+	public static HashMap<Long,Integer> getFollowerListFromDB(long timeStamp){
 		HashMap<Long,Integer> result=new HashMap<Long, Integer>();
 		Connection c = null;
 	    Statement stmt = null;
@@ -168,7 +168,7 @@ public class TwitterFollowerCollector {
 	    }
 	    return result;
 	}
-	public int getUserFollowerFromDB(long timeStamp, long userID){
+	public static int getUserFollowerFromDB(long timeStamp, long userID){
 		int followers=0;
 		Connection c = null;
 	    Statement stmt = null;
@@ -195,7 +195,7 @@ public class TwitterFollowerCollector {
 	    }
 	    return followers;
 	}
-	public HashMap<Long,Integer> getInitialUserFollowersFromDB(){
+	public static HashMap<Long,Integer> getInitialUserFollowersFromDB(){
 		HashMap<Long,Integer> result=new HashMap<Long, Integer>();
 		Connection c = null;
 	    Statement stmt = null;
