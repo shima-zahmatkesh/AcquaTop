@@ -53,6 +53,14 @@ public static void insertResultToDB(){
                   " `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `RtimeIndex` ON `RJ` (`TIMESTAMP` ASC);"; 
 	      System.out.println(sql);
 	      stmt.executeUpdate(sql);
+	      stmt.executeUpdate(" DROP TABLE IF EXISTS SJ ;");
+	      sql = "CREATE TABLE  `SJ` ( " +
+                  " `USERID`           BIGINT    NOT NULL, " + 
+                  " `MENTIONCOUNT`     INT    NOT NULL, " + 
+                  " `FOLLOWERCOUNT`    INT    NOT NULL, " + 
+                  " `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `StimeIndex` ON `SJ` (`TIMESTAMP` ASC);"; 
+	      System.out.println(sql);
+	      stmt.executeUpdate(sql);
 		InputStream    fis;
 		BufferedReader br;
 		//---------------------------------------------------------------------fill baseline table
@@ -103,6 +111,18 @@ public static void insertResultToDB(){
 					//System.out.println(sql);
 					stmt.executeUpdate(sql);
 				}
+				//-----------------------------------------------------------------------fill classqueryProcessorOracleJoinOperatorOutput
+				fis = new FileInputStream("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/joinOutput/SmartJoinOutput.txt");
+				br = new BufferedReader(new InputStreamReader(fis));
+				line=null;
+				while((line=br.readLine())!=null)
+				{
+					String[] userInfo = line.split(" ");	
+					sql = "INSERT INTO SJ (USERID,MENTIONCOUNT,FOLLOWERCOUNT,TIMESTAMP) " +
+		          "VALUES ("+userInfo[0]+","+userInfo[1]+","+userInfo[2]+","+userInfo[3]+")"; 
+					//System.out.println(sql);
+					stmt.executeUpdate(sql);
+				}		
 		stmt.close();
 		//c.commit();
 		c.close();

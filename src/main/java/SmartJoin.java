@@ -18,6 +18,7 @@ public class SmartJoin extends ApproximateJoinOperator{
 	protected HashMap<Long,Float> UserChangeRate; 
 	public SmartJoin(int ub) {
 		updateBudget=ub;
+		UserChangeRate=new HashMap<Long, Float>();
 		Connection c = null;
 	    Statement stmt = null;
 	    try {
@@ -25,7 +26,7 @@ public class SmartJoin extends ApproximateJoinOperator{
 	      c = DriverManager.getConnection("jdbc:sqlite:test.db");
 	      c.setAutoCommit(false);
 	      stmt = c.createStatement();
-	      String sql="SELECT B.USERID, B.CHANGERATE from User ";
+	      String sql="SELECT USERID, CHANGERATE from User ";
 	      //System.out.println(sql);
 	      ResultSet rs = stmt.executeQuery( sql);
 	      
@@ -48,23 +49,23 @@ public class SmartJoin extends ApproximateJoinOperator{
 		//it must satisfy the updateBudget constraint!
 		final class User{
 			long userId;
-			float changeProb;
-			public User(long id,float cp){userId=id;changeProb=cp;}
+			float ExpirationTime;
+			public User(long id,float et){userId=id;ExpirationTime=et;}
 		}
-		List<User> userUpdateLatency=new ArrayList<User>();
+		List<User> userExpirationTime=new ArrayList<User>();
 		while(candidateUserSetIterator.hasNext()){
 			long userid=Long.parseLong(candidateUserSetIterator.next().toString());
 			float f= Float.parseFloat(UserChangeRate.get(userid).toString());
 			long latestUpdateTime = Long.parseLong(userInfoUpdateTime.get(userid).toString());
-			userUpdateLatency.add(new User(userid, f*(System.currentTimeMillis()-latestUpdateTime)/60000));				
+			userExpirationTime.add(new User(userid, latestUpdateTime+60000/f));				
 		}
-		Collections.sort(userUpdateLatency, new Comparator<User>() {
+		Collections.sort(userExpirationTime, new Comparator<User>() {
 	        public int compare(User o1, User o2) {
-	            return (int)(o2.changeProb - o1.changeProb);
+	            return (int)(o2.ExpirationTime - o1.ExpirationTime);
 	        }
 	    });
 		HashSet<Long> result=new HashSet<Long>();
-		Iterator<User> it = userUpdateLatency.iterator();
+		Iterator<User> it = userExpirationTime.iterator();
 		int counter=0;
 		while(it.hasNext()&&counter<updateBudget){
 			result.add(it.next().userId);

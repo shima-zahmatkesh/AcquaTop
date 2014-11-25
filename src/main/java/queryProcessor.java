@@ -37,6 +37,8 @@ public class queryProcessor {
 			join=new BaselineJoinOperator(10);//update budget of 10
 		if(joinType==4)
 			join=new randomCacheUpdateJoin(10);
+		if(joinType==5)
+			join=new SmartJoin(10);
 		long time=queryProcessor.start;
 		int windowCount=0;
 		while(windowCount<30){
@@ -51,7 +53,7 @@ public class queryProcessor {
 	
 	public static void main(String[] args){
 		queryProcessor qp=new queryProcessor();	
-		for(int i=1;i<5;i++){
+		for(int i=1;i<6;i++){
 			qp.evaluateQuery(i);
 		}
 		
