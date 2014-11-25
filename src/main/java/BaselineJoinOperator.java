@@ -30,7 +30,7 @@ public class BaselineJoinOperator extends ApproximateJoinOperator{
 			Collections.sort(userUpdateLatency, new Comparator<User>() {
 
 		        public int compare(User o1, User o2) {
-		            return (int)(o1.updateTimeDiff - o2.updateTimeDiff);
+		            return (int)(o2.updateTimeDiff - o1.updateTimeDiff);
 		        }
 		    });
 			HashSet<Long> result=new HashSet<Long>();

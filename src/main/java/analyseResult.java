@@ -126,8 +126,9 @@ public static HashMap<Long,Integer> computeDWJoinPrecision(){
 	      c = DriverManager.getConnection("jdbc:sqlite:test.db");	      
 	      c.setAutoCommit(false);
 	      stmt = c.createStatement();
-	      String sql="SELECT DWJ.TIMESTAMP TIME, SUM(ABS(DWJ.FOLLOWERCOUNT-OJ.FOLLOWERCOUNT)) ERROR "+
-	    		  " FROM DWJ,OJ  WHERE DWJ.USERID=OJ.USERID AND DWJ.TIMESTAMP=OJ.TIMESTAMP group by OJ.TIMESTAMP";
+	      //String sql="SELECT DWJ.TIMESTAMP AS TIME, SUM(ABS(DWJ.FOLLOWERCOUNT-OJ.FOLLOWERCOUNT)) AS ERROR "+
+	      //		  " FROM DWJ,OJ  WHERE DWJ.USERID=OJ.USERID AND DWJ.TIMESTAMP=OJ.TIMESTAMP group by OJ.TIMESTAMP";
+	      String sql="SELECT DWJ.TIMESTAMP TIME, COUNT(*) ERROR FROM DWJ,OJ  WHERE DWJ.USERID=OJ.USERID AND DWJ.TIMESTAMP=OJ.TIMESTAMP AND DWJ.FOLLOWERCOUNT <> OJ.FOLLOWERCOUNT group by OJ.TIMESTAMP";
 	      //System.out.println(sql);
 	      ResultSet rs = stmt.executeQuery( sql);
 	      
@@ -144,6 +145,7 @@ public static HashMap<Long,Integer> computeDWJoinPrecision(){
 }
 public static void main(String[] args){
 	insertResultToDB();
+	//select timestamp, COUNT(*) from OJ  group by timestamp
 	HashMap<Long,Integer> DWError=computeDWJoinPrecision();
 	HashMap<Long,Integer> BError=computeBJoinPrecision();
 	Iterator<Long> it = DWError.keySet().iterator();

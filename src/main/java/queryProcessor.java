@@ -19,7 +19,7 @@ public class queryProcessor {
 	twitterStreamCollector tsc;	
 	//HashMap<Long, Integer> initialCache;
 	public static long start=1416244306470L;//select min(TIMESTAMP) + 30000 from BKG 
-	public static int windowSize=30;
+	public static int windowSize=60;
 	public queryProcessor(){//class JoinOperator){
 		//updateBudget and join should be initiated
 		//join=new 
@@ -38,9 +38,9 @@ public class queryProcessor {
 		long time=queryProcessor.start;
 		int windowCount=0;
 		while(windowCount<30){
-			time = time + 30000;
-			//System.out.println(time +" "+windowCount+" "+queryProcessor.windowSize);
-			join.process(time,tsc.windows.get(windowCount));
+			//System.out.println(tsc.windows.get(windowCount).size());
+			join.process(time,tsc.windows.get(windowCount));//TwitterFollowerCollector.getInitialUserFollowersFromDB());//
+			time = time + windowSize*1000;			
 			windowCount++;
 		}
 		join.close();
@@ -49,7 +49,9 @@ public class queryProcessor {
 	
 	public static void main(String[] args){
 		queryProcessor qp=new queryProcessor();	
-		qp.evaluateQuery(1);
+		for(int i=1;i<4;i++){
+			qp.evaluateQuery(i);
+		}
 		
 		
 	}
