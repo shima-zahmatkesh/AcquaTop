@@ -22,7 +22,6 @@ public abstract class ApproximateJoinOperator implements JoinOperator{
 		try{
 		J = new FileWriter(new File("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/joinOutput/"+this.getClass().getSimpleName()+"Output.txt"));
 		}catch(Exception e){e.printStackTrace();}
-		
 	}
 	public void process(long timeStamp,HashMap<Long,Integer> mentionList){			
 		try {
@@ -36,7 +35,7 @@ public abstract class ApproximateJoinOperator implements JoinOperator{
 			followerReplica.put(id,TwitterFollowerCollector.getUserFollowerFromDB(timeStamp, id));
 			userInfoUpdateTime.put(id, timeStamp);
 		}
-		//we join mentionList with initial cache and return result	
+		//we join mentionList with current replica and return result	
 		Iterator it= mentionList.keySet().iterator();
 		while(it.hasNext()){
 			long userId=Long.parseLong(it.next().toString());

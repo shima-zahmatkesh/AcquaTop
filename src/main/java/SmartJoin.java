@@ -57,20 +57,25 @@ public class SmartJoin extends ApproximateJoinOperator{
 			long userid=Long.parseLong(candidateUserSetIterator.next().toString());
 			float f= Float.parseFloat(UserChangeRate.get(userid).toString());
 			long latestUpdateTime = Long.parseLong(userInfoUpdateTime.get(userid).toString());
-			userExpirationTime.add(new User(userid, latestUpdateTime+60000/f));				
+			long expectedExpirationTime=latestUpdateTime+(long)(60000/f);
+			//System.out.println(expectedExpirationTime);
+			userExpirationTime.add(new User(userid, expectedExpirationTime));				
 		}
 		Collections.sort(userExpirationTime, new Comparator<User>() {
 	        public int compare(User o1, User o2) {
-	            return (int)(o2.ExpirationTime - o1.ExpirationTime);
+	            return (int)(o1.ExpirationTime - o2.ExpirationTime);
 	        }
 	    });
 		HashSet<Long> result=new HashSet<Long>();
 		Iterator<User> it = userExpirationTime.iterator();
 		int counter=0;
 		while(it.hasNext()&&counter<updateBudget){
-			result.add(it.next().userId);
+			User temp=it.next();
+			System.out.println("user Id: "+temp.userId+" "+"Expiration Time: "+temp.ExpirationTime);
+			result.add(temp.userId);
 			counter++;
 		}
+		System.out.println("--------------------------------------------------");
 		return result;
 	}
 }
