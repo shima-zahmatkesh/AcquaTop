@@ -14,7 +14,7 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import acqua.query.QueryProcessor;
+import acqua.config.Config;
 
 import twitter4j.FilterQuery;
 import twitter4j.JSONArray;
@@ -142,7 +142,7 @@ public class TwitterStreamCollector {
 			BufferedReader br;
 
 			//FIXME: remove the dependency to QueryProcessor
-			long start=QueryProcessor.start;
+			long start=Config.INSTANCE.getQueryStartingTime();
 
 			fis = new FileInputStream(StreamFile);//"D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followerSnapshotsFile2.txt");
 			br = new BufferedReader(new InputStreamReader(fis));

@@ -5,10 +5,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
+import acqua.config.Config;
 import acqua.data.TwitterFollowerCollector;
-import acqua.query.QueryProcessor;
-
 
 public class OracleJoinOperator implements JoinOperator{
 	public  FileWriter J;
@@ -18,15 +18,15 @@ public class OracleJoinOperator implements JoinOperator{
 		}catch(Exception e){e.printStackTrace();}
 
 	}
-	public void process(long timeStamp,HashMap<Long,Integer> mentionList){
+	public void process(long timeStamp, Map<Long,Integer> mentionList){
 		try {
 
 			HashMap<Long, Integer> currentFollowerCount=TwitterFollowerCollector.getFollowerListFromDB(timeStamp);
 			
 			//FIXME: remove the dependency to QueryProcessor
-			long windowDiff = timeStamp-QueryProcessor.start;
+			long windowDiff = timeStamp-Config.INSTANCE.getQueryStartingTime();
 			if (windowDiff==0) return;
-			int index=((int)windowDiff)/(QueryProcessor.windowSize*1000);			
+			int index=((int)windowDiff)/(Config.INSTANCE.getQueryWindowWidth()*1000);			
 			//HashMap<Long,Integer> mentionList = tsc.windows.get(index);
 			//we join current window of mentionList with initial cache and return result
 			Iterator<Long> it= mentionList.keySet().iterator();
