@@ -1,3 +1,5 @@
+package acqua.query;
+
 import java.awt.image.ReplicateScaleFilter;
 import java.io.File;
 import java.io.FileWriter;
@@ -13,18 +15,25 @@ import java.util.List;
 
 import org.apache.xerces.impl.xpath.regex.REUtil;
 
+import acqua.data.TwitterStreamCollector;
+import acqua.query.join.DWJoinOperator;
+import acqua.query.join.JoinOperator;
+import acqua.query.join.OracleJoinOperator;
+import acqua.query.join.SmartJoin;
+import acqua.query.join.BaselineJoinOperator;
+import acqua.query.join.RandomCacheUpdateJoin;
 
-public class queryProcessor {
+public class QueryProcessor {
 	JoinOperator join;
-	twitterStreamCollector tsc;	
+	TwitterStreamCollector tsc;	
 	//HashMap<Long, Integer> initialCache;
 	public static long start=1416244306470L;//select min(TIMESTAMP) + 30000 from BKG 
 	public static int windowSize=60;
-	public queryProcessor(){//class JoinOperator){
+	public QueryProcessor(){//class JoinOperator){
 		//updateBudget and join should be initiated
 		//join=new 
 		
-		tsc= new twitterStreamCollector();
+		tsc= new TwitterStreamCollector();
 		tsc.extractWindow(windowSize, "D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterStream.txt");		
 		//initialCache = tfc.getFollowerListFromDB(start); //gets the first window
 	}
@@ -36,10 +45,10 @@ public class queryProcessor {
 		if(joinType==3)
 			join=new BaselineJoinOperator(10);//update budget of 10
 		if(joinType==4)
-			join=new randomCacheUpdateJoin(10);
+			join=new RandomCacheUpdateJoin(10);
 		if(joinType==5)
 			join=new SmartJoin(10);
-		long time=queryProcessor.start;
+		long time=QueryProcessor.start;
 		int windowCount=0;
 		while(windowCount<30){
 			time = time + windowSize*1000;	
@@ -52,7 +61,7 @@ public class queryProcessor {
 	
 	
 	public static void main(String[] args){
-		queryProcessor qp=new queryProcessor();	
+		QueryProcessor qp=new QueryProcessor();	
 		for(int i=1;i<6;i++){
 			qp.evaluateQuery(i);
 		}

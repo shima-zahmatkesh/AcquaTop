@@ -1,3 +1,5 @@
+package acqua.query.result;
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -10,7 +12,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 
-public class analyseResult {
+public class ResultAnalyser {
 public static void insertResultToDB(){
 	
 	Connection c = null;

@@ -1,3 +1,5 @@
+package acqua.query.join;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -5,7 +7,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
-
+import acqua.data.TwitterFollowerCollector;
+import acqua.query.QueryProcessor;
 
 public abstract class ApproximateJoinOperator implements JoinOperator{
 	protected HashMap<Long, Integer> followerReplica;
@@ -15,9 +18,10 @@ public abstract class ApproximateJoinOperator implements JoinOperator{
 		followerReplica=new HashMap<Long, Integer>();
 		userInfoUpdateTime = new HashMap<Long, Long>();
 		followerReplica = TwitterFollowerCollector.getInitialUserFollowersFromDB(); // ==>  firstWindow
-		Iterator it = followerReplica.keySet().iterator();
+		Iterator<Long> it = followerReplica.keySet().iterator();
+		//FIXME: remove the dependency to QueryProcessor
 		while(it.hasNext()){
-			userInfoUpdateTime.put(Long.parseLong(it.next().toString()),queryProcessor.start);//follower info is according to the end of first window
+			userInfoUpdateTime.put(Long.parseLong(it.next().toString()),QueryProcessor.start);//follower info is according to the end of first window
 		}
 		try{
 		J = new FileWriter(new File("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/joinOutput/"+this.getClass().getSimpleName()+"Output.txt"));
@@ -26,9 +30,9 @@ public abstract class ApproximateJoinOperator implements JoinOperator{
 	public void process(long timeStamp,HashMap<Long,Integer> mentionList){			
 		try {
 		//process the join			
-		long windowDiff = timeStamp-queryProcessor.start;
+		long windowDiff = timeStamp-QueryProcessor.start;
 		if (windowDiff==0) return;
-		int index=((int)windowDiff)/(queryProcessor.windowSize*1000);			
+		int index=((int)windowDiff)/(QueryProcessor.windowSize*1000);			
 		//HashMap<Long,Integer> mentionList = tsc.windows.get(index);		
 		//invoke FollowerTable::getFollowers(user,ts) and updates the replica for a subset of users that exist in stream
 		for(long id : updatePolicy(mentionList.keySet().iterator())){
@@ -36,7 +40,7 @@ public abstract class ApproximateJoinOperator implements JoinOperator{
 			userInfoUpdateTime.put(id, timeStamp);
 		}
 		//we join mentionList with current replica and return result	
-		Iterator it= mentionList.keySet().iterator();
+		Iterator<Long> it= mentionList.keySet().iterator();
 		while(it.hasNext()){
 			long userId=Long.parseLong(it.next().toString());
 			Integer userFollowers = followerReplica.get(userId);

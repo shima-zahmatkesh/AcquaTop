@@ -1,27 +1,20 @@
+package acqua.data;
+
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
-import twitter4j.IDs;
-import twitter4j.JSONArray;
-import twitter4j.JSONObject;
 import twitter4j.ResponseList;
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;

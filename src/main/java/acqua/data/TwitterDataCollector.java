@@ -1,8 +1,10 @@
+package acqua.data;
+
 import java.util.ArrayList;
 
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
-public class twitterDataCollector {
+public class TwitterDataCollector {
 public static void main()
 {
 	ConfigurationBuilder cb = new ConfigurationBuilder();

@@ -1,3 +1,5 @@
+package acqua.query.join;
+
 import java.util.HashMap;
 
 
