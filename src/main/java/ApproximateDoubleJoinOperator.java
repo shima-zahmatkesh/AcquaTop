@@ -18,6 +18,9 @@ public abstract class ApproximateDoubleJoinOperator implements JoinOperator {
 	protected HashMap<Long,Long> FollowerUpdateTime;
 	protected HashMap<Long,Long> StatusCountUpdateTime;
 	public  FileWriter J;
+	 protected abstract  HashMap<Long,Integer> updatePolicyFollowerStatusCount(Iterator<Long> candidateUserSetIterator);
+	 protected long timeStamp;
+	 
 	public ApproximateDoubleJoinOperator(){
 		followerReplica=new HashMap<Long, Integer>();
 		FollowerUpdateTime = new HashMap<Long, Long>();
@@ -39,6 +42,7 @@ public abstract class ApproximateDoubleJoinOperator implements JoinOperator {
 	}
 	public void process(long timeStamp,HashMap<Long,Integer> mentionList){			
 		try {
+		this.timeStamp=timeStamp;
 		//process the join			
 		long windowDiff = timeStamp-Config.INSTANCE.getQueryStartingTime();
 		if (windowDiff==0) return;
@@ -72,6 +76,6 @@ public abstract class ApproximateDoubleJoinOperator implements JoinOperator {
 		}
 	}
 	public void close(){try{J.flush();J.close();}catch(Exception e){e.printStackTrace();}}
-	protected abstract  HashMap<Long,Integer> updatePolicyFollowerStatusCount(Iterator<Long> candidateUserSetIterator);
+	
 	
 }
