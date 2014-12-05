@@ -35,7 +35,7 @@ public class QueryProcessor {
 		if(joinType==5)
 			join=new SmartJoin(10);
 		if(joinType==6)
-			join=new doublebkgJoinOperator(10);
+			join=new double(10);
 		long time=Config.INSTANCE.getQueryStartingTime();
 		int windowCount=0;
 		while(windowCount<30){
