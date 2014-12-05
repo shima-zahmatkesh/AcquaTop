@@ -1,3 +1,5 @@
+package acqua.data;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
@@ -33,8 +35,8 @@ public class ParseTweets {
 			br = new BufferedReader(new InputStreamReader(fis));
 			String line = br.readLine();
 			
-			ArrayList<HashMap> windows=new ArrayList<HashMap>();
-			HashMap<String ,Integer> mapOfUserMentions=new HashMap<String, Integer>();
+			ArrayList<Map<String ,Integer>> windows=new ArrayList<Map<String ,Integer>>();
+			Map<String ,Integer> mapOfUserMentions=new HashMap<String, Integer>();
 			
 			
 			while(line!=null){
@@ -59,7 +61,7 @@ public class ParseTweets {
 						start=current;
 						System.out.println(mapOfUserMentions.toString());
 						bw.write(mapOfUserMentions.toString()+"\n");
-						windows.add((HashMap)mapOfUserMentions.clone());						
+						windows.add((Map<String ,Integer>)((HashMap<String ,Integer>)mapOfUserMentions).clone());						
 						mapOfUserMentions.clear();
 						continue;
 						}

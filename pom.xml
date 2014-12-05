@@ -24,15 +24,15 @@
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
-   			<groupId>net.sf.saxon</groupId>
-   			<artifactId>Saxon-HE</artifactId>
-   			<version>9.4</version>
-  		</dependency>
-  		<dependency>
-   			<groupId>jtidy</groupId>
-   			<artifactId>jtidy</artifactId>
-   			<version>4aug2000r7-dev</version>
-  		</dependency>
+			<groupId>net.sf.saxon</groupId>
+			<artifactId>Saxon-HE</artifactId>
+			<version>9.4</version>
+		</dependency>
+		<dependency>
+			<groupId>jtidy</groupId>
+			<artifactId>jtidy</artifactId>
+			<version>4aug2000r7-dev</version>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -54,8 +54,10 @@
 			<artifactId>sqlite-jdbc</artifactId>
 			<version>3.8.7</version>
 		</dependency>
-		
-		
+		<dependency>
+			<groupId>commons-configuration</groupId>
+			<artifactId>commons-configuration</artifactId>
+			<version>1.10</version>
+		</dependency>
 	</dependencies>
-
 </project>
