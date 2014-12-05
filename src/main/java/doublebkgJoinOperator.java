@@ -81,10 +81,10 @@ public class doublebkgJoinOperator extends ApproximateDoubleJoinOperator  {
 			Collections.sort(userExpirationTime, new Comparator<User>() {
 		        public int compare(User o1, User o2) {
 		        	int c1=0,c2=0;
-		        	if(o1.followerExpirationTime < current) c1++;
-		        	if(o1.statusExpirationTime < current) c1++;
-		        	if(o2.followerExpirationTime < current) c2++;
-		        	if(o2.statusExpirationTime < current) c2++;
+		        	if(o1.followerExpirationTime < timeStamp) c1++;
+		        	if(o1.statusExpirationTime < timeStamp) c1++;
+		        	if(o2.followerExpirationTime < timeStamp) c2++;
+		        	if(o2.statusExpirationTime < timeStamp) c2++;
 		        	if(c1==c2) return 0;
 		        	if(c1==1) return 1; //c2 is 0 or 2
 		        	if(c2==1) return -1; // c1 is 0 or 2
