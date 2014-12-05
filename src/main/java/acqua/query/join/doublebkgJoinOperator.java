@@ -21,6 +21,7 @@ public class doublebkgJoinOperator extends ApproximateDoubleJoinOperator  {
 	public doublebkgJoinOperator(int ub){
 		updateBudget=ub;
 		StatusChangeRate=new HashMap<Long, Float>();
+		FollowerChangeRate = new HashMap<Long, Float>();
 		Connection c = null;
 	    Statement stmt = null;
 	    try {
@@ -91,7 +92,20 @@ public class doublebkgJoinOperator extends ApproximateDoubleJoinOperator  {
 		        	return -1; //c1 is 0
 		        }
 		    });
-			return null;
+			HashMap<Long, Integer> result=new HashMap<Long,Integer>();
+			Iterator<User> it = userExpirationTime.iterator();
+			int counter=0;
+			while(it.hasNext()&&counter<updateBudget){
+				User temp=it.next();
+				//System.out.println("user Id: "+temp.userId+" "+"Expiration Time: "+temp.ExpirationTime);
+				if(temp.followerExpirationTime<timeStamp)
+					result.put(temp.userId,1);
+				else if (temp.statusExpirationTime<timeStamp)
+					result.put(temp.userId, 2);
+				counter++;
+			}
+			System.out.println("--------------------------------------------------");
+			return result;
 		}		
 		
 }
