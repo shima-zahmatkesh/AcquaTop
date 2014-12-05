@@ -58,7 +58,7 @@ public abstract class ApproximateDoubleJoinOperator implements JoinOperator {
 				FollowerUpdateTime.put(tempUpdateUserId, timeStamp);
 			}
 			if(updated.get(tempUpdateUserId)==2){
-				statusCountReplica.put(tempUpdateUserId,TwitterFollowerCollector.getUserFollowerFromDB(timeStamp, tempUpdateUserId));
+				statusCountReplica.put(tempUpdateUserId,TwitterFollowerCollector.getUserStatusCountFromDB(timeStamp, tempUpdateUserId));
 				StatusCountUpdateTime.put(tempUpdateUserId, timeStamp);
 			}
 		}		

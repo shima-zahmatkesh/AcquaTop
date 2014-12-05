@@ -4,6 +4,7 @@ import acqua.config.Config;
 import acqua.data.TwitterStreamCollector;
 import acqua.query.join.DWJoinOperator;
 import acqua.query.join.JoinOperator;
+import acqua.query.join.OracleDoubleJoinOperator;
 import acqua.query.join.OracleJoinOperator;
 import acqua.query.join.SmartJoin;
 import acqua.query.join.BaselineJoinOperator;
@@ -37,6 +38,8 @@ public class QueryProcessor {
 			join=new SmartJoin(10);
 		if(joinType==6)
 			join=new doublebkgJoinOperator(10);
+		if(joinType==7)
+			join=new OracleDoubleJoinOperator();
 		long time=Config.INSTANCE.getQueryStartingTime();
 		int windowCount=0;
 		while(windowCount<30){
@@ -51,7 +54,7 @@ public class QueryProcessor {
 	public static void main(String[] args){
 		QueryProcessor qp=new QueryProcessor();	
 		//for(int i=1;i<7;i++){
-			qp.evaluateQuery(6);
+			qp.evaluateQuery(7);
 		//}
 	}
 }
