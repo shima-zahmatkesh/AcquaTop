@@ -27,7 +27,9 @@ public class SmartJoin extends ApproximateJoinOperator{
 	      c.setAutoCommit(false);
 	      stmt = c.createStatement();
 	      String sql="SELECT USERID, CHANGERATE from User ";
-	      //System.out.println(sql);
+	      sql="SELECT userid, changeRate from FollowerLowChr ";
+	      //CREATE TABLE FollowerLowChr AS SELECT copyBK.uSERID as userid, CAST(CAST(count(distinct copyBK.FollowerCut) as float)/30 AS FLOAT) as changeRate from copyBK group by copyBK.uSERID
+	      System.out.println(sql);
 	      ResultSet rs = stmt.executeQuery( sql);
 	      
 	      while ( rs.next() ) {
