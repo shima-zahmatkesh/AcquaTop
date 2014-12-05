@@ -6,11 +6,19 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class BaselineJoinOperator extends ApproximateJoinOperator{
 	protected int updateBudget;
+	private long currentTimestamp;
+	
 	public BaselineJoinOperator(int ub){
 		updateBudget=ub;
+	}
+	@Override
+	public void process(long timeStamp, Map<Long, Integer> mentionList) {
+		currentTimestamp =  timeStamp;
+		super.process(timeStamp, mentionList);
 	}
 	protected HashSet<Long> updatePolicy(Iterator<Long> candidateUserSetIterator){
 		//decide which rows to update and return the list
@@ -25,7 +33,7 @@ public class BaselineJoinOperator extends ApproximateJoinOperator{
 		while(candidateUserSetIterator.hasNext()){
 			long userid=Long.parseLong(candidateUserSetIterator.next().toString());
 			long latestUpdateTime = Long.parseLong(userInfoUpdateTime.get(userid).toString());
-			userUpdateLatency.add(new User(userid, System.currentTimeMillis()-latestUpdateTime));				
+			userUpdateLatency.add(new User(userid, currentTimestamp-latestUpdateTime));				
 		}
 		Collections.sort(userUpdateLatency, new Comparator<User>() {
 
