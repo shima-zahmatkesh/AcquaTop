@@ -8,6 +8,7 @@ import acqua.query.join.OracleJoinOperator;
 import acqua.query.join.SmartJoin;
 import acqua.query.join.BaselineJoinOperator;
 import acqua.query.join.RandomCacheUpdateJoin;
+import acqua.query.join.doublebkgJoinOperator;
 
 public class QueryProcessor {
 	JoinOperator join;
@@ -35,7 +36,7 @@ public class QueryProcessor {
 		if(joinType==5)
 			join=new SmartJoin(10);
 		if(joinType==6)
-			join=new double(10);
+			join=new doublebkgJoinOperator(10);
 		long time=Config.INSTANCE.getQueryStartingTime();
 		int windowCount=0;
 		while(windowCount<30){
@@ -49,8 +50,8 @@ public class QueryProcessor {
 	
 	public static void main(String[] args){
 		QueryProcessor qp=new QueryProcessor();	
-		for(int i=1;i<7;i++){
-			qp.evaluateQuery(i);
-		}
+		//for(int i=1;i<7;i++){
+			qp.evaluateQuery(6);
+		//}
 	}
 }
