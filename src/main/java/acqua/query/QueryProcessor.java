@@ -2,14 +2,14 @@ package acqua.query;
 import acqua.*;
 import acqua.config.Config;
 import acqua.data.TwitterStreamCollector;
-import acqua.query.join.DWJoinOperator;
 import acqua.query.join.JoinOperator;
-import acqua.query.join.OracleDoubleJoinOperator;
-import acqua.query.join.OracleJoinOperator;
-import acqua.query.join.SmartJoin;
-import acqua.query.join.BaselineJoinOperator;
-import acqua.query.join.RandomCacheUpdateJoin;
-import acqua.query.join.doublebkgJoinOperator;
+import acqua.query.join.bkg1.DWJoinOperator;
+import acqua.query.join.bkg1.OracleJoinOperator;
+import acqua.query.join.bkg1.SmartJoin;
+import acqua.query.join.bkg1.BaselineJoinOperator;
+import acqua.query.join.bkg1.RandomCacheUpdateJoin;
+import acqua.query.join.bkg2.OracleDoubleJoinOperator;
+import acqua.query.join.bkg2.DoubleBkgJoinOperator;
 
 public class QueryProcessor {
 	JoinOperator join;
@@ -37,7 +37,7 @@ public class QueryProcessor {
 		if(joinType==5)
 			join=new SmartJoin(10);
 		if(joinType==6)
-			join=new doublebkgJoinOperator(10);
+			join=new DoubleBkgJoinOperator(10);
 		if(joinType==7)
 			join=new OracleDoubleJoinOperator();
 		long time=Config.INSTANCE.getQueryStartingTime();
