@@ -65,27 +65,39 @@ public class TwitterFollowerCollector {
 	public void captureSnapshots(String userListFilePath, String snapshotOutputPath){		
 		TwitterFactory tf = new TwitterFactory(cb.build());
 		Twitter twitter = tf.getInstance();
-		int numberOfUsers=100;
-		ArrayList<String> userList=null;
 		try{
 			FileWriter followerFile=new FileWriter(new File(snapshotOutputPath));//"D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followerSnapshotsFile2.txt"));
 			/////////////////////////////////////////////////////
-			Set<Long> InitialUserFollowerSet= readIntialUserSet(userListFilePath).keySet();
-			long[] monitoredIds=new long[InitialUserFollowerSet.size()];
-			Iterator<Long> it = InitialUserFollowerSet.iterator();
-			int i=0;
-			while(it.hasNext()){
-				monitoredIds[i]=Long.parseLong(it.next().toString());
-				i++;
+			Set<Long> initialUserFollowerSet= readIntialUserSet(userListFilePath).keySet();
+
+			if(initialUserFollowerSet.size()>400){
+				System.out.println("too many users! i exit");
+				System.exit(0);
 			}
-			for(int y=0;y<30;y++){
-				ResponseList<User> users = twitter.lookupUsers(monitoredIds);
-				for(User u : users){				
-					followerFile.write(u.getId()+ ",\"" +u.getScreenName()+"\","+ u.getName()+ "," +u.getStatusesCount()+","+System.currentTimeMillis()+"\n");
-					//followerFile.write(u.getId()+ ",\"" +u.getScreenName()+"\","+ u.getName()+ "," +u.getFollowersCount()+","+System.currentTimeMillis()+"\n");
-				}		
-				followerFile.flush();
-				Thread.sleep(1000*60*1);//sleep for 1 minutes
+			
+			long bins = Math.round(initialUserFollowerSet.size()/100+.49);
+			
+			long[][] monitoredIds=new long[4][];
+			Iterator<Long> it = initialUserFollowerSet.iterator();
+			while(it.hasNext()){
+				for(int bin=0;bin<bins;bin++){
+					monitoredIds[bin]=new long[100];
+					for(int i=0; i<100; i++){
+						monitoredIds[bin][i]=it.next();
+					}
+				}
+			}
+			for(int y=0;y<120;y++){
+				for(int i=0; i<bins; i++){
+					ResponseList<User> users = twitter.lookupUsers(monitoredIds[i]);
+					for(User u : users){				
+						followerFile.write(u.getId()+ ",\"" +u.getScreenName()+"\","+ u.getName()+ "," +u.getStatusesCount()+","+System.currentTimeMillis()+"\n");
+						//followerFile.write(u.getId()+ ",\"" +u.getScreenName()+"\","+ u.getName()+ "," +u.getFollowersCount()+","+System.currentTimeMillis()+"\n");
+					}		
+					followerFile.flush();
+					Thread.sleep(1000*1);//sleep for 1 second
+				}
+				Thread.sleep(1000*(60-bins)*1);//sleep for 1 minute (less 1 second for each bin)
 			}
 
 			followerFile.close();
