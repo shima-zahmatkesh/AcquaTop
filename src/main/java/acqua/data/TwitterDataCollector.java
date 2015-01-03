@@ -66,8 +66,10 @@ public class TwitterDataCollector {
 			String sql = "CREATE TABLE  `verified` ( " +
 					" `id`           BIGINT    NOT NULL, " + 
 					" `screenname`           TEXT, " + 
+					" `name`           TEXT, " + 
 					" `followers`           INT, " + 
 					" `followings`           INT, " + 
+					" `status`           INT, " + 
 					" `description`           TEXT); ";
 			stmt.executeUpdate(sql);
 		} catch (SQLException e) {
@@ -80,7 +82,7 @@ public class TwitterDataCollector {
 	public static long grabUserIds(Twitter twitter, Connection conn, long cursor){
 		try {
 			PreparedStatement query = conn.prepareStatement("INSERT INTO `verified` (`id`) VALUES (?)");
-			IDs ids = twitter.getFollowersIDs("verified", cursor);
+			IDs ids = twitter.getFriendsIDs("verified", cursor);
 			for(long id : ids.getIDs()){
 				query.setLong(1, id);
 				query.addBatch();
