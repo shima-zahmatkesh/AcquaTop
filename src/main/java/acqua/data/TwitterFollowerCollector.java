@@ -80,10 +80,10 @@ public class TwitterFollowerCollector {
 			long[][] monitoredIds=new long[4][];
 			Iterator<Long> it = initialUserFollowerSet.iterator();
 			while(it.hasNext()){
-				for(int bin=0;bin<bins;bin++){
-					monitoredIds[bin]=new long[100];
-					for(int i=0; i<100; i++){
-						monitoredIds[bin][i]=it.next();
+				for(int i=0;i<bins;i++){
+					monitoredIds[i]=new long[100];
+					for(int j=0; j<100; j++){
+						monitoredIds[i][j]=it.next();
 					}
 				}
 			}

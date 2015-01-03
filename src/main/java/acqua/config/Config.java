@@ -38,11 +38,11 @@ public class Config {
 	}
 
 	public String getTwitterAccessTokenSecret(){
-		return config.getString("twitter.accesstoken");
+		return config.getString("twitter.accesstoken.secret");
 	}
 	
 	public String getTwitterAccessToken(){
-		return config.getString("twitter.accesstoken.secret");
+		return config.getString("twitter.accesstoken");
 	}
 
 }
