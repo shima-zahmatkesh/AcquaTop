@@ -26,6 +26,10 @@ public class TwitterDataCollector {
 		try {
 			Class.forName("org.sqlite.JDBC");
 			conn = DriverManager.getConnection("jdbc:sqlite:verified.db");
+
+			conn.setAutoCommit(true); // only required if autocommit state not known
+			Statement stat = conn.createStatement(); 
+			stat.executeUpdate("PRAGMA synchronous = OFF;");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -34,11 +38,24 @@ public class TwitterDataCollector {
 			e.printStackTrace();
 		}
 
-//		initDb(conn);
-		long cursor = 1488689511772407664l;
-		while(cursor!=0){
-			System.out.println("next cursor:" + cursor);
-			cursor = grabUserIds(twitter, conn, cursor);
+
+		initDb(conn);
+		long cursor = -1;
+		int i=0;
+		try {
+			while(cursor!=0){
+				i++;
+				System.out.println("next cursor:" + cursor);
+				cursor = grabUserIds(twitter, conn, cursor);
+				if(i==15){
+					Thread.sleep(1000*15*60);
+					i=0;
+				}
+				Thread.sleep(1000);
+			}
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	public static void initDb(Connection conn){
@@ -79,7 +96,7 @@ public class TwitterDataCollector {
 		}
 		return -1;
 	}
-	
+
 	public static int getMax(Connection conn){
 		try {
 			Statement stmt = conn.createStatement();
