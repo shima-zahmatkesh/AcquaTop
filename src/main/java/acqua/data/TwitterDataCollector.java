@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Iterator;
 
 import acqua.config.Config;
 import twitter4j.*;
@@ -39,15 +40,34 @@ public class TwitterDataCollector {
 		}
 
 
-		initDb(conn);
-		long cursor = -1;
 		int i=0;
+
+//		initDb(conn);
+//
+//		long cursor = -1;
+//		try {
+//			while(cursor!=0){
+//				i++;
+//				System.out.println("next cursor:" + cursor);
+//				cursor = grabUserIds(twitter, conn, cursor);
+//				if(i==15){
+//					Thread.sleep(1000*15*60);
+//					i=0;
+//				}
+//				Thread.sleep(1000);
+//			}
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+
+		long updatedUsers = -1;
+		i=0;
 		try {
-			while(cursor!=0){
+			while(updatedUsers!=0){
 				i++;
-				System.out.println("next cursor:" + cursor);
-				cursor = grabUserIds(twitter, conn, cursor);
-				if(i==15){
+				updatedUsers = grabUserData(twitter, conn);
+				if(i==60){
 					Thread.sleep(1000*15*60);
 					i=0;
 				}
@@ -58,6 +78,7 @@ public class TwitterDataCollector {
 			e.printStackTrace();
 		}
 	}
+
 	public static void initDb(Connection conn){
 		try {
 			Statement stmt = conn.createStatement();
@@ -89,6 +110,56 @@ public class TwitterDataCollector {
 			}
 			query.executeBatch();
 			return ids.getNextCursor();
+		} catch (TwitterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return -1;
+	}
+
+	public static int grabUserData(Twitter twitter, Connection conn){
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT id FROM `verified` WHERE followers IS NULL LIMIT 100");
+			long[] ids = new long[100];
+			int i=0;
+			while(rs.next()!=false){
+				ids[i++]=rs.getLong(1);
+			}
+			rs.close();
+			stmt.close();
+
+			PreparedStatement query = conn.prepareStatement(
+					"UPDATE `verified` " +
+					"SET `screenname`=?, " + 
+					"`name`=?, "+ 
+					"`followers`=?, "+ 
+					"`followings`=?, "+ 
+					"`status`=?, "+ 
+					"`description`=? "+
+					"WHERE `id`=?");
+
+			ResponseList<User> users = twitter.lookupUsers(ids);
+
+			Iterator<User> it = users.iterator();
+
+			while(it.hasNext()){
+				User user = it.next();
+				query.setString(1, user.getScreenName());
+				query.setString(2, user.getName());
+				query.setLong(3, user.getFollowersCount());
+				query.setLong(4, user.getFriendsCount());
+				query.setLong(5, user.getStatusesCount());
+				query.setString(6, user.getDescription());
+				query.setLong(7, user.getId());
+				query.addBatch();
+			}
+			query.executeBatch();
+			query.closeOnCompletion();
+			return ids.length;
 		} catch (TwitterException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
