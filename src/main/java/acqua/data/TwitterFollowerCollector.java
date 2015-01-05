@@ -378,7 +378,7 @@ public class TwitterFollowerCollector {
 	}
 	public static void main(String[] args){
 		TwitterFollowerCollector tfc=new TwitterFollowerCollector();
-		//tfc.captureSnapshots("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followers.csv","D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/StatusSnapshotsFile.txt");
+		//tfc.captureSnapshots("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followers.init","D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/StatusSnapshotsFile.txt");
 		//note that followerSnapshotFile should have been sorted based on timestamp
 		//tfc.importFollowerFileIntoDB("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followerSnapshotsFile2.txt");
 		tfc.importStatusFileIntoDB("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/StatusSnapshotsFile.txt");
