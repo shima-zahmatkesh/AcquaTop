@@ -106,7 +106,7 @@ public class TwitterFollowerCollector {
 			e.printStackTrace();
 		}	
 	}
-	public void importFollowerFileIntoDB(String FollowerFile){
+	public void importFollowerFileIntoDB(String followerFile){
 		Connection c = null;
 		Statement stmt = null;
 		try {
@@ -121,19 +121,21 @@ public class TwitterFollowerCollector {
 					" `SCREENNAME`           TEXT    NOT NULL, " + 
 					" `NAME`            TEXT     NOT NULL, " + 
 					" `FOLLOWERCOUNT`           INT    NOT NULL, " + 
+					" `FRIENDCOUNT`           INT    NOT NULL, " + 
+					" `STATUSCOUNT`           INT    NOT NULL, " + 
 					" `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `timeIndex` ON `BKG` (`TIMESTAMP` ASC);"; 
 			System.out.println(sql);
 			stmt.executeUpdate(sql);
 			InputStream    fis;
 			BufferedReader br;
-			fis = new FileInputStream(FollowerFile);//"D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followerSnapshotsFile2.txt");
+			fis = new FileInputStream(followerFile);//"D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followerSnapshotsFile2.txt");
 			br = new BufferedReader(new InputStreamReader(fis));
 			String line;int i=0;
 			while ((line=br.readLine())!=null){			
 				String[] userInfo = line.split(",");	
 				i++;
-				sql = "INSERT INTO BKG (USERID,SCREENNAME,NAME,FOLLOWERCOUNT,TIMESTAMP) " +
-						"VALUES ("+userInfo[0]+",\'"+userInfo[1].substring(1,userInfo[1].length()-1)+"\',\'"+userInfo[2]+"\',"+userInfo[3]+","+userInfo[4]+")"; 
+				sql = "INSERT INTO BKG (USERID,SCREENNAME,NAME,FOLLOWERCOUNT,FRIENDCOUNT,STATUSCOUNT,TIMESTAMP) " +
+						"VALUES ("+userInfo[0]+",\'"+userInfo[1].substring(1,userInfo[1].length()-1)+"\',\'"+userInfo[2]+"\',"+userInfo[3]+","+userInfo[4]+","+userInfo[5]+","+userInfo[6]+")"; 
 				//System.out.println(sql);
 				stmt.executeUpdate(sql);
 			}     
