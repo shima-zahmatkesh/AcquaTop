@@ -92,7 +92,7 @@ public class TwitterFollowerCollector {
 				for(int i=0; i<bins; i++){
 					ResponseList<User> users = twitter.lookupUsers(monitoredIds[i]);
 					for(User u : users){				
-						followerFile.write(u.getId()+ ",\"" +u.getScreenName()+"\","+ u.getName()+ "," +u.getStatusesCount()+","+System.currentTimeMillis()+"\n");
+						followerFile.write(u.getId()+ ",\"" +u.getScreenName()+"\","+ u.getName()+ "," +u.getFollowersCount()+ "," +u.getFriendsCount()+ "," +u.getStatusesCount()+","+System.currentTimeMillis()+"\n");
 						//followerFile.write(u.getId()+ ",\"" +u.getScreenName()+"\","+ u.getName()+ "," +u.getFollowersCount()+","+System.currentTimeMillis()+"\n");
 					}		
 					followerFile.flush();
@@ -380,8 +380,13 @@ public class TwitterFollowerCollector {
 		TwitterFollowerCollector tfc=new TwitterFollowerCollector();
 		tfc.captureSnapshots("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followers.init","D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followerSnapshotsFile.txt");
 		//note that followerSnapshotFile should have been sorted based on timestamp
-		//tfc.importFollowerFileIntoDB("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followerSnapshotsFile2.txt");
-		//tfc.importStatusFileIntoDB("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/StatusSnapshotsFile.txt");
+
+		String path = 
+				"D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/"; //Soheila
+//				"/home/dani/git/acqua/"; //dani
+				
+//		tfc.importFollowerFileIntoDB(path+"acquaProj/followerSnapshotsFile.txt");
+//		tfc.importStatusFileIntoDB(path+"acquaProj/StatusSnapshotsFile.txt");
 		//HashMap<Long,Integer> initialCache = tfc.getInitialUserFollowersFromDB();
 		//long time=new Long("1416244704221");
 		//long userid= new Long("118288671");
