@@ -91,10 +91,23 @@ public class VerifiedUserCollector {
 		
 //		grabUserData(twitter, conn);
 
+		int n = 400;
+		MentionedUsers users = getRandomUsers(conn, 400);
 		
-		for(Long l : getRandomUsers(conn, 10)){
-			System.out.println(l);
+		StringBuilder ids = new StringBuilder();
+		StringBuilder names = new StringBuilder();
+		
+		for(int m=0; m<n; m++){
+			if(m>0){
+				ids.append(",");
+				names.append(",");
+			}
+			ids.append(users.getMentionedUserId(m));
+			names.append(users.getMentionedUserName(m));
 		}
+		
+		System.out.println(ids.toString());
+		System.out.println(names.toString());
 	}
 
 	public static void initDb(Connection conn){
@@ -222,32 +235,39 @@ public class VerifiedUserCollector {
 
 	}
 	
-	public static Set<Long> getRandomUsers(Connection conn, int totalNumber){
-		Set<Long> candidates = new HashSet<Long>();
+	public static MentionedUsers getRandomUsers(Connection conn, int totalNumber){
+		MentionedUsers ret = new MentionedUsers(totalNumber);
 		try{
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(
-					"SELECT id "+
+					"SELECT id, screenname "+
 					"FROM `verified` "+ 
 					"WHERE followers > 10000 "+ 
 					"AND followers < 100000 "+
 					"AND followings > 1000  "+
 					"AND status > 500 ");
 			
-			List<Long> users = new ArrayList<Long>();
+			List<Long> userIds = new ArrayList<Long>();
+			List<String> userNames = new ArrayList<String>();
 			while(rs.next()!=false){
-				users.add(rs.getLong(1));
+				userIds.add(rs.getLong(1));
+				userNames.add(rs.getString(2));
 			}
 			
-			if(users.size()<=totalNumber)
+			if(userIds.size()<=totalNumber)
 				throw new RuntimeException("Wrong!");
 			
 			Random rand =  new Random(System.currentTimeMillis());
 			
+			Set<Integer> candidates = new HashSet<Integer>();			
 			while(candidates.size()<totalNumber){
-				int index = rand.nextInt(users.size());
-				if(!candidates.contains(users.get(index)))
-					candidates.add(users.get(index));
+				int index = rand.nextInt(userIds.size());
+				if(!candidates.contains(index))
+					candidates.add(index);
+			}
+			
+			for(int index : candidates){
+				ret.addMentionedUser(userIds.get(index), userNames.get(index));
 			}
 			
 			stmt.close();
@@ -255,7 +275,6 @@ public class VerifiedUserCollector {
 			e.printStackTrace();
 		}
 		
-		return candidates;
+		return ret;
 	}
-
 }
