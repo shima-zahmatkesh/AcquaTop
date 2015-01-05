@@ -38,7 +38,7 @@ public class TwitterStreamCollector {
 	//constructor for not listening
 	public TwitterStreamCollector(){
 		windows=new ArrayList<HashMap<Long,Integer>>();
-		extractUserIds("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followers.csv");
+		extractUserIds("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followers.init");
 	}
 
 	//constructor for listening
