@@ -75,9 +75,9 @@ public class TwitterStreamCollector {
 			fis = null;}catch(Exception e){e.printStackTrace();}
 
 	}
-	public void listen( String OutputStreamFile){
+	public void listen(String outputStreamFile){
 		try{
-			final FileWriter fw=new FileWriter(new File(OutputStreamFile));//"D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterStream.txt"));
+			final FileWriter fw=new FileWriter(new File(outputStreamFile));//"D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterStream.txt"));
 			TwitterStream tStream = new TwitterStreamFactory(cb.build()).getInstance();
 			// sample() method internally creates a thread which manipulates TwitterStream and calls these adequate listener methods continuously.
 			StatusListener listener = new StatusListener() {

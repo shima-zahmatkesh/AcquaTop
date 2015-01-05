@@ -10,10 +10,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
+
+import acqua.config.Config;
 
 import twitter4j.ResponseList;
 import twitter4j.Twitter;
@@ -30,10 +31,10 @@ public class TwitterFollowerCollector {
 	public TwitterFollowerCollector(){
 		cb = new ConfigurationBuilder();
 		cb.setDebugEnabled(true)
-				.setOAuthConsumerKey("4DLiYUzihQwpTrmzy8sGw")
-				.setOAuthConsumerSecret("gqIMoivaCuf1XuDVeOkPADYozc0ddV7ccxngDNSk")
-				.setOAuthAccessToken("96538292-6MuEd3YcQ1ClJVtQ9OceeOd4dlzm8ZhMeshUcTpRJ")
-				.setOAuthAccessTokenSecret("6lqQnvDKCP9sUwP8cJnZYD1iDWrvhhQXdeVWQfTImx4");
+				.setOAuthConsumerKey(Config.INSTANCE.getTwitterConsumerKey())
+				.setOAuthConsumerSecret(Config.INSTANCE.getTwitterConsumerSecret())
+				.setOAuthAccessToken(Config.INSTANCE.getTwitterAccessToken())
+				.setOAuthAccessTokenSecret(Config.INSTANCE.getTwitterAccessTokenSecret());
 		snapshots = new HashMap<Long,HashMap<Long,Integer>>();
 	}
 	public HashMap<Long, String> readIntialUserSet(String userListFilePath){
@@ -48,7 +49,7 @@ public class TwitterFollowerCollector {
 			String[] idStr = br1.split(",");
 			String br2=br.readLine();
 			String[] idStr2 = br2.split(",");
-			final long[] monitoredIds=new long[idStr.length];
+			final long[] monitoredIds = new long[idStr.length];
 			for(int o=0;o<idStr.length;o++){
 				//monitoredIds[o]=Long.parseLong(idStr[o]);
 				result.put(Long.parseLong(idStr[o]), idStr2[o]);
@@ -67,16 +68,16 @@ public class TwitterFollowerCollector {
 		Twitter twitter = tf.getInstance();
 		try{
 			FileWriter followerFile=new FileWriter(new File(snapshotOutputPath));//"D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followerSnapshotsFile2.txt"));
-			/////////////////////////////////////////////////////
+
 			Set<Long> initialUserFollowerSet= readIntialUserSet(userListFilePath).keySet();
 
 			if(initialUserFollowerSet.size()>400){
 				System.out.println("too many users! i exit");
 				System.exit(0);
 			}
-			
+
 			long bins = Math.round(initialUserFollowerSet.size()/100+.49);
-			
+
 			long[][] monitoredIds=new long[4][];
 			Iterator<Long> it = initialUserFollowerSet.iterator();
 			while(it.hasNext()){
@@ -222,7 +223,7 @@ public class TwitterFollowerCollector {
 		}
 		return result;
 	}
-	
+
 	public static HashMap<Long,Integer> getStsCountListFromDB(long timeStamp){
 		HashMap<Long,Integer> result=new HashMap<Long, Integer>();
 		Connection c = null;
@@ -252,7 +253,7 @@ public class TwitterFollowerCollector {
 		}
 		return result;
 	}
-	
+
 	public static int getUserFollowerFromDB(long timeStamp, long userID){
 		int followers=0;
 		Connection c = null;

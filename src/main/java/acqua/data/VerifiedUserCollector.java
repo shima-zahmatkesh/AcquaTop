@@ -17,7 +17,12 @@ import acqua.config.Config;
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 
-public class TwitterDataCollector {
+/**
+ * Class to collect the data about the verified users, 
+ * it takes into accout the Twitter rate limits
+ * 
+ */
+public class VerifiedUserCollector {
 	public static void main(String[] args) {
 		ConfigurationBuilder cb = new ConfigurationBuilder();
 		cb.setDebugEnabled(true)
