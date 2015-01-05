@@ -36,20 +36,23 @@ public class TwitterStreamCollector {
 	public static long[] monitoredIds;
 	public static String[] monitorNames;
 	//constructor for not listening
-	public TwitterStreamCollector(){
+	/*public TwitterStreamCollector(){
 		windows=new ArrayList<HashMap<Long,Integer>>();
 		extractUserIds("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followers.init");
-	}
+	}*/
 
 	//constructor for listening
-	/*public twitterStreamCollector(){
+	public TwitterStreamCollector(){
 		cb = new ConfigurationBuilder();
 		cb.setDebugEnabled(true)
 		  .setOAuthConsumerKey("4DLiYUzihQwpTrmzy8sGw")
 		  .setOAuthConsumerSecret("gqIMoivaCuf1XuDVeOkPADYozc0ddV7ccxngDNSk")
 		  .setOAuthAccessToken("96538292-6MuEd3YcQ1ClJVtQ9OceeOd4dlzm8ZhMeshUcTpRJ")
 		  .setOAuthAccessTokenSecret("6lqQnvDKCP9sUwP8cJnZYD1iDWrvhhQXdeVWQfTImx4");
-	}*/
+		cb.setJSONStoreEnabled(true);
+		windows=new ArrayList<HashMap<Long,Integer>>();
+		extractUserIds("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followers.init");	
+	}
 	public static void extractUserIds(String userListToMonitor){
 		try{
 			InputStream fis;
@@ -198,9 +201,9 @@ public class TwitterStreamCollector {
 	public static void main(String[] args)
 	{
 		TwitterStreamCollector tsc=new TwitterStreamCollector();
-		//tsc.listen("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followers.csv", "D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterStream.txt");
-		ArrayList<HashMap<Long, Integer>> windows = tsc.extractWindow(30, "D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterStream.txt");
-		windows.get(1);
+		tsc.listen("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterStream.txt");
+		//ArrayList<HashMap<Long, Integer>> windows = tsc.extractWindow(30, "D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterStream.txt");
+		//windows.get(1);
 	}
 
 }
