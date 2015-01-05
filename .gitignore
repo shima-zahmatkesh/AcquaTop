@@ -51,8 +51,7 @@ $RECYCLE.BIN/
 
 <<<<<<< HEAD
 # Icon must end with two \r
-Icon
-=======
+Icon=======
 >>>>>>> f8009fee5b0af7898c5007bce24e258fd70c2f85
 
 # Thumbnails
@@ -76,8 +75,8 @@ docs
 ### Node
 lib-cov
 *.seed
-*.log
 *.csv
+*.log
 *.dat
 *.out
 *.pid
