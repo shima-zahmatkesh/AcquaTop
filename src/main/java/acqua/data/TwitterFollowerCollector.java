@@ -135,9 +135,9 @@ public class TwitterFollowerCollector {
 				String[] userInfo = line.split(",");	
 				i++;
 				sql = "INSERT INTO BKG (USERID,SCREENNAME,NAME,FOLLOWERCOUNT,FRIENDCOUNT,STATUSCOUNT,TIMESTAMP) " +
-						"VALUES ("+userInfo[0]+",\'"+userInfo[1].substring(1,userInfo[1].length()-1)+"\',\'"+userInfo[2]+"\',"+userInfo[3]+","+userInfo[4]+","+userInfo[5]+","+userInfo[6]+")"; 
-				//System.out.println(sql);
-				stmt.executeUpdate(sql);
+						"VALUES ("+userInfo[0]+",\""+userInfo[1].substring(1,userInfo[1].length()-1)+"\",\""+userInfo[2]+"\","+userInfo[3]+","+userInfo[4]+","+userInfo[5]+","+userInfo[6]+")"; 
+				try{
+				stmt.executeUpdate(sql);}catch(Exception ee){System.out.println(sql); ee.printStackTrace();}
 			}     
 			stmt.close();
 			//c.commit();
@@ -150,7 +150,7 @@ public class TwitterFollowerCollector {
 			e.printStackTrace();}
 
 	}
-	public void importStatusFileIntoDB(String LocationFile){
+	/*public void importStatusFileIntoDB(String LocationFile){
 		Connection c = null;
 		Statement stmt = null;
 		try {
@@ -192,7 +192,9 @@ public class TwitterFollowerCollector {
 			e.printStackTrace();
 		}
 
-	}
+	}*/
+	
+	//run the full query of follower counts against remote source
 	public static HashMap<Long,Integer> getFollowerListFromDB(long timeStamp){
 		HashMap<Long,Integer> result=new HashMap<Long, Integer>();
 		Connection c = null;
@@ -205,15 +207,15 @@ public class TwitterFollowerCollector {
 			String sql="SELECT B.USERID, B.FOLLOWERCOUNT "+
 					" FROM (SELECT USERID, MAX(TIMESTAMP) AS MAXTS  FROM BKG  WHERE TIMESTAMP < "+timeStamp + 
 					" GROUP BY USERID) A JOIN BKG B ON A.USERID=B.USERID AND A.MAXTS=B.TIMESTAMP";
-			sql="SELECT B.USERID, B.followerCut "+
-					" FROM (SELECT USERID, MAX(TIMESTAMP) AS MAXTS  FROM copyBK  WHERE TIMESTAMP < "+timeStamp + 
-					" GROUP BY USERID) A JOIN copyBK B ON A.USERID=B.USERID AND A.MAXTS=B.TIMESTAMP";
+			//sql="SELECT B.USERID, B.FOLLOWERCOUNT "+
+			//		" FROM (SELECT USERID, MAX(TIMESTAMP) AS MAXTS  FROM copyBK  WHERE TIMESTAMP < "+timeStamp + 
+			//		" GROUP BY USERID) A JOIN copyBK B ON A.USERID=B.USERID AND A.MAXTS=B.TIMESTAMP";
 			//System.out.println(sql);
 			ResultSet rs = stmt.executeQuery( sql);
 
 			while ( rs.next() ) {
 				long userId = rs.getLong("USERID");
-				int followerCount  = rs.getInt("followerCut");
+				int followerCount  = rs.getInt("FOLLOWERCOUNT");
 				result.put(userId, followerCount);
 			}
 			rs.close();
@@ -226,6 +228,7 @@ public class TwitterFollowerCollector {
 		return result;
 	}
 
+	//run the full query of status counts against remote source
 	public static HashMap<Long,Integer> getStsCountListFromDB(long timeStamp){
 		HashMap<Long,Integer> result=new HashMap<Long, Integer>();
 		Connection c = null;
@@ -235,15 +238,15 @@ public class TwitterFollowerCollector {
 			c = DriverManager.getConnection("jdbc:sqlite:test.db");
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
-			String sql="SELECT B.USERID, B.statuscount "+
-					" FROM (SELECT USERID, MAX(TIMESTAMP) AS MAXTS  FROM BKGSts  WHERE TIMESTAMP < "+timeStamp + 
-					" GROUP BY USERID) A JOIN BKGSts B ON A.USERID=B.USERID AND A.MAXTS=B.TIMESTAMP";
+			String sql="SELECT B.USERID, B.STATUSCOUNT "+
+					" FROM (SELECT USERID, MAX(TIMESTAMP) AS MAXTS  FROM BKG  WHERE TIMESTAMP < "+timeStamp + 
+					" GROUP BY USERID) A JOIN BKG B ON A.USERID=B.USERID AND A.MAXTS=B.TIMESTAMP";
 			//System.out.println(sql);
 			ResultSet rs = stmt.executeQuery( sql);
 
 			while ( rs.next() ) {
 				long userId = rs.getLong("USERID");
-				int stsCount  = rs.getInt("statuscount");
+				int stsCount  = rs.getInt("STATUSCOUNT");
 				result.put(userId, stsCount);
 			}
 			rs.close();
@@ -256,6 +259,7 @@ public class TwitterFollowerCollector {
 		return result;
 	}
 
+	
 	public static int getUserFollowerFromDB(long timeStamp, long userID){
 		int followers=0;
 		Connection c = null;
@@ -270,13 +274,13 @@ public class TwitterFollowerCollector {
 					" FROM (SELECT USERID, MAX(TIMESTAMP) AS MAXTS  FROM BKG  WHERE TIMESTAMP < "+timeStamp + 
 					" AND USERID= "+userID+" GROUP BY USERID) A JOIN BKG B ON A.USERID=B.USERID AND A.MAXTS=B.TIMESTAMP";  
 
-			sql="SELECT B.USERID, B.followerCut "+
-					" FROM (SELECT USERID, MAX(TIMESTAMP) AS MAXTS  FROM copyBK  WHERE TIMESTAMP < "+timeStamp + 
-					" AND USERID= "+userID+" GROUP BY USERID) A JOIN copyBK B ON A.USERID=B.USERID AND A.MAXTS=B.TIMESTAMP"; 
+			//sql="SELECT B.USERID, B.followerCut "+
+			//		" FROM (SELECT USERID, MAX(TIMESTAMP) AS MAXTS  FROM copyBK  WHERE TIMESTAMP < "+timeStamp + 
+			//		" AND USERID= "+userID+" GROUP BY USERID) A JOIN copyBK B ON A.USERID=B.USERID AND A.MAXTS=B.TIMESTAMP"; 
 			//System.out.println(sql);
 			ResultSet rs = stmt.executeQuery(sql );	      
 			while ( rs.next() ) {
-				followers  = rs.getInt("followerCut");	         
+				followers  = rs.getInt("FOLLOWERCOUNT");	         
 			}
 			rs.close();
 			stmt.close();
@@ -297,14 +301,14 @@ public class TwitterFollowerCollector {
 			c = DriverManager.getConnection("jdbc:sqlite:test.db");
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
-			String sql="SELECT B.USERID, B.statuscount "+
-					" FROM (SELECT USERID, MAX(TIMESTAMP) AS MAXTS  FROM BKGSts  WHERE TIMESTAMP < "+timeStamp + 
-					" AND USERID= "+userID+" GROUP BY USERID) A JOIN BKGSts B ON A.USERID=B.USERID AND A.MAXTS=B.TIMESTAMP";  
+			String sql="SELECT B.USERID, B.STATUSCOUNT "+
+					" FROM (SELECT USERID, MAX(TIMESTAMP) AS MAXTS  FROM BKG  WHERE TIMESTAMP < "+timeStamp + 
+					" AND USERID= "+userID+" GROUP BY USERID) A JOIN BKG B ON A.USERID=B.USERID AND A.MAXTS=B.TIMESTAMP";  
 
 			//System.out.println(sql);
 			ResultSet rs = stmt.executeQuery(sql );	      
 			while ( rs.next() ) {
-				followers  = rs.getInt("statuscount");	         
+				followers  = rs.getInt("STATUSCOUNT");	         
 			}
 			rs.close();
 			stmt.close();
@@ -315,6 +319,8 @@ public class TwitterFollowerCollector {
 		}
 		return followers;
 	}
+	
+	
 	public static HashMap<Long,Integer> getInitialUserFollowersFromDB(){
 		HashMap<Long,Integer> result=new HashMap<Long, Integer>();
 		Connection c = null;
@@ -327,15 +333,15 @@ public class TwitterFollowerCollector {
 			String sql="SELECT B.USERID, B.FOLLOWERCOUNT, A.MINTS"+
 					" FROM (SELECT USERID, MIN(TIMESTAMP) AS MINTS  FROM BKG  " + 
 					" GROUP BY USERID) A JOIN BKG B ON A.USERID=B.USERID AND A.MINTS=B.TIMESTAMP";
-			sql="SELECT B.USERID, B.followerCut, A.MINTS"+
-					" FROM (SELECT USERID, MIN(TIMESTAMP) AS MINTS  FROM copyBK  " + 
-					" GROUP BY USERID) A JOIN copyBK B ON A.USERID=B.USERID AND A.MINTS=B.TIMESTAMP";
+			//sql="SELECT B.USERID, B.followerCut, A.MINTS"+
+			//		" FROM (SELECT USERID, MIN(TIMESTAMP) AS MINTS  FROM copyBK  " + 
+			//		" GROUP BY USERID) A JOIN copyBK B ON A.USERID=B.USERID AND A.MINTS=B.TIMESTAMP";
 			System.out.println(sql);
 			ResultSet rs = stmt.executeQuery( sql);
 
 			while ( rs.next() ) {
 				long userId = rs.getLong("USERID");
-				int followerCount  = rs.getInt("followerCut");
+				int followerCount  = rs.getInt("FOLLOWERCOUNT");
 				long timeStamp = rs.getLong("MINTS");
 				result.put(userId, followerCount);
 			}
@@ -357,15 +363,15 @@ public class TwitterFollowerCollector {
 			c = DriverManager.getConnection("jdbc:sqlite:test.db");
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
-			String sql="SELECT B.USERID, B.statuscount, A.MINTS"+
-					" FROM (SELECT USERID, MIN(TIMESTAMP) AS MINTS  FROM BKGSts  " + 
-					" GROUP BY USERID) A JOIN BKGSts B ON A.USERID=B.USERID AND A.MINTS=B.TIMESTAMP";
+			String sql="SELECT B.USERID, B.STATUSCOUNT, A.MINTS"+
+					" FROM (SELECT USERID, MIN(TIMESTAMP) AS MINTS  FROM BKG  " + 
+					" GROUP BY USERID) A JOIN BKG B ON A.USERID=B.USERID AND A.MINTS=B.TIMESTAMP";
 			System.out.println(sql);
 			ResultSet rs = stmt.executeQuery( sql);
 
 			while ( rs.next() ) {
 				long userId = rs.getLong("USERID");
-				int followerCount  = rs.getInt("statuscount");
+				int followerCount  = rs.getInt("STATUSCOUNT");
 				long timeStamp = rs.getLong("MINTS");
 				result.put(userId, followerCount);
 			}
@@ -387,7 +393,7 @@ public class TwitterFollowerCollector {
 				"D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/"; //Soheila
 //				"/home/dani/git/acqua/"; //dani
 				
-//		tfc.importFollowerFileIntoDB(path+"acquaProj/followerSnapshotsFile.txt");
+		tfc.importFollowerFileIntoDB(path+"acquaProj/followerSnapshotsFile.txt");
 //		tfc.importStatusFileIntoDB(path+"acquaProj/StatusSnapshotsFile.txt");
 		//HashMap<Long,Integer> initialCache = tfc.getInitialUserFollowersFromDB();
 		//long time=new Long("1416244704221");

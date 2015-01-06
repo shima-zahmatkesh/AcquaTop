@@ -201,9 +201,9 @@ public class TwitterStreamCollector {
 	public static void main(String[] args)
 	{
 		TwitterStreamCollector tsc=new TwitterStreamCollector();
-		//tsc.listen("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterStream.txt");
-		ArrayList<HashMap<Long, Integer>> windows = tsc.extractWindow(Config.INSTANCE.getQueryWindowWidth(), "D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterStream.txt");
-		windows.get(1);
+		tsc.listen("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterStream.txt");
+		//ArrayList<HashMap<Long, Integer>> windows = tsc.extractWindow(Config.INSTANCE.getQueryWindowWidth(), "D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterStream.txt");
+		//windows.get(1);
 	}
 
 }

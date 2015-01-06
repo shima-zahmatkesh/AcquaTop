@@ -133,6 +133,10 @@ public static void insertResultToDB(){
 	
 }catch(Exception e){e.printStackTrace();}
 }
+
+// OJ user cardinality per time stamp = SELECT count(OJ.USERID),oj.TIMESTAMP FROM OJ  group by OJ.TIMESTAMP
+
+//--select X.TIMESTAMP,X.ERROR from (SELECT DWJ.TIMESTAMP FROM DWJ group by DWJ.TIMESTAMP) as Y LEFT Outer join (SELECT SJ.TIMESTAMP as TIMESTAMP , COUNT(*) as ERROR FROM SJ,OJ  WHERE SJ.USERID=OJ.USERID AND SJ.TIMESTAMP=OJ.TIMESTAMP AND SJ.FOLLOWERCOUNT <> OJ.FOLLOWERCOUNT group by OJ.TIMESTAMP) as X on X.TIMESTAMP=Y.TIMESTAMP
 public static HashMap<Long,Integer> computeBJoinPrecision(){
 	HashMap<Long,Integer> result=new HashMap<Long, Integer>();
 	Connection c = null;
