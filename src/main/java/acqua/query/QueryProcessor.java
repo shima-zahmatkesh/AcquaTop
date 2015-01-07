@@ -23,6 +23,8 @@ public class QueryProcessor {
 		
 		tsc= new TwitterStreamCollector();
 		tsc.extractWindow(Config.INSTANCE.getQueryWindowWidth(), "D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterStream.txt");		
+		for (int i=0;i<tsc.windows.size();i++)
+			System.out.println(tsc.windows.get(i).size());
 		//initialCache = tfc.getFollowerListFromDB(start); //gets the first window
 	}
 	public void evaluateQuery(int joinType){

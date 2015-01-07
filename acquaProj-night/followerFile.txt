@@ -1,0 +1,3000 @@
+274019345	NAlvarezWFTV	Nancy Alvarez	 WFTV	1773	1.41607E+12
+274023711	KBelichWFTV	Kathi Belich	 WFTV	7956	1.41607E+12
+700689212	RusEmbassyUAE	Russian Embassy	 UAE	3245	1.41607E+12
+21095030	NiraArora	Nira Arora	 The Beat	15678	1.41607E+12
+626106189	billwalkermpp	Bill Walker	 MPP	1637	1.41607E+12
+54572255	joecomartin	Joe Comartin	 M.P.	2578	1.41607E+12
+69183155	detikcom	detikcom	8504423	1.41607E+12	
+41043596	jorgeemateus	Jorge & Mateus	2886815	1.41607E+12	
+125225621	TRANSTV_CORP	TRANS TV	2792639	1.41607E+12	
+124839730	TRANS7	TRANS7	2748679	1.41607E+12	
+114557496	urgantcom	Ivan Urgant	2475082	1.41607E+12	
+88910796	eseryenenler	Eser YENENLER	2208755	1.41607E+12	
+701699418	AHMTKURAL	Ahmet Kural	2174586	1.41607E+12	
+468921945	fbbreal	Fatima Bernardes	1482529	1.41607E+12	
+7831092	tacobell	Taco Bell	1433421	1.41607E+12	
+366666686	kivanctatlitug	K?vanç Tatl?tu?	1376076	1.41607E+12	
+264771201	TolgaCevik	Tolga Cevik	1368298	1.41607E+12	
+99092563	gulsenin	Gül?en	1362107	1.41607E+12	
+71436318	KompasTV	KOMPAS TV	1272154	1.41607E+12	
+99918629	channelone_rus	?????? ?????	1219481	1.41607E+12	
+16203586	dougulman	Doug Ulman	1090023	1.41607E+12	
+141817380	Anitta	Anitta	1067032	1.41607E+12	
+122342030	maya_karin	Maya Karin	990604	1.41607E+12	
+83512464	ANDREMARQUES79	ANDRE  A S MARQUES	953917	1.41607E+12	
+88911946	ibrahimbuyukak	?brahim BÜYÜKAK	915028	1.41607E+12	
+89159940	ousankoc	O?uzhan KOÇ	848032	1.41607E+12	
+324076260	bysTaXx	sTaXx	847666	1.41607E+12	
+14594698	UOLNoticias	UOL Notícias	841263	1.41607E+12	
+72854177	OLeoSantana	Léo Santana	836072	1.41607E+12	
+464692152	AssalaOfficial	Assala	778404	1.41607E+12	
+295429897	sermiyanmidyat	sermiyan midyat	735676	1.41607E+12	
+35015510	nando_reis	Nando Reis	718688	1.41607E+12	
+14595245	UOLEsporte	UOL Esporte	716627	1.41607E+12	
+104683173	Excelsior	Periódico Excélsior	713008	1.41607E+12	
+163218185	LitaRee_real	Rita Lee	659288	1.41607E+12	
+242796587	eva_hache	Eva Hache	649579	1.41607E+12	
+132539757	CremoniniCesare	Cesare Cremonini	612895	1.41607E+12	
+43208247	siteEgo	Ego	589531	1.41607E+12	
+41931380	Projota	Projota	560191	1.41607E+12	
+594564886	HazalKaya110	Hazal Kaya	550190	1.41607E+12	
+174351951	marthahigareda	Martha Higareda	520071	1.41607E+12	
+258703448	APJAbdulKalam	APJ Abdul Kalam	505926	1.41607E+12	
+1917731	thehill	The Hill	499235	1.41607E+12	
+118288671	netmedia_info	NET MEDIA 	475046	1.41607E+12	
+27168893	danielamercury	Daniela Mercury	456532	1.41607E+12	
+1407232710	TheComment_NET	The Comment	454077	1.41607E+12	
+156932849	NadalMiki	Miki Nadal	447639	1.41607E+12	
+310555434	BuseTerim	Buse Terim	430384	1.41607E+12	
+396851667	TownGamePlay	iTownGamePlay	429585	1.41607E+12	
+92535705	DemirBetul	Betül Demir	399366	1.41607E+12	
+26809005	goal_intl	Goal	395720	1.41607E+12	
+197133642	DDeryaBaykal	Derya Baykal	390460	1.41607E+12	
+58951368	monicabergamo	Mônica Bergamo	383853	1.41607E+12	
+31524543	KontrolFreek	KontrolFreek	383642	1.41607E+12	
+256495314	firstpostin	Firstpost	383274	1.41607E+12	
+208442526	Philae2014	Philae Lander	367687	1.41607E+12	
+114310653	PauloGustavo31	Paulo Gustavo	355418	1.41607E+12	
+50091650	Telemetro	Telemetro	314263	1.41607E+12	
+70299078	IsraelNovaes	Israel Novaes (IN)	313619	1.41607E+12	
+840897602	christiand	Christian Delgrosso	296870	1.41607E+12	
+93879817	AvioesdoForro_	Aviões do Forró	294600	1.41607E+12	
+256031832	ThaemeeThiago	Thaeme e Thiago	294027	1.41607E+12	
+64947130	sporservisi	Spor Servisi	288051	1.41607E+12	
+218846504	rosarioficial	Rosario Flores	286520	1.41607E+12	
+97566975	mylifeasliz_liz	liz bizkit	281591	1.41607E+12	
+54280694	MarcoseBelutti	Marcos & Belutti	276599	1.41607E+12	
+42573217	gkhamba	Khamba	272704	1.41607E+12	
+631486431	CrisEfeitos	Cristiano Araújo	271548	1.41607E+12	
+553572500	AD_SPORTSCH	???? ?????? ????????	263476	1.41607E+12	
+90963197	folha_poder	Folha Poder	263343	1.41607E+12	
+14120922	thetanmay	Tanmay Bhat	261403	1.41607E+12	
+421855962	Raffaellafico	Raffaella Fico	260684	1.41607E+12	
+19564523	Manzarra	João Manzarra	259708	1.41607E+12	
+67939411	xandedepilares	xandedepilares	257026	1.41607E+12	
+293496413	robertmarawa	robertmarawa	255052	1.41607E+12	
+118720645	kyunghyang	????	250407	1.41607E+12	
+73840916	GoalUK	Goal UK	248164	1.41607E+12	
+78684416	BlogdoJuca	Juca Kfouri	245850	1.41607E+12	
+133779381	glutamine_nico	??????1105???????	245307	1.41607E+12	
+166522734	OKAZ_online	????? ????	233893	1.41607E+12	
+49781518	O_Unas	rui unas	219138	1.41607E+12	
+461578921	marciocapatonda	maccio capatonda	210656	1.41607E+12	
+154102750	Beritasatu	BeritaSatu.com	209797	1.41607E+12	
+98087364	touyukan	??	208320	1.41607E+12	
+148800843	Los40ar	40 Principales	207854	1.41607E+12	
+894096848	miriamsan81	MIRIAM SANCHEZ	206541	1.41607E+12	
+89504000	angelicacastro_	Angélica Castro	190920	1.41607E+12	
+76666825	TeletonColombia	Teletón Colombia 	187307	1.41607E+12	
+381474818	FuriaseElena	Elena Furiase	187072	1.41607E+12	
+131160120	Frank_Blanco	Frank Blanco	186321	1.41607E+12	
+432507102	fia	FIA	177626	1.41607E+12	
+628253891	iamVikramPrabhu	Vikram Prabhu	175017	1.41607E+12	
+2830720945	chaelinCL	CL	174680	1.41607E+12	
+1427572039	SarahSechan_NET	Sarah Sechan	174469	1.41607E+12	
+469591535	MumuzinhoC	Mumuzinhoc	172941	1.41607E+12	
+1278787135	Siphano	Julien	172553	1.41607E+12	
+160881696	1tvru_news	?????? ????? ???????	172277	1.41607E+12	
+91130461	folhailustrada	Folha Ilustrada	169852	1.41607E+12	
+1110190452	CHIMPSINSOCKS	amanda abbington	168677	1.41607E+12	
+118518057	yvonneokoro	yvonne okoro	168451	1.41607E+12	
+20805188	guia_folha	Guia Folha	158736	1.41607E+12	
+17781576	OfficialWRC	WRC	158677	1.41607E+12	
+195516975	Joselyn_Dumas	Joselyn Dumas	158522	1.41607E+12	
+158110011	sorluciacaram	Sor Lucía Caram	156889	1.41607E+12	
+42619515	juancamus	Juan Camus	155090	1.41607E+12	
+1057266128	AndyRaconte	Andy	155077	1.41607E+12	
+14332713	Ahmed_Ragab	Ahmed Ragab	151602	1.41607E+12	
+66777472	ORappaoficial	O Rappa	151513	1.41607E+12	
+240008403	SanLorenzo	San Lorenzo	149228	1.41607E+12	
+61609661	tanuj_garg	TANUJ GARG	145608	1.41607E+12	
+581774642	YGEXStaff	YGEX Staff	144334	1.41607E+12	
+59248607	futurofm	Radio Futuro	138908	1.41607E+12	
+10075202	cartolafc	Cartola FC	137151	1.41607E+12	
+50258275	ik_osakioduwa	Ik Osakioduwa	135292	1.41607E+12	
+14594980	UOLTecnologia	UOL Tecnologia	132208	1.41607E+12	
+33600887	wwpinc	WoundedWarriorProj	132043	1.41607E+12	
+266307214	essiebutton	Estée Lalonde	131617	1.41607E+12	
+43425975	NY1	NY1 News	130910	1.41607E+12	
+170332142	cancorodriguez	canco rodriguez	129622	1.41607E+12	
+188965922	jaimearellano10	Jaime Arellano	129227	1.41607E+12	
+273410176	ediramaal	Edi Rama	127042	1.41607E+12	
+2174564892	PaolaMariaONE	Paola Maria	126671	1.41607E+12	
+32166535	BNBuzz	Barnes & Noble	126024	1.41607E+12	
+211550281	giuliainnocenzi	Giulia Innocenzi	125211	1.41607E+12	
+21528998	SherrieHewson	sherrie hewson	121914	1.41607E+12	
+26906309	minliangtan	Min-Liang Tan	121911	1.41607E+12	
+45653545	NRJMusicAwards	NRJ Music Awards	121322	1.41607E+12	
+6982052	fechu	Federico Ini	121078	1.41607E+12	
+421333672	Seb_Frit	Seb la Frite	121068	1.41607E+12	
+479017004	SPFleming7	Stephen Fleming	120848	1.41607E+12	
+285742028	DarkFuneral972	Dark Funeral	118865	1.41607E+12	
+91130776	folha_tec	Folha Tec	118086	1.41607E+12	
+169718744	adryantavares	Adryan Tavares	117079	1.41607E+12	
+18872373	mojorojo	Rohan	116260	1.41607E+12	
+23949407	BandaCalypso	Banda Calypso	115355	1.41607E+12	
+435409400	ShamrockKen	KEN SHAMROCK	114016	1.41607E+12	
+207906255	kimso_	Kimsoeun	113975	1.41607E+12	
+63992320	RajkumarHirani	Rajkumar Hirani	112786	1.41607E+12	
+42501345	BowenBBC	Jeremy Bowen	112294	1.41607E+12	
+20758087	TheDrum	The Drum	112233	1.41607E+12	
+78569316	socialbakers	Socialbakers	112205	1.41607E+12	
+88957440	Imagen_Mx	Imagen Radio	112006	1.41607E+12	
+43435902	NY1weather	NY1 Weather	110090	1.41607E+12	
+274507043	toritoquique	TORITO Quique 	108101	1.41607E+12	
+26208862	virgingalactic	Virgin Galactic	106707	1.41607E+12	
+444987701	NBAFantasy	NBA Fantasy	106117	1.41607E+12	
+17530721	noobde	Ed Boon	105747	1.41607E+12	
+100616272	sato_kayo1226	????	105551	1.41607E+12	
+2168092658	shankarshanmugh	Shankar Shanmugham	105438	1.41607E+12	
+549470860	Balmain	Balmain	105190	1.41607E+12	
+14588912	portalvirgula	Portal Virgula	104653	1.41607E+12	
+449361035	Twittdejeremy	Jeremy	104589	1.41607E+12	
+84904125	JivDude	Rajiv Dhall	100057	1.41607E+12	
+181127176	luzabs	luz(??)@10/1??????	96616	1.41607E+12	
+1234100064	baileymac02	Bailey McConnell 	96229	1.41607E+12	
+35999306	DudePerfect	Dude Perfect	96188	1.41607E+12	
+348090653	alertachilectra	Chilectra S.A.	95041	1.41607E+12	
+289197174	ikvoficial	IKV	94406	1.41607E+12	
+21862217	krystalball	Krystal Ball	93161	1.41607E+12	
+388421804	nigelmansell	Nigel Mansell CBE	91361	1.41607E+12	
+142950153	kradness55	kradness(??????)	91187	1.41607E+12	
+575503705	ClichesDeJigme	Jigmé Théaux	90273	1.41607E+12	
+198467315	glay_official	GLAY OFFICIAL	89734	1.41607E+12	
+14956372	WRAL	WRAL NEWS in NC	89574	1.41607E+12	
+206127835	ryokun_san	?????(??)	89458	1.41607E+12	
+44448194	julietibrahim	Juliet Ibrahim	89338	1.41607E+12	
+233644048	ccp1912oficial	Club Cerro Porteño	87946	1.41607E+12	
+18148466	CrainsChicago	Crain's Chicago 	87423	1.41607E+12	
+2870730055	iriyamaanna1203	????	87066	1.41607E+12	
+15292226	CanalUniversal	Canal Universal 	87050	1.41607E+12	
+293496939	ChannelOAfrica	ChannelOAfrica	85677	1.41607E+12	
+26269202	sizeofficial	size?	85419	1.41607E+12	
+116642948	blackcaster	??_koushiki	85146	1.41607E+12	
+535497385	derintarih	Derin Tarih Dergisi	84036	1.41607E+12	
+1337291258	garthbrooks	Garth Brooks	84008	1.41607E+12	
+14221917	phillydotcom	Philly.com	82037	1.41607E+12	
+14595207	UOLEducacao	UOL Educação	81770	1.41607E+12	
+264754463	lucadondoni	Luca Dondoni	81345	1.41607E+12	
+82615868	SharjahTV	??????? ???????	80531	1.41607E+12	
+115795082	Nem_P	Nem@1/7????	80434	1.41607E+12	
+2194477237	EvolveGame	Evolve	80344	1.41607E+12	
+23415676	TheRealGerardo	Gerardo Mejia	79595	1.41607E+12	
+14179410	portalFFW	FFW Fashion Forward	78895	1.41607E+12	
+82501202	Teleton_Peru	Teletón Perú	75739	1.41607E+12	
+1706225299	Patlarea	Patrick Mendy	75736	1.41607E+12	
+239751221	Flipytwit	Flipy	75250	1.41607E+12	
+138077726	idevadhikari	Dev	75221	1.41607E+12	
+56735010	GabiLuthai	Gabi Luthai	74403	1.41607E+12	
+87410476	IanDempsey	Ian Dempsey 	72762	1.41607E+12	
+281616947	plarium	Plarium Games	71715	1.41607E+12	
+273289297	ok2serebu	??@11/16ETA??	70531	1.41607E+12	
+14594774	UOLJogos	UOL Jogos	70241	1.41607E+12	
+125777025	DeJLoaf	Lil Loaf	70003	1.41607E+12	
+166665752	RajivPratapRudy	Rajiv Pratap Rudy	69873	1.41607E+12	
+20552192	Continental_	Radio Continental	69794	1.41607E+12	
+92985467	164203	164	69643	1.41607E+12	
+333409912	ProD_Soccer	Pro-Direct Soccer	69253	1.41607E+12	
+70942730	SBSjoonnie	??? SBS 8 NEWS	69178	1.41607E+12	
+128742276	papiyon_cyoucyo	??P@11/19??????	68615	1.41607E+12	
+19940791	ConservationOrg	Conservation Intl	66900	1.41607E+12	
+15269659	alejandrosuarez	Alejandro Suárez	66858	1.41607E+12	
+337399038	joemaalouftv	joemaalouf	66752	1.41607E+12	
+186211514	edaerdem14	Eda Erdem	66272	1.41607E+12	
+947523433	SundayTimesZA	Sunday Times	66069	1.41607E+12	
+42451620	danjlevy	dan levy	65841	1.41607E+12	
+15455834	BradBiggs	Brad Biggs	65789	1.41607E+12	
+189906799	quiquepeinado	Quique Peinado	65769	1.41607E+12	
+340363309	DylanHartley	Dylan Hartley	65641	1.41607E+12	
+187294445	frankiemoreno	Frankie Moreno	65221	1.41607E+12	
+627643923	GineokwKoenig	Walter Koenig	65108	1.41607E+12	
+300893869	DishNation	Dish Nation	64243	1.41607E+12	
+494588158	BersGamer	Bers??? ~JH? 	63919	1.41607E+12	
+2838454730	tanoyuka_0307	????	62991	1.41607E+12	
+18228708	GlobalCalgary	Global Calgary	62613	1.41607E+12	
+189231119	demimckinney	 Demetria McKinney	62595	1.41607E+12	
+701635518	AntMan	Ant-Man	62465	1.41607E+12	
+22624932	pjgallagher	PJ Gallagher	62276	1.41607E+12	
+68385001	DJZatox	Zatox	62058	1.41607E+12	
+123289066	EmpireStateBldg	Empire State Bldg	61761	1.41607E+12	
+41441075	GolfMagazine	Golf Magazine	61681	1.41607E+12	
+456686439	robymancio	Roberto Mancini	61604	1.41607E+12	
+2866161829	_Nagisa_Shibuya	????	61408	1.41607E+12	
+2774471519	tommy_mallet	MAL	61325	1.41607E+12	
+15224275	travelportland	Travel Portland	61091	1.41607E+12	
+253473538	AcademiaCineEs	Academia de Cine	60733	1.41607E+12	
+17071048	pewinternet	Pew Internet	60663	1.41607E+12	
+1389011150	adrianaugarte10	Adriana Ugarte	60376	1.41607E+12	
+86522927	fakeobsession	Fake Obsession	59857	1.41607E+12	
+2250014010	realmudo	???? 	59720	1.41607E+12	
+176755299	Digiturk	Digiturk	57830	1.41607E+12	
+48956231	zaidbenjamin	Zaid Benjamin	57583	1.41607E+12	
+46092587	iAmMuzicKing	MuZic King	57549	1.41607E+12	
+562439654	PechinoExpress	Pechino Express	57316	1.41607E+12	
+90690801	InsideShops	INSIDE Shops	56768	1.41607E+12	
+18783717	ShaunProulx	Shaun Proulx	55844	1.41607E+12	
+14689197	PhillyDailyNews	Philly Daily News	55576	1.41607E+12	
+189798508	bambi0929	Seunga yoon	55432	1.41607E+12	
+12790742	sudsoundsystem	Sud Sound System	54912	1.41607E+12	
+41330603	DeutscheBank	Deutsche Bank	54886	1.41607E+12	
+89784381	fabricearfi	Fabrice Arfi	54755	1.41607E+12	
+18935711	modrnhealthcr	Modern Healthcare	54626	1.41607E+12	
+2806263583	TopFiveMovie	Top Five Movie	54463	1.41607E+12	
+113413385	Doritos_Mx	Doritos Mx	54338	1.41607E+12	
+434329251	ExploreMikeHorn	Mike Horn	53206	1.41607E+12	
+142687761	MMAChile	Min. Medio Ambiente	53066	1.41607E+12	
+68037244	ikr828	?????	53022	1.41607E+12	
+19650780	RockWerchter	Rock Werchter	52795	1.41607E+12	
+119391598	FMDOS	FMDOS	52106	1.41607E+12	
+738472968	Ma2x	Ma2x	51750	1.41607E+12	
+263650432	KARA_DSP	KARA	51486	1.41607E+12	
+61755650	stupidusmaximus	Ashish Shakya	51152	1.41607E+12	
+15136622	sigamelissa	sigamelissa	50931	1.41607E+12	
+38513145	NICKZANO	NICK ZANO	50698	1.41607E+12	
+107489557	terry_wogan	Terry Wogan	49566	1.41607E+12	
+2420020489	TheRealPCB	PCB Official	48620	1.41607E+12	
+15317044	housetohome	housetohome	48259	1.41607E+12	
+524293452	chHELLOVENUS	?????	48240	1.41607E+12	
+19784906	USIP	U.S. Inst. of Peace	48231	1.41607E+12	
+182556412	Guilherme_G11	Guilherme11	48067	1.41607E+12	
+240665461	PremiosGoyaEs	Premios Goya	47707	1.41607E+12	
+703581570	FIAformulaE	FIAFormulaE	47538	1.41607E+12	
+16038438	HollyConrad	Commander Holly	47168	1.41607E+12	
+16225445	ChooseChicago	Choose Chicago	47165	1.41607E+12	
+824151716	zkassian9	zack kassian	47014	1.41607E+12	
+19654724	suzanne_moore	suzanne moore	46524	1.41607E+12	
+11774052	consumerist	consumerist	46487	1.41607E+12	
+2815728328	YayaToure	Yaya Touré	46346	1.41607E+12	
+166513119	Gebran_Bassil	Gebran Bassil	46191	1.41607E+12	
+21845792	virgilabloh	VIRGIL ABLOH	46159	1.41607E+12	
+426488154	FIAWEC	FIA WEC	46140	1.41607E+12	
+128888927	nilozalp	Nil Özalp	46009	1.41607E+12	
+234944674	JGilbert_21	Justin Gilbert	45852	1.41607E+12	
+15145073	KATVNews	KATV News	45442	1.41607E+12	
+432279698	jodrouin27	Jonathan Drouin	45304	1.41607E+12	
+366065003	Cruzcampo	Cruzcampo	45197	1.41607E+12	
+317322050	Papas_Sabritas	Papas Sabritas	44261	1.41607E+12	
+115642404	AleksandroCeA	AleksandroCeA	43379	1.41607E+12	
+86525622	FIA_WTCC	WTCC	43316	1.41607E+12	
+2857486933	_Airi_Tanigawa	?????	43034	1.41607E+12	
+256885662	atrevetedial	Atrévete	42994	1.41607E+12	
+26554892	si_mlb	SI MLB	42532	1.41607E+12	
+19838219	jrocc	J. Rocc	42499	1.41607E+12	
+121396602	Mar_MarFlores	Mar Flores	42153	1.41607E+12	
+38195578	EA_ME	Electronic Arts ME	41749	1.41607E+12	
+132533490	chay_akkineni	chaitanya akkineni	41533	1.41607E+12	
+16425419	ksatnews	KSAT 12	41488	1.41607E+12	
+29140003	CSalvatore	Chris Salvatore	40812	1.41607E+12	
+51027322	barabanch	???? ?????????	40511	1.41607E+12	
+30205483	FAWNI	Fawni	40434	1.41607E+12	
+26728695	eitbNoticias	EiTB Noticias	40380	1.41607E+12	
+210926547	domoranijoao	Orani João Tempesta	40176	1.41607E+12	
+94564912	naomivanas	Naomi van As	40027	1.41607E+12	
+39545742	Jeff_McLane	Jeff McLane	39679	1.41607E+12	
+251722341	uks0718	???	39642	1.41607E+12	
+516960595	HelldogMadness	HelldogMadness	39456	1.41607E+12	
+762462980	MyProMerch	Pro Merch	39447	1.41607E+12	
+27707938	naturallysteph	Stephanie Perkins	39095	1.41607E+12	
+304588795	Clearly_BallLyf	Cleanthony Early	38562	1.41607E+12	
+1320767665	Sir_Saudade	Russ Ruby Rhod Smith	38499	1.41607E+12	
+91128788	folha_mercado	Folha Mercado	38482	1.41607E+12	
+2248872301	NSA_PAO	NSA/CSS	38459	1.41607E+12	
+26559586	si_ncaafb	SI College Football	38415	1.41607E+12	
+437280711	PaulGilbertRock	Paul Gilbert	38359	1.41607E+12	
+404898859	Ahmed_Sylla	Ahmed Sylla	38347	1.41607E+12	
+37037023	CCMHockey	CCM Hockey	38174	1.41607E+12	
+21055261	BernardKeane	Bernard Keane	38013	1.41607E+12	
+6974622	rgay	Roxane Gay	37942	1.41607E+12	
+34208121	IamAdamKuhn	MTV Adam Kuhn	37842	1.41607E+12	
+72362869	JClark5on	Jordan Clarkson	37111	1.41607E+12	
+378476558	xxxskri	???	36904	1.41607E+12	
+198535390	DepEduardoCunha	DeputadoEduardoCunha	36811	1.41607E+12	
+188755110	ceaoficial	Conrado & Aleksandro	36748	1.41607E+12	
+207381077	memboydak	Memduh Boydak	36712	1.41607E+12	
+228550346	thelnino22	nino niederreiter	36573	1.41607E+12	
+173418883	gyun628	???	36513	1.41607E+12	
+71960209	DeportesMarti	Deportes Martí	36484	1.41607E+12	
+43183327	SI_LeeJenkins	Lee Jenkins	36408	1.41607E+12	
+252740978	CGIU	CGI U	36315	1.41607E+12	
+916971379	mucamuricoca	Muca Muriçoca	36019	1.41607E+12	
+195985229	JarnellStokes	Jarnell Stokes	35759	1.41607E+12	
+34747812	YourAlberta	Alberta Government	35659	1.41607E+12	
+584695533	leonsfdo	Monchi	35435	1.41607E+12	
+102094857	adamfeuerstein	Adam Feuerstein	35225	1.41607E+12	
+81842160	BANKfashion	BANK Fashion	34965	1.41607E+12	
+92052376	dannzy1	neil danns	34895	1.41607E+12	
+16341166	PHAC_GC	Public Health PHAC	34812	1.41607E+12	
+65137552	LesBowen	Les Bowen	34803	1.41607E+12	
+78657009	iRocket3	Nick Johnson	34773	1.41607E+12	
+527377339	BenjaminHockin	Benjamin Hockin	34219	1.41607E+12	
+41331822	DeutscheBankAG	Deutsche Bank	34183	1.41607E+12	
+2860043666	yuipooon12_06	????	34162	1.41607E+12	
+553715747	rodridepaul	rodridepaul	33941	1.41607E+12	
+25237002	iammcjin	MC Jin	33828	1.41607E+12	
+22138182	rikvdwestelaken	Rik vd Westelaken	33744	1.41607E+12	
+28278535	JohnBirmingham	John Birmingham	33731	1.41607E+12	
+2177602562	BdoonShak	???? ??	33710	1.41607E+12	
+128781736	sashadigiulian	Sasha DiGiulian	33672	1.41607E+12	
+116112069	RyutaroNakahara	Ryu?	33563	1.41607E+12	
+18144581	NoradNorthcom	NORAD & USNORTHCOM	33418	1.41607E+12	
+196985837	Valerio_Scanu	ValerioScanu	33337	1.41607E+12	
+17121146	6News	WATE 6 News	32662	1.41607E+12	
+77182096	nantesfr	Ville de Nantes	32638	1.41607E+12	
+2729506932	mrsfunnybones	Twinkle Khanna	32620	1.41607E+12	
+2504372224	itsjeffreymusic	Jeffrey 'Eli' Miller	32580	1.41607E+12	
+887515069	BWitchedreunion	B*Witched	32528	1.41607E+12	
+207579964	jamestaylor20	James Taylor	32520	1.41607E+12	
+32164339	JamaiLoman	JAMAI	32372	1.41607E+12	
+2857533493	natsumin_0916	?????	32370	1.41607E+12	
+72740377	CecilyTynan	Cecily Tynan	32084	1.41607E+12	
+19284930	hotpress	Hot Press	31991	1.41607E+12	
+129329692	LuSapena	Lucía Sapena	31928	1.41607E+12	
+110758975	BBCWalesSport	BBC Wales Sport	31912	1.41607E+12	
+73054109	EmiratesTrans	Emirates Transport	31700	1.41607E+12	
+133544299	heather_love	Heather	31553	1.41607E+12	
+275668783	los40Panama	Los 40 Panamá	31521	1.41607E+12	
+16362924	wave3news	wave3news	31351	1.41607E+12	
+402025521	Get_Headspace	Headspace	31079	1.41607E+12	
+313114300	micaholic1981	A.I.	30969	1.41607E+12	
+14692412	IndeedUK	Indeed UK	30892	1.41607E+12	
+637068602	gonzacastellani	Gonzalo Castellani	30705	1.41607E+12	
+21343293	BounceEnergy	Bounce Energy	30634	1.41607E+12	
+2873274972	kanakichiyade	?????	30366	1.41607E+12	
+12340562	marcambinder	Marc Ambinder	30332	1.41607E+12	
+423382551	VictorArtus	Artus	30298	1.41607E+12	
+480035350	_Brendonsmall	Brendon Small	30277	1.41607E+12	
+19622973	QdobaMexGrill	Qdoba Mexican Grill	30236	1.41607E+12	
+28346181	si_nba	SI NBA	30184	1.41607E+12	
+2392108378	mich261213	???????????? ??????	30035	1.41607E+12	
+2857507106	ayaka_m062	????(NMB48)	29914	1.41607E+12	
+28390516	KMOV	KMOV	29785	1.41607E+12	
+430417804	fns_kayousai	FNS???	29557	1.41607E+12	
+22628924	sinnfeinireland	Sinn Féin	29248	1.41607E+12	
+599065130	ReutersChina	Reuters China 	29180	1.41607E+12	
+16542798	69News	WFMZ-TV 69News	29173	1.41607E+12	
+167070809	SI_Tennis	SI Tennis 	28972	1.41607E+12	
+757174172	voice1tv	?????	28874	1.41607E+12	
+2857488542	yukitsun_0217	???	28685	1.41607E+12	
+492609310	FiftyThree	FiftyThree	28560	1.41607E+12	
+238275015	6abcadamjoseph	Adam Joseph	28268	1.41607E+12	
+351599318	fegaray16	Fernanda Garay	28237	1.41607E+12	
+68784803	MichaelJFoxOrg	michaeljfox.org	28186	1.41607E+12	
+36462231	PewReligion	PewResearch Religion	28173	1.41607E+12	
+129789846	Stormzy1	BIG MIKE	28146	1.41607E+12	
+27602545	KofC	Knights of Columbus	28128	1.41607E+12	
+136900779	majakoja	???	27984	1.41607E+12	
+26549629	si_nfl	SI NFL	27899	1.41607E+12	
+100440332	leeres	Leer.es	27838	1.41607E+12	
+73260722	frank_seravalli	Frank Seravalli	27724	1.41607E+12	
+80550673	RVO_Nederland	RVO.nl	27670	1.41607E+12	
+64746677	Yleisradio	Yleisradio	27608	1.41607E+12	
+125584090	EptosUno	AKENATONY	27515	1.41607E+12	
+40238386	Rodpac	Rodrigo Pacheco	27267	1.41607E+12	
+33654011	rizmc	Riz Ahmed	27252	1.41607E+12	
+128313714	BroadStBull	Sam Carchidi	26950	1.41607E+12	
+2889307669	pg_koushiki	????????? ??	26847	1.41607E+12	
+22785299	CanWarMuseum	Canadian War Museum	26810	1.41607E+12	
+279499357	fancazzisti	Fancazzisti ANOnimi	26807	1.41607E+12	
+163436555	moby_dickhead	Adam Ellis	26689	1.41607E+12	
+26982834	YleTeema	Yle Teema	26436	1.41607E+12	
+16472218	keloland	KELO News	26265	1.41607E+12	
+117532726	Andoni_Agk	A. Agirregomezkorta	26237	1.41607E+12	
+113888852	sanjaypugalia	Sanjay Pugalia	26233	1.41607E+12	
+128708135	GLHarrisonX	George Harrison	26224	1.41607E+12	
+1265726480	FactTank	PewResearch FactTank	26154	1.41607E+12	
+64300283	AndrigoAraujo	Andrigo Araujo	25955	1.41607E+12	
+116533324	RadioCorazonFM	Radio Corazón FM 	25838	1.41607E+12	
+2257456638	LittleSea	Little Sea	25715	1.41607E+12	
+18701873	FIJIWater	FIJI Water	25691	1.41607E+12	
+18082466	clickorlando	WKMG Local 6 News	25565	1.41607E+12	
+123351351	Paparazzo_Br	Paparazzo	25533	1.41607E+12	
+2836014090	yginnercircle	Official innercircle	25531	1.41607E+12	
+271507203	teletonuruguay	Teletón Uruguay	25460	1.41607E+12	
+53275601	TheRealBekay	Bekay	25411	1.41607E+12	
+31245195	ScottWeinger	Scott Weinger	25259	1.41607E+12	
+116112129	CNBC_Awaaz	CNBC Awaaz	25252	1.41607E+12	
+51052455	lindsayarmaou	Lindsay Armaou	25161	1.41607E+12	
+590152667	Twiplomacy	Twiplomacy	25015	1.41607E+12	
+96976412	swatch	Swatch	24965	1.41607E+12	
+156959228	paponmusic	papon angaraag	24866	1.41607E+12	
+2841137914	ArturoValls	Arturo Valls	24839	1.41607E+12	
+264984106	H_S_9	Hunter Shinkaruk	24835	1.41607E+12	
+2809735350	saicowow	???????	24724	1.41607E+12	
+63781564	newsfromIN	InvestmentNews	24528	1.41607E+12	
+268416076	Raffi_RC	Raffi Cavoukian	24527	1.41607E+12	
+19925980	WSAZnews	WSAZ NewsChannel 3	24413	1.41607E+12	
+134781392	istikbal	Istikbal	24333	1.41607E+12	
+47609669	iltfestival	I ? TECHNO	24220	1.41607E+12	
+160281009	AndrewHaydSmith	Andrew Hayden-Smith	24201	1.41607E+12	
+309302606	TheRealWoopWoop	Woop	24173	1.41607E+12	
+192979316	mathiasbrunet	Mathias Brunet	24170	1.41607E+12	
+45520156	Luenell	Luenell	24084	1.41607E+12	
+95204203	crisis_uk	Crisis	24069	1.41607E+12	
+26505168	PaulJournet	Paul Journet 	23879	1.41607E+12	
+276537976	WendiNix_ESPN	Wendi Nix	23839	1.41607E+12	
+138040925	3arenadublin	3Arena	23711	1.41607E+12	
+214840323	antgerrard86	Anthony Gerrard	23652	1.41607E+12	
+570458176	itslauraspencer	Laura Spencer	23641	1.41607E+12	
+10999502	OliverJeffers	Oliver Jeffers	23630	1.41607E+12	
+289385517	ItsPeak_	PEAK	23572	1.41607E+12	
+78942172	BM_AG	Birmingham Museums	23552	1.41607E+12	
+2432213029	NYTArchives	NYT Archives	23529	1.41607E+12	
+272562079	JeramiGrant	Jerami Grant	23431	1.41607E+12	
+25982774	ByDavidMurphy	David Murphy	23392	1.41607E+12	
+564909345	fleksy	Fleksy	23365	1.41607E+12	
+202893625	DevMarble	Devyn Marble	23229	1.41607E+12	
+23789087	WONKAnation	The Official WONKA	22945	1.41607E+12	
+136247514	eOneSpain	eOne Films Spain	22889	1.41607E+12	
+243505683	iamEuroz	Euroz	22773	1.41607E+12	
+1288485038	ThePeakyBlinder	Peaky Blinders	22733	1.41607E+12	
+17146677	MattGelb	Matt Gelb	22577	1.41607E+12	
+23299429	visitsingapore	YourSingapore	22563	1.41607E+12	
+2898217370	official_yuya	??????	22554	1.41607E+12	
+150997002	DubGAAOfficial	Dublin GAA	22533	1.41607E+12	
+19319374	MarkG_Medina	Mark Medina	22495	1.41607E+12	
+70519385	followgustavo	Gustavo Menezes	22454	1.41607E+12	
+22647290	LeLuci_	Vasco Brondi	22413	1.41607E+12	
+1052381046	sinocarroll	Sinead O'Carroll	22366	1.41607E+12	
+267933419	conciertoradio	Radio Concierto	22324	1.41607E+12	
+1092028038	TheFallTV	The Fall	22310	1.41607E+12	
+18080002	adrianweckler	Adrian Weckler	22281	1.41607E+12	
+260257467	MarianoBordeaux	Mariano	22215	1.41607E+12	
+133864478	BioSteelSports	BioSteel	22212	1.41607E+12	
+729416204	PETA_Latino	PETA Latino 	22117	1.41607E+12	
+19983221	pressassoc	Press Association	22072	1.41607E+12	
+28311576	martynziegler	Martyn Ziegler	21936	1.41607E+12	
+702534799	connect	Connect	21902	1.41607E+12	
+1229469090	Diamond_Digger	Diamond Digger Saga	21874	1.41607E+12	
+92022555	hellfestopenair	Hellfest Productions	21872	1.41607E+12	
+1663327039	JoelGHodgson	Joel Hodgson	21862	1.41607E+12	
+111859668	Kwangparty	??? 	21850	1.41607E+12	
+97293135	EstadaoEsporte	Esportes - Estadão	21763	1.41607E+12	
+287332193	LeticiaDolera	Leticia Dolera	21745	1.41607E+12	
+361007677	saraescu1981	Sara Escudero	21627	1.41607E+12	
+74446706	GeorgeThePoet	George The Poet	21621	1.41607E+12	
+2859713599	enoki_zzz0112	?????	21579	1.41607E+12	
+199077030	ESPNStreak	ESPN Streak	21566	1.41607E+12	
+78420507	SportsRadio610	SportsRadio 610	21520	1.41607E+12	
+431872734	RadioPudahuel	Radio Pudahuel	21481	1.41607E+12	
+40212366	dansabbagh	Dan Sabbagh	21403	1.41607E+12	
+60784450	LeadAndLearn	Leadership&Learning	21340	1.41607E+12	
+563040417	DomSolanke	Dom Solanke	21177	1.41607E+12	
+257723402	anouj7	???? ?????	21133	1.41607E+12	
+75148095	tanyamcqueen	Tanya McQueen	21030	1.41607E+12	
+109177306	Miqbalkhan	Iqbal Khan	21019	1.41607E+12	
+459138552	FIAERC	FIA ERC	20864	1.41607E+12	
+143060704	felizsabado	Feliz Sábado	20765	1.41607E+12	
+2857549105	arisa_m_0720	?????	20663	1.41607E+12	
+119699901	marliesdekkers	Marlies Dekkers	20604	1.41607E+12	
+125179654	fionnansheahan	Fionnan Sheahan	20562	1.41607E+12	
+259427014	IndoSport	Independent Sport	20546	1.41607E+12	
+16219502	charlesadler	Charles Adler	20500	1.41607E+12	
+2857489506	yuppinoyupitter	????	20454	1.41607E+12	
+39697958	TVNTVN	Racing Network	20205	1.41607E+12	
+280638438	radiopanama	Radio Panamá	20187	1.41607E+12	
+184740858	MBRSG	???? ???? ?? ????	20132	1.41607E+12	
+214697790	GaiWaterhouse1	Gai Waterhouse	20129	1.41607E+12	
+998081557	blooshop	blooshop	20012	1.41607E+12	
+20762509	GCBulletin	Gold Coast Bulletin	19985	1.41607E+12	
+129814820	ShaunProulxShow	Shaun Proulx Show	19958	1.41607E+12	
+18728203	WPLGLocal10	WPLG Local 10 News	19853	1.41607E+12	
+73447678	annielederman	Annie Lederman	19702	1.41607E+12	
+14217624	OniPress	Oni Press	19689	1.41607E+12	
+1151652984	Laverbeke	Natalia Verbeke	19526	1.41607E+12	
+376297519	Giuseppe_Peveri	Dente	19480	1.41607E+12	
+316871053	Ruffles_Mx	Ruffles Mx 	19477	1.41607E+12	
+635664647	PeterVives	Peter Vives	19472	1.41607E+12	
+108422146	youssouphadiaby	youssoupha diaby	19471	1.41607E+12	
+194579643	RyanShotton88	'Shots'	19433	1.41607E+12	
+16122216	phillyinsider	Michael Klein	19414	1.41607E+12	
+19659031	briefingroom	Briefing Room	19245	1.41607E+12	
+52367715	gaztea	gaztea	19233	1.41607E+12	
+260024357	Tomas_Jurco	Tomas Jurco	19209	1.41607E+12	
+283979780	valtioneuvosto	valtioneuvosto	19193	1.41607E+12	
+260825653	LevirCulpi	Levir Culpi	19080	1.41607E+12	
+141698077	nahkiwells	Nahki Wells	19050	1.41607E+12	
+77427854	hachio88	???????????	18896	1.41607E+12	
+358908333	Ashwinwillemse	Ashwin Willemse	18855	1.41607E+12	
+385381941	MikeFriday09	Mike Friday	18714	1.41607E+12	
+338890247	lidlespana	LIDL España	18631	1.41607E+12	
+204199453	whiteminseo	???	18621	1.41607E+12	
+228404367	webvideopreis	Webvideopreis	18569	1.41607E+12	
+262253301	fuerzapublicaCR	Fuerza Pública CR	18559	1.41607E+12	
+343612115	ShannonFlynn22	Shannon Flynn	18516	1.41607E+12	
+2857784341	meguumin_48	?? ???	18488	1.41607E+12	
+632716462	A_JAXOFFICIAL	A-JAX(????)	18448	1.41607E+12	
+153558139	NPWF	National Partnership	18360	1.41607E+12	
+259466635	sebablanco23	Sebastian Blanco	18331	1.41607E+12	
+353234385	lwestermann	Westermann Léo	18277	1.41607E+12	
+2868636553	isokana89	????	18229	1.41607E+12	
+57172253	reshmasaujani	Reshma Saujani	18222	1.41607E+12	
+335891957	FirstpostSports	FirstpostSports	18198	1.41607E+12	
+25711553	MALussier	Marc-André Lussier	18193	1.41607E+12	
+460446407	LiamCooper__	Liam Cooper	18150	1.41607E+12	
+15773009	TraceBeaulieu	Trace Beaulieu	18122	1.41607E+12	
+950763948	RAINBOW_1114	????	18013	1.41607E+12	
+14325612	KHQLocalNews	KHQ Local News	17991	1.41607E+12	
+2846982741	captainmarvel	Captain Marvel	17933	1.41607E+12	
+42382372	tech2eets	tech2	17932	1.41607E+12	
+40356855	KCIAirport	Kansas City Airport	17930	1.41607E+12	
+87474886	NGIreland	Nat Gallery Ireland	17861	1.41607E+12	
+2341020134	BuzzFeedStorm	BuzzFeed Storm	17770	1.41607E+12	
+22580410	Enation	Enation	17676	1.41607E+12	
+111339670	pewjournalism	PewResearch Journo	17664	1.41607E+12	
+365344514	G_Extremadura	Gobierno Extremadura	17653	1.41607E+12	
+2853665503	vivrichards56	Viv Richards	17638	1.41607E+12	
+1228250208	Cli5hy	Mateusz Klich	17488	1.41607E+12	
+270102263	TheRealPBarry	Paul Barry	17440	1.41607E+12	
+1960912682	SuperComEc	Supercom Ecuador	17412	1.41607E+12	
+24144190	KeiynanLonsdale	Keiynan Lonsdale	17411	1.41607E+12	
+474957612	el_conquis	El Conquistador	17381	1.41607E+12	
+1193749242	ditmirbushati	Ditmir Bushati	17335	1.41607E+12	
+519820349	Malcolm2veWorld	Malcolm TotheWorld	17221	1.41607E+12	
+1134081937	educaCNIIE	Educación CNIIE	17141	1.41607E+12	
+2858115487	ayatyeen_luv	?? ??	17009	1.41607E+12	
+420115184	FirstpostBiz	FirstBiz	16996	1.41607E+12	
+47216804	Lesdoggg	Leslie Jones	16946	1.41607E+12	
+123416490	KevinSussman	Kevin Sussman	16932	1.41607E+12	
+475970612	LoCocoAntonella	Antonella Lo Coco	16872	1.41607E+12	
+2857737930	maichi_2014	?? ??	16849	1.41607E+12	
+17891273	Polartec	Polartec	16806	1.41607E+12	
+19720630	RiceUniversity	Rice University	16687	1.41607E+12	
+22266201	PhillyGossipDN	Molly Eichel	16662	1.41607E+12	
+357529960	KieroSmall36	Kiero Small 	16532	1.41607E+12	
+253266157	YahooHealth	Yahoo Health	16471	1.41607E+12	
+120148951	sportingtelenet	Sporting Telenet	16461	1.41607E+12	
+75122758	EstadaoInter	Inter Estadão	16448	1.41607E+12	
+139263686	ChrisBurke_SI	Chris Burke	16398	1.41607E+12	
+2843197753	ShahDaisy25	Daisy Shah	16383	1.41607E+12	
+19658614	congressblog	Congress Blog	16372	1.41607E+12	
+1352238229	jpearce05	Jason Pearce	16326	1.41607E+12	
+21818677	Will_Holland	Will Holland	16295	1.41607E+12	
+26555305	SI_NHL	SI NHL	16273	1.41607E+12	
+81146867	pilimontilla	Pili Montilla	16221	1.41607E+12	
+27900939	AstellasUS	Astellas Pharma US	16160	1.41607E+12	
+189541257	maam_twi	???	16116	1.41607E+12	
+17387554	PremierRadio	Premier Christian	16081	1.41607E+12	
+189801036	iHipsterLee	Swae Lee	16043	1.41607E+12	
+2847028078	theblackpanther	Black Panther	15959	1.41607E+12	
+34543866	thelenzman	Lenzman	15948	1.41607E+12	
+18837393	centerparcs	Center Parcs NL	15904	1.41607E+12	
+15862571	StockholmsStad	Stockholms stad	15877	1.41607E+12	
+98405344	S_Mazetier	Sandrine Mazetier	15861	1.41607E+12	
+274958853	ferrovial_es	Ferrovial	15801	1.41607E+12	
+25998773	TheIdleRich	Rich Hofmann	15755	1.41607E+12	
+1183279332	Urgant_Show	???????? ??????	15748	1.41607E+12	
+18650417	1011_News	10/11 News	15728	1.41607E+12	
+370311479	ZakWhitbread	Zak Whitbread	15709	1.41607E+12	
+18240228	deusto	Universidad Deusto	15642	1.41607E+12	
+52299972	WhatsupDanny	Daniel Franzese	15640	1.41607E+12	
+129143625	JaneHillNews	Jane Hill	15628	1.41607E+12	
+1109584069	SI_ExtraMustard	SI Extra Mustard	15604	1.41607E+12	
+483260801	Zips3	????	15599	1.41607E+12	
+267369749	Emperador_Mx	Emperador Mx 	15524	1.41607E+12	
+588417675	aduclair10	Anthony Duclair	15429	1.41607E+12	
+953928517	yakko928	???	15181	1.41607E+12	
+294258287	PamelaPaulNYT	Pamela Paul	15151	1.41607E+12	
+48937665	ZBerm	Zach Berman	15147	1.41607E+12	
+28314035	alexberesfordTV	Alex Beresford	15126	1.41607E+12	
+141208596	sureshpprabhu	Suresh  Prabhu	15121	1.41607E+12	
+60758548	BrianHamiltonSI	Brian Hamilton	15069	1.41607E+12	
+246022771	KevinPHayes12	Kevin Hayes	15048	1.41607E+12	
+2151416029	DrStrange	Doctor Strange	15011	1.41607E+12	
+974022020	InformacionDGT	D.G.T.	15010	1.41607E+12	
+148475557	Riddick6	theo riddick	14987	1.41607E+12	
+41888256	chrisperk	Chris Perkins	14967	1.41607E+12	
+114866624	ryanlawrence21	Ryan Lawrence	14903	1.41607E+12	
+132427899	zestonethj	ZESTONE RECORDS	14898	1.41607E+12	
+138452072	bernardjackman	Bernard Jackman	14893	1.41607E+12	
+146099226	hillhealthwatch	The Hill Healthwatch	14879	1.41607E+12	
+122017893	eitbeus	eitb.eus	14875	1.41607E+12	
+86281841	thw_handball	THW Kiel	14816	1.41607E+12	
+326834507	kimmelman	Michael Kimmelman	14808	1.41607E+12	
+180303163	costacruceros	Costa Cruceros	14753	1.41607E+12	
+613493505	Alcaraz_Lucas	Lucas Alcaraz	14640	1.41607E+12	
+364477125	CafeoleRadiole	Café Olé (Radiolé)	14630	1.41607E+12	
+35278703	endrifuga	Endri Fuga	14621	1.41607E+12	
+219781146	KPMcEvoy	Kerrin McEvoy	14498	1.41607E+12	
+2242499244	Mauerfall89	Heute vor 25 Jahren	14403	1.41607E+12	
+136212064	OBRADOIROCAB	OBRADOIRO CAB	14363	1.41607E+12	
+426041590	PewHispanic	PewResearch Hispanic	14361	1.41607E+12	
+26556313	si_ncaabb	SI College Hoops	14220	1.41607E+12	
+544466128	mollyrainford1	Molly Rainford	14201	1.41607E+12	
+20271926	ShiaKapos	Shia Kapos	14196	1.41607E+12	
+108960856	Channel5Press	Channel 5 Press	14138	1.41607E+12	
+252572618	therealmox_21	Dean Moxey	14126	1.41607E+12	
+82490906	INACAPINOS	INACAPINOS	14067	1.41607E+12	
+597389200	juthaimma	Juliana Lima	14062	1.41607E+12	
+989229888	Andrew10dog	andrew hughes	14057	1.41607E+12	
+41203203	BrendanCourtney	Brendan Courtney	14012	1.41607E+12	
+20957491	AlexPappas	Alex Pappas	13988	1.41607E+12	
+19738801	usembassysjo	US Embassy San Jose	13984	1.41607E+12	
+17471457	alexbracken	Alexandra Bracken 	13977	1.41607E+12	
+213042344	DearbhailDibs	Dearbhail McDonald	13943	1.41607E+12	
+37104983	dansaltzstein	Dan Saltzstein	13904	1.41607E+12	
+90725320	E2Wire	E2Wire	13890	1.41607E+12	
+2147681047	DebatF24	Débat FRANCE 24	13853	1.41607E+12	
+76715426	EstadaoSaoPaulo	Metrópole Estadão	13793	1.41607E+12	
+25371684	WBAY	WBAY-TV 2	13793	1.41607E+12	
+48108012	levirootsmusic	Levi Roots	13792	1.41607E+12	
+104094630	F1NightRace	SingaporeGP	13768	1.41607E+12	
+189894495	yuzukingdam	???	13757	1.41607E+12	
+87622342	MAYUMIMORINAGA	moimoi	13709	1.41607E+12	
+496969590	UAEU_NEWS	????? ????? ????????	13707	1.41607E+12	
+22120736	blacks_online	Blacks.co.uk	13640	1.41607E+12	
+31180544	iamradzi	Radzi caramel kid	13614	1.41607E+12	
+60947922	telekomHU	Telekom HU	13525	1.41607E+12	
+17155863	ShamrockRovers	Shamrock Rovers F.C.	13437	1.41607E+12	
+123374553	robertasmithnyt	Roberta Smith	13435	1.41607E+12	
+327823605	johnvantschip7	john van't schip	13409	1.41607E+12	
+80373404	Glen4ONT	Glen Murray	13377	1.41607E+12	
+41329328	euskaltelebista	ETB	13357	1.41607E+12	
+15484092	TheSoundLA	100.3 The Sound	13355	1.41607E+12	
+424082875	stephenokeefe72	stephen o'keefe	13314	1.41607E+12	
+884199361	FIAWorldRX	FIA World Rallycross	13245	1.41607E+12	
+146179868	GregCapital	Greg Burns	13239	1.41607E+12	
+366785458	SMeaker18	Stuart Meaker	13214	1.41607E+12	
+20718622	HMHbooks	HMH Trade	13099	1.41607E+12	
+18667799	Philippa_Perry	Philippa_Perry	13094	1.41607E+12	
+82365106	scottsmenswear	scotts	13027	1.41607E+12	
+83169642	AdamCarsonAFI	Adam Carson	12902	1.41607E+12	
+213614971	PhilKitro	Phil Kitromilides	12895	1.41607E+12	
+95615583	Pimkie_FR	Pimkie	12887	1.41607E+12	
+15901113	davecatanese	David Catanese	12878	1.41607E+12	
+78621972	THTorguk	TerrenceHigginsTrust	12860	1.41607E+12	
+100030015	kshighwaypatrol	KS Highway Patrol	12817	1.41607E+12	
+4212061	Petrit	Petrit Selimi	12784	1.41607E+12	
+2839500298	iamdiafrasakho	Diafra Sakho	12776	1.41607E+12	
+561035527	boss_glen	GLEN BOSS	12670	1.41607E+12	
+253760603	gregorydjohnsen	GregorydJohnsen	12607	1.41607E+12	
+34989477	SITimLayden	Tim Layden	12600	1.41607E+12	
+47592568	OmroepFlevoland	Omroep Flevoland	12580	1.41607E+12	
+287333780	hellolanemoore	Lane Moore 	12579	1.41607E+12	
+272631527	joeharrisuva	Joe Harris	12568	1.41607E+12	
+153618872	PilsenPy	Pilsen	12556	1.41607E+12	
+2891929621	kohei198913	KOHEI UCHIMURA	12494	1.41607E+12	
+23503500	howcroft	Russel Howcroft	12489	1.41607E+12	
+117198955	asambleapa	Asamblea Nacional	12483	1.41607E+12	
+291935324	CraigLaBan	Craig LaBan	12455	1.41607E+12	
+225857392	Debbie_abrahams	Debbie Abrahams	12448	1.41607E+12	
+2760019911	jemimakirke	Jemima Kirke	12447	1.41607E+12	
+39944102	kpby	KP in Belarus	12375	1.41607E+12	
+13117042	WHSVnews	WHSVnews	12369	1.41607E+12	
+2816575188	takeuchi_ryoma	?????	12333	1.41607E+12	
+14017892	almundo_ar	almundo.com	12267	1.41607E+12	
+74181389	powerfrancers	Power Francers	12266	1.41607E+12	
+37983155	Alex_Flores1	Alexander Flores	12266	1.41607E+12	
+72277900	HennaVirkkunen	Henna Virkkunen	12153	1.41607E+12	
+30328015	GregKurstin	Greg Kurstin	12128	1.41607E+12	
+234534756	NCCapitol	WRAL Gov't Coverage 	12091	1.41607E+12	
+973645188	BomberHarris37	Chris Harris #37 	12086	1.41607E+12	
+914600838	alcampo	Alcampo 	12041	1.41607E+12	
+181929753	clavery13	Caolan Lavery	12017	1.41607E+12	
+36753655	shoesmelissa	Melissa Shoes	12000	1.41607E+12	
+296483835	irishnewssport	Irish News Sport	11981	1.41607E+12	
+1147480171	chcalifano	christian califano	11957	1.41607E+12	
+1393453590	JakeBJJMMA	Jake Matthews	11929	1.41607E+12	
+93815182	YLETV2	YLE TV2	11923	1.41607E+12	
+16293020	IYC	IYC	11912	1.41607E+12	
+303898942	MKosinskiCNN	Michelle Kosinski	11893	1.41607E+12	
+28543847	GregMulholland1	Greg Mulholland MP	11844	1.41607E+12	
+40144962	jorgearangure	Jorge Arangure	11802	1.41607E+12	
+143212610	JonAshworth	Jonathan Ashworth MP	11773	1.41607E+12	
+227684134	nashhot	Nash Rawiller	11764	1.41607E+12	
+65453062	ChevroletPerf	Chevy Performance	11726	1.41607E+12	
+488494463	AlexCairns30	Alex Cairns	11658	1.41607E+12	
+176758182	pink_rabbit_	???	11631	1.41607E+12	
+54284588	jadepuget	Jade Puget	11520	1.41607E+12	
+22664596	kelostormcenter	KELOLAND Weather	11478	1.41607E+12	
+344818796	CB1939Canarias	Iberostar Tenerife	11475	1.41607E+12	
+257040774	HamiltonRTE	George Hamilton	11446	1.41607E+12	
+607291111	Minyakko612	???? ( ???? )	11445	1.41607E+12	
+39531690	RedGuadalinfo	Guadalinfo RedSocial	11439	1.41607E+12	
+960709321	MattMcGrathBBC	Matt McGrath	11381	1.41607E+12	
+2151505908	theinhumans	Inhumans	11354	1.41607E+12	
+202322417	GlobalOkanagan	Global Okanagan	11324	1.41607E+12	
+68988222	tonywrighton	Tony Wrighton	11312	1.41607E+12	
+20687912	WLNS	WLNS Newsroom	11311	1.41607E+12	
+16323656	nsui	NSUI	11308	1.41607E+12	
+13065032	AkzoNobel	AkzoNobel	11205	1.41607E+12	
+23836537	HernandezJavier	Javier C. Hernández	11092	1.41607E+12	
+47100869	PaulJubei	Paul Jubei	11083	1.41607E+12	
+42706725	AnnDwyer_Crains	Ann Dwyer 	11062	1.41607E+12	
+558273965	HellaNames	· • ?	11023	1.41607E+12	
+40255079	ali_cook	Ali Cook	11008	1.41607E+12	
+20728526	KEZI9	KEZI 9 NEWS	10996	1.41607E+12	
+19255509	visitberlin	visit Berlin 	10977	1.41607E+12	
+76952550	enikoeva	Eniko Mihalik	10972	1.41607E+12	
+2842600971	LaRoja	Selección Chilena 	10970	1.41607E+12	
+46017944	CharleneWhite	Charlene White	10963	1.41607E+12	
+21830753	JCRMarlinsbeat	Juan C. Rodriguez	10957	1.41607E+12	
+382456953	BAZOOKA_BS241	BAZOOKA!!!	10909	1.41607E+12	
+831470472	pewglobal	Pew Research Global	10870	1.41607E+12	
+258854972	DavidDJJames	David James	10782	1.41607E+12	
+50776289	darciebaum	Darcie Baum	10764	1.41607E+12	
+14792231	Teleflora	Teleflora	10729	1.41607E+12	
+306889853	PiersonFode	Pierson Fodé	10695	1.41607E+12	
+217168664	dbailey_18	Dion Bailey	10676	1.41607E+12	
+20483778	Sally_Jackson	Sally Jackson	10643	1.41607E+12	
+37041552	MariaTaylor7	Maria Taylor	10639	1.41607E+12	
+467301125	TicketmasterCS	Ticketmaster CS	10621	1.41607E+12	
+277368714	YleTV1	Yle TV1	10612	1.41607E+12	
+44479984	Zatarains	Zatarain's	10559	1.41607E+12	
+15908429	carolynryan	carolynryan	10536	1.41607E+12	
+19658038	HireHeroesUSA	Hire Heroes USA	10480	1.41607E+12	
+163902838	LasseSvan	Lasse Svan	10461	1.41607E+12	
+76511168	SPCapitalIQ	S&P Capital IQ	10445	1.41607E+12	
+18686483	IceAge	ICE AGE 	10427	1.41607E+12	
+37493043	YABOYMDZ	YaBoyMDZ	10422	1.41607E+12	
+110623672	VinceLarouche	Vincent Larouche	10409	1.41607E+12	
+806654060	Vapaavuori	Jan Vapaavuori	10407	1.41607E+12	
+154145174	tanzinavega	Tanzina Vega	10398	1.41607E+12	
+981352266	HuffPostMaghreb	HuffPost Maghreb	10310	1.41607E+12	
+23671856	HugeBowman	Hugh Bowman	10299	1.41607E+12	
+83039463	MariaChappelleN	MariaChappelleNadal	10269	1.41607E+12	
+339815147	TSJDF	TSJ Distrito Federal	10254	1.41607E+12	
+227065692	MThompsonCNBC	Mary Thompson	10201	1.41607E+12	
+308944724	NicolasPri7	Nicolas Prissette	10189	1.41607E+12	
+409285722	uellagostera	UE Llagostera	10169	1.41607E+12	
+24892308	Reuters_Summits	Reuters Summits	10120	1.41607E+12	
+78630270	STLMetro	St. Louis Metro	10058	1.41607E+12	
+314293845	JAPANET_media	???????????????	10022	1.41607E+12	
+1409479188	official_DSP	DSPmedia	9984	1.41607E+12	
+21155497	HollyConway	Holly Conway	9960	1.41607E+12	
+192015536	McDonnellDan	Daniel McDonnell	9869	1.41607E+12	
+18387222	gueugneau	Christophe Gueugneau	9856	1.41607E+12	
+32954376	DrewDaywalt	Drew Daywalt	9812	1.41607E+12	
+368148234	SDinwiddie_25	Spencer Dinwiddie	9808	1.41607E+12	
+2286668820	DOZAN11	DOZAN	9799	1.41607E+12	
+23149177	OfficialCDJ	Christopher Johnson	9778	1.41607E+12	
+26582373	SI_Fantasy	SI Fantasy News	9768	1.41607E+12	
+253604734	hilltransport	The Hill Transport	9752	1.41607E+12	
+124282146	ulterior_motive	Ulterior Motive	9744	1.41607E+12	
+940884354	TommyBerry21	Tommy Berry	9742	1.41607E+12	
+592891425	Dmarino90	diego mariño villar	9728	1.41607E+12	
+107222035	poloconghaile	Pól Ó Conghaile	9697	1.41607E+12	
+15163993	RobTornoe	Rob Tornoe	9696	1.41607E+12	
+65985947	fernando_diniz_	FERNANDO  DINIZ	9684	1.41607E+12	
+67044334	LecoCavallini	Leco Cavallini	9680	1.41607E+12	
+47260400	georgedohrmann	George Dohrmann	9656	1.41607E+12	
+1011916284	MerlinWizDawg	Aaron Yoo + Merlin	9610	1.41607E+12	
+423566267	LegaVolleyFem	LegaVolleyFemminile	9606	1.41607E+12	
+18235216	CBS19	WCAV CBS19	9602	1.41607E+12	
+181204832	gobiernozac	Gobierno Zacatecas	9570	1.41607E+12	
+1424082012	BlaBlaCarTR	BlaBlaCarTR	9531	1.41607E+12	
+42984750	tarasbernard	Tara Siegel Bernard	9524	1.41607E+12	
+44927150	HeinemannPub	Heinemann Publishing	9506	1.41607E+12	
+182550747	RockaletaMx	Rockaleta®	9490	1.41607E+12	
+443411734	rakpoliceghq	???? ??? ??????	9487	1.41607E+12	
+46488066	evelyneaudet	Evelyne Audet	9472	1.41607E+12	
+218993054	BrendanGaunce16	Brendan Gaunce	9456	1.41607E+12	
+556775313	MichaelRodd2	Michael Rodd	9449	1.41607E+12	
+115697038	cocinsa	Cine	9330	1.41607E+12	
+65011436	SergeyPonomarev	Sergey Ponomarev	9275	1.41607E+12	
+17159134	abc27	WTXL ABC 27	9267	1.41607E+12	
+313183832	PSA_news	PSA Peugeot Citroën	9248	1.41607E+12	
+886918380	MustYatabare9	Mustapha Yatabaré	9195	1.41607E+12	
+65583398	TedBaillieu	Ted Baillieu	9093	1.41607E+12	
+18159213	REACH_Singapore	REACH	9077	1.41607E+12	
+227844047	lucianotiso	Luciano Tiso	9063	1.41607E+12	
+20148039	LilianGreenwood	Lilian Greenwood	9050	1.41607E+12	
+56470183	KCENNews	KCEN News	9036	1.41607E+12	
+509212441	StigAbell	Stig Abell	9013	1.41607E+12	
+22751883	EMLYON	EMLYONBusinessSchool	8935	1.41607E+12	
+269860230	swpeast	SW Police East	8926	1.41607E+12	
+17509312	thetowncrier	Jason Whittaker	8907	1.41607E+12	
+56320308	JongBeom	??? ???	8870	1.41607E+12	
+185695901	MusicalsNL	MusicalsNL	8856	1.41607E+12	
+17038370	dmexco	dmexco	8850	1.41607E+12	
+109877214	CleberTiso	Cleber Tiso	8823	1.41607E+12	
+318619495	officialSIS	Speaking in Shadows	8821	1.41607E+12	
+364742642	gaetanodangelo	Nino D'Angelo	8821	1.41607E+12	
+2843418026	doc_nakajima	???????????????	8804	1.41607E+12	
+27075032	oliverdarcy	Oliver Darcy	8788	1.41607E+12	
+24247327	GregHinz	Greg Hinz	8765	1.41607E+12	
+922247448	togetherforall	NTDS	8723	1.41607E+12	
+35390777	bobfordsports	Bob Ford	8687	1.41607E+12	
+17685175	jfcodere	Jean-François Codère	8661	1.41607E+12	
+402593213	hunterscider	Hunter's Cider	8632	1.41607E+12	
+730591692	PooleyEmma	Emma Pooley	8605	1.41607E+12	
+128898396	univ_lyon2	Université Lyon 2	8559	1.41607E+12	
+545256047	lunch_mahiru	??????	8533	1.41607E+12	
+557653355	JulianIantzi1	Julian iantzi	8514	1.41607E+12	
+74677491	emmaspan	Emma Span	8511	1.41607E+12	
+27066806	LeaskyHT	David Leask	8477	1.41607E+12	
+152960102	mj_payne	Michelle Payne	8454	1.41607E+12	
+17070714	gopalo	PALO!	8433	1.41607E+12	
+16221237	ksatweather	KSAT-12 Weather	8391	1.41607E+12	
+292082165	devikroell	Devi Kroell	8386	1.41607E+12	
+2364811018	KifahHolding	???? ?????? ???????	8374	1.41607E+12	
+16340404	MattWordsworth	Matt Wordsworth	8373	1.41607E+12	
+104257356	BrianSozzi	Brian Sozzi	8324	1.41607E+12	
+331724181	RecrutemenTerre	ArméeDeTerre Recrute	8308	1.41607E+12	
+17824099	Will_Bunch	Will Bunch	8275	1.41607E+12	
+64420220	nnedv	NNEDV	8260	1.41607E+12	
+79435924	lostatosociale	Lo Stato Sociale	8234	1.41607E+12	
+22805603	seanoneal	Sean O'Neal	8218	1.41607E+12	
+18740092	simonkass	simon kassianides	8210	1.41607E+12	
+2730096493	SkyscraperLive	Skyscraper Live	8181	1.41607E+12	
+528422764	dinamo_sassari	Dinamo Sassari	8175	1.41607E+12	
+536511051	faithjenkins1	Faith Jenkins	8158	1.41607E+12	
+58431312	Rachelkerrmusic	Rachel Kerr	8158	1.41607E+12	
+26606157	KevinHarned	Kevin Harned	8157	1.41607E+12	
+254672632	JimHusband	James Husband	8121	1.41607E+12	
+9840002	michaelbd	Michael B Dougherty	8102	1.41607E+12	
+437699219	FlyingColors	Flying Colors	8068	1.41607E+12	
+40088633	GregBishopSI	Greg Bishop	8041	1.41607E+12	
+292577345	DavePasch	Dave Pasch	8034	1.41607E+12	
+297967419	Meg_HillierMP	MegHillierMP	8031	1.41607E+12	
+370185232	Cheetos_Mx	Cheetos Mx 	8014	1.41607E+12	
+376180305	MorrisseyHelena	Helena Morrissey	8001	1.41607E+12	
+600552708	Hakimjemili	Hakim	7936	1.41607E+12	
+28199696	Oliverdollar	Oliver Dollar	7929	1.41607E+12	
+284696632	BAFTALA	BAFTA LA	7916	1.41607E+12	
+14180091	OregonianPol	Oregonian Politics	7913	1.41607E+12	
+243895651	Clisare	Clare Cullen/Clisare	7913	1.41607E+12	
+122020993	eitbAlbisteak	EiTB Albisteak	7902	1.41607E+12	
+783784795	bandjanaimon	??????????	7889	1.41607E+12	
+2423220786	ThePeoplesCouch	The People's Couch	7872	1.41607E+12	
+39869786	JerryTipton	Jerry Tipton	7863	1.41607E+12	
+435198536	SchofieldGlyn	Glyn Schofield	7788	1.41607E+12	
+78421007	HilliconValley	HilliconValley	7767	1.41607E+12	
+1115518243	MCHaiti	COMMUNICATION Haiti	7763	1.41607E+12	
+1391776140	TimmermansEU	Frans Timmermans	7743	1.41607E+12	
+255411185	HeraclesTweet	Heracles Almelo	7732	1.41607E+12	
+29230237	PaNormandin	Pa Normandin	7730	1.41607E+12	
+22320759	MichaelPaulson	Michael Paulson	7723	1.41607E+12	
+1574127936	bvccihaynes	????	7700	1.41607E+12	
+57678632	jamielawsonuk	jamie lawson	7685	1.41607E+12	
+335338331	TheBrandyHoward	Brandy Howard	7684	1.41607E+12	
+444104038	MamutMamut_Mx	Mamut®	7659	1.41607E+12	
+1150296733	CEdwardsSBS	Cj Edwards	7654	1.41607E+12	
+11260392	newskag	Kristen Graham	7644	1.41607E+12	
+62561015	paularisikko	Paula Risikko	7642	1.41607E+12	
+1580072443	JeremieDethelot	Jérémie Dethelot	7618	1.41607E+12	
+426675629	Heavytrackerz	The Heavytrackerz	7604	1.41607E+12	
+1222566710	KrusherKovalev	Sergey Kovalev	7574	1.41607E+12	
+238682077	porshimusic	Porshi	7573	1.41607E+12	
+201648016	lindsayparkrace	Lindsay Park Racing	7570	1.41607E+12	
+13212762	midipyrenees	midipyrenees	7562	1.41607E+12	
+24030386	irishirr	tim irr	7549	1.41607E+12	
+1311173616	EuropeDecides	Europe Decides	7534	1.41607E+12	
+229573807	camille_neveux	Camille Neveux	7526	1.41607E+12	
+301321354	SitaphaSavane	Sitapha Savané	7503	1.41607E+12	
+21179815	ESAGaia	ESA Gaia	7493	1.41607E+12	
+82081201	ASVEL_Basket	ASVEL Basket	7488	1.41607E+12	
+49885419	SenoriseP	Senorise Perry	7488	1.41607E+12	
+333601576	DraegerNews	Dräger	7480	1.41607E+12	
+26722632	vibeaudio	VIBE Audio	7479	1.41607E+12	
+347668652	MickPriceRacing	Mick Price Racing	7469	1.41607E+12	
+78221966	KJMcDaniels	KAJE~14	7446	1.41607E+12	
+18875736	ChrisLawford	Chris KennedyLawford	7405	1.41607E+12	
+356964791	marriagefund	????? ????? ??????	7378	1.41607E+12	
+1952568649	TomPriorActor	Tom Prior	7332	1.41607E+12	
+61368349	HomoDigicus	???	7325	1.41607E+12	
+1472796822	CiscoPowered	Cisco Powered	7309	1.41607E+12	
+435240058	Tostitos_Mx	Tostitos Mx 	7308	1.41607E+12	
+100138429	_KazumaSuzuki_	????	7303	1.41607E+12	
+1176906120	dafneschippers	Dafne Schippers	7278	1.41607E+12	
+278766843	HawkesRacing	Hawkes Racing	7236	1.41607E+12	
+2208395131	NabamtukiCM	Nabam Tuki	7218	1.41607E+12	
+19416422	SGVNSports	Fred J. Robledo	7205	1.41607E+12	
+20089302	breezepreps	Breeze Prep Sports	7198	1.41607E+12	
+20589545	alisonseabeck	AlisonSeabeckMP	7193	1.41607E+12	
+2098681	bknsty	Matteo Lenardon	7134	1.41607E+12	
+361606783	brittneytv	Brittney Hopper	7100	1.41607E+12	
+1598098080	MascotLabelGrou	Mascot Label Group	7076	1.41607E+12	
+1850353796	LandRoverAus	Land Rover Australia	7049	1.41607E+12	
+849211483	KristaKiuru	Krista Kiuru	7033	1.41607E+12	
+2799728898	DanceMums	Dance Mums	7002	1.41607E+12	
+309471574	earnest33_ross	Earnest Ross	6993	1.41607E+12	
+28348812	si_racing	SI Racing 	6981	1.41607E+12	
+21787172	jonnystaub	Jonny Staub	6966	1.41607E+12	
+295075010	LevShlosberg	??? ????????	6928	1.41607E+12	
+91115601	Essentials_Mag	Essentials Magazine	6927	1.41607E+12	
+339846503	MariaSpyraki	MARIA SPYRAKI	6927	1.41607E+12	
+22492762	NiamhHoran	Niamh Horan	6914	1.41607E+12	
+95262366	JHickey3	John Hickey	6901	1.41607E+12	
+40890580	Margot_Dumont	Margot Dumont	6881	1.41607E+12	
+157316411	UnivParis8	Université Paris 8	6856	1.41607E+12	
+218962449	AviCreditor	Avi Creditor	6809	1.41607E+12	
+61850005	IndeedEspana	Indeed	6798	1.41607E+12	
+2194228658	Nikash24	???? ????? 24	6793	1.41607E+12	
+177931963	RVO_Innovatie	RVO Innovatie	6774	1.41607E+12	
+463009810	neon_mag	NEON	6767	1.41607E+12	
+209716158	PompeyOnSixers	Keith Pompey	6761	1.41607E+12	
+47665691	KDRV	NewsWatch 12	6720	1.41607E+12	
+21696770	eugcordero	eugene cordero	6710	1.41607E+12	
+21540556	caitlindewey	Caitlin Dewey	6705	1.41607E+12	
+508778941	ObsessionMag	Obsession Magazine	6702	1.41607E+12	
+2841146601	LAFC	LAFC	6702	1.41607E+12	
+2558215494	AJTheMovie	Action Jackson	6694	1.41607E+12	
+29437899	dan_mdpt	Dan Israel	6693	1.41607E+12	
+107265492	FIT	FIT	6642	1.41607E+12	
+2799960092	BBCNewsAus	BBC News Australia	6627	1.41607E+12	
+2272601820	NFlyingofficial	???? (N.Flying)	6609	1.41607E+12	
+15984981	jettila	Jet Tila	6594	1.41607E+12	
+35636804	allialexander	Allison Alexander	6583	1.41607E+12	
+34401770	KentTaylorWAVE	Kent Taylor	6562	1.41607E+12	
+1344234596	nachomartin83	Nacho Martín Monzón	6547	1.41607E+12	
+1307912816	ds_nae17	?? ?	6522	1.41607E+12	
+91329443	StonewallScot	Stonewall Scotland	6521	1.41607E+12	
+264248168	CWeston_Indo	Charlie Weston	6519	1.41607E+12	
+338517798	TheCandaceSmith	Candace Smith	6517	1.41607E+12	
+53430742	WRALweathergal	Elizabeth Gardner	6515	1.41607E+12	
+45543485	Tzarimas	Helen Tzarimas	6506	1.41607E+12	
+31735113	SavannaCider	Savanna Cider	6483	1.41607E+12	
+208908801	toshiyuki24	????	6482	1.41607E+12	
+29197881	maxbergeron	maxime bergeron	6454	1.41607E+12	
+2434639364	tomsavage03	Tom Savage	6416	1.41607E+12	
+146386438	JPCooperMusic	JP Cooper	6393	1.41607E+12	
+68860774	EdwardJones	Edward Jones	6391	1.41607E+12	
+185472251	HMHCo	Houghton Mifflin	6388	1.41607E+12	
+240688648	rawiller	Brad Rawiller	6381	1.41607E+12	
+2852157224	PReedGolf	Patrick Reed	6374	1.41607E+12	
+28265605	joshrobin	Josh Robin	6368	1.41607E+12	
+90250257	AUTuni	AUT University	6330	1.41607E+12	
+157632811	patrickgrove	Patrick Grove	6327	1.41607E+12	
+401902237	WestfieldAU	Westfield	6315	1.41607E+12	
+95214710	Indo_Style_	Independent Style	6302	1.41607E+12	
+30996139	singerlilsuzy	Lil Suzy	6281	1.41607E+12	
+2402895617	Jxmmi	pimp charles	6279	1.41607E+12	
+99560321	averilpower	Senator Averil Power	6255	1.41607E+12	
+1478313776	AdamReach	Adam Reach	6254	1.41607E+12	
+277889424	ESA_EO	ESA EarthObservation	6253	1.41607E+12	
+2507598673	TedMillerRK	Ted Miller	6233	1.41607E+12	
+28131229	trippmickle	Tripp Mickle	6217	1.41607E+12	
+190598294	starvingtrancer	??????M3_10/26??A04a	6212	1.41607E+12	
+147851593	VictorianLabor	Victorian Labor	6201	1.41607E+12	
+193282600	mikekenli	Mike Kenli	6197	1.41607E+12	
+145343433	Dan_Dicker	Dan Dicker	6194	1.41607E+12	
+301285935	yocochiiin	?? ??	6172	1.41607E+12	
+35859273	SI_BenReiter	Ben Reiter	6164	1.41607E+12	
+88974929	ChrisWhite_MP	Chris White MP	6161	1.41607E+12	
+462799566	Puolustusvoimat	Puolustusvoimat	6161	1.41607E+12	
+776202684	KealiaOhai	Kealia Ohai	6137	1.41607E+12	
+388282456	AmritaAcharia1	Amrita Acharia	6137	1.41607E+12	
+1186911060	StephenWarnock3	Stephen Warnock	6134	1.41607E+12	
+911169290	blake_shinn	Blake Shinn	6125	1.41607E+12	
+19820740	Vivien_Vergnaud	Vivien Vergnaud	6122	1.41607E+12	
+387573617	airindiain	Air India	6111	1.41607E+12	
+360659082	sports_ouest	Ouest-France Sports	6106	1.41607E+12	
+252952532	BMVI	Verkehr	6101	1.41607E+12	
+57665726	_BrianByrne	Brian Byrne	6093	1.41607E+12	
+400242682	MegWolitzer	Meg Wolitzer	6089	1.41607E+12	
+26524589	ASPC_GC	Santé publique ASPC	6085	1.41607E+12	
+177154951	petermstaunton	Peter Staunton	6079	1.41607E+12	
+17505249	gbfishel	Greg Fishel	6031	1.41607E+12	
+16107045	TrooperBenKHP	Trooper Ben	6027	1.41607E+12	
+234911722	Rosie_Tapner	Rosie Tapner	5998	1.41607E+12	
+34766310	TheRealMarcWill	Marcus Williams	5992	1.41607E+12	
+55233330	TheUSI	USI	5978	1.41607E+12	
+481108079	brentonavdulla	BRENTON AVDULLA	5978	1.41607E+12	
+1525265486	nyaaa_h	????	5943	1.41607E+12	
+16459325	ryanbeckwith	Ryan Teague Beckwith	5937	1.41607E+12	
+254162357	SamuelMEgber	Samuel Marcus Egber	5936	1.41607E+12	
+2856291696	Naikakukanbo	????	5926	1.41607E+12	
+1832181	Chris_Ciaccia	Chris Ciaccia	5920	1.41607E+12	
+21288674	KevDoyle_Indo	Kevin Doyle	5907	1.41607E+12	
+1275118088	mosoclbr	???????????	5902	1.41607E+12	
+245477821	bfcdublin	Bohemian FC	5900	1.41607E+12	
+22798591	LindseyChrist	Lindsey Christ	5886	1.41607E+12	
+237715569	BiteTheBallot	Bite The Ballot	5879	1.41607E+12	
+368696655	goyucel	Gökhan Yücel	5875	1.41607E+12	
+500419872	turneyduff	Turney Duff	5871	1.41607E+12	
+37191062	RogerClark41	Roger Clark	5864	1.41607E+12	
+143739561	ACunninghamMP	Alex Cunningham	5852	1.41607E+12	
+1417903214	hellskitchenit	Hell's Kitchen Italy	5850	1.41607E+12	
+121788510	hillsonthemoney	On the Money	5837	1.41607E+12	
+2443255716	ShababRadioOman	????? ??????	5836	1.41607E+12	
+14248963	tomfitzgerald	tomfitzgerald	5828	1.41607E+12	
+115480346	pensionsnews	Pensions&Investments	5807	1.41607E+12	
+301655015	cyrilpetit99	Cyril Petit	5798	1.41607E+12	
+41773116	ArtemGnus	ARTEM GNUS ADAMOV	5798	1.41607E+12	
+20179236	studiodog	Kerry Brown	5792	1.41607E+12	
+168820035	MahsaWho	Mahsa Saeidi	5760	1.41607E+12	
+2581222654	50Mejri	mejri salah	5758	1.41607E+12	
+87198343	WeAreGCM	Global Changemakers	5755	1.41607E+12	
+24983488	jasonroeder	Jason Roeder	5743	1.41607E+12	
+2870653293	susie_dent	Susie Dent	5727	1.41607E+12	
+28049266	ajjaffe	Alexandra Jaffe	5715	1.41607E+12	
+349777789	seawayband	Seaway	5692	1.41607E+12	
+189704718	chicoperez11	hernan perez	5690	1.41607E+12	
+50984470	AmitGoenka_	Amit Goenka	5673	1.41607E+12	
+2255127870	rsheahan15	Riley Sheahan	5655	1.41607E+12	
+14294400	TimWattsMP	Tim Watts	5632	1.41607E+12	
+191845729	LenaBred	Lénaïg Bredoux	5617	1.41607E+12	
+22020109	Metro_DK	Darren Krause	5598	1.41607E+12	
+36084073	WGEM	WGEM News	5563	1.41607E+12	
+74997800	Mines_Telecom	Mines-Télécom	5559	1.41607E+12	
+240932008	scourtkorea	???? ???	5554	1.41607E+12	
+37286927	SI_PhilTaylor	Phil Taylor	5548	1.41607E+12	
+2384688806	ZenoFamily	The Zeno Family	5532	1.41607E+12	
+239085200	jgtorre	Jorge Garcia Torre	5531	1.41607E+12	
+415985101	shane_bauer	Shane Bauer	5516	1.41607E+12	
+65065552	sigbasket	SIG Basket	5512	1.41607E+12	
+243767794	PGATOUR_LA	PGATOURLA	5489	1.41607E+12	
+116428231	serpuertorico	SER de Puerto Rico	5473	1.41607E+12	
+2871571867	Sebastianrode20	Sebastian Rode 	5473	1.41607E+12	
+1326726150	sakuranousa	?? ??	5452	1.41607E+12	
+239945592	wopatofficial	Tom Wopat	5445	1.41607E+12	
+27347950	JonathanTamari	Jonathan Tamari	5439	1.41607E+12	
+431210976	bandabardotweet	bandabardò	5438	1.41607E+12	
+370760631	NatashaBertaud	Natasha Bertaud	5409	1.41607E+12	
+44569670	dbkunsthalle	DB KunstHalle	5397	1.41607E+12	
+5931522	Truphone	Truphone	5388	1.41607E+12	
+2862510279	OgbonnaOfficial	Angelo Ogbonna	5384	1.41607E+12	
+2437160899	snakestakes	Jake Plummer	5370	1.41607E+12	
+275656864	ajkbeaute	amber joy kallor	5361	1.41607E+12	
+48472383	JeffBarlisESPN	Jeff Barlis	5360	1.41607E+12	
+24769723	berlinschmock	Oliver Berben	5359	1.41607E+12	
+359907212	michel_delean	Michel Deléan	5354	1.41607E+12	
+823059337	elcorteinglesac	ECI Atención Cliente	5345	1.41607E+12	
+368016969	jaumecosta11	Jaume Costa	5340	1.41607E+12	
+228835895	LOrealParisDE	L'Oréal Paris DE	5339	1.41607E+12	
+64968526	CaroVigoureux	Caroline Vigoureux	5328	1.41607E+12	
+2397675743	BoyhoodMovie	Boyhood	5327	1.41607E+12	
+43834966	RyanSheales	Ryan Sheales	5321	1.41607E+12	
+337196101	george_willo35	George Williams	5316	1.41607E+12	
+247402941	CFifeKW	Catherine Fife	5308	1.41607E+12	
+145012819	revistasaopaulo	Revista sãopaulo	5305	1.41607E+12	
+2828454112	wjhughes19	Will Hughes	5301	1.41607E+12	
+2828611790	UNMEER	UNMEER	5299	1.41607E+12	
+24596136	robcantor	Rob Cantor	5292	1.41607E+12	
+158065697	Shanika_WM	Shanika W-M	5273	1.41607E+12	
+355388554	bs_sptv	BS??????BS 241?	5251	1.41607E+12	
+13735782	TheStreetTV	TheStreet TV	5231	1.41607E+12	
+82340742	Parlamento_Ex	PARLAMENTO_EX	5207	1.41607E+12	
+18257408	RosaFlores	Rosa Flores	5182	1.41607E+12	
+1020974738	fiaf3europe	fiaf3europe	5178	1.41607E+12	
+50427842	KNOE8	KNOE 8 News	5169	1.41607E+12	
+1004396762	br_integracao	Integração Nacional	5165	1.41607E+12	
+103891103	eventsfromIN	IN Events	5155	1.41607E+12	
+308146299	airbnb_es	Airbnb España	5151	1.41607E+12	
+119687254	mcbride_caitlin	Caitlin McBride	5135	1.41607E+12	
+22364545	Annanightingale	Anna Nightingale	5129	1.41607E+12	
+2832071580	MS_Ignite	Microsoft Ignite	5128	1.41607E+12	
+365886510	jakewebster83	Jake Webster	5125	1.41607E+12	
+40052032	LondonEDC	London EconDev	5101	1.41607E+12	
+374437073	LabelFontana	Label Fontana	5094	1.41607E+12	
+260124695	StephenBaster	Stephen Baster	5094	1.41607E+12	
+25645756	leysie	Nick Leys	5084	1.41607E+12	
+14493823	BennettESPN	Brian Bennett	5075	1.41607E+12	
+15507417	elgray	Ellen Gray	5075	1.41607E+12	
+426545746	BCMBasket	BCM Basketball	5057	1.41607E+12	
+2849843029	Qulle_official	Q'ulle Official	5028	1.41607E+12	
+94938691	danbeyeronfox	Daniel Beyer	4994	1.41607E+12	
+25687649	VincentBP	Vincent Pouliot	4989	1.41607E+12	
+2152854944	RVO_Duurzaam	Duurzaam Ondernemen	4979	1.41607E+12	
+299765300	besameweb	bésame . com . pa	4977	1.41607E+12	
+1146350070	TurningOfficial	The Turning	4955	1.41607E+12	
+53810249	LaurenWAVE3TV	Lauren Jones	4955	1.41607E+12	
+2401774872	BescherelleFR	Bescherelle Officiel	4951	1.41607E+12	
+2186207924	JacquiLambie	Jacqui Lambie	4889	1.41607E+12	
+169336085	jgravleyWRAL	Jeff Gravley	4882	1.41607E+12	
+22276164	fdilella	Frank DiLella	4882	1.41607E+12	
+260377391	gilliantett	Gillian Tett	4862	1.41607E+12	
+17185306	yes_fm	YES fm	4859	1.41607E+12	
+2819627273	Toni_barragan19	Antonio barragan	4849	1.41607E+12	
+1891460076	diego250188	Diego Arismendi	4846	1.41607E+12	
+76291177	Crystal_Arnold	Crystal Arnold	4824	1.41607E+12	
+25352433	MARCKCMetro	MARCKCMetro	4810	1.41607E+12	
+22121808	millets_online	Millets	4784	1.41607E+12	
+303777686	FDACBER	FDA CBER	4774	1.41607E+12	
+334224194	OBSAE	Observatorio eAdmon	4773	1.41607E+12	
+23989927	BWRiverkeeper	BWRiverkeeper	4745	1.41607E+12	
+222093692	knowhowtohelp	KNOWHOW support	4720	1.41607E+12	
+2547936181	BenAinslieRacin	Ben Ainslie Racing	4714	1.41607E+12	
+217063114	PRISARadio	PRISA Radio	4712	1.41607E+12	
+441067171	Tazos_Mx	Tazos Mx	4697	1.41607E+12	
+2386649556	catalangov	Catalan Government	4691	1.41607E+12	
+129909243	Mhenderson06	Melissa Henderson	4690	1.41607E+12	
+196186298	abbygoodnough	Abby Goodnough	4682	1.41607E+12	
+761725008	eldinhadzic11	Eldin Hadzic	4677	1.41607E+12	
+15583586	aikenstandard	Aiken Standard	4675	1.41607E+12	
+2381177329	pbadenierm	Pablo Badenier	4662	1.41607E+12	
+1469438028	Retweet_MCD	Retweet MCD	4656	1.41607E+12	
+314891135	TVGalShaunaLake	Shauna Lake	4650	1.41607E+12	
+78954853	SI_sarahkwak	Sarah Kwak	4640	1.41607E+12	
+61054075	phila_lex	Alex Wigglesworth	4627	1.41607E+12	
+59619178	MikeSolarte	Mike Solarte	4625	1.41607E+12	
+2318260519	CampbellArnotts	Campbell Arnott's	4608	1.41607E+12	
+140126704	soniasaraiya	sonia saraiya	4607	1.41607E+12	
+118099312	brunofoster	Bruno Foster	4607	1.41607E+12	
+27688827	OSPhoto	Sentinel Photo	4569	1.41607E+12	
+266830495	BobCusack	Bob Cusack	4567	1.41607E+12	
+47456066	shadeztm	Shadez The Misfit	4565	1.41607E+12	
+123553396	tovestyrke	Tove Styrke	4561	1.41607E+12	
+384442118	WAVE3Weather	WAVE3Weather	4552	1.41607E+12	
+169991553	danstulbach	Dan Stulbach	4519	1.41607E+12	
+37018938	KyleRiabko	Kyle Riabko	4519	1.41607E+12	
+270915135	albertdrk8	Albert Dorca	4516	1.41607E+12	
+22778541	rbbabendschau	rbb Abendschau	4513	1.41607E+12	
+24417124	BGoodeWAVE3	Brian Goode	4503	1.41607E+12	
+958178497	DanielBravo7	Daniel Bravo	4492	1.41607E+12	
+366774165	Jessie_Vee	Jessica Vince	4489	1.41607E+12	
+279030847	ppextremadura	PP Extremadura	4483	1.41607E+12	
+29880357	TACVictoria	TAC	4474	1.41607E+12	
+90663065	WazaAfrica	Waza	4470	1.41607E+12	
+21538116	NotesFromHeL	Helen Ubiñas	4459	1.41607E+12	
+1008384817	moovit	Moovit	4458	1.41607E+12	
+164625786	SLUCbasketNancy	Sluc Nancy Basket	4442	1.41607E+12	
+1104111013	KTyndallWFTV	Ken Tyndall	4440	1.41607E+12	
+61717413	AquanitaRacing	Aquanita Racing	4433	1.41607E+12	
+95213382	IndoBusiness	Independent Business	4422	1.41607E+12	
+29478953	mschwirtz	Michael Schwirtz	4420	1.41607E+12	
+1342191438	Pompiers_Paris	Pompiers Paris	4415	1.41607E+12	
+89351156	peterryanMP	Peter Ryan	4411	1.41607E+12	
+30002837	kytxcbs19	KYTX CBS19	4411	1.41607E+12	
+20314289	chouchoutv	Renee Chou (WRAL)	4408	1.41607E+12	
+277772578	VICIOUSBROTHERS	The Vicious Brothers	4407	1.41607E+12	
+2371105836	MamaEgber	Julie Egber	4406	1.41607E+12	
+42971403	DavidBegnaud	David Begnaud	4387	1.41607E+12	
+18907744	JoCo_Emergency	Johnson Co. EM	4384	1.41607E+12	
+580749365	SiobhainMP	Siobhain McDonagh MP	4379	1.41607E+12	
+90663620	WazaAfrique	Waza	4357	1.41607E+12	
+1155470018	MarkKavanaghRac	Mark Kavanagh Racing	4349	1.41607E+12	
+347594157	illBBock	Brittany Bock	4345	1.41607E+12	
+23703725	maryse_tessier	Maryse Tessier	4343	1.41607E+12	
+61109235	pinkshotdogs	Pink's Hot Dogs	4341	1.41607E+12	
+1017149809	moovit_es	Moovit en Español	4341	1.41607E+12	
+41006367	GracielaABC	Graciela Moreno	4340	1.41607E+12	
+46903714	ArthurNazaret	Arthur Nazaret	4337	1.41607E+12	
+385340948	MDM_FR	Maisons du Monde FR	4334	1.41607E+12	
+22167654	notneilcasey	Neil Casey	4287	1.41607E+12	
+630255132	SEBloomfield	Sophie Bloomfield	4282	1.41607E+12	
+342178792	1tompenn	Tom Penn	4272	1.41607E+12	
+18482836	kristina_wong	Kristina Wong	4257	1.41607E+12	
+2820246343	kamattechaninfo	?????????	4236	1.41607E+12	
+45581153	eTwinning_es	eTwinning España	4233	1.41607E+12	
+18089641	BoyumTWCnews	Tim Boyum	4223	1.41607E+12	
+2647053313	ChrisEubank	Christopher Eubank	4213	1.41607E+12	
+2603440369	_iori_n	????	4210	1.41607E+12	
+2783959778	KillerKaraokeES	Killer Karaoke	4205	1.41607E+12	
+631376113	Harry_Bunn	Harry Bunn	4197	1.41607E+12	
+142490217	cam_joseph	Cameron Joseph	4189	1.41607E+12	
+169508490	sunayas	Sunaya Sapurji	4165	1.41607E+12	
+24067414	jphoornstra	J.P. Hoornstra	4152	1.41607E+12	
+23558028	AndrewStoner	Hon Andrew Stoner	4150	1.41607E+12	
+221498468	ChuckBausmanDN	Chuck Bausman	4147	1.41607E+12	
+31178767	williamalden	Will Alden	4145	1.41607E+12	
+78643519	ozoneinq	Rick O'Brien	4127	1.41607E+12	
+117539097	AustinlucasIND	Austin Lucas	4105	1.41607E+12	
+1611403818	MalorieMaddox6	Malorie Maddox	4085	1.41607E+12	
+230844641	jackhawk41	Jack Hawksworth	4079	1.41607E+12	
+311270509	TheBulletBoys	BulletBoys	4079	1.41607E+12	
+1488497714	mcacajamez	James McDonald	4072	1.41607E+12	
+70955335	StonewallCymru	Stonewall Cymru	4068	1.41607E+12	
+18495954	sarajust	sarajust	4065	1.41607E+12	
+480634600	AidanTurner	Aidan Turner	4055	1.41607E+12	
+1670906233	RomedyNow	Romedy NOW	4046	1.41607E+12	
+2355110329	gallagher_anais	Anais Gallagher	4045	1.41607E+12	
+2853709251	donnellylaura1	Laura Donnelly	4043	1.41607E+12	
+30984430	Davefox2	Dave Fox	4039	1.41607E+12	
+15083402	mazewx66	Mike Maze	4032	1.41607E+12	
+161733455	ItsKaranSoni	Karan Soni	4011	1.41607E+12	
+1243877394	LuvBug	LuvBug	4003	1.41607E+12	
+143161037	imagina881	Radio Imagina	4002	1.41607E+12	
+2436807462	ytielemans	Youri Tielemans	3995	1.41607E+12	
+20317002	browardpolitics	Broward Politics	3980	1.41607E+12	
+25938737	JeniceArmstrong	Jenice Armstrong	3973	1.41607E+12	
+154909422	eliseviebeck	Elise Viebeck	3959	1.41607E+12	
+43559848	evelienbosch	evelien bosch	3958	1.41607E+12	
+12847892	Banff_Town	Banff Town	3955	1.41607E+12	
+259670983	ParisLevallois1	Paris Levallois	3954	1.41607E+12	
+21381544	dylanwelch	Dylan Welch	3937	1.41607E+12	
+145010040	ilustrissima	Folha Ilustríssima	3926	1.41607E+12	
+170991270	sptv_PR	?????PR	3926	1.41607E+12	
+26577685	DawneGeeWAVE3	Dawne Gee	3901	1.41607E+12	
+2828964528	leftfin	Logan reese	3894	1.41607E+12	
+35970826	MandyWRAL	Mandy Mitchell	3885	1.41607E+12	
+2874929742	kwakdongyeon97	???	3868	1.41607E+12	
+978423139	AnttiRinnepj	Antti Rinne	3856	1.41607E+12	
+488092059	Destroystens	Troy Corstens	3854	1.41607E+12	
+7420942	thomaslake	thomaslake	3852	1.41607E+12	
+1446746750	Vincent_Hogan	Vincent Hogan	3841	1.41607E+12	
+962396989	IndoEnts	Independent Ents	3838	1.41607E+12	
+821699497	chriselliottpc	Christine Elliott	3831	1.41607E+12	
+281067933	smbmuseum	Staatl Museen Berlin	3813	1.41607E+12	
+20893103	gabrielbeland	Gabriel Béland	3809	1.41607E+12	
+270440459	WSAZJoshFitz	Josh Fitzpatrick	3803	1.41607E+12	
+1190201455	IreneEscolar1	Irene Escolar	3802	1.41607E+12	
+2853601181	GenDunford	Joseph F. Dunford Jr	3798	1.41607E+12	
+15806941	MoniqueSchafter	Monique Schafter	3798	1.41607E+12	
+77317921	mollyeichel	Molly Eichel	3792	1.41607E+12	
+582080910	ChipsAhoySpain	Chips Ahoy! Spain	3791	1.41607E+12	
+14294167	JasonNark	Jason Nark	3786	1.41607E+12	
+27242124	joefryer	Joe Fryer	3783	1.41607E+12	
+1658097494	GenMarkWelsh	Mark A Welsh III	3769	1.41607E+12	
+25762345	seanrubinsztein	Sean R-Dunlop	3757	1.41607E+12	
+2814719966	tusiquevales_it	Tù sì que vales	3751	1.41607E+12	
+18270075	RebeccaSpera	Rebecca Spera	3743	1.41607E+12	
+27653715	JanelleWAVE	Janelle MacDonald	3731	1.41607E+12	
+15441296	varsityfootball	Charles King	3726	1.41607E+12	
+191237540	maestroharrell	M A E S T R OHARRELL	3683	1.41607E+12	
+542025613	PanjabiArchie	Archie Panjabi	3681	1.41607E+12	
+16580980	yahoomac	Steve McAllister	3674	1.41607E+12	
+122505050	MargaretWarner	Margaret Warner	3673	1.41607E+12	
+218929398	RVO_Int_Ond	RVO Internationaal	3670	1.41607E+12	
+18345726	adamamin	Adam Amin	3669	1.41607E+12	
+2290670683	HouzzUK	Houzz UK	3664	1.41607E+12	
+2443342292	GeneralRadio	????? ????? ????	3660	1.41607E+12	
+137129421	ChrisBrennanDN	Chris Brennan	3658	1.41607E+12	
+1067498924	jeffcassar	Jeff Cassar	3655	1.41607E+12	
+116655482	VisitGoldCoast	Visit Gold Coast	3655	1.41607E+12	
+62820396	wralbleslie	Bill Leslie	3634	1.41607E+12	
+57078454	gregbeacham	Greg Beacham	3630	1.41607E+12	
+44488446	NY1noticias	NY1 Noticias	3628	1.41607E+12	
+481062870	velazquezemi	Emi velazquez	3614	1.41607E+12	
+13526232	anderaos	Ricardo Anderáos	3606	1.41607E+12	
+52834797	lasavesofficial	LAS AVES	3574	1.41607E+12	
+105534413	ConorDougherty	Conor Dougherty	3571	1.41607E+12	
+820190174	MargSchinas	Margaritis Schinas	3567	1.41607E+12	
+243331655	JonMarino	Jonathan Marino	3559	1.41607E+12	
+410059729	DoctorChrisVT	Chris van Tulleken	3546	1.41607E+12	
+331204870	DannyCohen	Danny Cohen	3545	1.41607E+12	
+14728612	morganzalot	Morgan Zalot	3544	1.41607E+12	
+2289935816	TrooperGaryKHP	Trooper Gary	3541	1.41607E+12	
+16812678	kristitedesco	Kristi Tedesco	3535	1.41607E+12	
+78523213	KatrinaHoddy	Katrina Hodgkinson	3533	1.41607E+12	
+63989305	davidleebron	David Leebron	3527	1.41607E+12	
+2469220369	hirakatagenki	????	3520	1.41607E+12	
+2284842134	AdmiralUK	Admiral Insurance	3514	1.41607E+12	
+167012831	IndeedAU	Indeed	3513	1.41607E+12	
+63720288	WhigNews	Quincy Herald-Whig	3509	1.41607E+12	
+220963262	VanessaSings	Vanessa Knight	3498	1.41607E+12	
+339909689	KasiaTWN	Kasia Bodurka	3493	1.41607E+12	
+270842305	BrendanFanning	Brendan Fanning	3493	1.41607E+12	
+497266712	ChristieDutton	Christie Dutton	3491	1.41607E+12	
+2836755090	acdc	AC/DC	3485	1.41607E+12	
+182716142	ConnorCricket	Clare Connor	3469	1.41607E+12	
+191665640	transatlantica_	Transatlántica	3465	1.41607E+12	
+106123330	OLB45	OrleansLoiret Basket	3461	1.41607E+12	
+15752314	pdoucet	Philippe Doucet	3452	1.41607E+12	
+124466998	VDiatchenko	Vitalia Diatchenko	3438	1.41607E+12	
+346063331	SebastianHackl	HackMan™	3420	1.41607E+12	
+627649810	Sonrics_Mx	Sonric´s 	3405	1.41607E+12	
+17115953	marahe	Marah Eakin	3386	1.41607E+12	
+253671505	kevincarterESPN	Kevin Carter	3386	1.41607E+12	
+390182472	rachaelxwang	rachael wang	3372	1.41607E+12	
+23629333	EWellingtonPHL	Elizabeth Wellington	3359	1.41607E+12	
+1267060405	hellobankbelgie	Hello bank België	3353	1.41607E+12	
+350374612	Rene_R1	René Román 13	3339	1.41607E+12	
+40972758	MiniMansions	Mini Mansions	3338	1.41607E+12	
+406144543	MovemberES	MovemberES	3327	1.41607E+12	
+15583650	joshmodell	Josh Modell	3318	1.41607E+12	
+45177311	slicenanddice	jerome dyson	3315	1.41607E+12	
+2829598908	onagatakeshi102	????	3309	1.41607E+12	
+1337503098	bakerlink	Scott Baker	3308	1.41607E+12	
+40408827	jonesnews	Chris Jones	3303	1.41607E+12	
+2388701059	RosieCepero	Rosie Cepero	3284	1.41607E+12	
+108985543	alexanderbolton	Alex Bolton	3284	1.41607E+12	
+80820206	EBPLO	Elan Béarnais	3271	1.41607E+12	
+784861621	CB_officiel	Cholet Basket	3271	1.41607E+12	
+22487228	KimBielenberg	Kim Bielenberg	3263	1.41607E+12	
+17168434	tvguyhal	tvguyhal	3259	1.41607E+12	
+362704645	ABC7George	George Pennacchio	3255	1.41607E+12	
+43259768	Clustrix	Clustrix	3249	1.41607E+12	
+15805846	BennisSnet	Ben Ennis	3249	1.41607E+12	
+1277550758	KosukeGoto2013	?? ??	3248	1.41607E+12	
+1174602848	koby_arthur	Dios me ayude	3242	1.41607E+12	
+2827406488	JeanTirole	Jean Tirole	3239	1.41607E+12	
+198241550	caraNYT	Cara Buckley	3237	1.41607E+12	
+1537548284	fredpiqoff	Frédéric Piquionne	3235	1.41607E+12	
+32922034	SenThomasByrne	Thomas Byrne	3234	1.41607E+12	
+2693779681	WWESEAsia	WWE Southeast Asia	3233	1.41607E+12	
+2599249849	TNavracsicsEU	Tibor Navracsics	3227	1.41607E+12	
+34647910	ConnieLeonard	Connie Leonard	3226	1.41607E+12	
+1199153221	Paketaxo_Mx	Paketaxo	3220	1.41607E+12	
+81187683	mikescotto	Michael Scotto	3220	1.41607E+12	
+164271458	NewsHourWorld	PBS NewsHour World	3216	1.41607E+12	
+44235488	DerrickClifton	Derrick Clifton	3215	1.41607E+12	
+19842941	RyanHokeWAVE3	Ryan Hoke	3198	1.41607E+12	
+2603114976	hiroaki_nabe	??????	3196	1.41607E+12	
+80833706	Jeff_Benjamin	Jeff Benjamin	3190	1.41607E+12	
+221156318	jessica_vess	Jessica Vess	3189	1.41607E+12	
+21772044	jasonpkennedy	Jason Kennedy	3153	1.41607E+12	
+19925839	JamieRoss7	Jamie Ross	3147	1.41607E+12	
+2857397298	fabric	Fabric	3136	1.41607E+12	
+600030403	Graham_Falkirk	Elias Fälth	3135	1.41607E+12	
+1110890216	EPhilippe_LH	Edouard Philippe	3116	1.41607E+12	
+21287753	CBS19Weather	WCAV-TV Weather	3115	1.41607E+12	
+802631306	MurrayWallace1	Murray Wallace	3107	1.41607E+12	
+59218882	BakerInstitute	Baker Institute	3106	1.41607E+12	
+333291553	LabelMotown	Motown France	3103	1.41607E+12	
+2408317166	Nico_Segal	Donnie Trumpet	3095	1.41607E+12	
+346083895	VivianHYee	Vivian Yee	3091	1.41607E+12	
+2535689083	csims34	Charles Sims	3091	1.41607E+12	
+84141253	news8news	WKBT News 8	3088	1.41607E+12	
+1700014848	TideNFL	Tide NFL	3086	1.41607E+12	
+2841545944	NeneHilario42	Nene Hilario 	3085	1.41607E+12	
+585466175	uDiscoverMusic	uDiscover Music	3084	1.41607E+12	
+102907897	makkarimura	??????	3061	1.41607E+12	
+246364877	ob61	Liam O'Brien	3061	1.41607E+12	
+20217865	bbfb_bestbuy	Best Buy Business	3059	1.41607E+12	
+23562333	RickMontanez	Rick Montanez	3050	1.41607E+12	
+459176293	diegorico_3	diego rico salguero	3036	1.41607E+12	
+2868113149	acton_anna	Anna Acton	3028	1.41607E+12	
+34520627	mikesisak	Michael Sisak	3026	1.41607E+12	
+21737590	OutdoorLads	OutdoorLads.com	3024	1.41607E+12	
+2329569680	DesperadosUSA	Desperados USA	3018	1.41607E+12	
+191590691	MC_NYC	Matt Chaban	3011	1.41607E+12	
+39871590	SportsOn1	Sports On 1	3010	1.41607E+12	
+51214010	VictorFedeli	Vic Fedeli	2990	1.41607E+12	
+439491300	alexander_wolff	Alexander Wolff	2984	1.41607E+12	
+31852548	tvheidihatch	Heidi Hatch	2973	1.41607E+12	
+70299070	JPBatista13	JP Batista	2972	1.41607E+12	
+2842039437	OfficialHuey	Huey Morgan	2971	1.41607E+12	
+15821702	RustyLord	Rusty Lord	2966	1.41607E+12	
+73376600	Benjaminbloom	Benjamin Bloom	2965	1.41607E+12	
+33978500	AaronMatas	Aaron Matas	2965	1.41607E+12	
+76983574	bmullahy2news	Brian Mullahy	2964	1.41607E+12	
+1289362872	BuzzFeedIdeas	BuzzFeed Ideas	2950	1.41607E+12	
+244184207	ShopHouseTweets	ShopHouse	2949	1.41607E+12	
+1167595531	ChannelVHits	ChannelVHits	2946	1.41607E+12	
+15831039	brianmastrewowt	Brian Mastre	2946	1.41607E+12	
+148439952	TeamHappyPlanet	Happy Planet Foods	2942	1.41607E+12	
+19540911	RinaMimoun	Rina Mimoun	2942	1.41607E+12	
+318860834	MrJohnnyOrtiz	Johnny Ortiz	2938	1.41607E+12	
+90122464	jason_om	Jason Om	2938	1.41607E+12	
+2243958087	MusicLapsley	Låpsley	2935	1.41607E+12	
+18057243	monicadrake	monicadrake	2929	1.41607E+12	
+10212582	danielrubin	danielrubin	2929	1.41607E+12	
+845798954	ItoudisD	Itoudis Dimitris	2926	1.41607E+12	
+22756869	Mary_Wasson	Mary Wasson	2926	1.41607E+12	
+331001793	IslandFrance	Island France	2918	1.41607E+12	
+231454384	skinnerliz	Liz Skinner	2915	1.41607E+12	
+740568116	AskTeamUA	Ask Under Armour	2915	1.41607E+12	
+1166309941	paybackmay	Jonny May	2907	1.41607E+12	
+453434680	DevlinMartina	Martina Devlin	2898	1.41607E+12	
+2290680637	HouzzDE	Houzz Deutschland	2896	1.41607E+12	
+20013288	soalexgoes	Alex Alvarez 	2890	1.41607E+12	
+972180595	Sentebale	@Sentebale	2884	1.41607E+12	
+1267066489	hellobankbelgiq	Hello bank Belgique	2884	1.41607E+12	
+53019133	berlinbiennale	Berlin Biennale	2880	1.41607E+12	
+22827815	ErikMAdams	Erik Adams	2873	1.41607E+12	
+625484747	KatyClarkMP	Katy Clark	2864	1.41607E+12	
+173016778	IPSForg	IPSF	2862	1.41607E+12	
+979100442	YoBenCohen	Ben Cohen	2862	1.41607E+12	
+214120461	ryanlcooper	Ryan Cooper	2857	1.41607E+12	
+336938057	NTAgovae	National Transport	2851	1.41607E+12	
+156266939	SylviaJonesMPP	Sylvia Jones	2850	1.41607E+12	
+345693115	HaydenWhite7	Hayden White	2850	1.41607E+12	
+2151101060	Bernie_Marsden	Bernie Marsden	2846	1.41607E+12	
+19562813	MHmevans	Melanie Evans	2845	1.41607E+12	
+30959303	johnpletz	John Pletz	2838	1.41607E+12	
+360738565	Dave_Ward2	Dave Ward	2823	1.41607E+12	
+36636847	RAE_Stephen	Stephen Ræ	2820	1.41607E+12	
+62529072	KCATAMetro	KCATA	2805	1.41607E+12	
+100385751	dgambacorta	David Gambacorta	2799	1.41607E+12	
+178657901	citroenbelux	Citroën Belux	2798	1.41607E+12	
+365363757	BZdrojewski	Bogdan Zdrojewski	2793	1.41607E+12	
+792795	todearaujo	Thiago Araújo	2775	1.41607E+12	
+15825290	pmerrion	Paul Merrion	2770	1.41607E+12	
+46427814	DanielSchulman	Daniel Schulman	2767	1.41607E+12	
+39321463	RachelWalgrove	Rachel Walgrove	2766	1.41607E+12	
+102399748	RVO_Agrarisch	RVO Agrarisch	2763	1.41607E+12	
+270029561	PartiRadical	Parti Radical	2762	1.41607E+12	
+16384665	paulbirmingham	paulbirmingham	2755	1.41607E+12	
+221050593	catsandiontv	Cat Sandion	2747	1.41607E+12	
+19195094	RebeccaShabad	Rebecca Shabad	2745	1.41607E+12	
+69581630	EHESP	EHESP	2733	1.41607E+12	
+288510192	NoSinnermusic	No Sinner	2732	1.41607E+12	
+2321070972	Maico77oficial	Maicosuel	2725	1.41607E+12	
+731975720	KUTVMary	Mary Nickles	2723	1.41607E+12	
+118807976	PiaViitanenSDP	Pia Viitanen	2717	1.41607E+12	
+164209237	LBDesmond	Laura Desmond	2716	1.41607E+12	
+246374974	UPyDEuropa	UPyD Europa	2714	1.41607E+12	
+431538217	WBoutiqueFest	WerchterBoutique	2707	1.41607E+12	
+440693524	hijgelooftinmij	Hij Gelooft in Mij 	2706	1.41607E+12	
+38366678	ari_SOMBRERO	Ari Romero	2705	1.41607E+12	
+55985209	chihuac	emily c. chang	2705	1.41607E+12	
+430097456	PapePhilippe	Pape-Philippe Amagou	2702	1.41607E+12	
+112510380	NiallOCo	Niall O'Connor	2700	1.41607E+12	
+526526696	ServiceCivique	Service Civique	2696	1.41607E+12	
+453910733	JohnBoelWAVE3	John Boel	2686	1.41607E+12	
+183213553	Mina_Andreeva	Mina Andreeva	2681	1.41607E+12	
+73987299	MKieltyka	Matt Kieltyka	2674	1.41607E+12	
+97063671	FredPGabriel	Frederick P. Gabriel	2672	1.41607E+12	
+18541450	LeoHirsbrunner	LeoHirsbrunner	2663	1.41607E+12	
+397289808	CaenMemorial	Le Mémorial de Caen	2661	1.41607E+12	
+592616570	MCArnautu	Marie-Chris. Arnautu	2659	1.41607E+12	
+87721977	ALAINPEREZ	ALAIN PEREZ	2658	1.41607E+12	
+36569864	Schiumo	John Schiumo	2655	1.41607E+12	
+240014188	JudyKurtz	Judy Kurtz	2654	1.41607E+12	
+244187849	johnmeaghermuso	John Meagher	2646	1.41607E+12	
+123659804	drivy	Drivy	2637	1.41607E+12	
+53374754	yestvcanada	YES TV	2636	1.41607E+12	
+1583468611	PVEspana	Pierre & Vacances ES	2630	1.41607E+12	
+19655321	amysrosenberg	Amy S. Rosenberg	2629	1.41607E+12	
+2857479956	vincentdonofrio	Vincent D'Onofrio	2624	1.41607E+12	
+490585256	Belfius	Belfius	2623	1.41607E+12	
+25742650	elishadacey	Elisha Dacey	2609	1.41607E+12	
+631877739	davedavieskinks	Dave Davies	2608	1.41607E+12	
+297071736	SuzanneSpecNYT	Suzanne Spector	2607	1.41607E+12	
+329896130	SIKids	SI KIDS	2598	1.41607E+12	
+24178193	SIcomMike	Mike Harris	2595	1.41607E+12	
+74616027	iRichFields	Rich Fields	2589	1.41607E+12	
+2841132743	mannschaft	Die Mannschaft	2572	1.41607E+12	
+483279372	thisissouthern	Southern	2561	1.41607E+12	
+2416391065	AnnieSchreijer	Annie Schreijer	2561	1.41607E+12	
+2873124768	Jcollison31	Jack collison	2557	1.41607E+12	
+38401547	PhoenixHagen	PhoenixHagenOfficial	2554	1.41607E+12	
+65418374	CParkABC30	Christine Park	2548	1.41607E+12	
+292515375	GEsoftware	GE Software	2547	1.41607E+12	
+91450056	SontayaRose	Sontaya Rose	2537	1.41607E+12	
+540828831	KUTVRon	Ron Bird	2531	1.41607E+12	
+254084962	statsfromIN	IN Data	2529	1.41607E+12	
+2377513207	02alexSilva	Alex Silva	2523	1.41607E+12	
+77938023	mrbabyboogaloo	Miles Brown	2522	1.41607E+12	
+2443718293	nicolasbayfn	Nicolas Bay	2520	1.41607E+12	
+2154925141	ArlingtonVaPD	ArlingtonCountyPD	2518	1.41607E+12	
+239304417	Sinnott_14	Jordan Sinnott	2505	1.41607E+12	
+1705717640	OBryant_The3rd	Johnny O'Bryant III	2492	1.41607E+12	
+42990588	giamswiegers	Giam Swiegers	2492	1.41607E+12	
+2389235778	ALamassoure	Alain Lamassoure	2491	1.41607E+12	
+1120022592	MeredithSLynn	meredith scott lynn	2490	1.41607E+12	
+21637164	GilSharone	Gil Sharone	2489	1.41607E+12	
+1899095263	KensingtonPol	Kensington Police	2487	1.41607E+12	
+75989266	Polarsets	P O L A R S E T S 	2485	1.41607E+12	
+47616261	MfNBerlin	Naturkundemuseum 	2474	1.41607E+12	
+21021438	KatieThistleton	KATIE THISTLETON 	2471	1.41607E+12	
+25573058	mikedays	Michael Days	2470	1.41607E+12	
+216971885	GoweHipHop	Gowe	2470	1.41607E+12	
+960502116	IndoRugby	Independent Rugby	2465	1.41607E+12	
+234121917	flahertykeely	Keely Flaherty	2460	1.41607E+12	
+459234770	CaioHellboy	Caio Magalhaes	2460	1.41607E+12	
+92019727	GTankHT	#13	2458	1.41607E+12	
+127954611	KarenWorkman	Karen Workman	2458	1.41607E+12	
+47160314	Rickorlov	Rick Orlov	2457	1.41607E+12	
+149223836	MahSpace	Bill Mah	2457	1.41607E+12	
+23540244	randyhillier	Randy Hillier	2452	1.41607E+12	
+19324685	aubreyjwhelan	Aubrey Whelan	2447	1.41607E+12	
+14178909	martinhoffmann	Martin Hoffmann	2429	1.41607E+12	
+513022273	Bolero_BE	Bolero	2421	1.41607E+12	
+26315068	wbender99	William Bender	2417	1.41607E+12	
+29558960	SandySprings_PD	Sandy Springs Police	2413	1.41607E+12	
+99779187	GDucre18	Greg Ducre	2405	1.41607E+12	
+208356289	Sannohe_Nyago	?????????????	2401	1.41607E+12	
+1455438775	Nahuel7Leiva	Nahuel Leiva	2398	1.41607E+12	
+1288848391	Imkabirali	Kabir Ali	2391	1.41607E+12	
+861897037	KCMOParks	KCMO Parks and Rec	2389	1.41607E+12	
+16067683	MHpdemko	Paul Demko	2387	1.41607E+12	
+367678362	9sergioleon	sergio leon 	2385	1.41607E+12	
+50950600	StartOut	StartOut	2382	1.41607E+12	
+2517524574	kamino_tsuki	???????	2372	1.41607E+12	
+146101077	J_Lewandowski	Janusz Lewandowski	2367	1.41607E+12	
+367750047	crimeshutterbug	Doug Saunders	2366	1.41607E+12	
+2373349062	UchishibaMasato	?????Uchishiba Post	2365	1.41607E+12	
+80571144	DebbieWorthen	Debbie Worthen	2356	1.41607E+12	
+438813268	MadeleineBlaze	MadeleineMorgenstern	2350	1.41607E+12	
+294479075	SBcityNOW	Ryan Hagen	2349	1.41607E+12	
+114518115	melissajporter	Melissa Porter	2348	1.41607E+12	
+2482710715	TheStreetTech	TheStreetTech	2345	1.41607E+12	
+187311622	Vagner_Rocha	Vagner Ceara Rocha	2341	1.41607E+12	
+331509056	yaelgrobglas	Yael Grobglas	2335	1.41607E+12	
+64703850	KCMOwater	KC Water	2327	1.41607E+12	
+18223318	WHSVjaywebb	Jay Webb	2326	1.41607E+12	
+2534478097	KancelariaSejmu	SejmRP	2324	1.41607E+12	
+574947736	stephochs7	Stephanie Ochs	2323	1.41607E+12	
+95760783	JenniferKanis	Jennifer Kanis	2319	1.41607E+12	
+9005202	lizwithey	Elizabeth Withey	2315	1.41607E+12	
+230469687	hibermaster	????	2312	1.41607E+12	
+346197350	JTSTheHill	Justin Sink	2310	1.41607E+12	
+286281216	MHMMcKinney	Maureen McKinney	2308	1.41607E+12	
+48264526	Ashleykringen	Ashley Kringen	2304	1.41607E+12	
+1586266080	CorinaCretuEU	Corina Cre?u	2301	1.41607E+12	
+24825060	tcavalierWSAZ	Tony Cavalier	2274	1.41607E+12	
+224959865	twclassic	TW Classic	2266	1.41607E+12	
+26595845	MairaWave	Maira Ansari	2260	1.41607E+12	
+50597807	DEVIALET	DEVIALET	2259	1.41607E+12	
+27174323	AngelaKennecke	Angela Kennecke	2257	1.41607E+12	
+803611717	SkytelOfficial	??????? ?????	2249	1.41607E+12	
+132788675	bobhardt	Bob Hardt	2247	1.41607E+12	
+20994777	WSAZannabaxter	Anna Baxter	2242	1.41607E+12	
+102477448	MHjlee	Jaimy Lee	2237	1.41607E+12	
+59880239	Beeyoncs	Bianca Henninger	2229	1.41607E+12	
+392776710	EveTannery	Eve Tannery	2228	1.41607E+12	
+182050172	SPO_Officiel	SPO Rouen Officiel	2225	1.41607E+12	
+21165925	publicdefender	Public Defender	2224	1.41607E+12	
+124391384	GCBedo	Stephanie Bedo	2221	1.41607E+12	
+16958880	Mike_Donachie	Mike Donachie	2214	1.41607E+12	
+2889520524	PresidentRuvi	Reuven Rivlin	2213	1.41607E+12	
+2231786521	IbeyiOfficial	Ibeyi	2210	1.41607E+12	
+14750424	wsazbillmurray	Bill Murray	2204	1.41607E+12	
+104034570	krskkpru	KP.RU - ??????????	2199	1.41607E+12	
+743508972	dnavarro_4	David Navarro	2197	1.41607E+12	
+73053410	theemilyjackson	emily jackson	2192	1.41607E+12	
+2492289271	moodyracingpgm	Peter Moody	2190	1.41607E+12	
+563816968	maxinemawhinney	maxine mawhinney	2189	1.41607E+12	
+330277419	RGrayHT	Rebecca Gray	2185	1.41607E+12	
+700162813	Free_Brooks21	Jeff Brooks Jr.	2181	1.41607E+12	
+23646083	EdGlavin	Ed Glavin	2169	1.41607E+12	
+466466267	dgatopoulos	Derek Gatopoulos	2165	1.41607E+12	
+592013788	ooscarrico	Óscar Rico	2163	1.41607E+12	
+26892616	WRALMarsh	michelle marsh	2159	1.41607E+12	
+65264184	jimmydunncomedy	jimmy dunn	2154	1.41607E+12	
+27153483	wave3katie	Katie Bauer	2145	1.41607E+12	
+23238371	jakemkaplan	Jake Kaplan	2145	1.41607E+12	
+1091035646	GregEurell	Greg Eurell	2144	1.41607E+12	
+2459282972	TheMandarinAU	The Mandarin	2138	1.41607E+12	
+380664448	DHorner31	Dennis Horner	2133	1.41607E+12	
+21215499	ScottAdkinsWAVE	Scott Adkins	2125	1.41607E+12	
+116765012	xandvt	Alex van Tulleken	2119	1.41607E+12	
+2387139547	WRadio913	W Radio 91.3 FM	2117	1.41607E+12	
+441905241	DamienINGLIS	1NGL7S	2117	1.41607E+12	
+203390140	A_J_Marshall	Adam Marshall	2111	1.41607E+12	
+35240968	MHGoozner	Merrill Goozner	2108	1.41607E+12	
+290956764	gsiverek91	Gökhan Siverek	2106	1.41607E+12	
+323522850	_underrated20	Diamon Simpson	2102	1.41607E+12	
+214745356	0o61	??????????????	2101	1.41607E+12	
+61849245	IndeedItalia	Indeed	2096	1.41607E+12	
+206615811	kaleehewlett	Kalee Hewlett	2092	1.41607E+12	
+201100416	JoeDeaux	Joe Deaux	2086	1.41607E+12	
+37022700	SchuckWHIG	Matt Schuckman	2084	1.41607E+12	
+2294089289	mayorgasour	Roy Mayorga	2068	1.41607E+12	
+480105529	Rina_940731	?? ??12/2????KAKADO	2065	1.41607E+12	
+56539097	Darla_Mercado	Darla Mercado	2063	1.41607E+12	
+182144870	CamTucker_Metro	Cam Tucker	2060	1.41607E+12	
+17008394	DEandTGL	DE & The Great Lakes	2055	1.41607E+12	
+41748700	WDBJ7Sports	WDBJ7Sports	2054	1.41607E+12	
+18662013	michaelatkin	michaelatkin	2052	1.41607E+12	
+20248272	YusufGatewood	Yusuf Gatewood	2052	1.41607E+12	
+120053341	stblehavre	STB LE HAVRE 	2049	1.41607E+12	
+2829692267	BBCHolbyCity	BBC Holby City	2043	1.41607E+12	
+447994591	JHolmesWFTV	Jamie Holmes	2036	1.41607E+12	
+2151271448	AndreaNavedo	Andrea Navedo	2035	1.41607E+12	
+2749148779	VolvoCarBe	Volvo Car Belgium	2035	1.41607E+12	
+19066920	jmberlin	jmberlin	2034	1.41607E+12	
+216898895	mynavibaito	???????	2032	1.41607E+12	
+249549237	kazanKPru	KP.RU - ??????	2029	1.41607E+12	
+90813853	JackiOchoa	Jacki Ochoa	2027	1.41607E+12	
+269399083	jotted	Alexandra Stevenson	2024	1.41607E+12	
+1146268656	DanifutbLara	daniel garcia lara	2022	1.41607E+12	
+78016201	crabberwral	David Crabtree	2013	1.41607E+12	
+2325553333	TimkenSteel	TimkenSteel	2012	1.41607E+12	
+237774782	news8michelle	Michelle Poedel	2009	1.41607E+12	
+42212818	kristieAP	Kristie Rieken	2005	1.41607E+12	
+92057963	milliecinnes	Millie Innes	2002	1.41607E+12	
+160925676	InqCVargas	Claudia Vargas	2001	1.41607E+12	
+218789670	KellyTolhurst	Kelly Tolhurst	1998	1.41607E+12	
+42470788	lloveland	Lynda Loveland	1998	1.41607E+12	
+422051253	FloPerry	Flo Perry	1994	1.41607E+12	
+177347567	LeilaArcieri	Leila Arcieri	1990	1.41607E+12	
+390941437	vicama8	Victor Camarasa	1984	1.41607E+12	
+333915121	shion_miyawaki	?? ??	1984	1.41607E+12	
+28052497	dakotacdsmith	Dakota Smith	1982	1.41607E+12	
+2745094147	vicenewsFR	VICE News FR	1976	1.41607E+12	
+963722112	rfembassyastana	?????????? ??????	1970	1.41607E+12	
+290114440	MHARobeznieks	Andis Robeznieks	1964	1.41607E+12	
+190725542	ailishohora	Ailish O'Hora	1963	1.41607E+12	
+18810140	darrensands	Darren Sands	1962	1.41607E+12	
+1670752519	albertoperea9	alberto perea	1956	1.41607E+12	
+713825611	OudeMeesterSA	Oude Meester	1955	1.41607E+12	
+513657775	DaveNealSports	Dave Neal	1954	1.41607E+12	
+480500248	MikeLaPointWX	Mike LaPoint	1952	1.41607E+12	
+286302235	Inqkriordan	Kevin Riordan	1951	1.41607E+12	
+84224124	JasGrayStanford	Jason Gray-Stanford	1949	1.41607E+12	
+306307177	flackwave3	Eric Flack  	1945	1.41607E+12	
+232383945	noahvjohnson	Noah Johnson	1939	1.41607E+12	
+17886847	StolenBabies	Stolen Babies	1923	1.41607E+12	
+594492358	oscar_threlkeld	oscar threlkeld	1923	1.41607E+12	
+21217743	sbauers	Sandy Bauers	1914	1.41607E+12	
+22023562	ReginaMedina	Regina Medina	1913	1.41607E+12	
+46389803	stevecoate	Steve Coate	1912	1.41607E+12	
+353098420	MDM_ES	Maisons du Monde ES	1906	1.41607E+12	
+1137018775	MichelDANTIN	Michel DANTIN	1905	1.41607E+12	
+27372319	MarkMravic	Mark Mravic	1904	1.41607E+12	
+23301990	lawrence_cannon	Lawrence Cannon	1896	1.41607E+12	
+301014412	CritterDJ	Michael Crittenden	1896	1.41607E+12	
+217203189	scottmeslow	Scott Meslow	1894	1.41607E+12	
+2775624237	ArchivoRTVE	Archivo RTVE	1887	1.41607E+12	
+2886016620	PattiHansen	Patti Hansen	1886	1.41607E+12	
+33547196	cowannyt	Alison Cowan	1875	1.41607E+12	
+210995514	Butler4Life	Eddie Butler	1873	1.41607E+12	
+125791833	HughDelahunty	Hugh Delahunty	1866	1.41607E+12	
+267768064	LKulikowski	Laurie Kulikowski	1860	1.41607E+12	
+130274805	Keith_Laing	Keith Laing	1858	1.41607E+12	
+247851217	A_W_Gordon	Aaron W. Gordon	1853	1.41607E+12	
+1306720339	PeggySattlerNDP	Peggy Sattler	1851	1.41607E+12	
+2321429772	TrooperTodKHP	Tod Hileman	1850	1.41607E+12	
+521418233	MetroBee	Bernice Pontanilla	1844	1.41607E+12	
+2383819830	Indo_LIFE	Independent LIFE	1838	1.41607E+12	
+374726584	SBcountyNow	Joe Nelson	1837	1.41607E+12	
+65418745	MargotKimABC30	Margot Kim	1836	1.41607E+12	
+52557443	meganspecia	Megan Specia	1835	1.41607E+12	
+161425948	KOAAGrant	Grant Meech	1833	1.41607E+12	
+14802089	rodolfoviana	Rodolfo Viana	1831	1.41607E+12	
+29274761	Hoont	Hunter Stuart	1822	1.41607E+12	
+541675983	CalumCallaghan	Cal Callaghan	1821	1.41607E+12	
+254612046	BonitiTWCNews	Loretta Boniti	1815	1.41607E+12	
+15627518	friendscentral	Friends' Central	1814	1.41607E+12	
+2816991620	mizuiki422	?? ??	1813	1.41607E+12	
+254065767	GropiusBau	Martin-Gropius-Bau 	1813	1.41607E+12	
+72949205	GetGephardt	Matt Gephardt	1797	1.41607E+12	
+2802767008	SOdelusi	Sanmi Odelusi	1787	1.41607E+12	
+20100147	MariSchaefer	Mari Schaefer	1785	1.41607E+12	
+223527191	KendrickHaskins	Kendrick HaskinsWave	1784	1.41607E+12	
+424750901	doublel1919	Luis LL Lopez	1780	1.41607E+12	
+599353468	RAsaWFTV	Racquel Asa	1778	1.41607E+12	
+475135177	Alcala__	Pedro alcala	1774	1.41607E+12	
+1667662856	NWSOwlieSkywarn	NWS Owlie Skywarn	1774	1.41607E+12	
+86627506	omy_josh	Josh Newis-Smith	1773	1.41607E+12	
+2478792504	TommasiniNYT	Anthony Tommasini	1773	1.41607E+12	
+94213381	ZurichJapan	??????????	1771	1.41607E+12	
+833057665	jc_stubbs	Jack Stubbs	1768	1.41607E+12	
+2836941830	CBSNLive	CBSN	1766	1.41607E+12	
+19124456	Maetron	Mae Anderson	1766	1.41607E+12	
+29025021	MetroRyan	Ryan Tumilty	1753	1.41607E+12	
+130290135	BlueSpringsGov	Blue Springs	1749	1.41607E+12	
+86956211	YvonneHogan	Yvonne Hogan	1749	1.41607E+12	
+68158908	thompsonplaid	Eliza C. Thompson	1747	1.41607E+12	
+46107973	JYakabuskiMPP	John Yakabuski	1745	1.41607E+12	
+2587104428	Indo_Travel_	Independent Travel	1744	1.41607E+12	
+882179575	KUTVHolly	Holly Menino	1744	1.41607E+12	
+498285459	FarFarrAway	Stephanie Farr	1743	1.41607E+12	
+21876574	JeffStensland	Jeff Stensland TWCN	1743	1.41607E+12	
+726799856	BOpsahlWFTV	Bob Opsahl	1742	1.41607E+12	
+2644364560	SI_ChrisStone	Chris Stone	1741	1.41607E+12	
+498343462	WHSVaubs	Aubrey Urbanowicz	1739	1.41607E+12	
+61498067	CitroenIreland	Citroën Ireland	1737	1.41607E+12	
+25566880	gowenstv5	Gerald Owens	1737	1.41607E+12	
+2864804290	anjelicahuston	Anjelica Huston	1735	1.41607E+12	
+415004432	marco_tombolini	Marco Tombolini	1733	1.41607E+12	
+282273168	JasonOliveiraTV	Jason Oliveira	1730	1.41607E+12	
+155394347	KLJDavis	Kevin Davis	1729	1.41607E+12	
+2327416238	marcngreen	Marc Green	1721	1.41607E+12	
+1068693894	GlamSquad	GLAMSQUAD	1718	1.41607E+12	
+274226359	DBataller	David Bataller	1717	1.41607E+12	
+374263848	disGROYer79	Ryan Groy	1711	1.41607E+12	
+488386309	JimMcGovernMP	Jim McGovern MP	1708	1.41607E+12	
+311965531	kp_kuban	KP.RU - ??????	1708	1.41607E+12	
+22515979	marksuits	Mark Suits	1707	1.41607E+12	
+61849053	IndeedDeutsch	Indeed	1698	1.41607E+12	
+2740821001	YoYo_Ma	Yo-Yo Ma	1695	1.41607E+12	
+764444310	UkrEmbassyUSA	Ukraine's Emb. to US	1694	1.41607E+12	
+16532695	EducationIQ	Muhammed Chaudhry	1689	1.41607E+12	
+17241735	aabdallah	Abdelrahim Abdallah	1685	1.41607E+12	
+2799778327	LouvreAbuDhabi	Louvre Abu Dhabi	1683	1.41607E+12	
+55896443	lbarronlopez	Laura Barron-Lopez	1683	1.41607E+12	
+597933314	CamBurgess95	Cameron Burgess	1680	1.41607E+12	
+329855057	DelWaterGapNPS	Del Water Gap NPS	1677	1.41607E+12	
+142893488	kyotamba	????	1677	1.41607E+12	
+39095636	emserre	Emily Greenhouse	1673	1.41607E+12	
+1561456591	Cammy_Dierking	Cammy Dierking	1672	1.41607E+12	
+87016517	MattStroud	Matt Stroud	1671	1.41607E+12	
+547338519	RMcCranieWFTV	Rusty McCranie	1670	1.41607E+12	
+51099026	DannikaLewis	Dannika Lewis	1670	1.41607E+12	
+38464773	michaels_way	Michael's Way	1669	1.41607E+12	
+468996494	LArdern	Lucy Ardern	1668	1.41607E+12	
+160554953	KELOHolsen	Matt Holsen	1667	1.41607E+12	
+16911536	amyvirshup	amyvirshup	1664	1.41607E+12	
+1381373660	StadePM	Stade Pierre Mauroy	1660	1.41607E+12	
+33310738	BukoTime	Peter Bukowski	1653	1.41607E+12	
+199303612	skropf47	schuyler kropf	1649	1.41607E+12	
+166937067	centerparcsbe	Center Parcs Belgium	1644	1.41607E+12	
+202958019	kem_kp_ru	KP.RU - ????????	1643	1.41607E+12	
+61245989	LynneMarek	LynneMarek	1641	1.41607E+12	
+1922253283	Moonkingsband	MoonKings	1640	1.41607E+12	
+258181662	knoxsheriff	knoxsheriff	1638	1.41607E+12	
+2493557676	RodoFitoRubio	Rodolfo Rubio	1637	1.41607E+12	
+2218263062	BuzzFeedGermany	BuzzFeed Deutschland	1635	1.41607E+12	
+346220300	calebgreen30	Caleb Green	1622	1.41607E+12	
+57551989	kschorsch	Kristen Schorsch	1619	1.41607E+12	
+1504096015	BillyElliotNL	BillyElliotNL	1618	1.41607E+12	
+68510241	KenSmithWRAL	Ken Smith	1618	1.41607E+12	
+348125773	johnjgreene	John Greene	1616	1.41607E+12	
+397669202	bousai_narita	???????	1613	1.41607E+12	
+21435939	oharaa	aidan o'hara	1613	1.41607E+12	
+325068048	BobBaileyPC	Bob Bailey	1611	1.41607E+12	
+2753711518	TrabajandoxTi_	Trabajando Por Ti	1608	1.41607E+12	
+1962891	FilmingDocs	Abe Forman-Greenwald	1604	1.41607E+12	
+283555256	CCRBASKET	Châlons-Reims	1599	1.41607E+12	
+2460887588	prmag_bunka	??????????	1591	1.41607E+12	
+156605516	JesusImaz11	Jesus Imaz	1581	1.41607E+12	
+120636533	GregWOWT	Greg Ortiz	1581	1.41607E+12	
+2351590278	PSaintAndre	Philippe Saint-André	1578	1.41607E+12	
+26578338	RickSforza	Rick Sforza	1577	1.41607E+12	
+264992918	thebigticket205	walt harris	1577	1.41607E+12	
+64820784	CairaConner	Caira Conner	1567	1.41607E+12	
+16286743	KarinaKling	KarinaKling	1563	1.41607E+12	
+22855924	davebraith	davebraithwaite	1559	1.41607E+12	
+78694840	RMendonca09	Ricardo Mendonça	1559	1.41607E+12	
+16067547	RonanPrice	Ronan Price	1550	1.41607E+12	
+68327894	Brooke_Graham_	Brooke Graham	1545	1.41607E+12	
+971339461	NinaAnsaroff	Nina Ansaroff	1541	1.41607E+12	
+2620098734	FolhaPainel	Painel	1534	1.41607E+12	
+16594906	gruene_zora	Verena Schäffer	1533	1.41607E+12	
+155490949	kp_vlg	KP.RU - ?????????	1533	1.41607E+12	
+437837307	Clay_Fowler	Clay Fowler	1530	1.41607E+12	
+913421804	carringtonsays	Carrington Clarke	1528	1.41607E+12	
+26578072	reynoldswave3	scott reynolds	1526	1.41607E+12	
+2848331885	BDaugherty	Brad Daugherty	1524	1.41607E+12	
+258978908	TArmstrongNDP	Teresa Armstrong	1523	1.41607E+12	
+485921226	querol9	David Querol	1523	1.41607E+12	
+19243190	jakecoyleAP	Jake Coyle	1519	1.41607E+12	
+59654426	NickWakelingMP	Nick Wakeling MP	1517	1.41607E+12	
+46266590	PhillyJoeD	Joseph N. DiStefano	1514	1.41607E+12	
+338018292	Leanne_Ro55	Leanne Ross	1513	1.41607E+12	
+213581481	StavKP	KP.RU - ??????????	1511	1.41607E+12	
+404867809	wvpublic	WVPublicBroadcasting	1504	1.41607E+12	
+70289045	EricBurse	Eric Burse	1501	1.41607E+12	
+2709733050	fallofthewall25	Fall of the Wall 25	1501	1.41607E+12	
+920890932	ieguaras7	iñigo eguaras	1501	1.41607E+12	
+2612821572	WendyPetrieTVNZ	Wendy Petrie	1498	1.41607E+12	
+55226111	jdgreenfield	Jeremy Greenfield	1496	1.41607E+12	
+213621913	GreenFlagUK	Green Flag	1494	1.41607E+12	
+196044982	kprostov	KP.RU-??????-??-????	1494	1.41607E+12	
+18981645	stevescott_itv	Steve Scott	1489	1.41607E+12	
+1628495018	juanchohg14	juancho hernangomez	1488	1.41607E+12	
+42613330	mattbrode	Matt Brode	1487	1.41607E+12	
+230577906	AntoineGara	Antoine Gara	1485	1.41607E+12	
+1701037016	taqeem_gov_sa	????? 	1482	1.41607E+12	
+21243249	DanKUTV	Dan Rascon	1479	1.41607E+12	
+176473457	MaxKnoblauch	Max Knoblauch	1478	1.41607E+12	
+16645680	kmcshane	Kevin McShane	1473	1.41607E+12	
+215903495	adharves	Adam Harvey	1473	1.41607E+12	
+264232744	chlindell91	Christian Lindell	1472	1.41607E+12	
+535036849	IEsportsNow	Brian Goff	1466	1.41607E+12	
+392660964	KimberlyWDBJ	Kimberly McBroom	1464	1.41607E+12	
+2872046461	Menno_DeKoning	Menno de Koning	1464	1.41607E+12	
+37511286	jonweinstein	Jon Weinstein	1463	1.41607E+12	
+249855331	Mickieszoo	Michelle Mills	1458	1.41607E+12	
+238782539	AceCarterDN	Aaron Carter	1456	1.41607E+12	
+813738259	fulviomartuscie	Fulvio Martusciello	1454	1.41607E+12	
+594351447	aaronellis01	Aaron Ellis	1452	1.41607E+12	
+934763737	ChrisMcGillWAVE	Chris McGill	1449	1.41607E+12	
+1199181788	Habaneras_Mx	Galletas Habaneras 	1445	1.41607E+12	
+353111582	MDM_IT	Maisons du Monde IT	1445	1.41607E+12	
+27852920	JennyGardinerMP	Jenny Gardiner	1443	1.41607E+12	
+39044325	marknyt	Mark S. Getzfred	1440	1.41607E+12	
+49442241	bgazzar	Brenda Gazzar	1439	1.41607E+12	
+9632452	tfmoore	Tom Moore	1437	1.41607E+12	
+313131180	jsubler	Jason Subler	1428	1.41607E+12	
+389067673	MetroFletch	Robson Fletcher	1426	1.41607E+12	
+61105343	neilwrites	Neil Varcoe	1424	1.41607E+12	
+84591916	sarahfavot	Sarah Favot	1424	1.41607E+12	
+2308583864	Sky_CRann	Christina Rann	1422	1.41607E+12	
+1005973765	VSDmag	VSD	1418	1.41607E+12	
+372386913	dchangnyt	Dean Chang	1414	1.41607E+12	
+2447707855	VeronicaABC30	Veronica Miracle	1414	1.41607E+12	
+1872481212	KevinASorenson	Kevin Sorenson	1413	1.41607E+12	
+200225370	MikeNewall	Mike Newall	1407	1.41607E+12	
+219114123	2NewsWeather	Sterling Poulson	1406	1.41607E+12	
+2746617150	officialfb29	Fede Bernardeschi	1404	1.41607E+12	
+1704012427	Revuedemusical	Revue de musical	1404	1.41607E+12	
+321974987	KpMoldova	??-???????	1403	1.41607E+12	
+1426746246	Mary_Wooldridge	Mary Wooldridge MP	1402	1.41607E+12	
+2149129088	Uber_NJ	Uber New Jersey	1395	1.41607E+12	
+21771862	denise_denise	Denise Calnan	1394	1.41607E+12	
+2534567084	CandyCrushSoda	Candy Crush Soda	1393	1.41607E+12	
+2167759587	achakv87	???? ??????????	1392	1.41607E+12	
+249597924	jackmaclaren1	Jack MacLaren	1387	1.41607E+12	
+201131595	MattOrtile	Matt Ortile	1387	1.41607E+12	
+15309537	ScottRutt	Scott Rutt	1386	1.41607E+12	
+416691300	lauravitt0	Laura Vitto	1386	1.41607E+12	
+20198282	speters2	Shane Peterson	1383	1.41607E+12	
+16226996	PBrownTWCNews	Paul Brown	1382	1.41607E+12	
+136401929	KatherineWAVE	Katherine Kington	1378	1.41607E+12	
+1910244709	Twiplomacia	Twiplomacia	1378	1.41607E+12	
+433283133	autumnfarrell6	Autumn Farrell	1377	1.41607E+12	
+2550980130	TwitterAdsNord	Twitter Ads Nordics	1375	1.41607E+12	
+146207407	Cristina2News	cristina flores	1372	1.41607E+12	
+198003432	mbmarlborough	Morgan Marlborough	1371	1.41607E+12	
+502045621	WRALAimee	Aimee Wilmoth	1364	1.41607E+12	
+904088162	togarcia89	toño garcia	1363	1.41607E+12	
+22654582	tsgibson	Shane Gibson	1362	1.41607E+12	
+949423506	comprefparisidf	Préfet75-IDF	1361	1.41607E+12	
+551937746	TSEinfo	TSE	1361	1.41607E+12	
+2342996958	TrooperDonKHP	Trooper Don	1360	1.41607E+12	
+472552916	sophie_kleeman	Sophie Kleeman	1360	1.41607E+12	
+257142675	dionnesearcey	Dionne Searcey	1358	1.41607E+12	
+112468595	thandifletcher	Thandi Fletcher	1356	1.41607E+12	
+938939070	HomeAffairsPA	Jamie Grierson	1356	1.41607E+12	
+2832655429	KerryOBrien	Kerry O'Brien	1356	1.41607E+12	
+1112105065	LindsayCAppleby	Lindsay C-Appleby	1354	1.41607E+12	
+625661409	DanKellyJudo	Daniel Kelly	1353	1.41607E+12	
+823264634	KirstyBlakeKnox	Kirsty Blake Knox	1351	1.41607E+12	
+231236085	ArmidaleExpress	ArmidaleExpress	1349	1.41607E+12	
+114944555	matt_mullin	Matt Mullin	1349	1.41607E+12	
+201258286	caseyscotttv	casey scott	1349	1.41607E+12	
+617418864	Ivan_Lopez23	Iván López Mendoza	1348	1.41607E+12	
+80056689	AustriainUSA	Embassy of Austria	1348	1.41607E+12	
+175722238	cs_networks	CS Networks	1348	1.41607E+12	
+216133588	phillyleighton	Brian Leighton	1346	1.41607E+12	
+329096874	BissonGilles	gilles bisson	1344	1.41607E+12	
+26485703	DanaDiFilippo	Dana DiFilippo	1342	1.41607E+12	
+1596552528	lnanderson	Lindsey Anderson	1341	1.41607E+12	
+309005035	antillaview	Susan Antilla	1340	1.41607E+12	
+15725922	MHgblesch	MHgblesch	1336	1.41607E+12	
+1435968290	SunghyukRed	Sunghyuk	1334	1.41607E+12	
+345282005	NicDoc11	Nicola Docherty	1332	1.41607E+12	
+41582924	MarriottRewards	Marriott Rewards	1332	1.41607E+12	
+86132458	Jasminlavoie	Jasmin Lavoie	1331	1.41607E+12	
+186633180	jechg7	JORGE CHONG  ?	1331	1.41607E+12	
+1005106159	metropicks	Metro Canada picks	1329	1.41607E+12	
+15102068	KHQJeff	Jeff Hite	1328	1.41607E+12	
+586726707	MercClassics	Mercury Classics	1326	1.41607E+12	
+122418150	BeckyBereiter	Becky Bereiter	1325	1.41607E+12	
+1377347478	JoondalupPolice	Joondalup Police	1323	1.41607E+12	
+481441656	keating_edits	Jessica Keating	1320	1.41607E+12	
+386616537	TSTbiotech	TheStreet Biotech	1320	1.41607E+12	
+161591212	BusseltonMail	Busselton Mail	1316	1.41607E+12	
+1249486668	DariuszRosati	Dariusz Rosati	1316	1.41607E+12	
+594734917	Emanhaddadlive	Eman Haddad	1316	1.41607E+12	
+2327960348	TrooperrickKHP	Trooper Rick	1315	1.41607E+12	
+1216011	VanyaAsher	Vanya Asher	1314	1.41607E+12	
+100323796	TheoKeith	Theo Keith	1314	1.41607E+12	
+91108191	kenmedlin	Ken Medlin	1313	1.41607E+12	
+40819997	NBC10_Olivia	Olivia Fecteau	1312	1.41607E+12	
+392961241	defconhill	DEFCON Hill	1309	1.41607E+12	
+383647766	GregJKrieg	Greg Krieg	1308	1.41607E+12	
+133751142	Lindzcook	Lindsey Rogers Cook	1308	1.41607E+12	
+1364041033	Mih_Antonov	?????? ???????	1308	1.41607E+12	
+392973215	5GsOnTheStreet	Gregg Greenberg	1307	1.41607E+12	
+1529619013	ArmadalePolice	Armadale Police	1306	1.41607E+12	
+1157896550	HT_GunWriter	Lee Williams	1303	1.41607E+12	
+159293374	PhillipsNancy	Nancy Phillips	1300	1.41607E+12	
+309970274	troygrant	troygrant	1300	1.41607E+12	
+2746758061	LibrariansTNT	The Librarians	1297	1.41607E+12	
+395039515	ShannonWSAZNews	Shannon Houser	1296	1.41607E+12	
+561653641	BenCarrollMP	Ben Carroll	1295	1.41607E+12	
+66618159	MrGrahamMoore	Graham Moore	1292	1.41607E+12	
+87031427	nickwebb_sindo	nickwebb	1291	1.41607E+12	
+409191755	EuAtleta	Eu Atleta	1289	1.41607E+12	
+726741948	SBarrettWFTV	Steve Barrett	1283	1.41607E+12	
+304112893	SAFEIreland	SAFE Ireland	1277	1.41607E+12	
+543824320	HansGutknecht	Hans Gutknecht	1274	1.41607E+12	
+23800188	paulowers	Paul Owers	1272	1.41607E+12	
+18336567	dougbarden	dougbarden	1271	1.41607E+12	
+455003309	MChapmanWSAZ	Melanie Chapman	1268	1.41607E+12	
+168493401	KP_kirov	KP.RU - ?????	1268	1.41607E+12	
+365752732	RubyGonzales2	Ruby Gonzales	1265	1.41607E+12	
+285617131	SarahMcCabe1	Sarah McCabe	1264	1.41607E+12	
+986938272	ChiefSolomon	Joseph E. Solomon	1261	1.41607E+12	
+1450912801	NatGeoFrance	National Geographic	1261	1.41607E+12	
+314149528	MarkSchoeff	Mark Schoeff Jr.	1257	1.41607E+12	
+1706705131	JLBourgBasket	JL Bourg Basket	1257	1.41607E+12	
+250912539	cimarcos	Cristina Marcos	1256	1.41607E+12	
+1898936036	CanningValePol	Canning Vale Police	1255	1.41607E+12	
+26178398	LucyMason	Lucy Mason	1253	1.41607E+12	
+216110941	Ben_Finley	Ben Finley	1250	1.41607E+12	
+2847649621	digits	Digits	1249	1.41607E+12	
+344836759	BruceMildwurf	Bruce Mildwurf 	1245	1.41607E+12	
+398036662	MattSmithWOWT	Matthew Smith	1243	1.41607E+12	
+372715811	Univ_St_Etienne	Univ Saint-Etienne	1241	1.41607E+12	
+38014838	dan_freed	Dan Freed	1239	1.41607E+12	
+43969066	JuliaTerruso	Julia Terruso	1237	1.41607E+12	
+60350547	BrittanyGHaslam	Brittany G. Haslam	1237	1.41607E+12	
+150920345	travismeyn	Travis Meyn	1236	1.41607E+12	
+2805926353	Avramopoulos	DimitrisAvramopoulos	1235	1.41607E+12	
+2386139233	jb_ja_cummings	Bart&James Cummings	1235	1.41607E+12	
+2854762706	ForeverWriters	Forever Writers	1234	1.41607E+12	
+467244450	KeithAllanactor	Keith Allan	1233	1.41607E+12	
+1486175419	AStarrantino	Amanda Starrantino	1229	1.41607E+12	
+1964829788	DisMoiNicolas	Dis-moi Nicolas	1228	1.41607E+12	
+2343865944	TrooperHowdyKHP	Trooper Howard	1227	1.41607E+12	
+397348833	RomanaTomc	RomanaTomc	1227	1.41607E+12	
+209087875	RossKUrken	Ross Kenneth Urken	1223	1.41607E+12	
+2728599772	haynesworthiii	Albert Haynesworth	1220	1.41607E+12	
+68857711	MetroLucy	Lucy Scholey	1219	1.41607E+12	
+481453196	BethAshton	Beth Ashton	1217	1.41607E+12	
+138774153	timdevaney	Tim Devaney	1216	1.41607E+12	
+1898888654	CanningtonPol	Cannington Police	1215	1.41607E+12	
+2687949799	CAMPBECKENBAUER	CAMP BECKENBAUER	1214	1.41607E+12	
+1329025256	DanielaFuss	Daniela Fuß	1213	1.41607E+12	
+2881045374	DDLJ	DDLJ 	1212	1.41607E+12	
+46122873	marycjordan	Mary Jordan 	1212	1.41607E+12	
+96060772	irkkpru_online	KP.RU - ???????	1212	1.41607E+12	
+20213792	jc_cummins	Jamie Cummins	1204	1.41607E+12	
+27018666	jeremyrroebuck	Jeremy Roebuck	1204	1.41607E+12	
+28255517	colinkerrigan	Colin Kerrigan	1203	1.41607E+12	
+74101480	KPMurmansk	KP.RU - ????????	1202	1.41607E+12	
+132220923	brookewylie	Brooke Wylie	1198	1.41607E+12	
+2344012615	KHPRecruiting	Trooper Amy	1196	1.41607E+12	
+1113310248	nadiagracemejia	Nadia Grace	1191	1.41607E+12	
+41392350	LorieKonish	Lorie Konish	1191	1.41607E+12	
+20809653	MorganModjeski	Morgan Modjeski	1189	1.41607E+12	
+158826094	eemershon	Erin Mershon	1189	1.41607E+12	
+9938062	edemarse	Elisabeth DeMarse	1186	1.41607E+12	
+85173581	news8bill	Bill Graul	1185	1.41607E+12	
+726432012	MarianneGrazia	Marianne Jones	1184	1.41607E+12	
+50059286	JOCOHealth	JCDHE	1184	1.41607E+12	
+24451133	JoeChiodo	Joe Chiodo	1183	1.41607E+12	
+160578788	JaneVonBergen	Jane Von Bergen	1182	1.41607E+12	
+472103909	absgee123	Abbi Grant	1178	1.41607E+12	
+37000452	bjschecter	B.J. Schecter	1176	1.41607E+12	
+14688144	SamWoodIII	sam wood	1176	1.41607E+12	
+15990207	AJVicens	AJVicens	1171	1.41607E+12	
+2676226621	DS_Nederland	DS Nederland	1170	1.41607E+12	
+1870771148	EduardKukan	Eduard Kukan	1170	1.41607E+12	
+506372423	OSullivanDenise	Denise O'Sullivan	1169	1.41607E+12	
+138848875	ma_anastasi	Michael Anastasi	1167	1.41607E+12	
+365616138	SpotifyCanada	Spotify Canada	1165	1.41607E+12	
+1688001294	shanephelanindo	Shane Phelan	1164	1.41607E+12	
+356278148	ben_goad	Ben Goad	1164	1.41607E+12	
+24246497	aghoshal	Abhimanyu Ghoshal	1162	1.41607E+12	
+1715501	jmhattem	Julian Hattem	1162	1.41607E+12	
+39573645	lisaperrystyle	lisa perry	1158	1.41607E+12	
+2892773160	thedressSTAFF	??????	1156	1.41607E+12	
+2340280143	FionaClouder	Fiona Clouder	1156	1.41607E+12	
+20316308	BrittanyWallman	Brittany Wallman	1155	1.41607E+12	
+245514859	ChrisNTrevino	Chris Trevino	1154	1.41607E+12	
+455153815	NamelyHR	Namely	1154	1.41607E+12	
+1637930191	SophieTheGorman	Sophie Gorman	1151	1.41607E+12	
+163264930	ReporterXtine	Christine McCarthy	1150	1.41607E+12	
+2371634089	MiC2014NL	Musicals in Concert	1149	1.41607E+12	
+22357080	jasonpobrien	Jason O'Brien	1148	1.41607E+12	
+52724561	wsazrobjohnson	Rob Johnson	1147	1.41607E+12	
+16365036	SandyMazza	Sandy Mazza	1144	1.41607E+12	
+506484466	MHbkutscher	Beth Kutscher	1144	1.41607E+12	
+2167890385	PGCareyRacing	PG Carey Racing	1141	1.41607E+12	
+1173822691	QuranRadioOman	????? ?????? ?????? 	1138	1.41607E+12	
+52880950	Fabesbabez	Fabienne	1138	1.41607E+12	
+256636895	SButlerWFTV	Shannon Butler	1137	1.41607E+12	
+27179811	LenaHowland	Lena Howland	1137	1.41607E+12	
+243081359	kaylastrayer	Kayla Strayer	1137	1.41607E+12	
+15569046	diego_iraheta	Diego Iraheta	1133	1.41607E+12	
+43424737	carleydryden	Carley Dryden	1132	1.41607E+12	
+459154769	KP_Yaroslavl	KP_Yaroslavl	1131	1.41607E+12	
+308944579	onlinekpnn	KP.RU - ?. ????????	1130	1.41607E+12	
+1423165291	SOM_Boulogne	SOMB officiel	1130	1.41607E+12	
+26288526	Corlon_Evans	Corlon Evans	1128	1.41607E+12	
+2341037119	JudgeFaithTV	Judge Faith	1126	1.41607E+12	
+1915497042	FWhelanMedia	Frank Whelan	1126	1.41607E+12	
+355747145	emsblack15	Emma Black	1124	1.41607E+12	
+1168964126	CamboRusEmba	Embassy of Russia	1124	1.41607E+12	
+2508095053	ivonne_coll	Ivonne Coll	1122	1.41607E+12	
+98474610	JeffGammage	Jeff Gammage	1122	1.41607E+12	
+54278389	burtoncynthia	Cynthia Burton	1122	1.41607E+12	
+38896813	RasEyeHT	Engineer Needed	1121	1.41607E+12	
+37950927	PhillyPharma	David Sell	1118	1.41607E+12	
+292041868	Tdoooode	Tarin Elbert	1116	1.41607E+12	
+1379898614	WarwickPol	Warwick Police	1115	1.41607E+12	
+1156984639	HZingtHazes	Holland zingt Hazes	1114	1.41607E+12	
+1898995874	GosnellsPol	Gosnells Police	1112	1.41607E+12	
+55064440	MeliGaona	Melissa Gaona	1111	1.41607E+12	
+16481007	SI_MarkBechtel	Mark Bechtel	1110	1.41607E+12	
+44155229	kwstark	Karl Stark	1110	1.41607E+12	
+162941499	LMcCrystal	Laura McCrystal	1110	1.41607E+12	
+365736403	lindsay_storrs	Lindsay Storrs	1110	1.41607E+12	
+24955637	TriciaNadolny	Tricia L. Nadolny	1107	1.41607E+12	
+250122499	kp_omsk	KP.RU-????	1107	1.41607E+12	
+952213554	daffanymclark	DMC	1095	1.41607E+12	
+58113197	Guardabascio	Mike Guardabascio	1095	1.41607E+12	
+456760322	yourfone	yourfone.de	1094	1.41607E+12	
+192852091	SportCityNL	SportCity	1093	1.41607E+12	
+1898981144	BelmontPol	Belmont Police	1091	1.41607E+12	
+380034300	NSWNationals	NSWNationals	1088	1.41607E+12	
+1720245578	davorstier	Davor Ivo Stier	1088	1.41607E+12	
+735755186	SteveRRamirez	Steve Ramirez	1087	1.41607E+12	
+555417547	cullenbrowder	Cullen Browder WRAL	1087	1.41607E+12	
+21224346	dmunday	dave munday 	1086	1.41607E+12	
+421528455	Aclass	A Class	1084	1.41607E+12	
+363382263	DavidLeePreston	David Lee Preston	1082	1.41607E+12	
+1921405717	soniaodedra	Sonia Odedra	1078	1.41607E+12	
+43554342	ValdoCruz	Valdo Cruz	1078	1.41607E+12	
+2754341046	fckoeln_en	1. FC Cologne	1077	1.41607E+12	
+2780775789	grmanzano	Gregorio Manzano	1077	1.41607E+12	
+109689160	paulbmelia	Paul Melia	1076	1.41607E+12	
+68724671	WEBDEMagazine	WEB.DE Magazine	1075	1.41607E+12	
+106060781	bgoaddy_editor	Rod Case	1073	1.41607E+12	
+588570771	PAbeywardena	Penny Abeywardena	1072	1.41607E+12	
+2894777995	lol_hibiki_	hibiki	1071	1.41607E+12	
+2332292216	TrooperMikeKHP	Trooper Racy	1070	1.41607E+12	
+303049260	astrzemien	Anya Strzemien	1069	1.41607E+12	
+2456998898	eddie_robinson2	Eddie Robinson	1069	1.41607E+12	
+1949513514	MarkusFerber	Markus Ferber	1069	1.41607E+12	
+222014617	Coldfrontsmusic	Cold Fronts	1069	1.41607E+12	
+17156635	trhunnicutt	Trevor Hunnicutt	1067	1.41607E+12	
+328666887	KOAAsbowers	Stephen Bowers	1067	1.41607E+12	
+2674133251	SG_Bourse	SG Bourse	1067	1.41607E+12	
+275484614	JacielCordoba	Jaciel Cordoba	1067	1.41607E+12	
+9664052	CW33	CW33	1067	1.41607E+12	
+193866353	HughSElliott	Hugh Elliott	1066	1.41607E+12	
+2847701842	Yuanqing_Lenovo	Yuanqing Yang	1065	1.41607E+12	
+25046904	GilloArvos	Gillo 	1064	1.41607E+12	
+34140286	katejacobson	Kate Jacobson	1063	1.41607E+12	
+2393667362	DDrumMP	Damian Drum 	1060	1.41607E+12	
+1502612832	NatRecordsScot	NatRecordsScot	1058	1.41607E+12	
+35281085	takarasmall	Takara Small	1058	1.41607E+12	
+587561631	jane_last	Jane Last Indo	1057	1.41607E+12	
+22508206	Timothy_Cama	Timothy Cama	1055	1.41607E+12	
+175095983	kimjcooper	Kim Cooper	1053	1.41607E+12	
+1478407609	dugganbarry	Barry Duggan	1053	1.41607E+12	
+1514640684	_real_lies	Real Lies	1052	1.41607E+12	
+579149732	bkurbs	Brian Koerber	1052	1.41607E+12	
+868253462	Kkwates_Mx	Kkwates Sabritas	1048	1.41607E+12	
+1377426541	WannerooPolice	Wanneroo Police	1048	1.41607E+12	
+347438408	emmajhade	Emma Jane Hade	1048	1.41607E+12	
+267579433	Javi386	Javi Moreno	1047	1.41607E+12	
+15604914	LBY3	Beau Yarbrough	1047	1.41607E+12	
+281426483	BASE_Company_en	BASE Company en	1047	1.41607E+12	
+927501811	asahi_fukui	????????	1043	1.41607E+12	
+1575369205	BillingPhilip	Philip A Billing	1042	1.41607E+12	
+1160085956	War_HorseNL	War Horse	1042	1.41607E+12	
+78953563	cbcanewday	CBC A New Day	1040	1.41607E+12	
+2361009858	CNBCBajar	CNBC Bajar	1040	1.41607E+12	
+304093866	WHSVChanning	Channing Frampton	1040	1.41607E+12	
+123010715	littlebigshotuk	Little BigShot	1036	1.41607E+12	
+58381791	wuthy	Robyn Wuth	1035	1.41607E+12	
+352795927	Dcash_11	David Holston	1032	1.41607E+12	
+16745704	jessiecatherine	Jessica Smith Cross	1030	1.41607E+12	
+399991392	jeroen_lenaers	Jeroen Lenaers	1029	1.41607E+12	
+1859870599	yanomasato	?? ??	1027	1.41607E+12	
+219444450	margotoneill	Margot O'Neill	1027	1.41607E+12	
+1174549388	NigelBlackiston	Nigel Blackiston	1025	1.41607E+12	
+93784878	AJFichera	Angelo Fichera	1022	1.41607E+12	
+367371190	PaulMillerMPP	Paul Miller	1021	1.41607E+12	
+270915849	JustinPKenny	Justin Kenny	1021	1.41607E+12	
+194375266	RussellNortheMP	Russell Northe	1020	1.41607E+12	
+31604829	panaritism	Maria Panaritis	1019	1.41607E+12	
+33600792	mtopel	Michael Topel	1016	1.41607E+12	
+15814604	gavonl	Gavon Laessig	1014	1.41607E+12	
+19874742	CloutPage	Clout Page	1014	1.41607E+12	
+321849700	BASE_nl	BASE_nl	1012	1.41607E+12	
+31142427	Eilish_5	Eilish McSorley	1010	1.41607E+12	
+2545495181	cailamarsai	Marsai Martin	1008	1.41607E+12	
+93147668	SelinaSteele	Selina Steele	1008	1.41607E+12	
+260461321	folha_serafina	Revista Serafina	1006	1.41607E+12	
+456770213	LeAnn_Wallace	LeAnn Wallace	1005	1.41607E+12	
+962088391	Shell_Germany	Shell Germany	1004	1.41607E+12	
+343681680	SryMissJacks0n	Jordan Jackson	999	1.41607E+12	
+947237287	sumiyoshi_iris	????????	998	1.41607E+12	
+1400067355	BlaBlaCarNL	BlaBlaCar.nl	994	1.41607E+12	
+488232923	basselsabri	Bassel Sabri	993	1.41607E+12	
+564063179	kcloftus	Karen Loftus	992	1.41607E+12	
+74041444	alipannoni	Alexandra Pannoni	992	1.41607E+12	
+2288266503	MatthijsvMilt	MatthijsvMiltenburg	991	1.41607E+12	
+338333336	mackenzieravn	Mackenzie Ravn	990	1.41607E+12	
+128017047	giuseppelo	Joe Lofaro	988	1.41607E+12	
+407255115	WoodwardRJ	Richard Woodward	988	1.41607E+12	
+601773356	MaxSalini	Massimiliano Salini	987	1.41607E+12	
+76618584	davemacdougall	David W. MacDougall	987	1.41607E+12	
+2527485506	ShelbyABC30	Shelby Latino	985	1.41607E+12	
+1116501636	otrenkamp	Oliver Trenkamp	985	1.41607E+12	
+2161093885	warmstrongabc30	Warren Armstrong	979	1.41607E+12	
+575311956	HHarperNewsdesk	Helen Harper	978	1.41607E+12	
+2830089313	BootsHelp	Boots Help	977	1.41607E+12	
+824313350	RobVaughnNews	Rob Vaughn	977	1.41607E+12	
+141021236	cormacbourke	CormacBourke	976	1.41607E+12	
+2870673944	nakaimavision	?????	974	1.41607E+12	
+380571342	JoCoRecycles	Johnson Co. Recycles	973	1.41607E+12	
+1851752635	PeterWilson	Peter Wilson	972	1.41607E+12	
+1281861703	OffLicata	Derek Licata	972	1.41607E+12	
+204597432	CedraWAVE3	Cedra Mayfield	972	1.41607E+12	
+2796437380	jodecimusic	Jodeci	971	1.41607E+12	
+1217264977	HarryRWeber	Harry R. Weber	970	1.41607E+12	
+205466200	EricBradleyPT	Eric Bradley	969	1.41607E+12	
+140519299	VallourecGroup	Vallourec	969	1.41607E+12	
+749813730	JIsaacOfficial	Jamie Isaac	969	1.41607E+12	
+210864648	JulesNelson5	Julie Nelson	968	1.41607E+12	
+44954215	BMTech	B-M Tech	968	1.41607E+12	
+279181419	sszkotakap	Stephen A. Szkotak	967	1.41607E+12	
+2190798482	AndrejPlenkovic	Andrej Plenkovi?	966	1.41607E+12	
+280230168	A_Big_Gail	Abigail Darlington	964	1.41607E+12	
+2409112693	TotalBlackOutFR	Total BlackOut	963	1.41607E+12	
+2709527586	MTVScream	SCREAM	958	1.41607E+12	
+485103790	EloyGila	Eloy Gila Marin	956	1.41607E+12	
+61848596	Indeedfrancais	Indeed	955	1.41607E+12	
+482049724	BMEUenergy	B-M Brussels Energy	955	1.41607E+12	
+26709506	WRALGilbert	Gilbert Baez	953	1.41607E+12	
+2353652576	Hick2014	John Hickenlooper	952	1.41607E+12	
+67088479	WXXV25	WXXV 25	949	1.41607E+12	
+413838370	freyadro	Freya Drohan	948	1.41607E+12	
+91916908	DanaNews12	Dana Arschin	947	1.41607E+12	
+633813748	ARDThemenwoche	ARD-Themenwoche	945	1.41607E+12	
+843876602	RamseyTheHill	Ramsey Cox	943	1.41607E+12	
+30926494	joycehanson	Joyce Hanson	941	1.41607E+12	
+335379084	MargaretDavisPA	Margaret Davis	940	1.41607E+12	
+67396921	WFTVSports	WFTV Sports	939	1.41607E+12	
+61143667	tokonic	nicola anderson	938	1.41607E+12	
+531329861	RickNichollsMPP	Rick Nicholls	937	1.41607E+12	
+353221929	JamieLangleyTV	Jamie Langley	936	1.41607E+12	
+86436775	dyllanmcgee	Dyllan McGee	936	1.41607E+12	
+1132157196	The_Anchoress	The Anchoress	935	1.41607E+12	
+790443374	KodaktoGraph	Kodak to Graph	935	1.41607E+12	
+629661314	Kevinandersonmp	Kevin Anderson MP	934	1.41607E+12	
+197191016	SusSnider	Susannah Snider	934	1.41607E+12	
+423966765	AndrewGeeMP	Andrew Gee	932	1.41607E+12	
+21785825	CynthiaHenry	Cynthia Henry	932	1.41607E+12	
+269898073	WSAZKristen	Kristen Schneider	932	1.41607E+12	
+417117063	enricpi11	enric pi	930	1.41607E+12	
+15896200	Fichtenbaum_SI	Paul Fichtenbaum	928	1.41607E+12	
+378033534	CasablancaRec	Casablanca Records	926	1.41607E+12	
+166594348	JanHefler	Jan Hefler	925	1.41607E+12	
+22301836	myLaurenHansen	Lauren Hansen	925	1.41607E+12	
+137263102	JohnBarilaroMP	John Barilaro MP	923	1.41607E+12	
+242824752	adamduerson	Adam Duerson	918	1.41607E+12	
+586515631	ISAE_officiel	ISAE	914	1.41607E+12	
+43008551	DinnyMcG	Dinny McGinley T.D	913	1.41607E+12	
+66768507	StevenAlbritton	Steven Albritton	911	1.41607E+12	
+89484142	ufalab	UFA LAB	906	1.41607E+12	
+54180711	thiagodaraujo	Thiago de Araújo	904	1.41607E+12	
+30482861	SamanthaRollins	Samantha Rollins	903	1.41607E+12	
+377545815	BrianWinnerWave	Brian Winner	903	1.41607E+12	
+39250553	grobaty	tim grobaty	900	1.41607E+12	
+349110724	tedreednc	tedreed	900	1.41607E+12	
+52617933	dylancpurcell	Dylan Purcell	900	1.41607E+12	
+39842545	trudyrubin	Trudy Rubin	896	1.41607E+12	
+42072558	AdinaValean	Adina Ioana Valean	895	1.41607E+12	
+281427642	BASE_Company_FR	BASE Company fr	894	1.41607E+12	
+1377278227	ClarksonPolice	Clarkson Police	894	1.41607E+12	
+2785544503	ImaCelebrityAU	I'm A Celebrity AU	892	1.41607E+12	
+1115460300	DuncsOffice	Duncs Office	889	1.41607E+12	
+157883050	colinlecher	Colin Lecher	887	1.41607E+12	
+224256816	WRALMonica	Monica Laliberte	885	1.41607E+12	
+82684870	maddiehanna	Maddie Hanna	883	1.41607E+12	
+63867599	JessicaABC30	Jessica Peres	883	1.41607E+12	
+323422500	NussbaumPaul	Paul Nussbaum	883	1.41607E+12	
+2303759611	WRALJulia	Julia Sims	882	1.41607E+12	
+1433575159	Chokis_Mx	Chokis Mx	881	1.41607E+12	
+501132134	HMAVivienLife	Vivien Life	880	1.41607E+12	
+277333577	MetroSteph	Stephanie Dubois	877	1.41607E+12	
+165592698	minamiaizu_town	????	875	1.41607E+12	
+71308236	emilythomson11	Emily Thomson	873	1.41607E+12	
+440561798	NiallBlairMLC	Niall Blair	870	1.41607E+12	
+1378289096	HillarysPolice	Hillarys Police	870	1.41607E+12	
+1511814127	RedBullGames	Redbull.com Games	869	1.41607E+12	
+19278011	RickStewart	Rick Stewart Iowa	868	1.41607E+12	
+325314732	AmandaOleander	AmandaOleander 	865	1.41607E+12	
+52983066	ChroniclesofSol	Solomon Leach	864	1.41607E+12	
+2858499696	waytooearly	Way Too Early	864	1.41607E+12	
+2834149167	FigcMedia	FIGC Media	860	1.41607E+12	
+160215811	devonlmurphy	Devon Murphy	854	1.41607E+12	
+185702024	JonTerbush	Jon Terbush	852	1.41607E+12	
+443855216	KSCorrections	KS Corrections	851	1.41607E+12	
+331141273	djangogold	Django Gold	848	1.41607E+12	
+1961400276	WRALJackie	Jackie Hyland	848	1.41607E+12	
+545673954	22ARW	McConnell AFB	847	1.41607E+12	
+1498745226	ericnus	eric nusbaum	847	1.41607E+12	
+1017138708	moovit_br	Moovit Brasil	846	1.41607E+12	
+115669947	IndeedKorea	Indeed	846	1.41607E+12	
+191305172	TFat96	TJ Fatinikun	841	1.41607E+12	
+115668356	IndeedJapan	Indeed	837	1.41607E+12	
+37799209	passthejoe	Steven Rosenberg	834	1.41607E+12	
+1095377168	ZacapaRum	Zacapa Rum	834	1.41607E+12	
+432565714	robert_simon93	Robert Simón	832	1.41607E+12	
+960031214	mandsbankhelp	M&S Bank Help	831	1.41607E+12	
+1017651907	CanadainItalia	Ambasciata Canada 	831	1.41607E+12	
+2646224094	pandoraamp	Pandora Amp	831	1.41607E+12	
+487794245	Steven_Rea	Steven Rea	829	1.41607E+12	
+28567736	PJWeber	Peter Weber	828	1.41607E+12	
+256790963	JeffAckermann	Jeff Ackermann	823	1.41607E+12	
+29362876	collinskeith	Keith Collins	821	1.41607E+12	
+348710267	KEZI9Sports	KEZI 9 Sports	820	1.41607E+12	
+334493916	AlexDruce1987	Alex Druce	818	1.41607E+12	
+23022820	mattkummer	Matt Kummer	818	1.41607E+12	
+1170844208	akishima_196	???	814	1.41607E+12	
+285982748	karabrandeisky	Kara Brandeisky	814	1.41607E+12	
+19298481	MetroFernando	Fernando Carneiro	813	1.41607E+12	
+769996213	HamptonCNBC	Hampton Pearson	811	1.41607E+12	
+85171927	news8gregg	Gregg Wavrunek	810	1.41607E+12	
+714008006	UralKp	«??????????» ????	809	1.41607E+12	
+2751989443	Jamar_Smith309	Jamar Smith	808	1.41607E+12	
+17313298	benadair	Ben Adair	806	1.41607E+12	
+108567134	vcaivano	Victor R. Caivano	805	1.41607E+12	
+19732357	AESteele	Allison Steele	802	1.41607E+12	
+990282415	melindapaveymlc	Melinda Pavey	799	1.41607E+12	
+93909660	theandrearomano	Andrea Romano	796	1.41607E+12	
+15430729	abagg	???ïs?n b?gg	793	1.41607E+12	
+240715039	InqPotosky	Gary Potosky	793	1.41607E+12	
+23077758	MusCanGuerre	MusCanGuerre	792	1.41607E+12	
+2374937881	WendyLovellMP	Wendy Lovell	792	1.41607E+12	
+77932140	GCBjesselder	Jessica Elder	791	1.41607E+12	
+49689295	PaulCicala	Paul Cicala	790	1.41607E+12	
+2789756486	drdanpoulter	Dr Dan Poulter MP	789	1.41607E+12	
+442456291	ColbyCovMMA	Colby Covington	784	1.41607E+12	
+22525506	samanthamelamed	Samantha Melamed	783	1.41607E+12	
+289574335	MHdmay	David May	783	1.41607E+12	
+46825318	philajosh	Josh Mellman	779	1.41607E+12	
+9407792	cassiearmstrong	Cassie Armstrong	778	1.41607E+12	
+352523472	MBNdigital	MBN Digital	778	1.41607E+12	
+357101380	FlynnShawn	Shawn Flynn	775	1.41607E+12	
+936699342	JordanBrown_OF	Jordan Brown	773	1.41607E+12	
+6442442	drewmac	Andrew MacDonald	772	1.41607E+12	
+85082753	BMWBulgaria	BMW Bulgaria	769	1.41607E+12	
+1524232538	AlstomEUOffice	Alstom EU Office	766	1.41607E+12	
+19344691	Chiara__Rinaldi	Chiara Rinaldi	764	1.41607E+12	
+30856378	50ShadesOfWray	Nick Wray	762	1.41607E+12	
+117703944	Kathleenskene	Kathleen Skene	761	1.41607E+12	
+498406939	KakegawaCity	???	757	1.41607E+12	
+1396045915	BusseltonPolice	Busselton Police	754	1.41607E+12	
+304611820	JenBerryHawes	Jennifer Berry Hawes	754	1.41607E+12	
+21577880	Lukezo	Luke Byrne	753	1.41607E+12	
+297371939	davidmaialetti	David Maialetti	751	1.41607E+12	
+1736521296	AKhanMedia	Amir Khan	749	1.41607E+12	
+2365807489	RamonaPop	Ramona Pop	746	1.41607E+12	
+1434809742	TimBullMP	Tim Bull MP	745	1.41607E+12	
+133023240	danielmwoodruff	Daniel Woodruff	744	1.41607E+12	
+18415561	pfmflan	Peter Flanagan	743	1.41607E+12	
+242904398	juanlozano70	Juan Lozano	740	1.41607E+12	
+22747125	CormacAMurphy	Cormac Murphy	739	1.41607E+12	
+2431618531	KP_CRIM	KP.RU - ????	738	1.41607E+12	
+1601103006	HMGovAnguilla	Christina Scott	737	1.41607E+12	
+2527047242	SorbonneParis3	Sorbonne Nouvelle	737	1.41607E+12	
+409904095	ReporterLaurenB	Lauren Ballinger	736	1.41607E+12	
+256976074	dmastrull	Diane Mastrull	736	1.41607E+12	
+1605514626	cityueda	???	735	1.41607E+12	
+31912074	karen_yi	Karen Yi	735	1.41607E+12	
+1479480810	GetSurreyDavid	David Stubbings	734	1.41607E+12	
+1907329760	PensionSA	????????????????????	732	1.41607E+12	
+20671113	MelaniePetrinec	Melanie Petrinec	730	1.41607E+12	
+937459573	AmyNay2News	Amy Nay	730	1.41607E+12	
+280709150	StaceyABurling	Stacey Burling	729	1.41607E+12	
+271198619	sofiyaballin	Cuffington Post	728	1.41607E+12	
+32494537	lclap	leah clapman	727	1.41607E+12	
+250751320	Vellastrations	Vinny Vella	724	1.41607E+12	
+233033353	ChrisScott__	Chris Scott	723	1.41607E+12	
+23557652	MimiKennedyLA	Mimi Kennedy	722	1.41607E+12	
+2827467529	SBSSAF	SAF 2014	719	1.41607E+12	
+2789446416	FrankBakerFCO	Frank Baker 	718	1.41607E+12	
+758254356	claymatvick	Clay Matvick	717	1.41607E+12	
+1201611697	SusannaHuovinen	Susanna Huovinen	716	1.41607E+12	
+1191664706	JJMoses84	JJ Moses	716	1.41607E+12	
+2616546108	MandurahPol	Mandurah Police	715	1.41607E+12	
+770519455	StephOsmanski	Stephanie Osmanski	715	1.41607E+12	
+49631876	Elaijuh	Jonathan Lai	712	1.41607E+12	
+1552308829	Yanchep_Police	Yanchep Police	711	1.41607E+12	
+2772642294	DS_Espana	DS España	710	1.41607E+12	
+61849794	IndeedBrasil	Indeed Brasil	710	1.41607E+12	
+45846012	SkodaBE	SKODA Belgium	707	1.41607E+12	
+481283004	itwasbliss	yu hwa	706	1.41607E+12	
+57261104	lawhill1986	Lawrence Hill	703	1.41607E+12	
+481538673	MarcJoulaud	Joulaud Marc	703	1.41607E+12	
+218632789	alcarabanda	Andres Alcaraz	702	1.41607E+12	
+202329328	IanOliverWX	Ian Oliver	701	1.41607E+12	
+2766546244	Brown29_	Reece Brown	701	1.41607E+12	
+516675710	Misha_Ryabikov	???? ???????	701	1.41607E+12	
+111423859	Josh_Barrage	Joshua Barajas	700	1.41607E+12	
+118777600	GrolschFR	Grolsch France	698	1.41607E+12	
+54166106	ProdbyHSVN	HSVN	697	1.41607E+12	
+17018840	sullivank	Kevin Sullivan	697	1.41607E+12	
+357858269	MattToal	Matt Toal	696	1.41607E+12	
+1048626774	miromikolasik	Miroslav Mikolášik	693	1.41607E+12	
+64727201	SI_MarkBeech	Mark Beech	692	1.41607E+12	
+728449278	marathonartists	Marathon Artists	692	1.41607E+12	
+19007693	pzoeller	Paul Zoeller	690	1.41607E+12	
+99110593	karimghajji	karim ghajji	689	1.41607E+12	
+23691355	coffsharbour	Andrew Fraser	689	1.41607E+12	
+195816455	LeavenworthKS	City of Leavenworth	688	1.41607E+12	
+137694049	ncnvenientruth	Ruth Davenport	686	1.41607E+12	
+1563167755	WHSVWeather	WHSV Weather	686	1.41607E+12	
+2616448700	MurdochPol	Murdoch Police	684	1.41607E+12	
+218373052	GCS_Pottsy	Andrew Potts	684	1.41607E+12	
+2361140193	MJShawNuff	Michael James Shaw	683	1.41607E+12	
+1899984391	ChinaEUMission	Mission of China	682	1.41607E+12	
+113459937	deputepml	P. MARTIN-LALANDE	680	1.41607E+12	
+2515394136	EAFergusonFCO	Edward Ferguson	677	1.41607E+12	
+68765628	Video_Matt	Matthew Michela	677	1.41607E+12	
+85609722	eilishor	Eilish O Regan	676	1.41607E+12	
+2426899705	DChilcottFCO	Dominick Chilcott	674	1.41607E+12	
+271429897	TrevorGreenway	Trevor Greenway	670	1.41607E+12	
+600822759	DavidOBrienMP	David O'Brien	669	1.41607E+12	
+2444122315	AmbWittig	Peter Wittig	669	1.41607E+12	
+719849558	caitrionam2012	Caitriona Murphy	668	1.41607E+12	
+307576993	fionabrown31	fionabrown	665	1.41607E+12	
+393814973	KeliMooreKSBY	Keli Moore	665	1.41607E+12	
+280317355	DBAnthony	David Anthony	664	1.41607E+12	
+20011256	jlguyon	janet guyon	664	1.41607E+12	
+1083239070	LeemoKruise	Kruise leeming	662	1.41607E+12	
+152464672	ruthetam	Ruth Tam	662	1.41607E+12	
+20555456	ReidKan	Reid Kanaley	662	1.41607E+12	
+1921807286	AmandaMillarMP	Amanda Millar MP	661	1.41607E+12	
+2842497633	Cnamts	Cnamts	661	1.41607E+12	
+2417392849	GranvilleMPP	Granville Anderson	660	1.41607E+12	
+86111340	kylelarnold	Kyle Arnold	659	1.41607E+12	
+20675556	robsmithireland	Rob Smith	658	1.41607E+12	
+2616557437	RockinghamPol	Rockingham Police	658	1.41607E+12	
+2596399484	ChefHassanMBC	????? ???	658	1.41607E+12	
+323367132	cityofnkc	North Kansas City	657	1.41607E+12	
+622426800	ValerieRussDN	ValerieRussDN	654	1.41607E+12	
+442867318	NeilRBuckley	Neil Buckley	652	1.41607E+12	
+2343614198	Tasty_Tale	Tasty Tale	652	1.41607E+12	
+267262235	BrettClarkson_	Brett Clarkson	652	1.41607E+12	
+2614988864	FremantlePol	Fremantle Police	651	1.41607E+12	
+274175816	SarahCrilly	Sarah Crilly	649	1.41607E+12	
+532562324	alekswis	AleksandraWisniewska	649	1.41607E+12	
+2744944531	SecAF23	Deborah Lee James	647	1.41607E+12	
+754596055	aidanfawkes	Aidan Fawkes	643	1.41607E+12	
+290206833	MJuricaWFTV	Marina Jurica	643	1.41607E+12	
+369599696	ablandino10	Alex Blandino	642	1.41607E+12	
+1902128082	BallymoreStabls	Ballymore Stables	641	1.41607E+12	
+570227443	StreetPulseShow	???_??????      	640	1.41607E+12	
+920073973	SarahSt01	Sarah Stack	640	1.41607E+12	
+319168622	LaMcCutch	Lauren McCutcheon	637	1.41607E+12	
+20714152	quinparker	Quin Parker	636	1.41607E+12	
+288710396	saratovkp	KP.RU - ???????	636	1.41607E+12	
+2892110396	JaguarJPN	Jaguar Japan	633	1.41607E+12	
+204319135	kpperm	??-?????	633	1.41607E+12	
+108839831	rebeccataylortv	Rebecca Taylor	630	1.41607E+12	
+1396765650	vershinin43	??????? ????????	630	1.41607E+12	
+249427335	thisissylviaUK	SYLVIA 	629	1.41607E+12	
+745368182	laurenreimer4	Lauren Reimer	629	1.41607E+12	
+226171044	Metrosean	Sean McKibbon	629	1.41607E+12	
+54579233	JamieWIAT	Jamie Ostroff	629	1.41607E+12	
+34503044	KCaddellWFTV	KRISTYN CADDELL	627	1.41607E+12	
+61849468	IndeedNederland	Indeed	627	1.41607E+12	
+2656084297	HunterCRobinson	Hunter Robinson	624	1.41607E+12	
+14692405	IndeedCanada	Indeed	622	1.41607E+12	
+612909736	masonbraswell	Mason	620	1.41607E+12	
+15069482	edunkel	Ellen Dunkel	620	1.41607E+12	
+48209108	lu_coelho	Luciana Coelho	619	1.41607E+12	
+1218972786	BlaBlaCarPL	BlaBlaCar.pl	618	1.41607E+12	
+1392699505	conor_feehan	Conor Feehan	616	1.41607E+12	
+1017153194	moovit_it	Moovit in Italiano	613	1.41607E+12	
+766071565	AndrewSeidman	Andrew Seidman	609	1.41607E+12	
+56570794	trarom	Tracey Romero	608	1.41607E+12	
+22815664	escobarinquirer	Gabriel Escobar	607	1.41607E+12	
+14554109	mreicher	Mike Reicher	604	1.41607E+12	
+123905160	KRIS6_Rick	Rick Spruill	604	1.41607E+12	
+2271933482	MirandaLeahTV	Miranda Leah	603	1.41607E+12	
+384115413	JS_Parks	Jessica S. Parks	603	1.41607E+12	
+145513925	Metro_Leah	Leah Holoiday	602	1.41607E+12	
+61516104	stellaforte	Stella Forte	602	1.41607E+12	
+347504242	JJfiddler	JJ Fiddler	601	1.41607E+12	
+383104174	jordifelpeto	jordi lopez felpeto	600	1.41607E+12	
+2849730251	PolizeiPDNord	Polizei ST PD Nord	599	1.41607E+12	
+1244334913	NestleCrunchUS	NESTLÉ® CRUNCH®	599	1.41607E+12	
+837908598	Resnick_PI	Amy Resnick	599	1.41607E+12	
+340239855	kppiter	KP.RU - ?????????	599	1.41607E+12	
+402941449	JasonMHenry	Jason Henry	597	1.41607E+12	
+1946964601	HDrakeUK	Howard Drake	597	1.41607E+12	
+2262856508	NievesGlasgow	Nieves	596	1.41607E+12	
+300301098	DeclanWhooley	Declan Whooley	596	1.41607E+12	
+894390847	YMvogo	Yvon Mvogo	595	1.41607E+12	
+109681468	KOAAGregSmith	Greg Smith	594	1.41607E+12	
+2424144547	BritAmbCGarrett	Charles Garrett	592	1.41607E+12	
+242892559	eenayo	Inae Oh	592	1.41607E+12	
+190548185	TeedotHT	Teedot Heavytrackerz	590	1.41607E+12	
+2243078666	HoldenBrosTC	Mark Holden	589	1.41607E+12	
+43734519	Rae_Christensen	RaeAnn Christensen	589	1.41607E+12	
+327013418	NataliaWAVE3	Natalia Martinez	589	1.41607E+12	
+323329846	michaelvitez	michael vitez	589	1.41607E+12	
+582199104	IndeedRussia	Indeed ??????	586	1.41607E+12	
+35308260	mmargaux_KRIS	Michelle Margaux	586	1.41607E+12	
+2329409786	USAO_MD	US Attorney Maryland	586	1.41607E+12	
+408796117	AntKing3	Anthony King	585	1.41607E+12	
+2821352356	patsy_kensit	Patsy Kensit	585	1.41607E+12	
+68974118	sethkovar	Seth Kovar	581	1.41607E+12	
+1176972338	PattiGreco	Patti Greco	581	1.41607E+12	
+2786564756	HouseBenghazi	Benghazi Committee	577	1.41607E+12	
+112677263	mniype	Mark Iype	577	1.41607E+12	
+2616455989	CockburnPol	Cockburn Police	577	1.41607E+12	
+38281461	acpark1	Alex Park	577	1.41607E+12	
+2362024736	GeraldtonPol	Geraldton Police	576	1.41607E+12	
+285318985	MHpshrader	Patrick Shrader	576	1.41607E+12	
+2297873414	sydney_LEX18	Sydney Lutz	575	1.41607E+12	
+55016552	meghandemaria	Meghan DeMaria	573	1.41607E+12	
+93551836	Alex_Labat	Alex Labat	572	1.41607E+12	
+700473512	nswyoungnats	NSW Young Nats	571	1.41607E+12	
+2894685066	lol_yusuke	????	570	1.41607E+12	
+74185702	BenFrumin	Ben Frumin	567	1.41607E+12	
+215779679	emilyfarra	Emily Farra	567	1.41607E+12	
+299360780	JoshGohlke	Josh Gohlke	567	1.41607E+12	
+15475824	BWscoop	Brad Worrall	566	1.41607E+12	
+2616465506	KwinanaPol	Kwinana Police	566	1.41607E+12	
+392941078	AnnaMedaris	Anna Medaris Miller	566	1.41607E+12	
+1360608938	shizukukouhou	??? ??	565	1.41607E+12	
+2727551151	EtiVelikonja	Etien Velikonja	565	1.41607E+12	
+16243142	cleberfacchi	Cleber Facchi	564	1.41607E+12	
+202022836	Tim_McCurdy	Tim McCurdy	563	1.41607E+12	
+2600522065	pieholewhiskey	Piehole Whiskey	563	1.41607E+12	
+5564252	racheluranga	Rachel Uranga	562	1.41607E+12	
+56727799	DaveOnDemand_TV	David Hiltbrand	561	1.41607E+12	
+1034265576	YurihonjoCity	?????????	561	1.41607E+12	
+859024531	KevinHoganMP	Kevin Hogan	555	1.41607E+12	
+2789841806	AusAmbTurkey	James Larsen	555	1.41607E+12	
+42154393	katieperalta	Katie Peralta	555	1.41607E+12	
+2327645940	TheGamblerMovie	The Gambler Movie	553	1.41607E+12	
+2894771815	lol_honoka	honoka	552	1.41607E+12	
+2578622472	BASE_fr	BASE_fr	552	1.41607E+12	
+62363785	cs_palmer	Chris Palmer	544	1.41607E+12	
+518179776	RickCollessMLC	Rick Colless	544	1.41607E+12	
+2165445573	CDPreda	Cristian Preda	544	1.41607E+12	
+2717727582	IrelandinHK	Ireland in Hong Kong	544	1.41607E+12	
+2894695290	lol_moca	moca	543	1.41607E+12	
+2565239329	DenisKeefe	Denis Keefe	542	1.41607E+12	
+1121513671	barossaherald	Barossa Herald	541	1.41607E+12	
+127083666	DaveGillespieMP	David Gillespie	539	1.41607E+12	
+1977878671	InfoMinakami	????????	538	1.41607E+12	
+73066864	tzigal	Gal Tziperman Lotan	538	1.41607E+12	
+138035539	Colmkelpie	ColmKelpie	538	1.41607E+12	
+292867245	dznsza	DZ NS-Zwangsarbeit	538	1.41607E+12	
+2527835190	MHbherman	Bob Herman	537	1.41607E+12	
+1566368930	AClayNews	Arielle Clay	536	1.41607E+12	
+790029565	JobySanchez	Joby Sanchez	535	1.41607E+12	
+1583020106	UKinBotswana	UK in Botswana	534	1.41607E+12	
+1170299030	MHRLanden	Rachel Landen	533	1.41607E+12	
+120875938	leralehoficial	Le Raleh	530	1.41607E+12	
+19829623	loversmadmen	Lovers & Madmen	529	1.41607E+12	
+15814757	frankncarlson	Frank Carlson	526	1.41607E+12	
+355814678	QFES_chief	Lee Johnson QFES	525	1.41607E+12	
+254711077	rynhnt	Ryan Hunt	524	1.41607E+12	
+509873177	naka_city	???	523	1.41607E+12	
+896291539	BenFranklinNats	Ben Franklin	523	1.41607E+12	
+1946924275	YleFem	Yle Fem	522	1.41607E+12	
+2834101012	Openvoor_50plus	OpenVoor50Plus	522	1.41607E+12	
+2232995852	USAO_NDCA	U.S. Attorney NDCA	522	1.41607E+12	
+237325949	TatekiMatsuda	????	521	1.41607E+12	
+2894766493	lol_naoto	?????	518	1.41607E+12	
+28558045	marcwalder	Marc Walder	517	1.41607E+12	
+2884772252	yanofukuda	????	516	1.41607E+12	
+2540382582	JWRSinclair	Jonathan Sinclair	513	1.41607E+12	
+2326682186	AlbanyPol	Albany Police	512	1.41607E+12	
+26755750	Hal__Roberts	Hal Roberts	512	1.41607E+12	
+334328131	MHinkelman	Michael Hinkelman	512	1.41607E+12	
+305439331	georgiecrozier	Georgie Crozier MP	509	1.41607E+12	
+372705076	smitchellmlc	Sarah Mitchell	509	1.41607E+12	
+1395999516	AustralindPol	Australind Police	506	1.41607E+12	
+2846522621	Surface_UK	Surface UK	506	1.41607E+12	
+14902215	deamartinelli	Andréa Martinelli 	502	1.41607E+12	
+182771765	NikonBelgie	Nikon België	500	1.41607E+12	
+2650633483	PlayHeroZero	Hero Zero	500	1.41607E+12	
+485871273	RyuSpaeth	Ryu Spaeth	498	1.41607E+12	
+979324777	GregoryYYee	Gregory Yee	496	1.41607E+12	
+390426606	BrianXMcCrone	Brian X. McCrone	496	1.41607E+12	
+2615016144	PalmyraPol	Palmyra Police	493	1.41607E+12	
+948430884	ChloeWhiteaker	Chloe Whiteaker	493	1.41607E+12	
+512468744	rachelcbrody	Rachel Brody	492	1.41607E+12	
+2445433106	UKEmbassyBerne	UK Embassy Berne	490	1.41607E+12	
+18703618	CP_Vancouver	CP Vancouver	490	1.41607E+12	
+312871709	juliabirkinbine	Julia Birkinbine	489	1.41607E+12	
+64519445	SnCoHealth	SN Co. Health Agency	488	1.41607E+12	
+845981142	AlysonHenry_	Alyson Henry	488	1.41607E+12	
+632747009	tsukubamirai_c	???????	487	1.41607E+12	
+1055392321	Louise_a_Kelly	Louise Kelly	487	1.41607E+12	
+259100812	KOAAmprichard	Matt Prichard	484	1.41607E+12	
+17135243	bopete	Bo Petersen	483	1.41607E+12	
+2227724701	ashleyNBC15	Ashley NBC15	483	1.41607E+12	
+300365783	KamKevin	Kevin Kam Møller	482	1.41607E+12	
+50906148	carvalhoandre	André Carvalho	482	1.41607E+12	
+317860571	eberspacher	Sarah Eberspacher	481	1.41607E+12	
+2693499661	MichaelDukeJr	Michael Duke	481	1.41607E+12	
+260167184	breanna_tucker	Breanna Tucker	480	1.41607E+12	
+585679170	bridiebarry1	Bridie Barry	480	1.41607E+12	
+1409584826	nishiyodo_ku	?????????	479	1.41607E+12	
+2613734774	IndoMotoring	Independent Motoring	479	1.41607E+12	
+34380243	bryanmimsWRAL	Bryan Mims	479	1.41607E+12	
+240417678	Alexandra_Vuc	Alexandra Vucetic	476	1.41607E+12	
+177023523	andrewrpearson	Andrew Pearson	475	1.41607E+12	
+2793452239	abdoubaofficial	Abdoulaye Ba	475	1.41607E+12	
+1702987051	USAO_AZ	US Attorney Arizona	474	1.41607E+12	
+193527407	hkryan17	Haley Ryan	471	1.41607E+12	
+1710507858	TV3Social	TV3Social	471	1.41607E+12	
+33475681	ChrisGordon65	Chris Gordon	470	1.41607E+12	
+188014222	EMSpeck	Emilee Speck	469	1.41607E+12	
+604066384	AshtonMosley	Ashton Wiley	469	1.41607E+12	
+2292311282	York_Police	York Police	466	1.41607E+12	
+2376695335	DongaraPol	Dongara Police	466	1.41607E+12	
+2675566592	SledSweeney13	Joshua Sweeney	465	1.41607E+12	
+834779419	Williamson_PI	Christine Williamson	465	1.41607E+12	
+1877252551	BuscapeMMA	Leandro Buscapé 	464	1.41607E+12	
+17418867	tcd004	Travis	464	1.41607E+12	
+232017765	keenatGCB	Ryan Keen	464	1.41607E+12	
+35374548	briehiramine	Brie Hiramine	464	1.41607E+12	
+1637109991	THE_SPLAY	THE SxPLAY(??????)	463	1.41607E+12	
+1338774278	HyattRegencyDel	Hyatt Regency Delhi	462	1.41607E+12	
+90770536	paulwellerMLA	Paul Weller MLA	460	1.41607E+12	
+344795746	cornest	Jordi Masó	459	1.41607E+12	
+63493808	cmcculloch_	Cheryl McCulloch	459	1.41607E+12	
+131205334	IndeedSverige	Indeed	459	1.41607E+12	
+2868990450	DepSecAndrews	Bruce Andrews	459	1.41607E+12	
+216937659	RealDaleneR	Dalene Rovenstine	459	1.41607E+12	
+2679332928	dsitalia	DS Italia	458	1.41607E+12	
+2160753714	weareshininguk	WE ARE SHINING	457	1.41607E+12	
+542136412	CampTara	Tara Campbell	457	1.41607E+12	
+274550735	harjerjac	Harold Jackson	457	1.41607E+12	
+381653375	KOAAjwise	Joanna Wise	456	1.41607E+12	
+1093780358	CessAdvertiser	The Advertiser 	455	1.41607E+12	
+2773732393	9RafaelMartins	Rafael Martins	454	1.41607E+12	
+22294289	AnnaVDesigns	Anna O Donoghue	454	1.41607E+12	
+2711909377	NOAA_AOML	NOAA AOML	453	1.41607E+12	
+130789355	blake_foden	Blake Foden	452	1.41607E+12	
+402358806	DavidLMatthews	David Lee Matthews	450	1.41607E+12	
+20196620	MLBURNEY	Melanie Burney	449	1.41607E+12	
+838259706	KarenMeyerABC7	KarenMeyerABC7	448	1.41607E+12	
+2518483411	wmoficial	William Matheus	448	1.41607E+12	
+329544465	AMR_Mail	Margaret River Mail	447	1.41607E+12	
+2815409280	DaleYurongABC30	Dale Yurong	447	1.41607E+12	
+2884300614	benji_nicholas	Ben Nicholas	446	1.41607E+12	
+240714839	GaryLMiles	Gary Miles	443	1.41607E+12	
+2674531682	hindsightvh1	Hindsight 	443	1.41607E+12	
+2449923583	Stimorol_BeNL	Stimorol België	442	1.41607E+12	
+609228835	JohnPatrickKVOA	John Patrick	442	1.41607E+12	
+523248351	BMEUHealth	B-M Brussels Health	442	1.41607E+12	
+1506102696	WHSVmdonnelly	Morgan Donnelly	439	1.41607E+12	
+2616787621	RottnestPol	 Rottnest Police	438	1.41607E+12	
+47253530	colinbecht	Colin Becht	436	1.41607E+12	
+364244821	mydaughterskit	maureen fitzgerald	435	1.41607E+12	
+2693500688	TheRavenStein	Raven Stein	435	1.41607E+12	
+2663022853	AndrewNobleHMA	Andrew Noble 	433	1.41607E+12	
+77065230	DonSapatkin	Don Sapatkin	433	1.41607E+12	
+2723447408	BunburyPolice	Bunbury Police	432	1.41607E+12	
+71291756	bccamplight	BC CAMPLIGHT	431	1.41607E+12	
+25733465	kiwisays	Kristine H. Kowalski	430	1.41607E+12	
+1465201471	ChrisMillerKUTV	Chris Miller	430	1.41607E+12	
+251943095	ggilbert	Gary Gilbert	429	1.41607E+12	
+2288942202	ByCourtneyJay	Courtney Jones	428	1.41607E+12	
+200958563	jordanenelson	J. England-Nelson	426	1.41607E+12	
+67015721	Oritel	Oritel	422	1.41607E+12	
+1732586454	BenLysterBinns	Ben Lyster-Binns	421	1.41607E+12	
+1666798573	miyakemura	???	421	1.41607E+12	
+27893972	KGibsonTV9	Kenny Gibson	419	1.41607E+12	
+27035519	katesantich	Kate Santich	419	1.41607E+12	
+1093053926	PatMcLoone	Pat McLoone	419	1.41607E+12	
+309257842	clauderolin	Claude ROLIN	418	1.41607E+12	
+440361321	aoifegracekelly	Aoife Kelly	418	1.41607E+12	
+901635978	andrewkatosmp	Andrew Katos	414	1.41607E+12	
+2588060521	ExMachinaMovie	Ex Machina	412	1.41607E+12	
+1379297407	alisonrosefco	Alison Rose	411	1.41607E+12	
+371229555	Sdemelker	Saskia de Melker	411	1.41607E+12	
+2616601976	PinjarraPol	Pinjarra Police	411	1.41607E+12	
+2292303338	NorthamPol	Northam Police	411	1.41607E+12	
+256697108	AllanShifman	Allan Shifman	408	1.41607E+12	
+2646966536	EsperancePol	Esperance Police	405	1.41607E+12	
+1614783098	Prefet38	Préfet de l'Isère	403	1.41607E+12	
+941944044	courtneywhytex	gizzy_	402	1.41607E+12	
+2794665441	thekillsmusic	The Kills	402	1.41607E+12	
+2821156486	Langleco	L'angle éco	400	1.41607E+12	
+28670259	marisagottesman	Marisa Gottesman	400	1.41607E+12	
+113146674	Webman_PI	Nancy Webman	400	1.41607E+12	
+418090427	Brian_O_Reilly	Brian O'Reilly	400	1.41607E+12	
+2811729118	Ashley44	Ashley Etienne	399	1.41607E+12	
+2883998617	SGNLAX	Henry Nguyen	396	1.41607E+12	
+726910530	Obela_Mx	Obela Mx 	395	1.41607E+12	
+2534176531	moriya_citypro	????????????? 	394	1.41607E+12	
+2174922913	OReganMark	Mark O'Regan	394	1.41607E+12	
+414875614	Magan_Ladner	Magan Ladner	394	1.41607E+12	
+2227519429	PlayPandaPop	Panda Pop	393	1.41607E+12	
+726860910	TUlrichWFTV	Todd Ulrich	393	1.41607E+12	
+2615239693	TomZdechovskyEP	Tomáš Zdechovský MEP	393	1.41607E+12	
+876290910	BritsAuCanada	Brits Au Canada	392	1.41607E+12	
+1546680990	stevedaniels27	Steve Daniels	392	1.41607E+12	
+2218983528	BarrowIslandPol	Barrow Island Police	391	1.41607E+12	
+533851822	MatsukawaTown	??????	391	1.41607E+12	
+119512652	dlberes	Damon Beres	391	1.41607E+12	
+1183633650	WxGrant	Grant Smith	391	1.41607E+12	
+563148888	DenverPostTV	Denver Post TV	391	1.41607E+12	
+2712511937	pitucomadevall	Pitu 8	390	1.41607E+12	
+214670336	johnquinninq	John Quinn	389	1.41607E+12	
+314033901	skmchaney	Sarah McHaney	388	1.41607E+12	
+2150202426	Marissa_Diggs	Marissa Diggs	387	1.41607E+12	
+2412489284	YouveBeenFramed	You've Been Framed!	387	1.41607E+12	
+2341337600	LeemanPol	Leeman Police	387	1.41607E+12	
+438667587	KUTVJill	Jill Margetts	387	1.41607E+12	
+275452957	tallulahgreive	Tallulah Greive	386	1.41607E+12	
+1646717042	atsuta_nagoya	?????????	384	1.41607E+12	
+171617862	cartermacintyre	Carter MacIntyre	383	1.41607E+12	
+1115821652	DougDruschke	Doug Druschke	383	1.41607E+12	
+202329331	Garrethmurphy	Garreth Murphy	382	1.41607E+12	
+531599418	KeithLLair	Keith Lair	381	1.41607E+12	
+2753262374	governodoparana	Governo do Paraná	381	1.41607E+12	
+2542508065	ColliePol	Collie Police	381	1.41607E+12	
+407110988	BMUKHealth	@BMUKHealth	381	1.41607E+12	
+2654158478	CanadayColombia	Canadá en Colombia	380	1.41607E+12	
+16722328	adamsacasa	adamsacasa	380	1.41607E+12	
+49696021	summerghost	summer ghost	380	1.41607E+12	
+82532660	brentelewis	Brent Lewis	378	1.41607E+12	
+2640825419	lewis_nando	fernando lewis	375	1.41607E+12	
+2529169350	PortHedlandPol	Port Hedland Police	375	1.41607E+12	
+208472684	jannikolander	Jannik Olander	375	1.41607E+12	
+695633	JakeD	Jake Davidson	374	1.41607E+12	
+2480088517	CanadaColombia	Canada in Colombia	373	1.41607E+12	
+40199819	julieshawphilly	Julie Shaw	372	1.41607E+12	
+945929388	HetGrootDictee	Het Groot Dictee	371	1.41607E+12	
+2705920148	MundijongPol	Mundijong Police	371	1.41607E+12	
+2598977954	DJBolerjack	D.J. Bolerjack	371	1.41607E+12	
+564150398	brandon_rutley	Brandon Rutley	370	1.41607E+12	
+2693434176	KaryndaW	Karynda Worcester	370	1.41607E+12	
+2341322850	MargRiverPol	Margaret River Pol	368	1.41607E+12	
+2548436648	dropapp	DROP	368	1.41607E+12	
+2693524934	Tommy_Theis	Tommy Theis	366	1.41607E+12	
+1860321661	UKinIceland	UK in Iceland	365	1.41607E+12	
+87561066	cat_stanton_	Catherine Stanton	364	1.41607E+12	
+2559508378	JARiosReina	Jose A. Rios Reina	364	1.41607E+12	
+1391621724	iidakikikanri	???????????	364	1.41607E+12	
+2327918113	KatanningPol	Katanning Police	363	1.41607E+12	
+75961380	rosieslewis	Rosie Lewis	363	1.41607E+12	
+2349159224	JWard_wdbj7	Justin Ward	363	1.41607E+12	
+623492587	shayalaughlin	Shaya Laughlin	362	1.41607E+12	
+550762459	sfpathe	Simone Pathe	361	1.41607E+12	
+615673385	micsaunders	Michael Saunders	361	1.41607E+12	
+111253860	mrtravisburns	Travis Burns	360	1.41607E+12	
+2424985820	DannyOBrienMP	Danny O'Brien	360	1.41607E+12	
+2725631287	PerthPol	Perth Police	360	1.41607E+12	
+1631539525	MHSjohnson	steven ross johnson	360	1.41607E+12	
+50831514	Tanya_Westthorp	Tanya Westthorp	359	1.41607E+12	
+2589569990	HouzzFR	Houzz France	358	1.41607E+12	
+1416970939	GCBKen	Ken Robinson	358	1.41607E+12	
+2884487594	officialTongaRU	Tonga Rugby Union	357	1.41607E+12	
+2751392346	hamura_tokyo	??????	356	1.41607E+12	
+490980691	brentgodde	Brent Godde	355	1.41607E+12	
+211122043	gittensg	Geraldine Gittens	354	1.41607E+12	
+402414079	aliciajthomas	Alicia Thomas	352	1.41607E+12	
+2837873930	abdulla_aljasir	??????? ??????	352	1.41607E+12	
+256248173	elisepianegonda	Elise Pianegonda	352	1.41607E+12	
+285269231	MHsdoshi	Supriya Doshi	352	1.41607E+12	
+1854730530	Moragon87	José Sánchez Moragón	351	1.41607E+12	
+34509323	wcarey22	Bill Carey	350	1.41607E+12	
+24779040	MikeElliotBarry	Mike Barry	350	1.41607E+12	
+2191632881	PatrickMullee	Patrick Mullee UK	348	1.41607E+12	
+2465582180	PaulTooleMP	Paul Toole MP	348	1.41607E+12	
+2616713804	DwellingupPol	Dwellingup Police	348	1.41607E+12	
+19632573	kristinstance	Kristin Anderson	348	1.41607E+12	
+298381958	KenzieMeekBeck	Kenzie Meek-Beck	348	1.41607E+12	
+1616071380	USAO_HI	US Attorney Hawaii	347	1.41607E+12	
+2347413614	Hylandpt	Pat Hyland	347	1.41607E+12	
+834104064	Pollard_PI	Timothy Pollard 	346	1.41607E+12	
+700297718	OperationCHAMPS	Operation CHAMPS	346	1.41607E+12	
+2233470968	USAO_SDIA	US Attorney S. Iowa	346	1.41607E+12	
+2514249770	tokai_vill	???	345	1.41607E+12	
+2349318350	bousaishiojiri	??????	343	1.41607E+12	
+390074840	TSTContinental	Kamal Khan	343	1.41607E+12	
+232187861	mark_mac_	Mark McConville	342	1.41607E+12	
+21293770	cassdalgleish	Cass Dalgleish	341	1.41607E+12	
+404556585	tenryu_vill	???????	341	1.41607E+12	
+2573090294	SBertiniWFTV	Stephanie Bertini	340	1.41607E+12	
+25926389	laurajulie	LauraJulie Perreault	339	1.41607E+12	
+271975692	tito_ortiz6	Tito Ortiz	339	1.41607E+12	
+325482873	warren_partland	Warren Partland	339	1.41607E+12	
+1378971006	vanwijngaardenj	Jeroen v.Wijngaarden	337	1.41607E+12	
+500545088	shibetsu_town	???????	337	1.41607E+12	
+1700431218	KELO_Ransom	Jared Ransom	334	1.41607E+12	
+2884736791	DziejeSejmu	Dzieje Sejmu	333	1.41607E+12	
+2327923057	NarroginPol	Narrogin Police	333	1.41607E+12	
+834098959	Kozlowski_PI	Rob Kozlowski 	333	1.41607E+12	
+834100003	Olsen_PI	Kevin Olsen 	332	1.41607E+12	
+2890989182	DisneyStudiosBR	WaltDisneyStudiosBR 	330	1.41607E+12	
+2573021191	CanadainIraq	Canada in Iraq	330	1.41607E+12	
+494175422	BlaBlaCarPT	BlaBlaCar.pt	330	1.41607E+12	
+824019066	KOAA_gdingrando	Greg Dingrando	328	1.41607E+12	
+2613474788	hannover	Stadt Hannover	327	1.41607E+12	
+51865102	JeffGelles	Jeff Gelles	327	1.41607E+12	
+2560755624	WundowiePol	Wundowie Police	327	1.41607E+12	
+2840798668	suricatooficial	suricatooficial	326	1.41607E+12	
+1202418816	jb_jonezman	Jonas Beck	326	1.41607E+12	
+1382399892	AndyWAVE3	Andy Weingarten	326	1.41607E+12	
+54962957	wjlonghurst	Bill Longhurst	325	1.41607E+12	
+2451931177	HuffPostAlgerie	HuffPost Algerie	322	1.41607E+12	
+2693521314	BradleyMitch26	Bradley Mitchell	322	1.41607E+12	
+2851129912	Prefet30	Préfet du Gard	317	1.41607E+12	
+2326689330	DenmarkPol	Denmark Police	317	1.41607E+12	
+977682662	WSAZmary	WSAZmary	317	1.41607E+12	
+73174373	PeterSpruyt	Peter Spruyt	317	1.41607E+12	
+2857050396	midnight_zap	????Midnight ????	316	1.41607E+12	
+207015728	Brodie_Owen	Brodie Owen	314	1.41607E+12	
+833931990	Baert_PI	Richard Baert 	314	1.41607E+12	
+113517803	acheuse	Alan Cheuse	313	1.41607E+12	
+568311859	KelseyBorza	Kelsey Borza	311	1.41607E+12	
+2742380412	bloodline	Bloodline	309	1.41607E+12	
+2366048318	USAO_NDOK	U.S. Attorney NDOK	308	1.41607E+12	
+2495821307	nickslyney	Nick Slyney	306	1.41607E+12	
+2269363634	MHJFrank	John N. Frank	305	1.41607E+12	
+1355348018	LMcBrideSBiz	Louise McBride	305	1.41607E+12	
+2485461140	AParkerWDBJ7	Alison Parker	304	1.41607E+12	
+577780245	chrisclarkenews	Chris Clarke	303	1.41607E+12	
+2725398036	MidlandPol	Midland Police	303	1.41607E+12	
+248404194	MichaelleBond	Michaelle Bond	300	1.41607E+12	
+153854023	viewfrombroadst	Russell Cooke	300	1.41607E+12	
+431239307	Anth_Carrigan	Anthony Carrigan	298	1.41607E+12	
+384710078	McNeilColin	Colin McNeil	298	1.41607E+12	
+2562446222	myGovau	myGov	297	1.41607E+12	
+792762876	nakagawa_nagoya	?????????	295	1.41607E+12	
+1400029086	BlaBlaCarRU	BlaBlaCar.ru	295	1.41607E+12	
+1713455688	LSPDPIO	Sgt. Chris Depue	292	1.41607E+12	
+762898328	AnthonyBrady7	Anthony Brady	290	1.41607E+12	
+905764884	ESA_Exomars	@ESA_ExoMars	289	1.41607E+12	
+2794140345	PLParliament	PLParliament 	288	1.41607E+12	
+890890344	BMBRUSSELSENVI	B-M Brussels ENVI	288	1.41607E+12	
+2570739078	SusanLeJeuneFCO	Susan Le Jeune	287	1.41607E+12	
+251258707	SeenaVali	Seena Vali	287	1.41607E+12	
+2797567455	TWahnschaffe	Tobias Wahnschaffe	287	1.41607E+12	
+377815958	CHCourier	CH Courier	286	1.41607E+12	
+2845285952	ALL_zap	????ALL???	286	1.41607E+12	
+2571158671	CanadaJamaica	Canada in Jamaica	284	1.41607E+12	
+2725292947	ScarboroughPol	Scarborough Police	284	1.41607E+12	
+2792207595	LorynBrantz	Loryn Brantz	283	1.41607E+12	
+1017163771	moovit_fr	Moovit en français	280	1.41607E+12	
+1911370596	KinderBuenoFR	Kinder Bueno France	279	1.41607E+12	
+2724997566	MirrabookaPol	Mirrabooka Police	279	1.41607E+12	
+2174929682	MHvdickson	Virgil Dickson	279	1.41607E+12	
+2233684616	TomCorfman	Tom Corfman	279	1.41607E+12	
+2606242467	sabineverheyen	Sabine Verheyen	278	1.41607E+12	
+833989110	Bradford_PI	Hazel Bradford	277	1.41607E+12	
+34979721	michellebjork	Michelle Bjork	277	1.41607E+12	
+352620652	TWholf	Tracy Wholf	276	1.41607E+12	
+15207262	shespeaksinthai	Thaisi Da Silva	276	1.41607E+12	
+2482544575	CanadaBolivie	Canada en Bolivie	276	1.41607E+12	
+206308729	ajagoare	Aja Goare	275	1.41607E+12	
+2427836996	USAO_NV	US Attorney Nevada	274	1.41607E+12	
+423551310	kanarifound	Kanari Foundation	274	1.41607E+12	
+2769068168	SouthHedlandPol	South Hedland Police	273	1.41607E+12	
+2715065148	RIOgaleao	RIOgaleão	272	1.41607E+12	
+224971604	vicki_leaks	Vicki Harper	271	1.41607E+12	
+179330097	alexmcconachie	Alex McConachie	270	1.41607E+12	
+212090864	alice_primrose	Alice Dempster	270	1.41607E+12	
+2786236928	AndrewDLansley	Andrew Lansley MP	268	1.41607E+12	
+24491668	farahsyed	Farah Syed	267	1.41607E+12	
+302458741	TohoruMasamune	Tohoru Masamune	267	1.41607E+12	
+1487302142	ukinkyrgyzstan	UK in Kyrgyzstan	266	1.41607E+12	
+250629797	cor_byrneindo	Cormac Byrne	266	1.41607E+12	
+773389614	BM_Purpose	BM_Purpose	266	1.41607E+12	
+2591497068	CanadaUNGeneva	CanadaUNGeneva	265	1.41607E+12	
+2725162171	MorleyPol	Morley Police	265	1.41607E+12	
+33998122	Noticias69	Noticias 69 	265	1.41607E+12	
+580947653	Bangistan	Bangistan	265	1.41607E+12	
+522604432	claudiasgvn	Claudia S. Palma	261	1.41607E+12	
+313695749	MoriRothman	Mori Rothman	261	1.41607E+12	
+325564562	TomAvril1	Tom Avril	261	1.41607E+12	
+402840869	Karier_PI	Elizabeth Karier	261	1.41607E+12	
+2888791140	microsoftband	Microsoft Band	260	1.41607E+12	
+772117508	JeremyAHobbs	Jeremy Hobbs	260	1.41607E+12	
+718126513	SDGAnews	U.S. Attorney SDGA	260	1.41607E+12	
+2786355847	Uber_Maine	Uber Maine 	259	1.41607E+12	
+353111485	MDM_DE	Maisons du Monde DE	259	1.41607E+12	
+2174363672	OtavioLDias	Otavio Dias	259	1.41607E+12	
+2449905770	Stimorol_BeFR	Stimorol Belgique	257	1.41607E+12	
+20442627	Jason_Mc	Jason McGregor	255	1.41607E+12	
+2274676165	SiobhanStarrs	Siobhan Starrs	255	1.41607E+12	
+2725366963	ForrestfieldPol	Forrestfield Police	251	1.41607E+12	
+1590714332	rBarnils_6	Roger Barnils	246	1.41607E+12	
+600397845	rhordt	Robert Hordt	244	1.41607E+12	
+2725483676	WembleyPol	Wembley Police	243	1.41607E+12	
+243131676	AideenSheehan	Aideen Sheehan	243	1.41607E+12	
+2872463606	ishihara_kmmt	??????	242	1.41607E+12	
+2708627750	MtMagnetPol	Mount Magnet Police	242	1.41607E+12	
+600505692	LeonLazaroff	Leon Lazaroff	242	1.41607E+12	
+17738857	RichardOBrienSI	Richard O'Brien	241	1.41607E+12	
+45907715	NicoleSPhelps	Nicole Phelps	240	1.41607E+12	
+2742812023	Uber_Arkansas	Uber Arkansas 	239	1.41607E+12	
+2848281329	HMRCcustomers	HMRCcustomers	238	1.41607E+12	
+2616882781	CottesloePol	Cottesloe Police	238	1.41607E+12	
+1584014898	MaayanSchechter	Maayan Schechter	238	1.41607E+12	
+1471291494	futabatown_koho	??????????	236	1.41607E+12	
+297856858	obama_city	??????????	236	1.41607E+12	
+1134610819	FOXAbilene	KXVA FOX Abilene	236	1.41607E+12	
+2232564062	CaitlinH26	Caitlin Heathcote	234	1.41607E+12	
+2710338337	CanEmbJordan	Canada in Jordan	233	1.41607E+12	
+157485270	steff_leopard	steff yotka	232	1.41607E+12	
+49808703	richirwinSGVN	Richard Irwin 	231	1.41607E+12	
+2589593839	askmadewell	askmadewell	231	1.41607E+12	
+2231663726	UKinSlovakia	UK in Slovakia	231	1.41607E+12	
+848251890	mkfresh1	Mitchell Kriegman	231	1.41607E+12	
+1298889565	kpsamara	??-??????	230	1.41607E+12	
+326014487	FreyaBidwell	Freya Bidwell	229	1.41607E+12	
+2860069715	HannesJaenicke	Hannes Jaenicke	226	1.41607E+12	
+2499483800	CanadainItaly	Canada in Italy	226	1.41607E+12	
+836815754	tokunoshimatown	????????	225	1.41607E+12	
+311829217	Chuoku_pr	????????????????????	225	1.41607E+12	
+834055567	RDiamond_PI	Randy Diamond 	225	1.41607E+12	
+95755032	lou_rabito	Lou Rabito	223	1.41607E+12	
+2665643917	DesiRascals	Desi Rascals	221	1.41607E+12	
+2777729983	BridgetownPol	Bridgetown Police	220	1.41607E+12	
+2769051426	MerredinPol	Merredin Police	218	1.41607E+12	
+2797895686	WG_DMHealth	Vaughan Gething	218	1.41607E+12	
+280713013	repopter	Marie McCullough	217	1.41607E+12	
+2867981941	DefianceWriters	Defiance Writers	217	1.41607E+12	
+215523428	Mhehrichs	Matthew Ehrichs	216	1.41607E+12	
+2725489669	KiaraPol	Kiara Police	216	1.41607E+12	
+2813646680	KateABC30	Kate Valentine	214	1.41607E+12	
+28149662	orlaghbailey	orlaghbailey	214	1.41607E+12	
+2571394784	CanHCGhana	Canada In Ghana	213	1.41607E+12	
+1944102312	WSAZAngela	Angela Pino	213	1.41607E+12	
+1544404465	seamus_evans	Seamus Evans	212	1.41607E+12	
+2846625063	MdicGov	MDIC	211	1.41607E+12	
+2327528814	JasonKellyWFTV	Jason Kelly WFTV	211	1.41607E+12	
+306274659	Nicolas_Ratti	Nico Ratti	211	1.41607E+12	
+493706813	bladebolado	Jorge Blade Oliveira	210	1.41607E+12	
+745874570	MDPAnews	MDPAnews	210	1.41607E+12	
+1143992276	Littleonethin	Bianca Mejia	209	1.41607E+12	
+2881509037	suzukinana_7	????	209	1.41607E+12	
+2374476313	CarnarvonPol	Carnarvon Police	207	1.41607E+12	
+2548338757	USAO_AK	U.S. Attorney Alaska	207	1.41607E+12	
+94526108	GarryToal	Garry Toal	205	1.41607E+12	
+361668790	CGazette	Crookwell Gazette	204	1.41607E+12	
+2325898544	Montrose_County	Montrose County	202	1.41607E+12	
+388101597	ADearlove33	Angus Dearlove	201	1.41607E+12	
+2741939720	DavidMoranFCO	David Moran	201	1.41607E+12	
+2787912559	Sky_JohannesH	Johannes Hofer	201	1.41607E+12	
+2790857064	MtBarkerPol	Mt Barker Police	198	1.41607E+12	
+953986027	Barbara1Loth	Barbara Loth	198	1.41607E+12	
+1135581163	BlairThomson3	Blair Thomson	197	1.41607E+12	
+2725518152	MundaringPol	Mundaring Police	197	1.41607E+12	
+2831766399	PotBaronsmsnbc	Pot Barons	196	1.41607E+12	
+2573097300	Canada2OSCE	Canada OSCE	195	1.41607E+12	
+2609475176	BASE_eng	BASE_eng	195	1.41607E+12	
+354634026	braidwoodtimes	Braidwood Times	194	1.41607E+12	
+2767726147	Uber_MS	Uber Mississippi	194	1.41607E+12	
+2777867162	CoolgardiePol	Coolgardie Police	194	1.41607E+12	
+38010779	jocelynrichard	Jocelyn Richard	192	1.41607E+12	
+2799341288	kawasaki_asaoku	?????????	192	1.41607E+12	
+2815681887	Telekom_group	DeutscheTelekomGroup	190	1.41607E+12	
+900602521	KOAARobQuirk	Rob Quirk	190	1.41607E+12	
+2889438300	sptv_hamon	??	189	1.41607E+12	
+2302069394	Macquarie	Macquarie Group	189	1.41607E+12	
+583403900	jonnyproducer	J. Ward	188	1.41607E+12	
+2427806768	USAO_WDMI	US Attorney WDMI	187	1.41607E+12	
+391738248	AlexSinnott1	Alex Sinnott	186	1.41607E+12	
+2693581350	mwurtzel_PI	Matthew Wurtzel	184	1.41607E+12	
+2489053081	MikeUlmer	Michael Ulmer	184	1.41607E+12	
+42656726	ionedias	Ione Dias de Aguiar	184	1.41607E+12	
+69967320	LydiaHarvey	Lydia Harvey	183	1.41607E+12	
+2870350490	KarrathaPol	Karratha Police	183	1.41607E+12	
+256781525	abfritsch	Ashley Fritsch	181	1.41607E+12	
+2799547604	KirstyHayesFCO	Kirsty Hayes	181	1.41607E+12	
+1094214612	andivivienneyu	andi yu	180	1.41607E+12	
+1860485797	NikonBelgique	Nikon Belgique	179	1.41607E+12	
+2436559087	AndrewRonaldsMP	Andrew Ronalds MP 	178	1.41607E+12	
+1304015550	KP_TAMBOV	??-??????	178	1.41607E+12	
+2857434894	Uber_NV	Uber Nevada	177	1.41607E+12	
+1061408623	zamoramorlet	Enrique ZamoraMorlet	175	1.41607E+12	
+1635567745	markblundellf1	Mark Blundell	175	1.41607E+12	
+58831220	EmilyBethMiller	Emily Miller	174	1.41607E+12	
+2829648178	renanbrito01	Renan Brito	174	1.41607E+12	
+153501881	IndeedPolska	Indeed	172	1.41607E+12	
+2614215540	WDBJ7Health	WDBJ7Health	172	1.41607E+12	
+222149053	INQSPORT	Jim Swan	172	1.41607E+12	
+226987230	je_michellin	Jéssica Michellin	171	1.41607E+12	
+1874378677	Gifu_Ikeda	??????	170	1.41607E+12	
+2446890469	naikakucjm	???????????	169	1.41607E+12	
+2615524315	SarahGillettFCO	Sarah Gillett	168	1.41607E+12	
+2252930198	Blue_Balls_Rec	Bloodest Saxophone	168	1.41607E+12	
+1182789890	AdamLMedia	Adam Leverone	168	1.41607E+12	
+1553855959	KOAAEricRoss	Eric Ross	168	1.41607E+12	
+2506888603	LucyKinbacher	Lucy Kinbacher	167	1.41607E+12	
+2835127642	TAAFofficiel	TAAF	167	1.41607E+12	
+2348959881	WSAZRyanEpling	Ryan Epling	167	1.41607E+12	
+1683078194	emprss	emprss	166	1.41607E+12	
+1340774779	minamichita_tw	????	166	1.41607E+12	
+1529785140	CoastalLeader	Coastal Leader	165	1.41607E+12	
+1268740992	takamorimachi	?????	165	1.41607E+12	
+2789439674	Sky_FlorianB	Florian Bauer	161	1.41607E+12	
+2792175643	AusEmbIre	Australia in Ireland	161	1.41607E+12	
+2671628936	joeberkery	Joseph Berkery	159	1.41607E+12	
+2480109816	CanadaColombie	Canada en Colombie	159	1.41607E+12	
+746726400	NakagawaCity	????	159	1.41607E+12	
+48382344	willyb13	WIlly Brennan	158	1.41607E+12	
+1602260690	AnnNewling	Ann Newling	156	1.41607E+12	
+1138772456	t_yoshino_nara	???????	156	1.41607E+12	
+2831694194	GHMUMM_UK	GHMUMM_UK	156	1.41607E+12	
+634183078	collie_mail	Collie Mail	155	1.41607E+12	
+2879188880	WAPoliceTraffic	WA Police Traffic	155	1.41607E+12	
+2835763676	MooraPol	Moora Police	154	1.41607E+12	
+2859462949	LavertonPol	Laverton Police	154	1.41607E+12	
+2831391464	salonderaison	jtbc?????_????	154	1.41607E+12	
+321419700	ChannahonPolice	Channahon Police	153	1.41607E+12	
+2741678822	AlstomIndia	Alstom India	151	1.41607E+12	
+2557402297	EmbCanRD	Canadá en RD	149	1.41607E+12	
+2748738428	takaful_org	????? ????? ???????	148	1.41607E+12	
+2787985009	Sky_MichaelG	Michael Ganhör	146	1.41607E+12	
+2838491467	BabadookMovie	TheBabadookMovie	146	1.41607E+12	
+834009853	Burr_PI	Barry B. Burr	146	1.41607E+12	
+2814367489	NorthamptonPol	Northampton Police	145	1.41607E+12	
+956735461	kasuyatown	??? ???	145	1.41607E+12	
+119680685	alliehumphries	Alexandra Humphries	144	1.41607E+12	
+2841829473	SchroederOlaf	Olaf Schröder	144	1.41607E+12	
+2352142008	DianaRoss	Ms. Ross	143	1.41607E+12	
+1899613502	furudono_town	???	142	1.41607E+12	
+2815686843	FFF_Rai	Forte Forte Forte	140	1.41607E+12	
+76000085	CarlyWerner	Carly Werner	139	1.41607E+12	
+1658121253	Comtois_PI	James Comtois	139	1.41607E+12	
+1106221621	becker_horst	Horst Becker	139	1.41607E+12	
+875974482	PeanutsMovie	The Peanuts Movie	135	1.41607E+12	
+2730150631	RepCurtClawson	Rep. Curt Clawson	135	1.41607E+12	
+88028617	andrepmurched	Andre Murched	131	1.41607E+12	
+2847270777	SuaveSaysVH1	Suave Says 	130	1.41607E+12	
+2239175544	DrivyDE	Drivy	130	1.41607E+12	
+2853927432	NannupPol	Nannup Police	129	1.41607E+12	
+2799157765	EllenbrookPol	Ellenbrook Police	128	1.41607E+12	
+2503640485	moovit_tr	Moovit Türkiye	127	1.41607E+12	
+297052368	Mohamed_Gomaa_	???? ????	127	1.41607E+12	
+29817401	megbthompson	Megan Thompson	126	1.41607E+12	
+2426902357	IvanStefanec	Ivan Stefanec	126	1.41607E+12	
+2380200732	BeaudesertTimes	Beaudesert Times	125	1.41607E+12	
+489164675	ItsMeDanShep	Dan Shepard	124	1.41607E+12	
+2755076490	DaveProdgerFCO	David Prodger	124	1.41607E+12	
+2785148903	NatixisAM	Natixis AM	123	1.41607E+12	
+1572187795	AdamHolmes010	Adam Holmes	121	1.41607E+12	
+275028258	MichaelArndt_	Michael Arndt	120	1.41607E+12	
+2785158383	JMFernandesEU	José M. Fernandes	120	1.41607E+12	
+2369594402	ranzan_town	?????	119	1.41607E+12	
+1319525990	yamagacity	?????	119	1.41607E+12	
+23478180	gabibazzo	Gabriela Bazzo	118	1.41607E+12	
+2709415248	UKinCuba	UKinCuba	117	1.41607E+12	
+2496781074	CanHCBarbados	Canada in Barbados	116	1.41607E+12	
+478878670	SueLee_NYC	sue lee	116	1.41607E+12	
+2755476668	DisneyAnywhere	DisneyMoviesAnywhere	115	1.41607E+12	
+2610160608	CanadaONUGeneve	Canada à Genève	115	1.41607E+12	
+2884876711	burberrycorp	Burberry Corporate	112	1.41607E+12	
+2559535657	FOXSanAngelo	KIDY Fox San Angelo	112	1.41607E+12	
+2884277064	RoebournePol	Roebourne Police	110	1.41607E+12	
+2610190070	CanadaWTO	Canada and WTO	109	1.41607E+12	
+2815929205	SRA_PR	SRA PUBLIC RELATIONS	108	1.41607E+12	
+1342799809	Bebe_Wood	Bebe Wood	107	1.41607E+12	
+2858344303	BestBuyEdu	Best Buy Education	105	1.41607E+12	
+2250734846	Sellbranch	Sellbranch	103	1.41607E+12	
+2482813850	David_W_Randall	David Randall	103	1.41607E+12	
+1409269441	contractorgary	Gary Stein	103	1.41607E+12	
+1551355291	DerrekAsberry	Derrek Asberry	101	1.41607E+12	
+2813549550	ShayneDwyerWDBJ	Shayne Dwyer	96	1.41607E+12	
+2556969253	Kilroy_PI	Meaghan Kilroy	94	1.41607E+12	
+2687153384	uber_bud	Uber Budapest	92	1.41607E+12	
+2573025362	CanadaenIraq	Canada en Iraq 	91	1.41607E+12	
+258801455	woodt15	Anthony Wood	90	1.41607E+12	
+2571182047	CanadaJamaique	Canada en Jamaïque	88	1.41607E+12	
+2786346679	Uber_NH	Uber New Hampshire	88	1.41607E+12	
+1928880944	NikahoCity	??????	88	1.41607E+12	
+2232898759	GordonWAVE3	Gordon Boyd	88	1.41607E+12	
+148342517	KoniMaJohnson	Connie Kargbo	87	1.41607E+12	
+2499502284	CanadaenItalie	Canada en Italie	86	1.41607E+12	
+386040209	BhargavaManoj	Manoj Bhargava	86	1.41607E+12	
+14577845	ahartoun	Alina Hartounian	86	1.41607E+12	
+2573104518	CanadaOSCE	Canada OSCE	84	1.41607E+12	
+1925131478	FukushimaHirono	???	83	1.41607E+12	
+2338682521	UAFootball	UA Football	82	1.41607E+12	
+2786298870	Uber_VT	Uber Vermont 	82	1.41607E+12	
+1220318677	BgoEnterprise	BgoEnterprise	80	1.41607E+12	
+2202178950	Kagamiishi_Town	??????	79	1.41607E+12	
+1922199206	leilargerstein	leila gerstein	78	1.41607E+12	
+2857454552	Uber_TX	Uber Texas	78	1.41607E+12	
+2415074504	HaraldKloser	Harald Kloser	78	1.41607E+12	
+1338028440	kuma_village	?????	77	1.41607E+12	
+2393691872	diepngocpham	Diep Ngoc Pham	77	1.41607E+12	
+2884416307	ZelousW	Zelous Wheeler	76	1.41607E+12	
+2750262337	wppd1	West Point PD	74	1.41607E+12	
+2571328219	HCCanGhana	Canada au Ghana	69	1.41607E+12	
+2835904734	MT_MVD	Montana MVD	69	1.41607E+12	
+2242345188	cat_botman	Catherine Botman	67	1.41607E+12	
+1472083962	Frase1kn	GetOff_93	67	1.41607E+12	
+2281825303	EduardinioRUS	Eduardo Gushchin	67	1.41607E+12	
+189096186	DisneyChannelBE	Disney Channel BE	66	1.41607E+12	
+1302058370	kankyou_yk	?????????	64	1.41607E+12	
+2218606484	Minabe_Town	????????	61	1.41607E+12	
+2262140168	yasugicity	??????	61	1.41607E+12	
+2774426570	PixarInsideOut	Inside Out	55	1.41607E+12	
+1650088274	pressetopo	Presseabteilung Topo	54	1.41607E+12	
+2443525261	KP_PSKOV	KP.RU - ?????	54	1.41607E+12	
+2853460979	conversasaosul	Conversas ao Sul	53	1.41607E+12	
+1629034514	soeda_anzen	??????????	53	1.41607E+12	
+2435262571	der_weiss_was	Markus Weiss	51	1.41607E+12	
+2615960946	CanadaMongolie	Canada en Mongolie	51	1.41607E+12	
+2853181977	Uber_Sofia	Uber Sofia	50	1.41607E+12	
+2610209774	CanadaOMC	Canada et OMC	50	1.41607E+12	
+2647298647	toon_city	?????	50	1.41607E+12	
+2854409561	Patmccoy92Mccoy	Pat McCoy	49	1.41607E+12	
+2745123780	AmbCanJordanie	Canada en Jordanie	47	1.41607E+12	
+2786381245	Uber_MA	Uber Massachusetts 	45	1.41607E+12	
+2831318175	VayaConDiosOff	Vaya Con Dios	44	1.41607E+12	
+2851303889	SJAFB	Seymour Johnson AFB	43	1.41607E+12	
+2650096651	mamurogawatown	????	42	1.41607E+12	
+2696509548	EmbCanArgentina	Canada en Argentina	40	1.41607E+12	
+2815754953	Uber_Support	Uber Support	39	1.41607E+12	
+2496798564	HCCanBarbade	Canada à la Barbade	38	1.41607E+12	
+2883128329	etajima_bousai	????????	36	1.41607E+12	
+2698751617	IndeedIndo	INDEED Indonesia	36	1.41607E+12	
+2814073905	IDNYC	NYC Municipal ID 	33	1.41607E+12	
+2680703047	MMStearnsCastle	Michael McDonald	29	1.41607E+12	
+2826235626	Desperados_NZ	Desperados_NZ	29	1.41607E+12	
+2493117504	alhurratviraq	Alhurra	26	1.41607E+12	
+2845901293	mizuho_debit	???????	1	1.41607E+12	
