@@ -1,0 +1,1 @@
+=SUM(IF(FREQUENCY(INDIRECT("D" & (30*(ROW()-1)+1)):INDIRECT("D"& (30*(ROW()-1)+30)), INDIRECT("D" & (30*(ROW()-1)+1)):INDIRECT("D"& (30*(ROW()-1)+30)))>0,1))

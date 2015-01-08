@@ -2,7 +2,7 @@ package acqua.query;
 import acqua.*;
 import acqua.config.Config;
 import acqua.data.TwitterStreamCollector;
-import acqua.query.join.JoinOperator;
+import acqua.query.join.*;
 import acqua.query.join.bkg1.DWJoinOperator;
 import acqua.query.join.bkg1.OracleJoinOperator;
 import acqua.query.join.bkg1.SmartJoin;
@@ -23,6 +23,8 @@ public class QueryProcessor {
 		
 		tsc= new TwitterStreamCollector();
 		tsc.extractWindow(Config.INSTANCE.getQueryWindowWidth(), "D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterStream.txt");		
+		for (int i=0;i<tsc.windows.size();i++)
+			System.out.println(tsc.windows.get(i).size());
 		//initialCache = tfc.getFollowerListFromDB(start); //gets the first window
 	}
 	public void evaluateQuery(int joinType){
@@ -42,7 +44,7 @@ public class QueryProcessor {
 			join=new OracleDoubleJoinOperator();
 		long time=Config.INSTANCE.getQueryStartingTime();
 		int windowCount=0;
-		while(windowCount<30){
+		while(windowCount<100){
 			time = time + Config.INSTANCE.getQueryWindowWidth()*1000;	
 			//System.out.println(tsc.windows.get(windowCount).size());
 			join.process(time,tsc.windows.get(windowCount));//TwitterFollowerCollector.getInitialUserFollowersFromDB());//					
@@ -53,8 +55,8 @@ public class QueryProcessor {
 	
 	public static void main(String[] args){
 		QueryProcessor qp=new QueryProcessor();	
-		//for(int i=1;i<7;i++){
-			qp.evaluateQuery(7);
-		//}
+		for(int i=1;i<6;i++){
+			qp.evaluateQuery(i);
+		}
 	}
 }
