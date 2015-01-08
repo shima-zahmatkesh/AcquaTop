@@ -44,7 +44,7 @@ public class SlidingQueryProcessor {
 		while(windowCount<100){
 			time = time + Config.INSTANCE.getQueryWindowWidth()*1000;	
 			//System.out.println(tsc.windows.get(windowCount).size());
-			join.process(time,slidedWindows.get(windowCount));//TwitterFollowerCollector.getInitialUserFollowersFromDB());//					
+			join.process(time,slidedWindows.get(windowCount),tsc.slidedWindowUsersTimeStamp.get(windowCount));//TwitterFollowerCollector.getInitialUserFollowersFromDB());//					
 			windowCount++;
 		}
 		join.close();
