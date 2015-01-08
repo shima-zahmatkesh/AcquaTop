@@ -2,7 +2,7 @@ package acqua.query;
 import acqua.*;
 import acqua.config.Config;
 import acqua.data.TwitterStreamCollector;
-import acqua.query.join.JoinOperator;
+import acqua.query.join.*;
 import acqua.query.join.bkg1.DWJoinOperator;
 import acqua.query.join.bkg1.OracleJoinOperator;
 import acqua.query.join.bkg1.SmartJoin;

@@ -13,6 +13,9 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import acqua.config.Config;
 
@@ -33,6 +36,7 @@ import twitter4j.conf.ConfigurationBuilder;
 public class TwitterStreamCollector {
 	private ConfigurationBuilder cb;
 	public ArrayList<HashMap<Long, Integer>> windows;
+	public ArrayList<ArrayList<HashMap<Long,Integer>>> slides;
 	public static long[] monitoredIds;
 	public static String[] monitorNames;
 	//constructor for not listening
@@ -50,7 +54,8 @@ public class TwitterStreamCollector {
 		  .setOAuthAccessToken("96538292-6MuEd3YcQ1ClJVtQ9OceeOd4dlzm8ZhMeshUcTpRJ")
 		  .setOAuthAccessTokenSecret("6lqQnvDKCP9sUwP8cJnZYD1iDWrvhhQXdeVWQfTImx4");
 		cb.setJSONStoreEnabled(true);
-		windows=new ArrayList<HashMap<Long,Integer>>();
+		windows= new ArrayList<HashMap<Long,Integer>>();
+		slides=new ArrayList<ArrayList<HashMap<Long,Integer>>>();
 		extractUserIds("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followers.init");	
 	}
 	public static void extractUserIds(String userListToMonitor){
@@ -190,6 +195,7 @@ public class TwitterStreamCollector {
 				}
 				line=br.readLine();
 			}
+			windows.add((HashMap<Long,Integer>)mapOfUserMentions.clone());
 			br.close();
 			bw.flush();
 			bw.close();
@@ -198,10 +204,116 @@ public class TwitterStreamCollector {
 		}catch(Exception e){e.printStackTrace(); return null;}
 
 	}
+	
+	public ArrayList<ArrayList<HashMap<Long, Integer>>> extractSlides(int windowMinutesLength, int slideMinutesLength, String StreamFile){		
+		try{
+			OutputStream    fos;
+			BufferedWriter bw;
+			fos=new FileOutputStream("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterMentionWindows.txt");
+			bw=new BufferedWriter(new OutputStreamWriter(fos));
+			InputStream    fis;
+			BufferedReader br;
+
+			//FIXME: remove the dependency to QueryProcessor
+			long Wstart=Config.INSTANCE.getQueryStartingTime();
+			long Sstart=Wstart;
+			
+			fis = new FileInputStream(StreamFile);//"D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followerSnapshotsFile2.txt");
+			br = new BufferedReader(new InputStreamReader(fis));
+			String line = br.readLine();
+
+			//ArrayList<HashMap<String,Integer>> windows=new ArrayList<HashMap<String,Integer>>();
+			Queue<HashMap<Long ,Integer>> mapOfUserMentions=new LinkedList<HashMap<Long,Integer>>();
+			HashMap<Long ,Integer> slideMapOfUserMention = new 	HashMap<Long ,Integer>();					
+			Queue<Long> slideStarts=new LinkedList<Long>();
+
+			while(line!=null){
+				JSONObject jsnobject = new JSONObject(line);
+				Object timeStamp = jsnobject.get("timestamp_ms");
+				long current = Long.parseLong(timeStamp.toString());
+				if (current-Wstart< windowMinutesLength*1000){//iterating over windows
+					
+					if (current - Sstart < slideMinutesLength*1000){//iterating over slides
+						JSONObject jsonEntities =(JSONObject)jsnobject.get("entities");
+						JSONArray jsonMentionArray=jsonEntities.getJSONArray("user_mentions");
+						for (int i = 0; i < jsonMentionArray.length(); i++) {
+							JSONObject explrObject = jsonMentionArray.getJSONObject(i);
+							String mentionedUser = explrObject.get("id").toString();
+							int p=0;
+							for(p=0;p<monitoredIds.length;p++)
+							{
+								if(monitoredIds[p]==Long.parseLong(mentionedUser))
+									break;
+							}
+							if(p==monitoredIds.length) continue;
+							Object numberOfMentions = slideMapOfUserMention.get(mentionedUser);
+							if(numberOfMentions!=null){
+								slideMapOfUserMention.put(Long.parseLong(mentionedUser),Integer.parseInt(numberOfMentions.toString())+1);
+							}else{
+								slideMapOfUserMention.put(Long.parseLong(mentionedUser),1);
+							}
+						}
+					}//end of slide
+					else{
+						bw.write(Sstart+" to "+current+" slide"+slideMapOfUserMention.toString()+"\n");
+						Sstart=current;
+						slideStarts.add(Sstart);
+						mapOfUserMentions.add((HashMap<Long, Integer>)slideMapOfUserMention.clone());	
+						slideMapOfUserMention.clear();
+						continue;
+					}
+					
+				}else
+				{
+					Wstart=slideStarts.poll();
+					//System.out.println(mapOfUserMentions.toString());	
+					mapOfUserMentions.add((HashMap<Long, Integer>)slideMapOfUserMention.clone());
+					bw.write(Wstart+" TO "+current +" Window : "+mapOfUserMentions.toString()+"\n");	
+					slides.add(new ArrayList<HashMap<Long,Integer>>(mapOfUserMentions));						
+					mapOfUserMentions.poll();
+					//slideMapOfUserMention.clear();
+					continue;
+				}
+				line=br.readLine();
+			}
+			mapOfUserMentions.add((HashMap<Long, Integer>)slideMapOfUserMention.clone());
+			slides.add(new ArrayList<HashMap<Long,Integer>>(mapOfUserMentions));						
+			
+			br.close();
+			bw.flush();
+			bw.close();
+			return slides;
+
+		}catch(Exception e){e.printStackTrace(); return null;}
+
+	}
+	public ArrayList<HashMap<Long,Integer>> aggregateSildedWindowsUser()
+	{
+		ArrayList<HashMap<Long,Integer>> slidedWindows=new ArrayList<HashMap<Long,Integer>>();
+		for(int i=0;i<slides.size();i++){
+			ArrayList<HashMap<Long,Integer>> tempSplittedWindow = slides.get(i);
+			HashMap<Long,Integer> WindowUserMention=new HashMap<Long, Integer>();
+			for(int j=0;j<tempSplittedWindow.size();j++){//per slide
+				HashMap<Long,Integer> slideUsers=tempSplittedWindow.get(j);
+				Iterator<Long> slideuserit=slideUsers.keySet().iterator();
+				while(slideuserit.hasNext()){
+					long slideUserName=slideuserit.next();
+					Integer windowusercount= WindowUserMention.get(slideUserName);
+					if(windowusercount==null){
+						WindowUserMention.put(slideUserName, slideUsers.get(slideUserName));
+					}else{
+						WindowUserMention.put(slideUserName, slideUsers.get(slideUserName)+windowusercount);
+					}
+				}				
+			}
+			slidedWindows.add(WindowUserMention);
+		}
+		return slidedWindows;
+	}
 	public static void main(String[] args)
 	{
 		TwitterStreamCollector tsc=new TwitterStreamCollector();
-		tsc.listen("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterStream.txt");
+		//tsc.listen("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterStream.txt");
 		//ArrayList<HashMap<Long, Integer>> windows = tsc.extractWindow(Config.INSTANCE.getQueryWindowWidth(), "D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterStream.txt");
 		//windows.get(1);
 	}

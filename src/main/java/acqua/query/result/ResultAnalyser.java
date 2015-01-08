@@ -276,7 +276,7 @@ public static HashMap<Long,Integer> computeSJoinPrecision(){
 public static void main(String[] args){
 	try{
 	BufferedWriter bw=new BufferedWriter(new FileWriter(new File("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/joinOutput/compare.csv")));
-	//insertResultToDB();
+	insertResultToDB();
 	HashMap<Long,Integer> oracleCount=computeOJoin();
 	HashMap<Long,Integer> SError=computeSJoinPrecision();
 	HashMap<Long,Integer> RError=computeRJoinPrecision();
