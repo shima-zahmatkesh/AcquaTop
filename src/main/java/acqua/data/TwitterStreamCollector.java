@@ -36,7 +36,8 @@ import twitter4j.conf.ConfigurationBuilder;
 public class TwitterStreamCollector {
 	private ConfigurationBuilder cb;
 	public ArrayList<HashMap<Long, Integer>> windows;
-	public ArrayList<ArrayList<HashMap<Long,Integer>>> slides;
+	public ArrayList<ArrayList<HashMap<Long,Integer>>> windowsWithSlideEntries;
+	public ArrayList<HashMap<Long,Long>> slidedWindowUsersTimeStamp;
 	public static long[] monitoredIds;
 	public static String[] monitorNames;
 	//constructor for not listening
@@ -55,7 +56,7 @@ public class TwitterStreamCollector {
 		  .setOAuthAccessTokenSecret("6lqQnvDKCP9sUwP8cJnZYD1iDWrvhhQXdeVWQfTImx4");
 		cb.setJSONStoreEnabled(true);
 		windows= new ArrayList<HashMap<Long,Integer>>();
-		slides=new ArrayList<ArrayList<HashMap<Long,Integer>>>();
+		windowsWithSlideEntries=new ArrayList<ArrayList<HashMap<Long,Integer>>>();
 		extractUserIds("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followers.init");	
 	}
 	public static void extractUserIds(String userListToMonitor){
@@ -227,13 +228,16 @@ public class TwitterStreamCollector {
 			HashMap<Long ,Integer> slideMapOfUserMention = new 	HashMap<Long ,Integer>();					
 			Queue<Long> slideStarts=new LinkedList<Long>();
 
-			while(line!=null){
+			HashMap<Long,Long> currentWindowUsersTimestamp=new HashMap<Long, Long>();
+			
+			while(line!=null){//iterating through each tweet in the stream to put it in the right slide of the right window
+				
 				JSONObject jsnobject = new JSONObject(line);
 				Object timeStamp = jsnobject.get("timestamp_ms");
 				long current = Long.parseLong(timeStamp.toString());
-				if (current-Wstart< windowMinutesLength*1000){//iterating over windows
+				if (current-Wstart< windowMinutesLength*1000){//checking window boundaries => iterating over windows
 					
-					if (current - Sstart < slideMinutesLength*1000){//iterating over slides
+					if (current - Sstart < slideMinutesLength*1000){//checking slide boundaries=>iterating over slides
 						JSONObject jsonEntities =(JSONObject)jsnobject.get("entities");
 						JSONArray jsonMentionArray=jsonEntities.getJSONArray("user_mentions");
 						for (int i = 0; i < jsonMentionArray.length(); i++) {
@@ -252,46 +256,64 @@ public class TwitterStreamCollector {
 							}else{
 								slideMapOfUserMention.put(Long.parseLong(mentionedUser),1);
 							}
+							currentWindowUsersTimestamp.put(Long.parseLong(mentionedUser), current);
 						}
-					}//end of slide
-					else{
+					}
+					else{//end of current slide. adding the current slide and setting varaibles for the next slide
 						bw.write(Sstart+" to "+current+" slide"+slideMapOfUserMention.toString()+"\n");
-						Sstart=current;
-						slideStarts.add(Sstart);
-						mapOfUserMentions.add((HashMap<Long, Integer>)slideMapOfUserMention.clone());	
-						slideMapOfUserMention.clear();
+						Sstart=current;//setting the start time of the next slide
+						slideStarts.add(Sstart);//adding the slides start time for 
+						mapOfUserMentions.add((HashMap<Long, Integer>)slideMapOfUserMention.clone());//adding the copy of current slide to the current window	
+						slideMapOfUserMention.clear();//clearing the current slide to be filled again from stream
 						continue;
 					}
 					
 				}else
-				{
-					Wstart=slideStarts.poll();
+				{//end of current window . adding the current window and setting variables for the next window 
+					Wstart=slideStarts.poll();//setting the start time of the next window
 					//System.out.println(mapOfUserMentions.toString());	
-					mapOfUserMentions.add((HashMap<Long, Integer>)slideMapOfUserMention.clone());
+					mapOfUserMentions.add((HashMap<Long, Integer>)slideMapOfUserMention.clone());//adding the current slide to the slides of the current window
 					bw.write(Wstart+" TO "+current +" Window : "+mapOfUserMentions.toString()+"\n");	
-					slides.add(new ArrayList<HashMap<Long,Integer>>(mapOfUserMentions));						
-					mapOfUserMentions.poll();
-					//slideMapOfUserMention.clear();
+					windowsWithSlideEntries.add(new ArrayList<HashMap<Long,Integer>>(mapOfUserMentions));//adding the current window to the list of windows with slided entries						
+					slidedWindowUsersTimeStamp.add((HashMap<Long,Long>)currentWindowUsersTimestamp.clone());//adding the list of user-entrance-timestamp for current window
+					HashMap<Long,Integer> evictedUsers = mapOfUserMentions.poll();//evict the first slide from the slides of current window
+					//evicted users should be evicted from the list of user-entrance-timestamps for the current window to be used for the next sliding window
+					Iterator<Long> evictedUserIt=evictedUsers.keySet().iterator();
+					while(evictedUserIt.hasNext()){
+						long euid=evictedUserIt.next();
+						boolean flage=false;
+						for(HashMap<Long,Integer> mapOfUserMentionsSlide : mapOfUserMentions ){
+						if (mapOfUserMentionsSlide.get(euid)!=null)//iterate through all slides
+							{
+								flage=true;
+								break;
+							}
+						}
+						if(!flage) currentWindowUsersTimestamp.remove(euid);
+					}
+					
 					continue;
 				}
 				line=br.readLine();
 			}
 			mapOfUserMentions.add((HashMap<Long, Integer>)slideMapOfUserMention.clone());
-			slides.add(new ArrayList<HashMap<Long,Integer>>(mapOfUserMentions));						
-			
+			windowsWithSlideEntries.add(new ArrayList<HashMap<Long,Integer>>(mapOfUserMentions));						
+			slidedWindowUsersTimeStamp.add((HashMap<Long,Long>)currentWindowUsersTimestamp.clone());
 			br.close();
 			bw.flush();
 			bw.close();
-			return slides;
+			return windowsWithSlideEntries;
 
 		}catch(Exception e){e.printStackTrace(); return null;}
 
 	}
+	
+	
 	public ArrayList<HashMap<Long,Integer>> aggregateSildedWindowsUser()
 	{
 		ArrayList<HashMap<Long,Integer>> slidedWindows=new ArrayList<HashMap<Long,Integer>>();
-		for(int i=0;i<slides.size();i++){
-			ArrayList<HashMap<Long,Integer>> tempSplittedWindow = slides.get(i);
+		for(int i=0;i<windowsWithSlideEntries.size();i++){
+			ArrayList<HashMap<Long,Integer>> tempSplittedWindow = windowsWithSlideEntries.get(i);
 			HashMap<Long,Integer> WindowUserMention=new HashMap<Long, Integer>();
 			for(int j=0;j<tempSplittedWindow.size();j++){//per slide
 				HashMap<Long,Integer> slideUsers=tempSplittedWindow.get(j);
