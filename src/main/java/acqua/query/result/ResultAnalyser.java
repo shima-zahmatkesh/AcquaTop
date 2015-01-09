@@ -26,7 +26,7 @@ public static void insertResultToDB(){
 	      
 	      stmt = c.createStatement();
 	      //stmt.executeQuery("DROP INDEX IF EXISTS timeIndex ON BKG;");
-	      stmt.executeUpdate(" DROP TABLE IF EXISTS BJ ;");
+	      /*stmt.executeUpdate(" DROP TABLE IF EXISTS BJ ;");
 	      String sql = "CREATE TABLE  `BJ` ( " +
 	                   " `USERID`           BIGINT    NOT NULL, " + 
 	                   " `MENTIONCOUNT`     INT    NOT NULL, " + 
@@ -66,8 +66,33 @@ public static void insertResultToDB(){
                   " `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `StimeIndex` ON `SJ` (`TIMESTAMP` ASC);"; 
 	      System.out.println(sql);
 	      stmt.executeUpdate(sql);
+	      */
+	      stmt.executeUpdate(" DROP TABLE IF EXISTS SSJ ;");
+	      String sql = "CREATE TABLE  `SSJ` ( " +
+                  " `USERID`           BIGINT    NOT NULL, " + 
+                  " `MENTIONCOUNT`     INT    NOT NULL, " + 
+                  " `FOLLOWERCOUNT`    INT    NOT NULL, " + 
+                  " `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `SstimeIndex` ON `SSJ` (`TIMESTAMP` ASC);"; 
+	      System.out.println(sql);
+	      stmt.executeUpdate(sql);
+	      
+	      
 		InputStream    fis;
 		BufferedReader br;
+		
+		fis = new FileInputStream("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/joinOutput/SmartSlidingJoinOutput.txt");
+		br = new BufferedReader(new InputStreamReader(fis));
+		String line=null;
+		while((line=br.readLine())!=null)
+		{
+			String[] userInfo = line.split(" ");	
+			sql = "INSERT INTO SSJ (USERID,MENTIONCOUNT,FOLLOWERCOUNT,TIMESTAMP) " +
+          "VALUES ("+userInfo[0]+","+userInfo[1]+","+userInfo[2]+","+userInfo[3]+")"; 
+			//System.out.println(sql);
+			stmt.executeUpdate(sql);
+		}
+		
+		/*
 		//---------------------------------------------------------------------fill baseline table
 		fis = new FileInputStream("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/joinOutput/BaselineJoinOperatorOutput.txt");
 		br = new BufferedReader(new InputStreamReader(fis));
@@ -127,7 +152,8 @@ public static void insertResultToDB(){
 		          "VALUES ("+userInfo[0]+","+userInfo[1]+","+userInfo[2]+","+userInfo[3]+")"; 
 					//System.out.println(sql);
 					stmt.executeUpdate(sql);
-				}		
+				}	
+				*/	
 		stmt.close();
 		//c.commit();
 		c.close();
@@ -275,8 +301,8 @@ public static HashMap<Long,Integer> computeSJoinPrecision(){
 }
 public static void main(String[] args){
 	try{
-	BufferedWriter bw=new BufferedWriter(new FileWriter(new File("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/joinOutput/compare.csv")));
 	insertResultToDB();
+	/*BufferedWriter bw=new BufferedWriter(new FileWriter(new File("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/joinOutput/compare.csv")));
 	HashMap<Long,Integer> oracleCount=computeOJoin();
 	HashMap<Long,Integer> SError=computeSJoinPrecision();
 	HashMap<Long,Integer> RError=computeRJoinPrecision();
@@ -289,7 +315,7 @@ public static void main(String[] args){
 		bw.write(nextTime+","+(DWError.get(nextTime)==null?0:DWError.get(nextTime))+","+(SError.get(nextTime)==null?0:SError.get(nextTime))+","+(RError.get(nextTime)==null?0:RError.get(nextTime))+","+(BError.get(nextTime)==null?0:BError.get(nextTime))+"\n");
 	}
 	bw.flush();
-	bw.close();
+	bw.close();*/
 	}catch(Exception e){e.printStackTrace();}
 }
 }
