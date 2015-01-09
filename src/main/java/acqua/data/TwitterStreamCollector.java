@@ -57,6 +57,7 @@ public class TwitterStreamCollector {
 		cb.setJSONStoreEnabled(true);
 		windows= new ArrayList<HashMap<Long,Integer>>();
 		windowsWithSlideEntries=new ArrayList<ArrayList<HashMap<Long,Integer>>>();
+		slidedWindowUsersTimeStamp=new ArrayList<HashMap<Long,Long>>();
 		extractUserIds("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followers.init");	
 	}
 	public static void extractUserIds(String userListToMonitor){
