@@ -28,7 +28,7 @@ public class SlidingQueryProcessor {
 		while(windowCount<75){
 			//System.out.println(tsc.windows.get(windowCount).size());
 			HashMap<Long,Long> currentCandidateTimeStamp = tsc.slidedWindowUsersTimeStamp.get(windowCount);
-			currentCandidateTimeStamp.put(-1L, time);
+			//currentCandidateTimeStamp.put(-1L, time);
 			join.process(time,slidedwindows.get(windowCount),currentCandidateTimeStamp);//TwitterFollowerCollector.getInitialUserFollowersFromDB());//					
 			windowCount++;
 			time = time + Config.INSTANCE.getQueryWindowSlide()*1000;				
