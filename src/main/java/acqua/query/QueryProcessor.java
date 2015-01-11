@@ -54,9 +54,9 @@ public class QueryProcessor {
 		long time=Config.INSTANCE.getQueryStartingTime()+Config.INSTANCE.getQueryWindowWidth()*1000;
 		int windowCount=0;
 		while(windowCount<75){
-			time = time + Config.INSTANCE.getQueryWindowWidth()*1000;	
 			join.process(time,slidedwindows.get(windowCount),null);//TwitterFollowerCollector.getInitialUserFollowersFromDB());//					
 			windowCount++;
+			time = time + Config.INSTANCE.getQueryWindowSlide()*1000;			
 		}
 		join.close();
 		
