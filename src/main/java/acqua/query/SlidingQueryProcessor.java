@@ -15,7 +15,7 @@ public class SlidingQueryProcessor {
 	
 	public SlidingQueryProcessor(){
 		tsc= new TwitterStreamCollector();
-		tsc.extractSlides(Config.INSTANCE.getQueryWindowWidth(),Config.INSTANCE.getQueryWindowSlide(), "D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj-night/twitterStream.txt");
+		tsc.extractSlides(Config.INSTANCE.getQueryWindowWidth(),Config.INSTANCE.getQueryWindowSlide(), Config.INSTANCE.getLocalPath()+"acquaProj-night/twitterStream.txt");
 		slidedwindows=tsc.aggregateSildedWindowsUser();
 	}
 	

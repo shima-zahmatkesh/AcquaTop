@@ -58,7 +58,7 @@ public class TwitterStreamCollector {
 		windows= new ArrayList<HashMap<Long,Integer>>();
 		windowsWithSlideEntries=new ArrayList<ArrayList<HashMap<Long,Integer>>>();
 		slidedWindowUsersTimeStamp=new ArrayList<HashMap<Long,Long>>();
-		extractUserIds("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followers.init");	
+		extractUserIds(Config.INSTANCE.getLocalPath()+"acquaProj/followers.init");	
 	}
 	public static void extractUserIds(String userListToMonitor){
 		try{
@@ -146,7 +146,7 @@ public class TwitterStreamCollector {
 		try{
 			OutputStream    fos;
 			BufferedWriter bw;
-			fos=new FileOutputStream("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/Debug/twitterMentionWindows.txt");
+			fos=new FileOutputStream(Config.INSTANCE.getLocalPath()+"acquaProj/Debug/twitterMentionWindows.txt");
 			bw=new BufferedWriter(new OutputStreamWriter(fos));
 			InputStream    fis;
 			BufferedReader br;
@@ -211,7 +211,7 @@ public class TwitterStreamCollector {
 		try{
 			OutputStream    fos;
 			BufferedWriter bw;
-			fos=new FileOutputStream("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/Debug/twitterMentionSlides.txt");
+			fos=new FileOutputStream(Config.INSTANCE.getLocalPath()+"acquaProj/Debug/twitterMentionSlides.txt");
 			bw=new BufferedWriter(new OutputStreamWriter(fos));
 			InputStream    fis;
 			BufferedReader br;

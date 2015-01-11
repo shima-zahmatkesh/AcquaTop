@@ -47,5 +47,9 @@ public class Config {
 	public String getTwitterAccessToken(){
 		return config.getString("twitter.accesstoken");
 	}
+	
+	public String getLocalPath(){
+		return config.getString("filesystem.path");
+	}
 
 }

@@ -30,7 +30,7 @@ public class QueryProcessor {
 		
 		tsc= new TwitterStreamCollector();
 		//tsc.extractWindow(Config.INSTANCE.getQueryWindowWidth(), "D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterStream.txt");		
-		tsc.extractSlides(Config.INSTANCE.getQueryWindowWidth(),Config.INSTANCE.getQueryWindowSlide(), "D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj-night/twitterStream.txt");
+		tsc.extractSlides(Config.INSTANCE.getQueryWindowWidth(),Config.INSTANCE.getQueryWindowSlide(), Config.INSTANCE.getLocalPath()+"acquaProj-night/twitterStream.txt");
 		slidedwindows = tsc.aggregateSildedWindowsUser();
 		//for (int i=0;i<tsc.windows.size();i++)
 			//System.out.println(tsc.windows.get(i).size());
@@ -64,8 +64,9 @@ public class QueryProcessor {
 	
 	public static void main(String[] args){
 		QueryProcessor qp=new QueryProcessor();	
-		for(int i=1;i<6;i++){
-			qp.evaluateQuery(i);
-		}
+		qp.evaluateQuery(5);
+//		for(int i=1;i<6;i++){
+//			qp.evaluateQuery(i);
+//		}
 	}
 }
