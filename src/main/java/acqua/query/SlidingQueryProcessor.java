@@ -35,16 +35,16 @@ public class SlidingQueryProcessor {
 	public void evaluateQuery(int joinType){
 		if(joinType==1)
 			join=new OETSlidingJoinOperator(10);
-		long time=Config.INSTANCE.getQueryStartingTime();
+		long time=Config.INSTANCE.getQueryStartingTime()+Config.INSTANCE.getQueryWindowWidth()*1000;
 		int windowCount=0;
 		//ArrayList<HashMap<Long, Integer>> slidedWindows = tsc.aggregateSildedWindowsUser();
 		while(windowCount<75){
-			time = time + Config.INSTANCE.getQueryWindowWidth()*1000;	
 			//System.out.println(tsc.windows.get(windowCount).size());
 			HashMap<Long,Long> currentCandidateTimeStamp = tsc.slidedWindowUsersTimeStamp.get(windowCount);
 			currentCandidateTimeStamp.put(-1L, time);
 			join.process(time,slidedwindows.get(windowCount),currentCandidateTimeStamp);//TwitterFollowerCollector.getInitialUserFollowersFromDB());//					
 			windowCount++;
+			time = time + Config.INSTANCE.getQuerySlideWidth()*1000;				
 		}
 		join.close();
 		
