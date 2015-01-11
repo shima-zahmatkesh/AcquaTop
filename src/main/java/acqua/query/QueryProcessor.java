@@ -1,4 +1,10 @@
 package acqua.query;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import acqua.*;
 import acqua.config.Config;
 import acqua.data.TwitterStreamCollector;
@@ -14,6 +20,7 @@ import acqua.query.join.bkg2.DoubleBkgJoinOperator;
 public class QueryProcessor {
 	JoinOperator join;
 	TwitterStreamCollector tsc;	
+	ArrayList<HashMap<Long,Integer>> slidedwindows;
 	//HashMap<Long, Integer> initialCache;
 //	public static long start=1416244306470L;//select min(TIMESTAMP) + 30000 from BKG 
 //	public static int windowSize=60;
@@ -22,9 +29,11 @@ public class QueryProcessor {
 		//join=new 
 		
 		tsc= new TwitterStreamCollector();
-		tsc.extractWindow(Config.INSTANCE.getQueryWindowWidth(), "D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterStream.txt");		
-		for (int i=0;i<tsc.windows.size();i++)
-			System.out.println(tsc.windows.get(i).size());
+		//tsc.extractWindow(Config.INSTANCE.getQueryWindowWidth(), "D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterStream.txt");		
+		tsc.extractSlides(Config.INSTANCE.getQueryWindowWidth(),Config.INSTANCE.getQuerySlideWidth(), "D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj-night/twitterStream.txt");
+		slidedwindows = tsc.aggregateSildedWindowsUser();
+		//for (int i=0;i<tsc.windows.size();i++)
+			//System.out.println(tsc.windows.get(i).size());
 		//initialCache = tfc.getFollowerListFromDB(start); //gets the first window
 	}
 	public void evaluateQuery(int joinType){
@@ -44,13 +53,13 @@ public class QueryProcessor {
 			join=new OracleDoubleJoinOperator();
 		long time=Config.INSTANCE.getQueryStartingTime();
 		int windowCount=0;
-		while(windowCount<100){
+		while(windowCount<75){
 			time = time + Config.INSTANCE.getQueryWindowWidth()*1000;	
-			//System.out.println(tsc.windows.get(windowCount).size());
-			join.process(time,tsc.windows.get(windowCount),null);//TwitterFollowerCollector.getInitialUserFollowersFromDB());//					
+			join.process(time,slidedwindows.get(windowCount),null);//TwitterFollowerCollector.getInitialUserFollowersFromDB());//					
 			windowCount++;
 		}
 		join.close();
+		
 	}
 	
 	public static void main(String[] args){

@@ -1,5 +1,8 @@
 package acqua.query;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -21,27 +24,30 @@ import acqua.query.join.bkg2.OracleDoubleJoinOperator;
 public class SlidingQueryProcessor {
 	JoinOperator join;
 	TwitterStreamCollector tsc;
+	ArrayList<HashMap<Long,Integer>> slidedwindows;
 	
 	public SlidingQueryProcessor(){
 		tsc= new TwitterStreamCollector();
-		tsc.extractSlides(Config.INSTANCE.getQueryWindowWidth(),Config.INSTANCE.getQuerySlideWidth(), "D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterStream.txt");		
+		tsc.extractSlides(Config.INSTANCE.getQueryWindowWidth(),Config.INSTANCE.getQuerySlideWidth(), "D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj-night/twitterStream.txt");
+		slidedwindows=tsc.aggregateSildedWindowsUser();
 	}
 	
 	public void evaluateQuery(int joinType){
 		if(joinType==1)
-			join=new SmartSlidingJoin(5);
+			join=new SmartSlidingJoin(10);
 		long time=Config.INSTANCE.getQueryStartingTime();
 		int windowCount=0;
-		ArrayList<HashMap<Long, Integer>> slidedWindows = tsc.aggregateSildedWindowsUser();
-		while(windowCount<100){
+		//ArrayList<HashMap<Long, Integer>> slidedWindows = tsc.aggregateSildedWindowsUser();
+		while(windowCount<75){
 			time = time + Config.INSTANCE.getQueryWindowWidth()*1000;	
 			//System.out.println(tsc.windows.get(windowCount).size());
 			HashMap<Long,Long> currentCandidateTimeStamp = tsc.slidedWindowUsersTimeStamp.get(windowCount);
 			currentCandidateTimeStamp.put(-1L, time);
-			join.process(time,slidedWindows.get(windowCount),currentCandidateTimeStamp);//TwitterFollowerCollector.getInitialUserFollowersFromDB());//					
+			join.process(time,slidedwindows.get(windowCount),currentCandidateTimeStamp);//TwitterFollowerCollector.getInitialUserFollowersFromDB());//					
 			windowCount++;
 		}
 		join.close();
+		
 	}
 	
 	public static void main(String[] args){

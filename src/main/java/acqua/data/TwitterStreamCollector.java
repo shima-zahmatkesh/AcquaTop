@@ -146,7 +146,7 @@ public class TwitterStreamCollector {
 		try{
 			OutputStream    fos;
 			BufferedWriter bw;
-			fos=new FileOutputStream("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterMentionWindows.txt");
+			fos=new FileOutputStream("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/Debug/twitterMentionWindows.txt");
 			bw=new BufferedWriter(new OutputStreamWriter(fos));
 			InputStream    fis;
 			BufferedReader br;
@@ -190,7 +190,7 @@ public class TwitterStreamCollector {
 				{
 					bw.write(start+" TO "+current +" Window : "+mapOfUserMentions.toString()+"\n");	
 					start=current;
-					System.out.println(mapOfUserMentions.toString());						
+					//System.out.println(mapOfUserMentions.toString());						
 					windows.add((HashMap<Long,Integer>)mapOfUserMentions.clone());						
 					mapOfUserMentions.clear();
 					continue;
@@ -211,7 +211,7 @@ public class TwitterStreamCollector {
 		try{
 			OutputStream    fos;
 			BufferedWriter bw;
-			fos=new FileOutputStream("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterMentionWindows.txt");
+			fos=new FileOutputStream("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/Debug/twitterMentionSlides.txt");
 			bw=new BufferedWriter(new OutputStreamWriter(fos));
 			InputStream    fis;
 			BufferedReader br;
