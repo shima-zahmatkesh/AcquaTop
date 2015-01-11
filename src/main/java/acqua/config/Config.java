@@ -25,7 +25,7 @@ public class Config {
 		return config.getLong("query.start");
 	}
 
-	public Integer getQuerySlideWidth(){
+	public Integer getQueryWindowSlide(){
 		return config.getInt("query.window.slide");
 	}
 	public Integer getQueryWindowWidth(){

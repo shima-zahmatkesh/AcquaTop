@@ -1,25 +1,12 @@
 package acqua.query;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
 
 import acqua.config.Config;
 import acqua.data.TwitterStreamCollector;
 import acqua.query.join.JoinOperator;
-import acqua.query.join.bkg1.LRUJoinOperator;
-import acqua.query.join.bkg1.DWJoinOperator;
-import acqua.query.join.bkg1.OracleJoinOperator;
-import acqua.query.join.bkg1.RandomCacheUpdateJoin;
-import acqua.query.join.bkg1.SlidingApproximateJoinOperator;
-import acqua.query.join.bkg1.OETJoinOperator;
 import acqua.query.join.bkg1.OETSlidingJoinOperator;
-import acqua.query.join.bkg2.DoubleBkgJoinOperator;
-import acqua.query.join.bkg2.OracleDoubleJoinOperator;
 
 public class SlidingQueryProcessor {
 	JoinOperator join;
@@ -28,7 +15,7 @@ public class SlidingQueryProcessor {
 	
 	public SlidingQueryProcessor(){
 		tsc= new TwitterStreamCollector();
-		tsc.extractSlides(Config.INSTANCE.getQueryWindowWidth(),Config.INSTANCE.getQuerySlideWidth(), "D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj-night/twitterStream.txt");
+		tsc.extractSlides(Config.INSTANCE.getQueryWindowWidth(),Config.INSTANCE.getQueryWindowSlide(), "D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj-night/twitterStream.txt");
 		slidedwindows=tsc.aggregateSildedWindowsUser();
 	}
 	
@@ -44,7 +31,7 @@ public class SlidingQueryProcessor {
 			currentCandidateTimeStamp.put(-1L, time);
 			join.process(time,slidedwindows.get(windowCount),currentCandidateTimeStamp);//TwitterFollowerCollector.getInitialUserFollowersFromDB());//					
 			windowCount++;
-			time = time + Config.INSTANCE.getQuerySlideWidth()*1000;				
+			time = time + Config.INSTANCE.getQueryWindowSlide()*1000;				
 		}
 		join.close();
 		
