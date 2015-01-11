@@ -11,7 +11,7 @@ import java.util.Map;
 import acqua.config.Config;
 import acqua.data.TwitterStreamCollector;
 import acqua.query.join.JoinOperator;
-import acqua.query.join.bkg1.BaselineJoinOperator;
+import acqua.query.join.bkg1.LRUJoinOperator;
 import acqua.query.join.bkg1.DWJoinOperator;
 import acqua.query.join.bkg1.OracleJoinOperator;
 import acqua.query.join.bkg1.RandomCacheUpdateJoin;

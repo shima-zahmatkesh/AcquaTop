@@ -12,7 +12,7 @@ import acqua.query.join.*;
 import acqua.query.join.bkg1.DWJoinOperator;
 import acqua.query.join.bkg1.OracleJoinOperator;
 import acqua.query.join.bkg1.SmartJoin;
-import acqua.query.join.bkg1.BaselineJoinOperator;
+import acqua.query.join.bkg1.LRUJoinOperator;
 import acqua.query.join.bkg1.RandomCacheUpdateJoin;
 import acqua.query.join.bkg2.OracleDoubleJoinOperator;
 import acqua.query.join.bkg2.DoubleBkgJoinOperator;
@@ -42,7 +42,7 @@ public class QueryProcessor {
 		if(joinType==2)
 			join=new DWJoinOperator();
 		if(joinType==3)
-			join=new BaselineJoinOperator(10);//update budget of 10
+			join=new LRUJoinOperator(10);//update budget of 10
 		if(joinType==4)
 			join=new RandomCacheUpdateJoin(10);
 		if(joinType==5)
