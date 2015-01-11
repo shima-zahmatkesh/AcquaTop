@@ -16,8 +16,8 @@ import acqua.query.join.bkg1.DWJoinOperator;
 import acqua.query.join.bkg1.OracleJoinOperator;
 import acqua.query.join.bkg1.RandomCacheUpdateJoin;
 import acqua.query.join.bkg1.SlidingApproximateJoinOperator;
-import acqua.query.join.bkg1.SmartJoin;
-import acqua.query.join.bkg1.SmartSlidingJoin;
+import acqua.query.join.bkg1.OETJoinOperator;
+import acqua.query.join.bkg1.OETSlidingJoinOperator;
 import acqua.query.join.bkg2.DoubleBkgJoinOperator;
 import acqua.query.join.bkg2.OracleDoubleJoinOperator;
 
@@ -34,7 +34,7 @@ public class SlidingQueryProcessor {
 	
 	public void evaluateQuery(int joinType){
 		if(joinType==1)
-			join=new SmartSlidingJoin(10);
+			join=new OETSlidingJoinOperator(10);
 		long time=Config.INSTANCE.getQueryStartingTime();
 		int windowCount=0;
 		//ArrayList<HashMap<Long, Integer>> slidedWindows = tsc.aggregateSildedWindowsUser();

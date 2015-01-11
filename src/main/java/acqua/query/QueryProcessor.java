@@ -11,7 +11,7 @@ import acqua.data.TwitterStreamCollector;
 import acqua.query.join.*;
 import acqua.query.join.bkg1.DWJoinOperator;
 import acqua.query.join.bkg1.OracleJoinOperator;
-import acqua.query.join.bkg1.SmartJoin;
+import acqua.query.join.bkg1.OETJoinOperator;
 import acqua.query.join.bkg1.LRUJoinOperator;
 import acqua.query.join.bkg1.RandomCacheUpdateJoin;
 import acqua.query.join.bkg2.OracleDoubleJoinOperator;
@@ -46,7 +46,7 @@ public class QueryProcessor {
 		if(joinType==4)
 			join=new RandomCacheUpdateJoin(10);
 		if(joinType==5)
-			join=new SmartJoin(10);
+			join=new OETJoinOperator(10);
 		if(joinType==6)
 			join=new DoubleBkgJoinOperator(10);
 		if(joinType==7)
