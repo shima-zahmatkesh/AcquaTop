@@ -51,7 +51,7 @@ public class QueryProcessor {
 			join=new DoubleBkgJoinOperator(10);
 		if(joinType==7)
 			join=new OracleDoubleJoinOperator();
-		long time=Config.INSTANCE.getQueryStartingTime();
+		long time=Config.INSTANCE.getQueryStartingTime()+Config.INSTANCE.getQueryWindowWidth()*1000;
 		int windowCount=0;
 		while(windowCount<75){
 			time = time + Config.INSTANCE.getQueryWindowWidth()*1000;	
