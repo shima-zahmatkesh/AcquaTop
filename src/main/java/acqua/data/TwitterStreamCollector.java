@@ -263,7 +263,7 @@ public class TwitterStreamCollector {
 					else{//end of current slide. adding the current slide and setting varaibles for the next slide
 						bw.write(Sstart+" to "+current+" slide"+slideMapOfUserMention.toString()+"\n");
 						Sstart=current;//setting the start time of the next slide
-						slideStarts.add(Sstart);//adding the slides start time for 
+						slideStarts.add(Sstart);//adding the slides start time for sliding windows
 						mapOfUserMentions.add((HashMap<Long, Integer>)slideMapOfUserMention.clone());//adding the copy of current slide to the current window	
 						slideMapOfUserMention.clear();//clearing the current slide to be filled again from stream
 						continue;
@@ -278,6 +278,7 @@ public class TwitterStreamCollector {
 					windowsWithSlideEntries.add(new ArrayList<HashMap<Long,Integer>>(mapOfUserMentions));//adding the current window to the list of windows with slided entries						
 					slidedWindowUsersTimeStamp.add((HashMap<Long,Long>)currentWindowUsersTimestamp.clone());//adding the list of user-entrance-timestamp for current window
 					HashMap<Long,Integer> evictedUsers = mapOfUserMentions.poll();//evict the first slide from the slides of current window
+					 mapOfUserMentions.remove();//to remove the partially added slide because it will be added fully in the next iteration
 					//evicted users should be evicted from the list of user-entrance-timestamps for the current window to be used for the next sliding window
 					Iterator<Long> evictedUserIt=evictedUsers.keySet().iterator();
 					while(evictedUserIt.hasNext()){
