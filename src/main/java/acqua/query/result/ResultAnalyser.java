@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.TreeMap;
 
 import acqua.config.Config;
 
@@ -33,7 +34,7 @@ public static void insertResultToDB(){
 	                   " `USERID`           BIGINT    NOT NULL, " + 
 	                   " `MENTIONCOUNT`     INT    NOT NULL, " + 
 	                   " `FOLLOWERCOUNT`    INT    NOT NULL, " + 
-	                   " `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `BtimeIndex` ON `LRUJ` (`TIMESTAMP` ASC);"; 
+	                   " `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `LRUtimeIndex` ON `LRUJ` (`TIMESTAMP` ASC);"; 
 	      System.out.println(sql);
 	      stmt.executeUpdate(sql);
 	      stmt.executeUpdate(" DROP TABLE IF EXISTS OJ ;");
@@ -166,8 +167,8 @@ public static void insertResultToDB(){
 
 // OJ user cardinality per time stamp = SELECT oj.TIMESTAMP, count(OJ.USERID) FROM OJ  group by OJ.TIMESTAMP
 
-public static HashMap<Long,Integer> computeOJoin(){
-	HashMap<Long,Integer> result=new HashMap<Long, Integer>();
+public static TreeMap<Long,Integer> computeOJoin(){
+	TreeMap<Long,Integer> result=new TreeMap<Long, Integer>();
 	Connection c = null;
 	Statement stmt = null;
     try {		
@@ -175,7 +176,7 @@ public static HashMap<Long,Integer> computeOJoin(){
 	      c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());	      
 	      c.setAutoCommit(false);
 	      stmt = c.createStatement();
-	      String sql="SELECT oj.TIMESTAMP as TIMESTAMP, count(OJ.USERID) as windowcount FROM OJ  group by OJ.TIMESTAMP";      //System.out.println(sql);
+	      String sql="SELECT oj.TIMESTAMP as TIMESTAMP, count(OJ.USERID) as windowcount FROM OJ  group by OJ.TIMESTAMP order by OJ.TIMESTAMP ASC";      //System.out.println(sql);
 	      ResultSet rs = stmt.executeQuery( sql);
 	      
 	      while ( rs.next() ) {
@@ -333,7 +334,7 @@ public static void main(String[] args){
 	try{
 	insertResultToDB();
 	BufferedWriter bw=new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare.csv")));
-	HashMap<Long,Integer> oracleCount=computeOJoin();
+	TreeMap<Long,Integer> oracleCount=computeOJoin();
 	HashMap<Long,Integer> SError=computeSJoinPrecision();
 	HashMap<Long,Integer> SSError=computeSslidingJoinPrecision();
 	HashMap<Long,Integer> RError=computeRJoinPrecision();
@@ -341,15 +342,17 @@ public static void main(String[] args){
 	HashMap<Long,Integer> BError=computeLRUJoinPrecision();
 	
 	Iterator<Long> itO = oracleCount.keySet().iterator();
-	bw.write("timestampe,DW,Smart,random,LRU,slidingSmart\n");
+	
+	bw.write("timestampe,oracle,DW,Smart,random,LRU,slidingSmart\n");
 	while(itO.hasNext()){
 		long nextTime = itO.next();
+		Integer OC=oracleCount.get(nextTime);
 		Integer dwe=DWError.get(nextTime);
 		Integer se=SError.get(nextTime);
 		Integer re=RError.get(nextTime);
 		Integer be=BError.get(nextTime);
 		Integer sse=SSError.get(nextTime);
-		bw.write(nextTime+","+(dwe==null?0:dwe)+","+(se==null?0:se)+","+(re==null?0:re)+","+(be==null?0:be)+","+(sse==null?0:sse)+" \n");
+		bw.write(nextTime+","+OC+","+(dwe==null?0:dwe)+","+(se==null?0:se)+","+(re==null?0:re)+","+(be==null?0:be)+","+(sse==null?0:sse)+" \n");
 	}
 	bw.flush();
 	bw.close();

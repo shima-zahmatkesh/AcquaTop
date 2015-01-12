@@ -42,18 +42,18 @@ public class QueryProcessor {
 		if(joinType==2)
 			join=new DWJoinOperator();
 		if(joinType==3)
-			join=new LRUJoinOperator(10);//update budget of 10
+			join=new LRUJoinOperator(Config.INSTANCE.getUpdateBudget());//update budget of 10
 		if(joinType==4)
-			join=new RandomCacheUpdateJoin(10);
+			join=new RandomCacheUpdateJoin(Config.INSTANCE.getUpdateBudget());
 		if(joinType==5)
-			join=new OETJoinOperator(10);
+			join=new OETJoinOperator(Config.INSTANCE.getUpdateBudget());
 		if(joinType==6)
-			join=new DoubleBkgJoinOperator(10);
+			join=new DoubleBkgJoinOperator(Config.INSTANCE.getUpdateBudget());
 		if(joinType==7)
 			join=new OracleDoubleJoinOperator();
 		long time=Config.INSTANCE.getQueryStartingTime()+Config.INSTANCE.getQueryWindowWidth()*1000;
 		int windowCount=0;
-		while(windowCount<75){
+		while(windowCount<50){
 			join.process(time,slidedwindows.get(windowCount),null);//TwitterFollowerCollector.getInitialUserFollowersFromDB());//					
 			windowCount++;
 			time = time + Config.INSTANCE.getQueryWindowSlide()*1000;			

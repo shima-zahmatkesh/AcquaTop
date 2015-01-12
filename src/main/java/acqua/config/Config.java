@@ -21,6 +21,10 @@ public class Config {
 		}
 	}
 	
+	public Integer getUpdateBudget(){
+		return config.getInt("query.updatebudget");
+	} 
+	
 	public Long getQueryStartingTime(){
 		return config.getLong("query.start");
 	}
