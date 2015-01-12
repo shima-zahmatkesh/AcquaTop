@@ -51,5 +51,9 @@ public class Config {
 	public String getLocalPath(){
 		return config.getString("filesystem.path");
 	}
+	
+	public String getDbUrl(){
+		return config.getString("db.url");
+	}
 
 }
