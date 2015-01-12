@@ -53,7 +53,7 @@ public class QueryProcessor {
 			join=new OracleDoubleJoinOperator();
 		long time=Config.INSTANCE.getQueryStartingTime()+Config.INSTANCE.getQueryWindowWidth()*1000;
 		int windowCount=0;
-		while(windowCount<50){
+		while(windowCount<280){
 			join.process(time,slidedwindows.get(windowCount),null);//TwitterFollowerCollector.getInitialUserFollowersFromDB());//					
 			windowCount++;
 			time = time + Config.INSTANCE.getQueryWindowSlide()*1000;			
@@ -66,6 +66,7 @@ public class QueryProcessor {
 		QueryProcessor qp=new QueryProcessor();	
 //		qp.evaluateQuery(5);
 		for(int i=1;i<6;i++){
+			System.out.println(i);
 			qp.evaluateQuery(i);
 		}
 	}
