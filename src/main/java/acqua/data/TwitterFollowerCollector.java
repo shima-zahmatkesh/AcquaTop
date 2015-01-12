@@ -31,10 +31,10 @@ public class TwitterFollowerCollector {
 	public TwitterFollowerCollector(){
 		cb = new ConfigurationBuilder();
 		cb.setDebugEnabled(true)
-				.setOAuthConsumerKey(Config.INSTANCE.getTwitterConsumerKey())
-				.setOAuthConsumerSecret(Config.INSTANCE.getTwitterConsumerSecret())
-				.setOAuthAccessToken(Config.INSTANCE.getTwitterAccessToken())
-				.setOAuthAccessTokenSecret(Config.INSTANCE.getTwitterAccessTokenSecret());
+		.setOAuthConsumerKey(Config.INSTANCE.getTwitterConsumerKey())
+		.setOAuthConsumerSecret(Config.INSTANCE.getTwitterConsumerSecret())
+		.setOAuthAccessToken(Config.INSTANCE.getTwitterAccessToken())
+		.setOAuthAccessTokenSecret(Config.INSTANCE.getTwitterAccessTokenSecret());
 		snapshots = new HashMap<Long,HashMap<Long,Integer>>();
 	}
 	public HashMap<Long, String> readIntialUserSet(String userListFilePath){
@@ -111,7 +111,7 @@ public class TwitterFollowerCollector {
 		Statement stmt = null;
 		try {
 			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:test.db");
+			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());
 
 			stmt = c.createStatement();
 			//stmt.executeQuery("DROP INDEX IF EXISTS timeIndex ON BKG;");
@@ -130,24 +130,30 @@ public class TwitterFollowerCollector {
 			BufferedReader br;
 			fis = new FileInputStream(followerFile);//"D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followerSnapshotsFile2.txt");
 			br = new BufferedReader(new InputStreamReader(fis));
-			String line;int i=0;
+			String line;
+			int i=0;
 			while ((line=br.readLine())!=null){			
 				String[] userInfo = line.split(",");	
 				i++;
 				sql = "INSERT INTO BKG (USERID,SCREENNAME,NAME,FOLLOWERCOUNT,FRIENDCOUNT,STATUSCOUNT,TIMESTAMP) " +
 						"VALUES ("+userInfo[0]+",\""+userInfo[1].substring(1,userInfo[1].length()-1)+"\",\""+userInfo[2]+"\","+userInfo[3]+","+userInfo[4]+","+userInfo[5]+","+userInfo[6]+")"; 
 				try{
-				stmt.executeUpdate(sql);}catch(Exception ee){System.out.println(sql); ee.printStackTrace();}
+					stmt.executeUpdate(sql);
+				}catch(Exception ee){
+					System.out.println(sql); 
+					ee.printStackTrace();
+				}
 			}     
 			stmt.close();
 			//c.commit();
 			c.close();
 			br.close();
 
-		}catch(Exception e){
+		} catch(Exception e) {
 			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 			System.exit(0);
-			e.printStackTrace();}
+			e.printStackTrace();
+		}
 
 	}
 	/*public void importStatusFileIntoDB(String LocationFile){
@@ -193,7 +199,7 @@ public class TwitterFollowerCollector {
 		}
 
 	}*/
-	
+
 	//run the full query of follower counts against remote source
 	public static HashMap<Long,Integer> getFollowerListFromDB(long timeStamp){
 		HashMap<Long,Integer> result=new HashMap<Long, Integer>();
@@ -201,7 +207,7 @@ public class TwitterFollowerCollector {
 		Statement stmt = null;
 		try {
 			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection(Config.INSTANCE.getDbUrl());
+			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			String sql="SELECT B.USERID, B.FOLLOWERCOUNT "+
@@ -235,7 +241,7 @@ public class TwitterFollowerCollector {
 		Statement stmt = null;
 		try {
 			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection(Config.INSTANCE.getDbUrl());
+			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			String sql="SELECT B.USERID, B.STATUSCOUNT "+
@@ -259,7 +265,7 @@ public class TwitterFollowerCollector {
 		return result;
 	}
 
-	
+
 	public static int getUserFollowerFromDB(long timeStamp, long userID){
 		int followers=0;
 		Connection c = null;
@@ -267,7 +273,7 @@ public class TwitterFollowerCollector {
 		try {
 			//System.out.println("start of user follower count:");
 			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection(Config.INSTANCE.getDbUrl());
+			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			String sql="SELECT B.USERID, B.FOLLOWERCOUNT "+
@@ -298,7 +304,7 @@ public class TwitterFollowerCollector {
 		try {
 			//System.out.println("start of user follower count:");
 			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection(Config.INSTANCE.getDbUrl());
+			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			String sql="SELECT B.USERID, B.STATUSCOUNT "+
@@ -319,15 +325,15 @@ public class TwitterFollowerCollector {
 		}
 		return followers;
 	}
-	
-	
+
+
 	public static HashMap<Long,Integer> getInitialUserFollowersFromDB(){
 		HashMap<Long,Integer> result=new HashMap<Long, Integer>();
 		Connection c = null;
 		Statement stmt = null;
 		try {
 			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection(Config.INSTANCE.getDbUrl());
+			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			String sql="SELECT B.USERID, B.FOLLOWERCOUNT, A.MINTS"+
@@ -360,7 +366,7 @@ public class TwitterFollowerCollector {
 		Statement stmt = null;
 		try {
 			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection(Config.INSTANCE.getDbUrl());
+			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			String sql="SELECT B.USERID, B.STATUSCOUNT, A.MINTS"+
@@ -389,12 +395,8 @@ public class TwitterFollowerCollector {
 		//tfc.captureSnapshots("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followers.init","D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followerSnapshotsFile.txt");
 		//note that followerSnapshotFile should have been sorted based on timestamp
 
-		String path = 
-				"D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/"; //Soheila
-//				"/home/dani/git/acqua/"; //dani
-				
-		tfc.importFollowerFileIntoDB(path+"acquaProj-night/followerSnapshotsFile.txt");
-//		tfc.importStatusFileIntoDB(path+"acquaProj/StatusSnapshotsFile.txt");
+		tfc.importFollowerFileIntoDB(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"followerSnapshotsFile.txt");
+		//		tfc.importStatusFileIntoDB(path+"acquaProj/StatusSnapshotsFile.txt");
 		//HashMap<Long,Integer> initialCache = tfc.getInitialUserFollowersFromDB();
 		//long time=new Long("1416244704221");
 		//long userid= new Long("118288671");

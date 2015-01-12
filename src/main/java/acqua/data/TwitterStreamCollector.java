@@ -50,15 +50,15 @@ public class TwitterStreamCollector {
 	public TwitterStreamCollector(){
 		cb = new ConfigurationBuilder();
 		cb.setDebugEnabled(true)
-		  .setOAuthConsumerKey("4DLiYUzihQwpTrmzy8sGw")
-		  .setOAuthConsumerSecret("gqIMoivaCuf1XuDVeOkPADYozc0ddV7ccxngDNSk")
-		  .setOAuthAccessToken("96538292-6MuEd3YcQ1ClJVtQ9OceeOd4dlzm8ZhMeshUcTpRJ")
-		  .setOAuthAccessTokenSecret("6lqQnvDKCP9sUwP8cJnZYD1iDWrvhhQXdeVWQfTImx4");
+		.setOAuthConsumerKey(Config.INSTANCE.getTwitterConsumerKey())
+		.setOAuthConsumerSecret(Config.INSTANCE.getTwitterConsumerSecret())
+		.setOAuthAccessToken(Config.INSTANCE.getTwitterAccessToken())
+		.setOAuthAccessTokenSecret(Config.INSTANCE.getTwitterAccessTokenSecret());
 		cb.setJSONStoreEnabled(true);
 		windows= new ArrayList<HashMap<Long,Integer>>();
 		windowsWithSlideEntries=new ArrayList<ArrayList<HashMap<Long,Integer>>>();
 		slidedWindowUsersTimeStamp=new ArrayList<HashMap<Long,Long>>();
-		extractUserIds(Config.INSTANCE.getLocalPath()+"acquaProj/followers.init");	
+		extractUserIds(Config.INSTANCE.getProjectPath()+"acquaProj/followers.init");	
 	}
 	public static void extractUserIds(String userListToMonitor){
 		try{
@@ -142,11 +142,11 @@ public class TwitterStreamCollector {
 			e.printStackTrace();
 		}
 	}
-	public ArrayList<HashMap<Long, Integer>> extractWindow(int windowMinutesLength, String StreamFile){		
+	public ArrayList<HashMap<Long, Integer>> extractWindow(int windowMinutesLength, String streamFile){		
 		try{
 			OutputStream    fos;
 			BufferedWriter bw;
-			fos=new FileOutputStream(Config.INSTANCE.getLocalPath()+"acquaProj/Debug/twitterMentionWindows.txt");
+			fos=new FileOutputStream(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"Debug/twitterMentionWindows.txt");
 			bw=new BufferedWriter(new OutputStreamWriter(fos));
 			InputStream    fis;
 			BufferedReader br;
@@ -154,7 +154,7 @@ public class TwitterStreamCollector {
 			//FIXME: remove the dependency to QueryProcessor
 			long start=Config.INSTANCE.getQueryStartingTime();
 
-			fis = new FileInputStream(StreamFile);//"D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followerSnapshotsFile2.txt");
+			fis = new FileInputStream(streamFile);//"D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followerSnapshotsFile2.txt");
 			br = new BufferedReader(new InputStreamReader(fis));
 			String line = br.readLine();
 
@@ -206,12 +206,12 @@ public class TwitterStreamCollector {
 		}catch(Exception e){e.printStackTrace(); return null;}
 
 	}
-	
+
 	public ArrayList<ArrayList<HashMap<Long, Integer>>> extractSlides(int windowMinutesLength, int slideMinutesLength, String StreamFile){		
 		try{
 			OutputStream    fos;
 			BufferedWriter bw;
-			fos=new FileOutputStream(Config.INSTANCE.getLocalPath()+"acquaProj/Debug/twitterMentionSlides.txt");
+			fos=new FileOutputStream(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"Debug/twitterMentionSlides.txt");
 			bw=new BufferedWriter(new OutputStreamWriter(fos));
 			InputStream    fis;
 			BufferedReader br;
@@ -219,7 +219,7 @@ public class TwitterStreamCollector {
 			//FIXME: remove the dependency to QueryProcessor
 			long Wstart=Config.INSTANCE.getQueryStartingTime();
 			long Sstart=Wstart;
-			
+
 			fis = new FileInputStream(StreamFile);//"D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followerSnapshotsFile2.txt");
 			br = new BufferedReader(new InputStreamReader(fis));
 			String line = br.readLine();
@@ -230,14 +230,14 @@ public class TwitterStreamCollector {
 			Queue<Long> slideStarts=new LinkedList<Long>();
 
 			HashMap<Long,Long> currentWindowUsersTimestamp=new HashMap<Long, Long>();
-			
+
 			while(line!=null){//iterating through each tweet in the stream to put it in the right slide of the right window
-				
+
 				JSONObject jsnobject = new JSONObject(line);
 				Object timeStamp = jsnobject.get("timestamp_ms");
 				long current = Long.parseLong(timeStamp.toString());
 				if (current-Wstart< windowMinutesLength*1000){//checking window boundaries => iterating over windows
-					
+
 					if (current - Sstart < slideMinutesLength*1000){//checking slide boundaries=>iterating over slides
 						JSONObject jsonEntities =(JSONObject)jsnobject.get("entities");
 						JSONArray jsonMentionArray=jsonEntities.getJSONArray("user_mentions");
@@ -268,7 +268,7 @@ public class TwitterStreamCollector {
 						slideMapOfUserMention.clear();//clearing the current slide to be filled again from stream
 						continue;
 					}
-					
+
 				}else
 				{//end of current window . adding the current window and setting variables for the next window 
 					Wstart=slideStarts.poll();//setting the start time of the next window
@@ -284,7 +284,7 @@ public class TwitterStreamCollector {
 						long euid=evictedUserIt.next();
 						boolean flage=false;
 						for(HashMap<Long,Integer> mapOfUserMentionsSlide : mapOfUserMentions ){
-						if (mapOfUserMentionsSlide.get(euid)!=null)//iterate through all slides
+							if (mapOfUserMentionsSlide.get(euid)!=null)//iterate through all slides
 							{
 								flage=true;
 								break;
@@ -292,7 +292,7 @@ public class TwitterStreamCollector {
 						}
 						if(!flage) currentWindowUsersTimestamp.remove(euid);
 					}
-					
+
 					continue;
 				}
 				line=br.readLine();
@@ -308,8 +308,8 @@ public class TwitterStreamCollector {
 		}catch(Exception e){e.printStackTrace(); return null;}
 
 	}
-	
-	
+
+
 	public ArrayList<HashMap<Long,Integer>> aggregateSildedWindowsUser()
 	{
 		ArrayList<HashMap<Long,Integer>> slidedWindows=new ArrayList<HashMap<Long,Integer>>();

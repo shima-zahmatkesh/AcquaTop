@@ -48,12 +48,16 @@ public class Config {
 		return config.getString("twitter.accesstoken");
 	}
 	
-	public String getLocalPath(){
+	public String getProjectPath(){
 		return config.getString("filesystem.path");
 	}
 	
-	public String getDbUrl(){
-		return config.getString("db.url");
+	public String getDatasetFolder(){
+		return config.getString("dataset.folder");
+	}
+	
+	public String getDatasetDb(){
+		return config.getString("dataset.db");
 	}
 
 }
