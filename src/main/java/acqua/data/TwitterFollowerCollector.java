@@ -201,7 +201,7 @@ public class TwitterFollowerCollector {
 		Statement stmt = null;
 		try {
 			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:test.db");
+			c = DriverManager.getConnection(Config.INSTANCE.getDbUrl());
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			String sql="SELECT B.USERID, B.FOLLOWERCOUNT "+
@@ -235,7 +235,7 @@ public class TwitterFollowerCollector {
 		Statement stmt = null;
 		try {
 			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:testevening.db");
+			c = DriverManager.getConnection(Config.INSTANCE.getDbUrl());
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			String sql="SELECT B.USERID, B.STATUSCOUNT "+
@@ -267,7 +267,7 @@ public class TwitterFollowerCollector {
 		try {
 			//System.out.println("start of user follower count:");
 			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:test.db");
+			c = DriverManager.getConnection(Config.INSTANCE.getDbUrl());
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			String sql="SELECT B.USERID, B.FOLLOWERCOUNT "+
@@ -298,7 +298,7 @@ public class TwitterFollowerCollector {
 		try {
 			//System.out.println("start of user follower count:");
 			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:testevening.db");
+			c = DriverManager.getConnection(Config.INSTANCE.getDbUrl());
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			String sql="SELECT B.USERID, B.STATUSCOUNT "+
@@ -327,7 +327,7 @@ public class TwitterFollowerCollector {
 		Statement stmt = null;
 		try {
 			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:test.db");
+			c = DriverManager.getConnection(Config.INSTANCE.getDbUrl());
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			String sql="SELECT B.USERID, B.FOLLOWERCOUNT, A.MINTS"+
@@ -360,7 +360,7 @@ public class TwitterFollowerCollector {
 		Statement stmt = null;
 		try {
 			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:testevening.db");
+			c = DriverManager.getConnection(Config.INSTANCE.getDbUrl());
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			String sql="SELECT B.USERID, B.STATUSCOUNT, A.MINTS"+
