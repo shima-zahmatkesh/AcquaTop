@@ -30,7 +30,7 @@ public class QueryProcessor {
 		
 		tsc= new TwitterStreamCollector();
 		//tsc.extractWindow(Config.INSTANCE.getQueryWindowWidth(), "D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/twitterStream.txt");		
-		tsc.extractSlides(Config.INSTANCE.getQueryWindowWidth(),Config.INSTANCE.getQueryWindowSlide(), Config.INSTANCE.getProjectPath()+"acquaProj-night/twitterStream.txt");
+		tsc.extractSlides(Config.INSTANCE.getQueryWindowWidth(),Config.INSTANCE.getQueryWindowSlide(), Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"twitterStream.txt");
 		slidedwindows = tsc.aggregateSildedWindowsUser();
 		//for (int i=0;i<tsc.windows.size();i++)
 			//System.out.println(tsc.windows.get(i).size());

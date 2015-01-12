@@ -14,6 +14,8 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import acqua.config.Config;
+
 
 public class ResultAnalyser {
 public static void insertResultToDB(){
@@ -22,16 +24,16 @@ public static void insertResultToDB(){
 	Statement stmt = null;
     try {		
 	      Class.forName("org.sqlite.JDBC");
-	      c = DriverManager.getConnection("jdbc:sqlite:test.db");
+	      c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());
 	      
 	      stmt = c.createStatement();
 	      //stmt.executeQuery("DROP INDEX IF EXISTS timeIndex ON BKG;");
-	      stmt.executeUpdate(" DROP TABLE IF EXISTS BJ ;");
-	      String sql = "CREATE TABLE  `BJ` ( " +
+	      stmt.executeUpdate(" DROP TABLE IF EXISTS LRUJ ;");
+	      String sql = "CREATE TABLE  `LRUJ` ( " +
 	                   " `USERID`           BIGINT    NOT NULL, " + 
 	                   " `MENTIONCOUNT`     INT    NOT NULL, " + 
 	                   " `FOLLOWERCOUNT`    INT    NOT NULL, " + 
-	                   " `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `BtimeIndex` ON `BJ` (`TIMESTAMP` ASC);"; 
+	                   " `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `BtimeIndex` ON `LRUJ` (`TIMESTAMP` ASC);"; 
 	      System.out.println(sql);
 	      stmt.executeUpdate(sql);
 	      stmt.executeUpdate(" DROP TABLE IF EXISTS OJ ;");
@@ -79,7 +81,7 @@ public static void insertResultToDB(){
 		InputStream    fis;
 		BufferedReader br;
 		
-		fis = new FileInputStream("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/joinOutput/SmartSlidingJoinOutput.txt");
+		fis = new FileInputStream(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/OETSlidingJoinOperatorOutput.txt");
 		br = new BufferedReader(new InputStreamReader(fis));
 		String line=null;
 		while((line=br.readLine())!=null)
@@ -93,19 +95,19 @@ public static void insertResultToDB(){
 		
 		
 		//---------------------------------------------------------------------fill baseline table
-		fis = new FileInputStream("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/joinOutput/BaselineJoinOperatorOutput.txt");
+		fis = new FileInputStream(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/LRUJoinOperatorOutput.txt");
 		br = new BufferedReader(new InputStreamReader(fis));
 		line=null;
 		while((line=br.readLine())!=null)
 		{
 			String[] userInfo = line.split(" ");	
-			sql = "INSERT INTO BJ (USERID,MENTIONCOUNT,FOLLOWERCOUNT,TIMESTAMP) " +
+			sql = "INSERT INTO LRUJ (USERID,MENTIONCOUNT,FOLLOWERCOUNT,TIMESTAMP) " +
           "VALUES ("+userInfo[0]+","+userInfo[1]+","+userInfo[2]+","+userInfo[3]+")"; 
 			//System.out.println(sql);
 			stmt.executeUpdate(sql);
 		}
 		//---------------------------------------------------------------------fill DWJ
-		fis = new FileInputStream("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/joinOutput/DWJoinOperatorOutput.txt");
+		fis = new FileInputStream(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/DWJoinOperatorOutput.txt");
 		br = new BufferedReader(new InputStreamReader(fis));
 		line=null;
 		while((line=br.readLine())!=null)
@@ -117,7 +119,7 @@ public static void insertResultToDB(){
 			stmt.executeUpdate(sql);
 		}
 		//-----------------------------------------------------------------------fill classqueryProcessorOracleJoinOperatorOutput
-		fis = new FileInputStream("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/joinOutput/OracleJoinOperatorOutput.txt");
+		fis = new FileInputStream(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/OracleJoinOperatorOutput.txt");
 		br = new BufferedReader(new InputStreamReader(fis));
 		line=null;
 		while((line=br.readLine())!=null)
@@ -129,7 +131,7 @@ public static void insertResultToDB(){
 			stmt.executeUpdate(sql);
 		}
 		//-----------------------------------------------------------------------fill classqueryProcessorOracleJoinOperatorOutput
-				fis = new FileInputStream("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/joinOutput/randomCacheUpdateJoinOutput.txt");
+				fis = new FileInputStream(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/randomCacheUpdateJoinOutput.txt");
 				br = new BufferedReader(new InputStreamReader(fis));
 				line=null;
 				while((line=br.readLine())!=null)
@@ -141,7 +143,7 @@ public static void insertResultToDB(){
 					stmt.executeUpdate(sql);
 				}
 				//-----------------------------------------------------------------------fill classqueryProcessorOracleJoinOperatorOutput
-				fis = new FileInputStream("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/joinOutput/SmartJoinOutput.txt");
+				fis = new FileInputStream(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/OETJoinOperatorOutput.txt");
 				br = new BufferedReader(new InputStreamReader(fis));
 				line=null;
 				while((line=br.readLine())!=null)
@@ -170,7 +172,7 @@ public static HashMap<Long,Integer> computeOJoin(){
 	Statement stmt = null;
     try {		
 	      Class.forName("org.sqlite.JDBC");
-	      c = DriverManager.getConnection("jdbc:sqlite:test.db");	      
+	      c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());	      
 	      c.setAutoCommit(false);
 	      stmt = c.createStatement();
 	      String sql="SELECT oj.TIMESTAMP as TIMESTAMP, count(OJ.USERID) as windowcount FROM OJ  group by OJ.TIMESTAMP";      //System.out.println(sql);
@@ -188,16 +190,16 @@ public static HashMap<Long,Integer> computeOJoin(){
     }catch(Exception e){e.printStackTrace();}
     return result;
 }//--select X.TIMESTAMP,X.ERROR from (SELECT OJ.TIMESTAMP FROM OJ group by OJ.TIMESTAMP) as Y LEFT Outer join (SELECT SJ.TIMESTAMP as TIMESTAMP , COUNT(*) as ERROR FROM SJ,OJ  WHERE SJ.USERID=OJ.USERID AND SJ.TIMESTAMP=OJ.TIMESTAMP AND SJ.FOLLOWERCOUNT <> OJ.FOLLOWERCOUNT group by OJ.TIMESTAMP) as X on X.TIMESTAMP=Y.TIMESTAMP
-public static HashMap<Long,Integer> computeBJoinPrecision(){
+public static HashMap<Long,Integer> computeLRUJoinPrecision(){
 	HashMap<Long,Integer> result=new HashMap<Long, Integer>();
 	Connection c = null;
 	Statement stmt = null;
     try {		
 	      Class.forName("org.sqlite.JDBC");
-	      c = DriverManager.getConnection("jdbc:sqlite:test.db");	      
+	      c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());	      
 	      c.setAutoCommit(false);
 	      stmt = c.createStatement();
-	      String sql="SELECT BJ.TIMESTAMP as TIMESTAMP , COUNT(*) as ERROR FROM BJ,OJ  WHERE BJ.USERID=OJ.USERID AND BJ.TIMESTAMP=OJ.TIMESTAMP AND BJ.FOLLOWERCOUNT <> OJ.FOLLOWERCOUNT group by OJ.TIMESTAMP";
+	      String sql="SELECT LRUJ.TIMESTAMP as TIMESTAMP , COUNT(*) as ERROR FROM LRUJ,OJ  WHERE LRUJ.USERID=OJ.USERID AND LRUJ.TIMESTAMP=OJ.TIMESTAMP AND LRUJ.FOLLOWERCOUNT <> OJ.FOLLOWERCOUNT group by OJ.TIMESTAMP";
 	      //System.out.println(sql);
 	      ResultSet rs = stmt.executeQuery( sql);
 	      
@@ -220,7 +222,7 @@ public static HashMap<Long,Integer> computeDWJoinPrecision(){
 	Statement stmt = null;
     try {		
 	      Class.forName("org.sqlite.JDBC");
-	      c = DriverManager.getConnection("jdbc:sqlite:test.db");	      
+	      c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());	      
 	      c.setAutoCommit(false);
 	      stmt = c.createStatement();
 	      //String sql="SELECT DWJ.TIMESTAMP AS TIME, SUM(ABS(DWJ.FOLLOWERCOUNT-OJ.FOLLOWERCOUNT)) AS ERROR "+
@@ -248,7 +250,7 @@ public static HashMap<Long,Integer> computeRJoinPrecision(){
 	Statement stmt = null;
     try {		
 	      Class.forName("org.sqlite.JDBC");
-	      c = DriverManager.getConnection("jdbc:sqlite:test.db");	      
+	      c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());	      
 	      c.setAutoCommit(false);
 	      stmt = c.createStatement();
 	      //String sql="SELECT DWJ.TIMESTAMP AS TIME, SUM(ABS(DWJ.FOLLOWERCOUNT-OJ.FOLLOWERCOUNT)) AS ERROR "+
@@ -276,7 +278,7 @@ public static HashMap<Long,Integer> computeSJoinPrecision(){
 	Statement stmt = null;
     try {		
 	      Class.forName("org.sqlite.JDBC");
-	      c = DriverManager.getConnection("jdbc:sqlite:test.db");	      
+	      c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());	      
 	      c.setAutoCommit(false);
 	      stmt = c.createStatement();
 	      //String sql="SELECT DWJ.TIMESTAMP AS TIME, SUM(ABS(DWJ.FOLLOWERCOUNT-OJ.FOLLOWERCOUNT)) AS ERROR "+
@@ -304,7 +306,7 @@ public static HashMap<Long,Integer> computeSslidingJoinPrecision(){
 	Statement stmt = null;
     try {		
 	      Class.forName("org.sqlite.JDBC");
-	      c = DriverManager.getConnection("jdbc:sqlite:test.db");	      
+	      c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());	      
 	      c.setAutoCommit(false);
 	      stmt = c.createStatement();
 	      //String sql="SELECT DWJ.TIMESTAMP AS TIME, SUM(ABS(DWJ.FOLLOWERCOUNT-OJ.FOLLOWERCOUNT)) AS ERROR "+
@@ -330,13 +332,13 @@ public static HashMap<Long,Integer> computeSslidingJoinPrecision(){
 public static void main(String[] args){
 	try{
 	insertResultToDB();
-	BufferedWriter bw=new BufferedWriter(new FileWriter(new File("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/joinOutput/compare.csv")));
+	BufferedWriter bw=new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare.csv")));
 	HashMap<Long,Integer> oracleCount=computeOJoin();
 	HashMap<Long,Integer> SError=computeSJoinPrecision();
 	HashMap<Long,Integer> SSError=computeSslidingJoinPrecision();
 	HashMap<Long,Integer> RError=computeRJoinPrecision();
 	HashMap<Long,Integer> DWError=computeDWJoinPrecision();
-	HashMap<Long,Integer> BError=computeBJoinPrecision();
+	HashMap<Long,Integer> BError=computeLRUJoinPrecision();
 	
 	Iterator<Long> itO = oracleCount.keySet().iterator();
 	bw.write("timestampe,DW,Smart,random,LRU,slidingSmart\n");

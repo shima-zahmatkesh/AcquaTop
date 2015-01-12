@@ -15,7 +15,8 @@ public class SlidingQueryProcessor {
 	
 	public SlidingQueryProcessor(){
 		tsc= new TwitterStreamCollector();
-		tsc.extractSlides(Config.INSTANCE.getQueryWindowWidth(),Config.INSTANCE.getQueryWindowSlide(), Config.INSTANCE.getProjectPath()+"acquaProj-night/twitterStream.txt");
+		System.out.println(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"twitterStream.txt");
+		tsc.extractSlides(Config.INSTANCE.getQueryWindowWidth(),Config.INSTANCE.getQueryWindowSlide(), Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"twitterStream.txt");
 		slidedwindows=tsc.aggregateSildedWindowsUser();
 	}
 	
