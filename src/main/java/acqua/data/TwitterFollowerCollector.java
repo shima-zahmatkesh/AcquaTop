@@ -307,13 +307,13 @@ public class TwitterFollowerCollector {
 			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
-			String sql="select min(bkg.timESTAMP) as TS from bkg where bkg.USERID= "+userID+" and bkg.tIMESTAMP> "+timeStamp+" and bkg.fOLLOWERCOUNT NOT IN ("
+			String sql="select min(bkg.timESTAMP) as TS from bkg where bkg.USERID= "+userID+" and bkg.tIMESTAMP> "+timeStamp+" and bkg.fOLLOWERCOUNT <> ("
 					+" select bkg.foLLOWERCOUNT from bkg where bkg.uSERID= "+userID+" and bkg.tiMESTAMP> "+timeStamp+" order by bkg.tIMESTAMP asc limit 1)";  
 
 			//sql="SELECT B.USERID, B.followerCut "+
 			//		" FROM (SELECT USERID, MAX(TIMESTAMP) AS MAXTS  FROM copyBK  WHERE TIMESTAMP < "+timeStamp + 
 			//		" AND USERID= "+userID+" GROUP BY USERID) A JOIN copyBK B ON A.USERID=B.USERID AND A.MAXTS=B.TIMESTAMP"; 
-			//System.out.println(sql);
+//			System.out.println(sql);
 			ResultSet rs = stmt.executeQuery(sql );	      
 			followers  = rs.getLong("TS");	         
 			rs.close();
