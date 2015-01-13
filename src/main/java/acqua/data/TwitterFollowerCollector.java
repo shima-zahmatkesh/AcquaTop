@@ -265,7 +265,6 @@ public class TwitterFollowerCollector {
 		return result;
 	}
 
-
 	public static int getUserFollowerFromDB(long timeStamp, long userID){
 		int followers=0;
 		Connection c = null;
@@ -288,6 +287,35 @@ public class TwitterFollowerCollector {
 			while ( rs.next() ) {
 				followers  = rs.getInt("FOLLOWERCOUNT");	         
 			}
+			rs.close();
+			stmt.close();
+			c.close();
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+			System.exit(0);
+		}
+		return followers;
+	}
+	
+	public static Long getUserNextExpFromDB(long timeStamp, long userID){
+		Long followers=0L;
+		Connection c = null;
+		Statement stmt = null;
+		try {
+			//System.out.println("start of user follower count:");
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());
+			c.setAutoCommit(false);
+			stmt = c.createStatement();
+			String sql="select min(bkg.timESTAMP) from bkg where bkg.USERID= "+userID+" and bkg.tIMESTAMP> "+timeStamp+" and bkg.fOLLOWERCOUNT NOT IN ("
+					+" select bkg.foLLOWERCOUNT from bkg where bkg.uSERID= "+userID+" and bkg.tiMESTAMP> "+timeStamp+" order by bkg.tIMESTAMP asc limit 1)";  
+
+			//sql="SELECT B.USERID, B.followerCut "+
+			//		" FROM (SELECT USERID, MAX(TIMESTAMP) AS MAXTS  FROM copyBK  WHERE TIMESTAMP < "+timeStamp + 
+			//		" AND USERID= "+userID+" GROUP BY USERID) A JOIN copyBK B ON A.USERID=B.USERID AND A.MAXTS=B.TIMESTAMP"; 
+			//System.out.println(sql);
+			ResultSet rs = stmt.executeQuery(sql );	      
+			followers  = rs.getLong("TS");	         
 			rs.close();
 			stmt.close();
 			c.close();

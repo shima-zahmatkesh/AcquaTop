@@ -26,7 +26,7 @@ public class SlidingQueryProcessor {
 		long time=Config.INSTANCE.getQueryStartingTime()+Config.INSTANCE.getQueryWindowWidth()*1000;
 		int windowCount=0;
 		//ArrayList<HashMap<Long, Integer>> slidedWindows = tsc.aggregateSildedWindowsUser();
-		while(windowCount<280){
+		while(windowCount<50){
 			//System.out.println(tsc.windows.get(windowCount).size());
 			HashMap<Long,Long> currentCandidateTimeStamp = tsc.slidedWindowUsersTimeStamp.get(windowCount);
 			//currentCandidateTimeStamp.put(-1L, time);
