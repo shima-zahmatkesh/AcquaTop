@@ -307,7 +307,7 @@ public class TwitterFollowerCollector {
 			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
-			String sql="select min(bkg.timESTAMP) from bkg where bkg.USERID= "+userID+" and bkg.tIMESTAMP> "+timeStamp+" and bkg.fOLLOWERCOUNT NOT IN ("
+			String sql="select min(bkg.timESTAMP) as TS from bkg where bkg.USERID= "+userID+" and bkg.tIMESTAMP> "+timeStamp+" and bkg.fOLLOWERCOUNT NOT IN ("
 					+" select bkg.foLLOWERCOUNT from bkg where bkg.uSERID= "+userID+" and bkg.tiMESTAMP> "+timeStamp+" order by bkg.tIMESTAMP asc limit 1)";  
 
 			//sql="SELECT B.USERID, B.followerCut "+
