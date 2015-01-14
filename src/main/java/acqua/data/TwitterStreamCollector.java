@@ -37,7 +37,7 @@ public class TwitterStreamCollector {
 	private ConfigurationBuilder cb;
 	public ArrayList<HashMap<Long, Integer>> windows;
 	public ArrayList<ArrayList<HashMap<Long,Integer>>> windowsWithSlideEntries;
-	public ArrayList<HashMap<Long,Long>> slidedWindowUsersTimeStamp;
+	public ArrayList<ArrayList<HashMap<Long,Long>>> slidedWindowUsersTimeStamp;
 	public static long[] monitoredIds;
 	public static String[] monitorNames;
 	//constructor for not listening
@@ -57,7 +57,7 @@ public class TwitterStreamCollector {
 		cb.setJSONStoreEnabled(true);
 		windows= new ArrayList<HashMap<Long,Integer>>();
 		windowsWithSlideEntries=new ArrayList<ArrayList<HashMap<Long,Integer>>>();
-		slidedWindowUsersTimeStamp=new ArrayList<HashMap<Long,Long>>();
+		slidedWindowUsersTimeStamp=new ArrayList<ArrayList<HashMap<Long,Long>>>();
 		extractUserIds(Config.INSTANCE.getProjectPath()+"acquaProj/followers.init");	
 	}
 	public static void extractUserIds(String userListToMonitor){
@@ -226,7 +226,12 @@ public class TwitterStreamCollector {
 
 			//ArrayList<HashMap<String,Integer>> windows=new ArrayList<HashMap<String,Integer>>();
 			Queue<HashMap<Long ,Integer>> mapOfUserMentions=new LinkedList<HashMap<Long,Integer>>();
-			HashMap<Long ,Integer> slideMapOfUserMention = new 	HashMap<Long ,Integer>();					
+			HashMap<Long ,Integer> slideMapOfUserMention = new 	HashMap<Long ,Integer>();	
+			
+			Queue<HashMap<Long ,Long>> mapOfUserMentionsTime=new LinkedList<HashMap<Long,Long>>();
+			HashMap<Long ,Long> slideMapOfUserMentionTime = new 	HashMap<Long ,Long>();	
+			
+			
 			Queue<Long> slideStarts=new LinkedList<Long>();
 
 			HashMap<Long,Long> currentWindowUsersTimestamp=new HashMap<Long, Long>();
@@ -256,15 +261,18 @@ public class TwitterStreamCollector {
 							}else{
 								slideMapOfUserMention.put(Long.parseLong(mentionedUser),1);
 							}
-							currentWindowUsersTimestamp.put(Long.parseLong(mentionedUser), current);
+							slideMapOfUserMentionTime.put(Long.parseLong(mentionedUser), current);
 						}
 					}
 					else{//end of current slide. adding the current slide and setting varaibles for the next slide
 						bw.write(Sstart+" to "+current+" slide"+slideMapOfUserMention.toString()+"\n");
-						Sstart=current;//setting the start time of the next slide
+						bw.write("time : "+slideMapOfUserMentionTime.toString()+"\n");
+						Sstart+=Config.INSTANCE.getQueryWindowSlide()*1000;//setting the start time of the next slide
 						slideStarts.add(Sstart);//adding the slides start time for sliding windows
 						mapOfUserMentions.add((HashMap<Long, Integer>)slideMapOfUserMention.clone());//adding the copy of current slide to the current window	
+						mapOfUserMentionsTime.add((HashMap<Long, Long>)slideMapOfUserMentionTime.clone());//adding the copy of current slide to the current window
 						slideMapOfUserMention.clear();//clearing the current slide to be filled again from stream
+						slideMapOfUserMentionTime.clear();//clearing the current slide to be filled again from stream
 						continue;
 					}
 
@@ -273,10 +281,15 @@ public class TwitterStreamCollector {
 					Wstart=slideStarts.poll();//setting the start time of the next window
 					//System.out.println(mapOfUserMentions.toString());	
 					mapOfUserMentions.add((HashMap<Long, Integer>)slideMapOfUserMention.clone());//adding the current slide to the slides of the current window
-					bw.write(Wstart+" TO "+current +" Window : "+mapOfUserMentions.toString()+"\n");	
+					mapOfUserMentionsTime.add((HashMap<Long, Long>)slideMapOfUserMentionTime.clone());//adding the current slide to the slides of the current window
+					bw.write(Wstart+" TO "+current +" Window : "+mapOfUserMentions.toString()+"\n");
+					bw.write("time : "+mapOfUserMentionsTime.toString()+"\n");
 					windowsWithSlideEntries.add(new ArrayList<HashMap<Long,Integer>>(mapOfUserMentions));//adding the current window to the list of windows with slided entries						
+					slidedWindowUsersTimeStamp.add(new ArrayList<HashMap<Long,Long>>(mapOfUserMentionsTime));//adding the list of user-entrance-timestamp for current window
 					HashMap<Long,Integer> evictedUsers = mapOfUserMentions.poll();//evict the first slide from the slides of current window
-					HashMap<Long,Integer> partialLastSlideEntries = mapOfUserMentions.remove();//to remove the partially added slide because it will be added fully in the next iteration
+					HashMap<Long,Integer> partialLastSlideEntries = ((LinkedList<HashMap<Long,Integer>>)mapOfUserMentions).removeLast();//to remove the partially added slide because it will be added fully in the next iteration
+					HashMap<Long,Long> evictedUsersTime = mapOfUserMentionsTime.poll();//evict the first slide from the slides of current window
+					HashMap<Long,Long> partialLastSlideEntriesTime = ((LinkedList<HashMap<Long,Long>>)mapOfUserMentionsTime).removeLast();//to remove the partially added slide because it will be added fully in the next iteration
 					//evicted users should be evicted from the list of user-entrance-timestamps for the current window to be used for the next sliding window
 					Iterator<Long> evictedUserIt=evictedUsers.keySet().iterator();
 					while(evictedUserIt.hasNext()){
@@ -291,14 +304,13 @@ public class TwitterStreamCollector {
 						}
 						if(!flage) currentWindowUsersTimestamp.remove(euid);
 					}
-					slidedWindowUsersTimeStamp.add((HashMap<Long,Long>)currentWindowUsersTimestamp.clone());//adding the list of user-entrance-timestamp for current window
-					
-					Iterator<Long> currentWindowUsersTimestampIt=currentWindowUsersTimestamp.keySet().iterator();
+						
+					/*Iterator<Long> currentWindowUsersTimestampIt=currentWindowUsersTimestamp.keySet().iterator();
 					while(currentWindowUsersTimestampIt.hasNext()){
 						Long next = currentWindowUsersTimestampIt.next();
 						if(partialLastSlideEntries.get(next)==null)
 						currentWindowUsersTimestamp.remove(next);
-					}
+					}*/
 										
 					continue;
 				}
@@ -306,7 +318,10 @@ public class TwitterStreamCollector {
 			}
 			mapOfUserMentions.add((HashMap<Long, Integer>)slideMapOfUserMention.clone());
 			windowsWithSlideEntries.add(new ArrayList<HashMap<Long,Integer>>(mapOfUserMentions));						
-			slidedWindowUsersTimeStamp.add((HashMap<Long,Long>)currentWindowUsersTimestamp.clone());
+			//slidedWindowUsersTimeStamp.add((HashMap<Long,Long>)currentWindowUsersTimestamp.clone());
+			mapOfUserMentionsTime.add((HashMap<Long, Long>)slideMapOfUserMentionTime.clone());
+			slidedWindowUsersTimeStamp.add(new ArrayList<HashMap<Long,Long>>(mapOfUserMentionsTime));						
+			//slidedWindowUsersTimeStamp.add((HashMap<Long,Long>)currentWindowUsersTimestamp.clone());
 			br.close();
 			bw.flush();
 			bw.close();
@@ -339,6 +354,25 @@ public class TwitterStreamCollector {
 			slidedWindows.add(WindowUserMention);
 		}
 		return slidedWindows;
+	}
+	public ArrayList<HashMap<Long,Long>> aggregateSildedWindowsUserTime()
+	{
+		ArrayList<HashMap<Long,Long>> slidedWindowsTime=new ArrayList<HashMap<Long,Long>>();
+		for(int i=0;i<slidedWindowUsersTimeStamp.size();i++){
+			ArrayList<HashMap<Long,Long>> tempSplittedWindowTime = slidedWindowUsersTimeStamp.get(i);
+			HashMap<Long,Long> WindowUserMentionTime=new HashMap<Long, Long>();
+			for(int j=0;j<tempSplittedWindowTime.size();j++){//per slide
+				HashMap<Long,Long> slideUsersTime=tempSplittedWindowTime.get(j);
+				Iterator<Long> slideuserit=slideUsersTime.keySet().iterator();
+				while(slideuserit.hasNext()){
+					long slideUserName=slideuserit.next();
+					Long windowusertime= WindowUserMentionTime.get(slideUserName);
+					WindowUserMentionTime.put(slideUserName, slideUsersTime.get(slideUserName));					
+				}				
+			}
+			slidedWindowsTime.add(WindowUserMentionTime);
+		}
+		return slidedWindowsTime;
 	}
 	public static void main(String[] args)
 	{
