@@ -12,12 +12,15 @@ public class SlidingQueryProcessor {
 	JoinOperator join;
 	TwitterStreamCollector tsc;
 	ArrayList<HashMap<Long,Integer>> slidedwindows;
+	ArrayList<HashMap<Long,Long>> slidedwindowsTime;
 	
 	public SlidingQueryProcessor(){
 		tsc= new TwitterStreamCollector();
 		System.out.println(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"twitterStream.txt");
 		tsc.extractSlides(Config.INSTANCE.getQueryWindowWidth(),Config.INSTANCE.getQueryWindowSlide(), Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"twitterStream.txt");
 		slidedwindows=tsc.aggregateSildedWindowsUser();
+		slidedwindowsTime=tsc.aggregateSildedWindowsUserTime();
+		
 	}
 	
 	public void evaluateQuery(int joinType){
@@ -26,9 +29,9 @@ public class SlidingQueryProcessor {
 		long time=Config.INSTANCE.getQueryStartingTime()+Config.INSTANCE.getQueryWindowWidth()*1000;
 		int windowCount=0;
 		//ArrayList<HashMap<Long, Integer>> slidedWindows = tsc.aggregateSildedWindowsUser();
-		while(windowCount<50){
+		while(windowCount<300){
 			//System.out.println(tsc.windows.get(windowCount).size());
-			HashMap<Long,Long> currentCandidateTimeStamp = tsc.slidedWindowUsersTimeStamp.get(windowCount);
+			HashMap<Long,Long> currentCandidateTimeStamp = slidedwindowsTime.get(windowCount);
 			//currentCandidateTimeStamp.put(-1L, time);
 			join.process(time,slidedwindows.get(windowCount),currentCandidateTimeStamp);//TwitterFollowerCollector.getInitialUserFollowersFromDB());//					
 			windowCount++;
