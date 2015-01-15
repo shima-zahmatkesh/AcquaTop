@@ -232,7 +232,6 @@ public class TwitterStreamCollector {
 			HashMap<Long,Long> currentWindowUsersTimestamp=new HashMap<Long, Long>();
 
 			while(line!=null){//iterating through each tweet in the stream to put it in the right slide of the right window
-
 				JSONObject jsnobject = new JSONObject(line);
 				Object timeStamp = jsnobject.get("timestamp_ms");
 				long current = Long.parseLong(timeStamp.toString());
@@ -276,9 +275,8 @@ public class TwitterStreamCollector {
 					mapOfUserMentions.add((HashMap<Long, Integer>)slideMapOfUserMention.clone());//adding the current slide to the slides of the current window
 					bw.write(Wstart+" TO "+current +" Window : "+mapOfUserMentions.toString()+"\n");	
 					windowsWithSlideEntries.add(new ArrayList<HashMap<Long,Integer>>(mapOfUserMentions));//adding the current window to the list of windows with slided entries						
-					slidedWindowUsersTimeStamp.add((HashMap<Long,Long>)currentWindowUsersTimestamp.clone());//adding the list of user-entrance-timestamp for current window
 					HashMap<Long,Integer> evictedUsers = mapOfUserMentions.poll();//evict the first slide from the slides of current window
-					 mapOfUserMentions.remove();//to remove the partially added slide because it will be added fully in the next iteration
+					HashMap<Long,Integer> partialLastSlideEntries = mapOfUserMentions.remove();//to remove the partially added slide because it will be added fully in the next iteration
 					//evicted users should be evicted from the list of user-entrance-timestamps for the current window to be used for the next sliding window
 					Iterator<Long> evictedUserIt=evictedUsers.keySet().iterator();
 					while(evictedUserIt.hasNext()){
@@ -293,7 +291,15 @@ public class TwitterStreamCollector {
 						}
 						if(!flage) currentWindowUsersTimestamp.remove(euid);
 					}
-
+					slidedWindowUsersTimeStamp.add((HashMap<Long,Long>)currentWindowUsersTimestamp.clone());//adding the list of user-entrance-timestamp for current window
+					
+					Iterator<Long> currentWindowUsersTimestampIt=currentWindowUsersTimestamp.keySet().iterator();
+					while(currentWindowUsersTimestampIt.hasNext()){
+						Long next = currentWindowUsersTimestampIt.next();
+						if(partialLastSlideEntries.get(next)==null)
+						currentWindowUsersTimestamp.remove(next);
+					}
+										
 					continue;
 				}
 				line=br.readLine();
