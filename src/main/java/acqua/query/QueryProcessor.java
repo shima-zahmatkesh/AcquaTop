@@ -66,7 +66,7 @@ public class QueryProcessor {
 	public static void main(String[] args){
 		QueryProcessor qp=new QueryProcessor();	
 //		qp.evaluateQuery(5);
-		for(int i=5;i<6;i++){
+		for(int i=1;i<6;i++){
 			System.out.println(i);
 			qp.evaluateQuery(i);
 		}
