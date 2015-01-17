@@ -58,7 +58,7 @@ public class TwitterStreamCollector {
 		windows= new ArrayList<HashMap<Long,Integer>>();
 		windowsWithSlideEntries=new ArrayList<ArrayList<HashMap<Long,Integer>>>();
 		slidedWindowUsersTimeStamp=new ArrayList<ArrayList<HashMap<Long,Long>>>();
-		extractUserIds(Config.INSTANCE.getProjectPath()+"acquaProj/followers.init");	
+		extractUserIds(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"followers.init");	
 	}
 	public static void extractUserIds(String userListToMonitor){
 		try{
