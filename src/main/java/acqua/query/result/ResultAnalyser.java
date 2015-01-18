@@ -88,7 +88,7 @@ public class ResultAnalyser {
 			BufferedReader br;
 
 			//fis = new FileInputStream(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/OETSlidingJoinOperatorOutput.txt");
-			fis = new FileInputStream(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/SlidingOETJoinOperatorSS.txt");
+			fis = new FileInputStream(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/SlidingOETJoinOperatorSSOutput.txt");
 			br = new BufferedReader(new InputStreamReader(fis));
 			String line=null;
 			while((line=br.readLine())!=null)
@@ -150,7 +150,7 @@ public class ResultAnalyser {
 				stmt.executeUpdate(sql);
 			}
 			//-----------------------------------------------------------------------fill classqueryProcessorOracleJoinOperatorOutput
-			fis = new FileInputStream(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/SlidingOETJoinOperatorTS.txt");
+			fis = new FileInputStream(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/SlidingOETJoinOperatorTSOutput.txt");
 			br = new BufferedReader(new InputStreamReader(fis));
 			line=null;
 			while((line=br.readLine())!=null)
