@@ -72,11 +72,11 @@ public class QueryProcessor {
 	
 	public static void main(String[] args){
 		QueryProcessor qp=new QueryProcessor();	
-//		qp.evaluateQuery(5);
-		for(int i=5;i<7;i++){
-			System.out.println(i);
-			qp.evaluateQuery(i);
-		}
+		qp.evaluateQuery(5);
+//		for(int i=5;i<7;i++){
+//			System.out.println(i);
+//			qp.evaluateQuery(i);
+//		}
 		
 	}
 }
