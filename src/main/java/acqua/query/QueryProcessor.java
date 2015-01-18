@@ -14,6 +14,7 @@ import acqua.query.join.bkg1.OracleJoinOperator;
 import acqua.query.join.bkg1.OETJoinOperator;
 import acqua.query.join.bkg1.LRUJoinOperator;
 import acqua.query.join.bkg1.RandomCacheUpdateJoin;
+import acqua.query.join.bkg1.SlidingOETJoinOperator;
 import acqua.query.join.bkg2.OracleDoubleJoinOperator;
 import acqua.query.join.bkg2.DoubleBkgJoinOperator;
 
@@ -50,6 +51,8 @@ public class QueryProcessor {
 		if(joinType==6)
 			join=new DoubleBkgJoinOperator(Config.INSTANCE.getUpdateBudget());
 		if(joinType==7)
+			join=new SlidingOETJoinOperator(Config.INSTANCE.getUpdateBudget(), false);
+		if(joinType==8)
 			join=new OracleDoubleJoinOperator();
 		long time=Config.INSTANCE.getQueryStartingTime()+Config.INSTANCE.getQueryWindowWidth()*1000;
 		int windowCount=0;
@@ -66,7 +69,7 @@ public class QueryProcessor {
 	public static void main(String[] args){
 		QueryProcessor qp=new QueryProcessor();	
 //		qp.evaluateQuery(5);
-		for(int i=1;i<6;i++){
+		for(int i=1;i<7;i++){
 			System.out.println(i);
 			qp.evaluateQuery(i);
 		}

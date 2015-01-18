@@ -7,6 +7,7 @@ import acqua.config.Config;
 import acqua.data.TwitterStreamCollector;
 import acqua.query.join.JoinOperator;
 import acqua.query.join.bkg1.OETSlidingJoinOperator;
+import acqua.query.join.bkg1.SlidingOETJoinOperator;
 
 public class SlidingQueryProcessor {
 	JoinOperator join;
@@ -26,6 +27,8 @@ public class SlidingQueryProcessor {
 	public void evaluateQuery(int joinType){
 		if(joinType==1)
 			join=new OETSlidingJoinOperator(Config.INSTANCE.getUpdateBudget());
+		if(joinType==7)
+			join=new SlidingOETJoinOperator(Config.INSTANCE.getUpdateBudget(), true);
 		long time=Config.INSTANCE.getQueryStartingTime()+Config.INSTANCE.getQueryWindowWidth()*1000;
 		int windowCount=0;
 		//ArrayList<HashMap<Long, Integer>> slidedWindows = tsc.aggregateSildedWindowsUser();
@@ -44,6 +47,7 @@ public class SlidingQueryProcessor {
 	public static void main(String[] args){
 		SlidingQueryProcessor qp=new SlidingQueryProcessor();	
 		qp.evaluateQuery(1);
+		qp.evaluateQuery(2);
 		
 	}
 }
