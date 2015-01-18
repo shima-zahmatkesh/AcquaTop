@@ -22,6 +22,7 @@ public class QueryProcessor {
 	JoinOperator join;
 	TwitterStreamCollector tsc;	
 	ArrayList<HashMap<Long,Integer>> slidedwindows;
+	ArrayList<HashMap<Long,Long>> slidedwindowsTime;
 	//HashMap<Long, Integer> initialCache;
 //	public static long start=1416244306470L;//select min(TIMESTAMP) + 30000 from BKG 
 //	public static int windowSize=60;
@@ -33,6 +34,7 @@ public class QueryProcessor {
 		//tsc.extractWindow(Config.INSTANCE.getQueryWindowWidth(), Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"twitterStream.txt");		
 		tsc.extractSlides(Config.INSTANCE.getQueryWindowWidth(),Config.INSTANCE.getQueryWindowSlide(), Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"twitterStream.txt");
 		slidedwindows = tsc.aggregateSildedWindowsUser();
+		slidedwindowsTime=tsc.aggregateSildedWindowsUserTime();
 		//for (int i=0;i<tsc.windows.size();i++)
 			//System.out.println(tsc.windows.get(i).size());
 		//initialCache = tfc.getFollowerListFromDB(start); //gets the first window
@@ -58,6 +60,7 @@ public class QueryProcessor {
 		int windowCount=50;
 		while(windowCount<100){
 //			join.process(time,tsc.windows.get(windowCount),null);//TwitterFollowerCollector.getInitialUserFollowersFromDB());//					
+			HashMap<Long,Long> currentCandidateTimeStamp = slidedwindowsTime.get(windowCount);
 			join.process(time,slidedwindows.get(windowCount),null);//TwitterFollowerCollector.getInitialUserFollowersFromDB());//					
 			windowCount++;
 			time = time + Config.INSTANCE.getQueryWindowSlide()*1000;			
