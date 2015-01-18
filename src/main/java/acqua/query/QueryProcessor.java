@@ -48,9 +48,9 @@ public class QueryProcessor {
 			join=new RandomCacheUpdateJoin(Config.INSTANCE.getUpdateBudget());
 		if(joinType==5)
 			join=new SlidingOETJoinOperator(Config.INSTANCE.getUpdateBudget(), true);
-		/*if(joinType==6)
-			join=new OETJoinOperator(Config.INSTANCE.getUpdateBudget());
-		if(joinType==7)
+		if(joinType==6)
+			join=new SlidingOETJoinOperator(Config.INSTANCE.getUpdateBudget(), false);
+		/*if(joinType==7)
 			join=new DoubleBkgJoinOperator(Config.INSTANCE.getUpdateBudget());
 		if(joinType==8)
 			join=new OracleDoubleJoinOperator();
