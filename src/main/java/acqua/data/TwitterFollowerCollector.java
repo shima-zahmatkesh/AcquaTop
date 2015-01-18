@@ -63,6 +63,7 @@ public class TwitterFollowerCollector {
 		fis = null;
 		return result;
 	}
+	
 	public void captureSnapshots(String userListFilePath, String snapshotOutputPath){		
 		TwitterFactory tf = new TwitterFactory(cb.build());
 		Twitter twitter = tf.getInstance();
@@ -296,7 +297,35 @@ public class TwitterFollowerCollector {
 		}
 		return followers;
 	}
-	
+public static long getPreviousExpTime(String userId, Long timeStamp){
+	long tpe=0L;
+	Connection c = null;
+	Statement stmt = null;
+	try {
+		//System.out.println("start of user follower count:");
+		Class.forName("org.sqlite.JDBC");
+		c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());
+		c.setAutoCommit(false);
+		stmt = c.createStatement();
+		String sql="SELECT MAX(CHANGE) as tp FROM CHANGES WHERE USERID = "+userId+" AND CHANGE <= "+timeStamp;  
+
+		//sql="SELECT B.USERID, B.followerCut "+
+		//		" FROM (SELECT USERID, MAX(TIMESTAMP) AS MAXTS  FROM copyBK  WHERE TIMESTAMP < "+timeStamp + 
+		//		" AND USERID= "+userID+" GROUP BY USERID) A JOIN copyBK B ON A.USERID=B.USERID AND A.MAXTS=B.TIMESTAMP"; 
+		//System.out.println(sql);
+		ResultSet rs = stmt.executeQuery(sql );	      
+		while ( rs.next() ) {
+			tpe  = rs.getLong("tp");	         
+		}
+		rs.close();
+		stmt.close();
+		c.close();
+	} catch ( Exception e ) {
+		System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		System.exit(0);
+	}
+	return tpe;
+	}
 	public static Long getUserNextExpFromDB(long timeStamp, long userID){
 		Long followers=0L;
 		Connection c = null;
