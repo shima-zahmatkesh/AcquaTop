@@ -61,7 +61,7 @@ public class QueryProcessor {
 		while(windowCount<100){
 //			join.process(time,tsc.windows.get(windowCount),null);//TwitterFollowerCollector.getInitialUserFollowersFromDB());//					
 			HashMap<Long,Long> currentCandidateTimeStamp = slidedwindowsTime.get(windowCount);
-			join.process(time,slidedwindows.get(windowCount),null);//TwitterFollowerCollector.getInitialUserFollowersFromDB());//					
+			join.process(time,slidedwindows.get(windowCount),currentCandidateTimeStamp);//TwitterFollowerCollector.getInitialUserFollowersFromDB());//					
 			windowCount++;
 			time = time + Config.INSTANCE.getQueryWindowSlide()*1000;			
 		}
@@ -72,7 +72,7 @@ public class QueryProcessor {
 	public static void main(String[] args){
 		QueryProcessor qp=new QueryProcessor();	
 //		qp.evaluateQuery(5);
-		for(int i=1;i<6;i++){
+		for(int i=1;i<7;i++){
 			System.out.println(i);
 			qp.evaluateQuery(i);
 		}
