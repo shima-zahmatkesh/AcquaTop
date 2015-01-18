@@ -1,0 +1,11 @@
+estimatedExpiredInML,updatePolicyHitRatioAccordingtoBudget,updatePolicyWindowHitRatio,totalNumberOfCandidatesinML,numberOfExpiredCandidatesinML,numberOfExpiredCandidatesAfterTheMaintenanceinML,numberOfExpiredElementsInTheView,numberOfExpiredElementsInTheViewAfterTheMaintenance 
+0,0.3,NaN,39,4.0,1.0,22.0,19.0 
+0,0.1,NaN,41,7.0,6.0,39.0,38.0 
+0,0.3,NaN,32,8.0,5.0,47.0,44.0 
+0,0.2,NaN,30,7.0,5.0,47.0,45.0 
+0,0.4,NaN,30,9.0,5.0,62.0,58.0 
+0,0.5,NaN,32,12.0,7.0,81.0,76.0 
+0,0.5,NaN,30,11.0,6.0,95.0,90.0 
+0,0.5,NaN,27,9.0,4.0,101.0,96.0 
+0,0.3,NaN,29,10.0,7.0,107.0,104.0 
+0,0.2,NaN,31,13.0,11.0,114.0,112.0 
