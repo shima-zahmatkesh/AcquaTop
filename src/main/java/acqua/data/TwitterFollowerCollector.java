@@ -297,7 +297,7 @@ public class TwitterFollowerCollector {
 		}
 		return followers;
 	}
-public static long getPreviousExpTime(String userId, Long timeStamp){
+public static long getPreviousExpTime(Long userId, Long timeStamp){
 	long tpe=0L;
 	Connection c = null;
 	Statement stmt = null;
@@ -309,10 +309,6 @@ public static long getPreviousExpTime(String userId, Long timeStamp){
 		stmt = c.createStatement();
 		String sql="SELECT MAX(CHANGE) as tp FROM CHANGES WHERE USERID = "+userId+" AND CHANGE <= "+timeStamp;  
 
-		//sql="SELECT B.USERID, B.followerCut "+
-		//		" FROM (SELECT USERID, MAX(TIMESTAMP) AS MAXTS  FROM copyBK  WHERE TIMESTAMP < "+timeStamp + 
-		//		" AND USERID= "+userID+" GROUP BY USERID) A JOIN copyBK B ON A.USERID=B.USERID AND A.MAXTS=B.TIMESTAMP"; 
-		//System.out.println(sql);
 		ResultSet rs = stmt.executeQuery(sql );	      
 		while ( rs.next() ) {
 			tpe  = rs.getLong("tp");	         
