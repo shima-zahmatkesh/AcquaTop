@@ -47,7 +47,7 @@ public class QueryProcessor {
 		if(joinType==4)
 			join=new RandomCacheUpdateJoin(Config.INSTANCE.getUpdateBudget());
 		if(joinType==5)
-			join=new SlidingOETJoinOperator(Config.INSTANCE.getUpdateBudget(), false);
+			join=new SlidingOETJoinOperator(Config.INSTANCE.getUpdateBudget(), true);
 		/*if(joinType==6)
 			join=new OETJoinOperator(Config.INSTANCE.getUpdateBudget());
 		if(joinType==7)
@@ -73,8 +73,6 @@ public class QueryProcessor {
 			System.out.println(i);
 			qp.evaluateQuery(i);
 		}
-		SlidingQueryProcessor sqp=new SlidingQueryProcessor();	
-		sqp.evaluateQuery(1);
-		sqp.evaluateQuery(2);
+		
 	}
 }
