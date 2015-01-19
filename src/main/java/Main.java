@@ -1,6 +1,13 @@
 import java.io.File;
 import java.io.FileWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Random;
+
+import acqua.config.Config;
 
 import twitter4j.IDs;
 import twitter4j.ResponseList;
@@ -12,7 +19,7 @@ import twitter4j.conf.ConfigurationBuilder;
 
 
 public class Main {
-	public static void main(String[] args) throws  Exception {
+	/*public static void main(String[] args) throws  Exception {
 		/////////////////////////////////////////////////////////////////////////////////////////////
 		ConfigurationBuilder cb = new ConfigurationBuilder();
 		cb.setDebugEnabled(true)
@@ -47,5 +54,44 @@ public class Main {
 		  followerFile.close();
 		  //////////////////////////////////////////////////////////////////
 		  
+	}*/
+	public static void main(String[] args){
+		try{
+		Class.forName("org.sqlite.JDBC");
+		Connection c = DriverManager.getConnection("jdbc:sqlite:testeveningCopy.db");
+		Random r=new Random();
+		
+		Statement stmt1 = c.createStatement();
+		Statement stmt2 = c.createStatement();
+		Statement stmt3 = c.createStatement();
+		String sql="select * from user";
+		ResultSet rs=stmt1.executeQuery(sql);
+		while ( rs.next() ) {
+			long userId = rs.getLong("USERID");
+			int changeCount  = rs.getInt("ChangeCount");//it changes every changeCount
+			int count=0;
+			int followerCount=r.nextInt(6000);
+			String sql2="select distinct(bkg.tiMESTAMP) as time from BKG";
+			ResultSet times= stmt2.executeQuery(sql2);
+			while(times.next())
+			{
+				count++;
+				if (count%changeCount==0){
+					followerCount=r.nextInt(6000);
+					}else;
+				sql="update bkg set foLLOWERCOUNT="+followerCount+" where USERID="+userId+" and TIMESTAMP="+times.getLong("time");	
+				stmt3.executeUpdate(sql);
+			}
+			times.close();
+		}
+		
+		rs.close();
+		
+		stmt1.close();
+		stmt2.close();
+		stmt3.close();
+		
+		}catch(Exception e){e.printStackTrace();}
+		
 	}
 }
