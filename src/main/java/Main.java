@@ -59,7 +59,7 @@ public class Main {
 		try{
 		Class.forName("org.sqlite.JDBC");
 		Connection c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());
-		Random r=new Random();
+		Random r=new Random(System.currentTimeMillis());
 		
 		
 		Statement stmt0 = c.createStatement();
