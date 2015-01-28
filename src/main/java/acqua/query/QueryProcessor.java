@@ -13,6 +13,7 @@ import acqua.query.join.bkg1.DWJoinOperator;
 import acqua.query.join.bkg1.OracleJoinOperator;
 import acqua.query.join.bkg1.OETJoinOperator;
 import acqua.query.join.bkg1.LRUJoinOperator;
+import acqua.query.join.bkg1.PrefectSlidingOET;
 import acqua.query.join.bkg1.RandomCacheUpdateJoin;
 import acqua.query.join.bkg1.SlidingOETJoinOperator;
 import acqua.query.join.bkg2.OracleDoubleJoinOperator;
@@ -51,7 +52,11 @@ public class QueryProcessor {
 		if(joinType==5)
 			join=new SlidingOETJoinOperator(Config.INSTANCE.getUpdateBudget(), true);
 		if(joinType==6)
+			join=new PrefectSlidingOET(Config.INSTANCE.getUpdateBudget(), true);
+		if(joinType==7)
 			join=new SlidingOETJoinOperator(Config.INSTANCE.getUpdateBudget(), false);
+		if(joinType==8)
+			join=new PrefectSlidingOET(Config.INSTANCE.getUpdateBudget(), false);
 		/*if(joinType==7)
 			join=new DoubleBkgJoinOperator(Config.INSTANCE.getUpdateBudget());
 		if(joinType==8)
@@ -59,7 +64,7 @@ public class QueryProcessor {
 		*/
 		long time=Config.INSTANCE.getQueryStartingTime()+Config.INSTANCE.getQueryWindowWidth()*1000;
 		int windowCount=0;
-		while(windowCount<60){
+		while(windowCount<50){
 //			join.process(time,tsc.windows.get(windowCount),null);//TwitterFollowerCollector.getInitialUserFollowersFromDB());//					
 			HashMap<Long,Long> currentCandidateTimeStamp = slidedwindowsTime.get(windowCount);
 			join.process(time,slidedwindows.get(windowCount),currentCandidateTimeStamp);//TwitterFollowerCollector.getInitialUserFollowersFromDB());//					
@@ -73,7 +78,7 @@ public class QueryProcessor {
 	public static void main(String[] args){
 		QueryProcessor qp=new QueryProcessor();	
 //		qp.evaluateQuery(5);
-		for(int i=1;i<7;i++){
+		for(int i=5;i<6;i++){
 			System.out.println(i);
 			qp.evaluateQuery(i);
 		}

@@ -58,17 +58,35 @@ public class Main {
 	public static void main(String[] args){
 		try{
 		Class.forName("org.sqlite.JDBC");
-		Connection c = DriverManager.getConnection("jdbc:sqlite:testeveningCopy.db");
+		Connection c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());
 		Random r=new Random();
 		
+		
+		Statement stmt0 = c.createStatement();
+		stmt0.executeUpdate("Drop table IF EXISTS User");
+		stmt0.executeUpdate("create table User ( USERID BIGINT, CHANGERATE real);");
+		String test="select distinct(bkg.USERID) as USERID from bkg";
+		stmt0.close();
 		Statement stmt1 = c.createStatement();
+		ResultSet x= stmt1.executeQuery(test);
+		while(x.next()){
+			//double cr = (double)Math.round(Math.random() * 1000) / 1000;
+			double cr = 1-( Math.round((Math.max(1, Math.min(100, (int) 75 + r.nextGaussian() * 25)))*1000/1000)/(double)100);
+			cr=(double)(cr*1000)/1000;
+			System.out.println(cr);
+			test="INSERT INTO User VALUES("+x.getLong("USERID")+", "+cr+");";
+			stmt0.executeUpdate(test);
+		}
+		x.close();
+		stmt0.close();
 		Statement stmt2 = c.createStatement();
 		Statement stmt3 = c.createStatement();
-		String sql="select * from user";
+		String sql="select * from User";
 		ResultSet rs=stmt1.executeQuery(sql);
 		while ( rs.next() ) {
 			long userId = rs.getLong("USERID");
-			int changeCount  = rs.getInt("ChangeCount");//it changes every changeCount
+			float changeRate  = rs.getFloat("CHANGERATE");
+			int changeCount=(int)(1/changeRate);
 			int count=0;
 			int followerCount=r.nextInt(6000);
 			String sql2="select distinct(bkg.tiMESTAMP) as time from BKG";
@@ -76,7 +94,7 @@ public class Main {
 			while(times.next())
 			{
 				count++;
-				if (count%changeCount==0){
+				if (changeCount!=0 && count%changeCount==0){
 					followerCount=r.nextInt(6000);
 					}else;
 				sql="update bkg set foLLOWERCOUNT="+followerCount+" where USERID="+userId+" and TIMESTAMP="+times.getLong("time");	

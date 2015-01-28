@@ -35,6 +35,7 @@ import twitter4j.conf.ConfigurationBuilder;
 
 public class TwitterStreamCollector {
 	private ConfigurationBuilder cb;
+	private HashMap<Long,Integer> userMentionCount;
 	public ArrayList<HashMap<Long, Integer>> windows;
 	public ArrayList<ArrayList<HashMap<Long,Integer>>> windowsWithSlideEntries;
 	public ArrayList<ArrayList<HashMap<Long,Long>>> slidedWindowUsersTimeStamp;
@@ -48,6 +49,7 @@ public class TwitterStreamCollector {
 
 	//constructor for listening
 	public TwitterStreamCollector(){
+		userMentionCount=new HashMap<Long, Integer>();
 		cb = new ConfigurationBuilder();
 		cb.setDebugEnabled(true)
 		.setOAuthConsumerKey(Config.INSTANCE.getTwitterConsumerKey())
@@ -255,6 +257,12 @@ public class TwitterStreamCollector {
 									break;
 							}
 							if(p==monitoredIds.length) continue;
+							Integer x = userMentionCount.get(Long.parseLong(mentionedUser));
+							if(x==null)
+								userMentionCount.put(Long.parseLong(mentionedUser), 1);
+							else
+								userMentionCount.put(Long.parseLong(mentionedUser), x+1);
+							
 							Object numberOfMentions = slideMapOfUserMention.get(mentionedUser);
 							if(numberOfMentions!=null){
 								slideMapOfUserMention.put(Long.parseLong(mentionedUser),Integer.parseInt(numberOfMentions.toString())+1);
@@ -353,6 +361,19 @@ public class TwitterStreamCollector {
 			}
 			slidedWindows.add(WindowUserMention);
 		}
+		try{
+			HashMap<Long,Integer> c= TwitterFollowerCollector.getchangecount();
+			BufferedWriter bw1=new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"Debug/userMentionCount.csv")));
+		Iterator<Long> it1= userMentionCount.keySet().iterator();
+		while(it1.hasNext()){
+			Long idtemp=it1.next();
+			bw1.write(idtemp+","+userMentionCount.get(idtemp)+","+c.get(idtemp)+"\n");
+		}
+		bw1.flush();
+		bw1.close();
+		}catch(Exception e){}
+		
+		
 		return slidedWindows;
 	}
 	public ArrayList<HashMap<Long,Long>> aggregateSildedWindowsUserTime()

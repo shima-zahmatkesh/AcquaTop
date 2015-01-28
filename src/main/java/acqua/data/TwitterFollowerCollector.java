@@ -323,7 +323,7 @@ public static long getPreviousExpTime(Long userId, Long timeStamp){
 	return tpe;
 	}
 	public static Long getUserNextExpFromDB(long timeStamp, long userID){
-		Long followers=0L;
+		Long followers=Long.MAX_VALUE;
 		Connection c = null;
 		Statement stmt = null;
 		try {
@@ -348,7 +348,9 @@ public static long getPreviousExpTime(Long userId, Long timeStamp){
 			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 			System.exit(0);
 		}
+		if(followers==0L) followers=Long.MAX_VALUE;
 		return followers;
+		
 	}
 	public static int getUserStatusCountFromDB(long timeStamp, long userID){
 		int followers=0;
@@ -379,7 +381,32 @@ public static long getPreviousExpTime(Long userId, Long timeStamp){
 		return followers;
 	}
 
+	public static HashMap<Long,Integer> getchangecount( ){
+		HashMap<Long,Integer> changeCount=new HashMap<Long, Integer>();
+		Connection c = null;
+		Statement stmt = null;
+		try {
+			//System.out.println("start of user follower count:");
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());
+			c.setAutoCommit(false);
+			stmt = c.createStatement();
+			String sql="SELECT A.USERID as userid, COUNT(*) as changecount FROM BKG A, BKG B WHERE A.TIMESTAMP-B.TIMESTAMP>0 AND A.TIMESTAMP-B.TIMESTAMP< 100000 AND A.USERID = B.USERID AND A.FOLLOWERCOUNT<>B.FOLLOWERCOUNT GROUP BY A.USERID";  
 
+			//System.out.println(sql);
+			ResultSet rs = stmt.executeQuery(sql );	      
+			while ( rs.next() ) {
+				changeCount.put(rs.getLong("userid"),rs.getInt("changecount"));
+			}
+			rs.close();
+			stmt.close();
+			c.close();
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+			System.exit(0);
+		}
+		return changeCount;
+	}
 	public static HashMap<Long,Integer> getInitialUserFollowersFromDB(){
 		HashMap<Long,Integer> result=new HashMap<Long, Integer>();
 		Connection c = null;
