@@ -37,6 +37,29 @@ public class TwitterFollowerCollector {
 		.setOAuthAccessTokenSecret(Config.INSTANCE.getTwitterAccessTokenSecret());
 		snapshots = new HashMap<Long,HashMap<Long,Integer>>();
 	}
+	public static long prevIntervalTimeStamp(long time, long userid){
+		long result=0L;
+		Connection c = null;
+		Statement stmt = null;
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());
+			c.setAutoCommit(false);
+			stmt = c.createStatement();
+			//String sql="select max(X.timestamp) as TS from (select bkg.tiMESTAMP as timestamp from bkg where bkg.tiMESTAMP<"+time+" and bkg.USERID="+userid+") as X";
+			String sql="select min(bkg.tiMESTAMP) as MTS from bkg, (select max(X.timestamp) as TS,X.fc as FC from (select bkg.tiMESTAMP as timestamp ,bkg.foLLOWERCOUNT as fc from bkg where bkg.tiMESTAMP<"+time+" and bkg.USERID="+userid+") as X)as y where bkg.foLLOWERCOUNT =y.FC";
+			ResultSet rs = stmt.executeQuery( sql);
+
+			result = rs.getLong("MTS");
+			if (result==0) result=time;
+			stmt.close();
+			c.close();
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+			System.exit(0);
+		}
+		return result;
+	}
 	public HashMap<Long, String> readIntialUserSet(String userListFilePath){
 		HashMap<Long, String> result = new HashMap<Long, String>();
 		InputStream    fis;
@@ -323,7 +346,8 @@ public static long getPreviousExpTime(Long userId, Long timeStamp){
 	return tpe;
 	}
 	public static Long getUserNextExpFromDB(long timeStamp, long userID){
-		Long followers=Long.MAX_VALUE;
+		
+		Long nextExpT=Long.MAX_VALUE;
 		Connection c = null;
 		Statement stmt = null;
 		try {
@@ -332,15 +356,23 @@ public static long getPreviousExpTime(Long userId, Long timeStamp){
 			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
-			String sql="select min(bkg.timESTAMP) as TS from bkg where bkg.USERID= "+userID+" and bkg.tIMESTAMP> "+timeStamp+" and bkg.fOLLOWERCOUNT <> ("
-					+" select bkg.foLLOWERCOUNT from bkg where bkg.uSERID= "+userID+" and bkg.tiMESTAMP> "+timeStamp+" order by bkg.tIMESTAMP asc limit 1)";  
+			String sql="select min(bkg.TIMESTAMP) as mTS from bkg where bkg.USERID="+userID;
+			ResultSet rs = stmt.executeQuery(sql);
+			/*Long min = rs.getLong("mTS");
+			sql="select max(bkg.TIMESTAMP) as MTS from bkg where bkg.USERID="+userID;
+			rs = stmt.executeQuery(sql);
+			Long max = rs.getLong("MTS");
+			if (timeStamp>max ) return max;
+			if (timeStamp<min) return min;*/
+			sql="select min(bkg.timESTAMP) as TS from bkg where bkg.USERID= "+userID+" and bkg.tIMESTAMP> "+timeStamp+" and bkg.fOLLOWERCOUNT <> ("
+					+" select bkg.foLLOWERCOUNT from bkg where bkg.uSERID= "+userID+" and bkg.tiMESTAMP<= "+timeStamp+" order by bkg.tIMESTAMP desc limit 1)";  
 
 			//sql="SELECT B.USERID, B.followerCut "+
 			//		" FROM (SELECT USERID, MAX(TIMESTAMP) AS MAXTS  FROM copyBK  WHERE TIMESTAMP < "+timeStamp + 
 			//		" AND USERID= "+userID+" GROUP BY USERID) A JOIN copyBK B ON A.USERID=B.USERID AND A.MAXTS=B.TIMESTAMP"; 
 //			System.out.println(sql);
-			ResultSet rs = stmt.executeQuery(sql );	      
-			followers  = rs.getLong("TS");	         
+			rs = stmt.executeQuery(sql );	      
+			nextExpT  = rs.getLong("TS");	         
 			rs.close();
 			stmt.close();
 			c.close();
@@ -348,8 +380,8 @@ public static long getPreviousExpTime(Long userId, Long timeStamp){
 			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 			System.exit(0);
 		}
-		if(followers==0L) followers=Long.MAX_VALUE;
-		return followers;
+		if(nextExpT==0L) nextExpT=Long.MAX_VALUE;
+		return nextExpT;
 		
 	}
 	public static int getUserStatusCountFromDB(long timeStamp, long userID){
@@ -407,8 +439,8 @@ public static long getPreviousExpTime(Long userId, Long timeStamp){
 		}
 		return changeCount;
 	}
-	public static HashMap<Long,Integer> getInitialUserFollowersFromDB(){
-		HashMap<Long,Integer> result=new HashMap<Long, Integer>();
+	public static HashMap<Long,String> getInitialUserFollowersFromDB(){
+		HashMap<Long,String> result=new HashMap<Long, String>();
 		Connection c = null;
 		Statement stmt = null;
 		try {
@@ -429,7 +461,7 @@ public static long getPreviousExpTime(Long userId, Long timeStamp){
 				long userId = rs.getLong("USERID");
 				int followerCount  = rs.getInt("FOLLOWERCOUNT");
 				long timeStamp = rs.getLong("MINTS");
-				result.put(userId, followerCount);
+				result.put(userId, followerCount+","+timeStamp);
 			}
 			rs.close();
 			stmt.close();
@@ -472,10 +504,10 @@ public static long getPreviousExpTime(Long userId, Long timeStamp){
 	}
 	public static void main(String[] args){
 		TwitterFollowerCollector tfc=new TwitterFollowerCollector();
-		//tfc.captureSnapshots("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followers.init","D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followerSnapshotsFile.txt");
+		tfc.captureSnapshots("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followers.init","D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followerSnapshotsFile2.txt");
 		//note that followerSnapshotFile should have been sorted based on timestamp
 
-		tfc.importFollowerFileIntoDB(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"followerSnapshotsFile.txt");
+		//tfc.importFollowerFileIntoDB(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"followerSnapshotsFile.txt");
 		//		tfc.importStatusFileIntoDB(path+"acquaProj/StatusSnapshotsFile.txt");
 		//HashMap<Long,Integer> initialCache = tfc.getInitialUserFollowersFromDB();
 		//long time=new Long("1416244704221");

@@ -63,53 +63,92 @@ public class Main {
 		
 		
 		Statement stmt0 = c.createStatement();
-		stmt0.executeUpdate("Drop table IF EXISTS User");
+		/*stmt0.executeUpdate("Drop table IF EXISTS User");
 		stmt0.executeUpdate("create table User ( USERID BIGINT, CHANGERATE real);");
 		String test="select distinct(bkg.USERID) as USERID from bkg";
 		stmt0.close();
 		Statement stmt1 = c.createStatement();
 		ResultSet x= stmt1.executeQuery(test);
 		while(x.next()){
-			//double cr = (double)Math.round(Math.random() * 1000) / 1000;
-			double cr = 1-( Math.round((Math.max(1, Math.min(100, (int) 75 + r.nextGaussian() * 25)))*1000/1000)/(double)100);
-			cr=(double)(cr*1000)/1000;
+			double cr = (double)Math.round(Math.random() * 1000) / 1000;
+			//double cr = 1-( Math.round((Math.max(1, Math.min(100, (int) 75 + r.nextGaussian() * 25)))*1000/1000)/(double)100);
+			//cr=(double)(cr*1000)/1000;
+			cr=r.nextDouble();
+			if (cr>0.5)
+				cr=0.05;
+			else cr=0.3;
 			System.out.println(cr);
 			test="INSERT INTO User VALUES("+x.getLong("USERID")+", "+cr+");";
 			stmt0.executeUpdate(test);
 		}
 		x.close();
-		stmt0.close();
+		stmt0.close();*/
 		Statement stmt2 = c.createStatement();
 		Statement stmt3 = c.createStatement();
 		String sql="select * from User";
-		ResultSet rs=stmt1.executeQuery(sql);
-		while ( rs.next() ) {
-			long userId = rs.getLong("USERID");
-			float changeRate  = rs.getFloat("CHANGERATE");
+		//ResultSet rs=stmt0.executeQuery(sql);
+		//while ( rs.next() ) {
+			long userId = 818340;//rs.getLong("USERID");
+			double changeRate  = 0.0676;// rs.getFloat("CHANGERATE");
 			int changeCount=(int)(1/changeRate);
 			int count=0;
 			int followerCount=r.nextInt(6000);
-			String sql2="select distinct(bkg.tiMESTAMP) as time from BKG";
+			String sql2="select bkg.TIMESTAMP as time from BKG where USERID="+userId;
 			ResultSet times= stmt2.executeQuery(sql2);
 			while(times.next())
 			{
-				count++;
 				if (changeCount!=0 && count%changeCount==0){
 					followerCount=r.nextInt(6000);
 					}else;
-				sql="update bkg set foLLOWERCOUNT="+followerCount+" where USERID="+userId+" and TIMESTAMP="+times.getLong("time");	
+				long newTime=count*60000+Config.INSTANCE.getQueryStartingTime();
+				sql="update bkg set foLLOWERCOUNT="+followerCount+",TIMESTAMP="+newTime+" where USERID="+userId+" and TIMESTAMP="+times.getLong("time");	
+				//System.out.println(sql);
 				stmt3.executeUpdate(sql);
+				count++;
 			}
+			System.out.println(count);
 			times.close();
-		}
+		//}
 		
-		rs.close();
+		//rs.close();
 		
-		stmt1.close();
+		//stmt1.close();
 		stmt2.close();
 		stmt3.close();
 		
 		}catch(Exception e){e.printStackTrace();}
 		
 	}
+	/*public static void main(String[] args){
+		try{
+		Class.forName("org.sqlite.JDBC");
+		Connection c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());
+		
+		
+		Statement stmt0 = c.createStatement();
+		Statement stmt3 = c.createStatement();
+		String sql="select * from User";
+		ResultSet rs=stmt0.executeQuery(sql);
+		while ( rs.next() ) {
+			long userId = rs.getLong("USERID");
+			Statement stmt1=c.createStatement();
+			int count=0;
+			String sql2="select distinct(bkg.TIMESTAMP) as time from BKG where USERID="+userId+" order by bkg.TIMESTAMP ";
+			ResultSet times= stmt1.executeQuery(sql2);
+			while(times.next())
+			{
+				long newTime=count*60000+Config.INSTANCE.getQueryStartingTime();
+				sql="update bkg set TIMESTAMP="+newTime+" where USERID="+userId+" and TIMESTAMP="+times.getLong("time");	
+				//System.out.println(sql);
+				stmt3.executeUpdate(sql);
+				count++;
+			}
+			times.close();
+			stmt1.close();
+		}
+		
+		rs.close();
+		}catch(Exception e){e.printStackTrace();}
+	}*/
 }
+	

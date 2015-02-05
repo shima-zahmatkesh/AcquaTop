@@ -10,11 +10,13 @@ import acqua.config.Config;
 import acqua.data.TwitterStreamCollector;
 import acqua.query.join.*;
 import acqua.query.join.bkg1.DWJoinOperator;
+import acqua.query.join.bkg1.LRUWithOutWindowsLocality;
 import acqua.query.join.bkg1.OracleJoinOperator;
 import acqua.query.join.bkg1.OETJoinOperator;
 import acqua.query.join.bkg1.LRUJoinOperator;
 import acqua.query.join.bkg1.PrefectSlidingOET;
 import acqua.query.join.bkg1.RandomCacheUpdateJoin;
+import acqua.query.join.bkg1.RandomWithOutWindowsLocality;
 import acqua.query.join.bkg1.SlidingOETJoinOperator;
 import acqua.query.join.bkg2.OracleDoubleJoinOperator;
 import acqua.query.join.bkg2.DoubleBkgJoinOperator;
@@ -57,14 +59,14 @@ public class QueryProcessor {
 			join=new SlidingOETJoinOperator(Config.INSTANCE.getUpdateBudget(), false);
 		if(joinType==8)
 			join=new PrefectSlidingOET(Config.INSTANCE.getUpdateBudget(), false);
-		/*if(joinType==7)
-			join=new DoubleBkgJoinOperator(Config.INSTANCE.getUpdateBudget());
-		if(joinType==8)
-			join=new OracleDoubleJoinOperator();
-		*/
+		if(joinType==9)
+			join=new RandomWithOutWindowsLocality(Config.INSTANCE.getUpdateBudget());
+		if(joinType==10)
+			join=new LRUWithOutWindowsLocality(Config.INSTANCE.getUpdateBudget());
+		
 		long time=Config.INSTANCE.getQueryStartingTime()+Config.INSTANCE.getQueryWindowWidth()*1000;
 		int windowCount=0;
-		while(windowCount<50){
+		while(windowCount<60){
 //			join.process(time,tsc.windows.get(windowCount),null);//TwitterFollowerCollector.getInitialUserFollowersFromDB());//					
 			HashMap<Long,Long> currentCandidateTimeStamp = slidedwindowsTime.get(windowCount);
 			join.process(time,slidedwindows.get(windowCount),currentCandidateTimeStamp);//TwitterFollowerCollector.getInitialUserFollowersFromDB());//					
@@ -78,7 +80,7 @@ public class QueryProcessor {
 	public static void main(String[] args){
 		QueryProcessor qp=new QueryProcessor();	
 //		qp.evaluateQuery(5);
-		for(int i=1;i<9;i++){
+		for(int i=1;i<11;i++){
 			System.out.println(i);
 			qp.evaluateQuery(i);
 		}
