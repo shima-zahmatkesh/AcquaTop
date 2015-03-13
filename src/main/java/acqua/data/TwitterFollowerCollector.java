@@ -257,7 +257,6 @@ public class TwitterFollowerCollector {
 		}
 		return result;
 	}
-
 	//run the full query of status counts against remote source
 	public static HashMap<Long,Integer> getStsCountListFromDB(long timeStamp){
 		HashMap<Long,Integer> result=new HashMap<Long, Integer>();
@@ -288,7 +287,6 @@ public class TwitterFollowerCollector {
 		}
 		return result;
 	}
-
 	public static int getUserFollowerFromDB(long timeStamp, long userID){
 		int followers=0;
 		Connection c = null;

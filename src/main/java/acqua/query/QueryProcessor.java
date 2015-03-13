@@ -10,6 +10,7 @@ import acqua.config.Config;
 import acqua.data.TwitterStreamCollector;
 import acqua.query.join.*;
 import acqua.query.join.bkg1.DWJoinOperator;
+import acqua.query.join.bkg1.GNRUpperBound;
 import acqua.query.join.bkg1.LRUWithOutWindowsLocality;
 import acqua.query.join.bkg1.OracleJoinOperator;
 import acqua.query.join.bkg1.OETJoinOperator;
@@ -18,6 +19,7 @@ import acqua.query.join.bkg1.PrefectSlidingOET;
 import acqua.query.join.bkg1.RandomCacheUpdateJoin;
 import acqua.query.join.bkg1.RandomWithOutWindowsLocality;
 import acqua.query.join.bkg1.SlidingOETJoinOperator;
+import acqua.query.join.bkg1.WSJUpperBound;
 import acqua.query.join.bkg2.OracleDoubleJoinOperator;
 import acqua.query.join.bkg2.DoubleBkgJoinOperator;
 
@@ -63,24 +65,28 @@ public class QueryProcessor {
 			join=new RandomWithOutWindowsLocality(Config.INSTANCE.getUpdateBudget());
 		if(joinType==10)
 			join=new LRUWithOutWindowsLocality(Config.INSTANCE.getUpdateBudget());
+		if(joinType==11)
+			join=new WSJUpperBound(Config.INSTANCE.getUpdateBudget());
+		if(joinType==12)
+			join=new GNRUpperBound(Config.INSTANCE.getUpdateBudget());
 		
 		long time=Config.INSTANCE.getQueryStartingTime()+Config.INSTANCE.getQueryWindowWidth()*1000;
 		int windowCount=0;
-		while(windowCount<60){
+		while(windowCount<150){
 //			join.process(time,tsc.windows.get(windowCount),null);//TwitterFollowerCollector.getInitialUserFollowersFromDB());//					
+			//System.out.println(">>>>>>>>>>>>>>>"+time);
 			HashMap<Long,Long> currentCandidateTimeStamp = slidedwindowsTime.get(windowCount);
 			join.process(time,slidedwindows.get(windowCount),currentCandidateTimeStamp);//TwitterFollowerCollector.getInitialUserFollowersFromDB());//					
 			windowCount++;
 			time = time + Config.INSTANCE.getQueryWindowSlide()*1000;			
 		}
 		join.close();
-		
 	}
 	
 	public static void main(String[] args){
 		QueryProcessor qp=new QueryProcessor();	
 //		qp.evaluateQuery(5);
-		for(int i=1;i<11;i++){
+		for(int i=1;i<13;i++){
 			System.out.println(i);
 			qp.evaluateQuery(i);
 		}

@@ -1,4 +1,6 @@
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,6 +21,29 @@ import twitter4j.conf.ConfigurationBuilder;
 
 
 public class Main {
+	/*public static void main(String[] args) throws  Exception {
+		try{
+			for (double a=0;a<1;a+=0.01){
+			int sum=0;
+			BufferedReader fr=new BufferedReader(new FileReader(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"Debug/SlidingOETJoinOperatorSSestimationErrorPerWindow.txt")));
+			String line=null;
+			fr.readLine();
+			while((line = fr.readLine())!=null){
+				String[] parts=line.split(",");
+				double J = Double.parseDouble(parts[0])/Double.parseDouble(parts[3]);
+				double K = Double.parseDouble(parts[1])/Double.parseDouble(parts[3]);
+				if((J>a && K<a) || (J<a && K>a) ){
+					sum++;
+				}
+				}
+			System.out.println(sum);
+			fr.close();
+			}
+		}catch(Exception e){
+			
+		}
+	}*/
+	
 	/*public static void main(String[] args) throws  Exception {
 		/////////////////////////////////////////////////////////////////////////////////////////////
 		ConfigurationBuilder cb = new ConfigurationBuilder();
@@ -86,10 +111,10 @@ public class Main {
 		Statement stmt2 = c.createStatement();
 		Statement stmt3 = c.createStatement();
 		String sql="select * from User";
-		//ResultSet rs=stmt0.executeQuery(sql);
-		//while ( rs.next() ) {
-			long userId = 818340;//rs.getLong("USERID");
-			double changeRate  = 0.0676;// rs.getFloat("CHANGERATE");
+		ResultSet rs=stmt0.executeQuery(sql);
+		while ( rs.next() ) {
+			long userId = rs.getLong("USERID");
+			double changeRate  =  rs.getFloat("CHANGERATE");
 			int changeCount=(int)(1/changeRate);
 			int count=0;
 			int followerCount=r.nextInt(6000);
@@ -102,15 +127,14 @@ public class Main {
 					}else;
 				long newTime=count*60000+Config.INSTANCE.getQueryStartingTime();
 				sql="update bkg set foLLOWERCOUNT="+followerCount+",TIMESTAMP="+newTime+" where USERID="+userId+" and TIMESTAMP="+times.getLong("time");	
-				//System.out.println(sql);
-				stmt3.executeUpdate(sql);
+				System.out.println("user id>"+userId+" time>"+newTime+">>"+stmt3.executeUpdate(sql));
 				count++;
 			}
 			System.out.println(count);
 			times.close();
-		//}
+		}
 		
-		//rs.close();
+		rs.close();
 		
 		//stmt1.close();
 		stmt2.close();
