@@ -133,6 +133,22 @@ public class ResultAnalyser {
 					" `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `SsptimeIndex` ON `SSpJ` (`TIMESTAMP` ASC);"; 
 			System.out.println(sql);
 			stmt.executeUpdate(sql);
+			stmt.executeUpdate(" DROP TABLE IF EXISTS FJ ;");
+			sql = "CREATE TABLE  `FJ` ( " +
+					" `USERID`           BIGINT    NOT NULL, " + 
+					" `MENTIONCOUNT`     INT    NOT NULL, " + 
+					" `FOLLOWERCOUNT`    INT    NOT NULL, " + 
+					" `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `FtimeIndex` ON `FJ` (`TIMESTAMP` ASC);"; 
+			System.out.println(sql);
+			stmt.executeUpdate(sql);
+			stmt.executeUpdate(" DROP TABLE IF EXISTS ScJ ;");
+			sql = "CREATE TABLE  `ScJ` ( " +
+					" `USERID`           BIGINT    NOT NULL, " + 
+					" `MENTIONCOUNT`     INT    NOT NULL, " + 
+					" `FOLLOWERCOUNT`    INT    NOT NULL, " + 
+					" `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `SctimeIndex` ON `ScJ` (`TIMESTAMP` ASC);"; 
+			System.out.println(sql);
+			stmt.executeUpdate(sql);
 			
 			InputStream    fis;
 			BufferedReader br;
@@ -289,6 +305,32 @@ public class ResultAnalyser {
 				//System.out.println(sql);
 				stmt.executeUpdate(sql);
 			}	
+			
+			//---------------------------------------------------------------------fill FJ
+			fis = new FileInputStream(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/FilteringJoinOperatorOutput.txt");
+			br = new BufferedReader(new InputStreamReader(fis));
+			line=null;
+			while((line=br.readLine())!=null)
+			{
+				String[] userInfo = line.split(" ");	
+				sql = "INSERT INTO FJ (USERID,MENTIONCOUNT,FOLLOWERCOUNT,TIMESTAMP) " +
+						"VALUES ("+userInfo[0]+","+userInfo[1]+","+userInfo[2]+","+userInfo[3]+")"; 
+				//System.out.println(sql);
+				stmt.executeUpdate(sql);
+			}
+			
+			//---------------------------------------------------------------------fill ScJ
+			fis = new FileInputStream(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/ScoringJoinOperatorOutput.txt");
+			br = new BufferedReader(new InputStreamReader(fis));
+			line=null;
+			while((line=br.readLine())!=null)
+			{
+				String[] userInfo = line.split(" ");	
+				sql = "INSERT INTO ScJ (USERID,MENTIONCOUNT,FOLLOWERCOUNT,TIMESTAMP) " +
+						"VALUES ("+userInfo[0]+","+userInfo[1]+","+userInfo[2]+","+userInfo[3]+")"; 
+				//System.out.println(sql);
+				stmt.executeUpdate(sql);
+			}
 
 			stmt.close();
 			//c.commit();
@@ -627,6 +669,62 @@ public class ResultAnalyser {
 		}catch(Exception e){e.printStackTrace();}
 		return result;
 	}
+	public static HashMap<Long,Integer> computeFJoinPrecision(){
+		HashMap<Long,Integer> result=new HashMap<Long, Integer>();
+		Connection c = null;
+		Statement stmt = null;
+		try {		
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());	      
+			c.setAutoCommit(false);
+			stmt = c.createStatement();
+			//String sql="SELECT DWJ.TIMESTAMP AS TIME, SUM(ABS(DWJ.FOLLOWERCOUNT-OJ.FOLLOWERCOUNT)) AS ERROR "+
+			//		  " FROM DWJ,OJ  WHERE DWJ.USERID=OJ.USERID AND DWJ.TIMESTAMP=OJ.TIMESTAMP group by OJ.TIMESTAMP";
+			String sql="SELECT FJ.TIMESTAMP as TIMESTAMP , COUNT(*) as ERROR FROM FJ,OJ  WHERE FJ.USERID=OJ.USERID AND FJ.TIMESTAMP=OJ.TIMESTAMP AND FJ.FOLLOWERCOUNT <> OJ.FOLLOWERCOUNT group by OJ.TIMESTAMP";
+
+			ResultSet rs = stmt.executeQuery( sql);
+
+			while ( rs.next() ) {
+				Integer error  = rs.getInt("ERROR");
+				Long timeStamp  = rs.getLong("TIMESTAMP");
+				if(error==null) 
+					error=0;
+				result.put(timeStamp,error);
+			}
+			rs.close();
+			stmt.close();
+			c.close();
+		}catch(Exception e){e.printStackTrace();}
+		return result;
+	}
+	public static HashMap<Long,Integer> computeScJoinPrecision(){
+		HashMap<Long,Integer> result=new HashMap<Long, Integer>();
+		Connection c = null;
+		Statement stmt = null;
+		try {		
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());	      
+			c.setAutoCommit(false);
+			stmt = c.createStatement();
+			//String sql="SELECT DWJ.TIMESTAMP AS TIME, SUM(ABS(DWJ.FOLLOWERCOUNT-OJ.FOLLOWERCOUNT)) AS ERROR "+
+			//		  " FROM DWJ,OJ  WHERE DWJ.USERID=OJ.USERID AND DWJ.TIMESTAMP=OJ.TIMESTAMP group by OJ.TIMESTAMP";
+			String sql="SELECT ScJ.TIMESTAMP as TIMESTAMP , COUNT(*) as ERROR FROM ScJ,OJ  WHERE ScJ.USERID=OJ.USERID AND ScJ.TIMESTAMP=OJ.TIMESTAMP AND ScJ.FOLLOWERCOUNT <> OJ.FOLLOWERCOUNT group by OJ.TIMESTAMP";
+
+			ResultSet rs = stmt.executeQuery( sql);
+
+			while ( rs.next() ) {
+				Integer error  = rs.getInt("ERROR");
+				Long timeStamp  = rs.getLong("TIMESTAMP");
+				if(error==null) 
+					error=0;
+				result.put(timeStamp,error);
+			}
+			rs.close();
+			stmt.close();
+			c.close();
+		}catch(Exception e){e.printStackTrace();}
+		return result;
+	}
 	public static void main(String[] args){
 		try{
 			insertResultToDB();
@@ -643,12 +741,22 @@ public class ResultAnalyser {
 			HashMap<Long,Integer> RNLError=computeRNLJoinPrecision();
 			HashMap<Long,Integer> PGNRError=computePGNRJoinPrecision();
 			HashMap<Long,Integer> PWSError=computePWSJoinPrecision();
+			HashMap<Long,Integer> FError=computeFJoinPrecision();
+			HashMap<Long,Integer> ScError=computeScJoinPrecision();
 			
 			Iterator<Long> itO = oracleCount.keySet().iterator();
 
-			bw.write("timestampe,oracle,DW,Smart,random,LRU,slidingSmart,PrefectSmart, PrefectSlidingSmart,LRUNL,RNL,PGNR,PWSJ\n");
+			bw.write("timestampe,oracle,DW,Smart,random,LRU,slidingSmart,PrefectSmart, PrefectSlidingSmart,LRUNL,RNL,PGNR,PWSJ,Filter,score,");
+			bw.write("cumulative oracle,cumulative DW,cumulative Smart,cumulative random,cumulative LRU,cumulative slidingSmart,cumulative PrefectSmart,cumulative PrefectSlidingSmart,cumulative LRUNL,cumulative RNL,cumulative PGNR,cumulative PWSJ,cumulative Filter,cumulative score\n");
+
+			
+			
+			Integer cOC=0, cdwe=0, cse=0, cre=0, cbe=0, csse=0, cspe=0, csspe=0, clrunle=0, crnle=0, cgnre=0, cpwse=0, cfe=0, csce=0;
+			
 			while(itO.hasNext()){
 				long nextTime = itO.next();
+				
+				
 				Integer OC=oracleCount.get(nextTime);
 				Integer dwe=DWError.get(nextTime);
 				Integer se=SError.get(nextTime);
@@ -661,8 +769,31 @@ public class ResultAnalyser {
 				Integer rnle=RNLError.get(nextTime);
 				Integer gnre=PGNRError.get(nextTime);
 				Integer pwse=PWSError.get(nextTime);
+				Integer fe=FError.get(nextTime);
+				Integer sce=ScError.get(nextTime);
 				
-				bw.write(nextTime+","+OC+","+(dwe==null?0:dwe)+","+(se==null?0:se)+","+(re==null?0:re)+","+(be==null?0:be)+","+(sse==null?0:sse)+","+(spe==null?0:spe)+","+(sspe==null?0:sspe)+","+(lrunle==null?0:lrunle)+","+(rnle==null?0:rnle)+","+(gnre==null?0:gnre)+","+(pwse==null?0:pwse)+" \n");
+				
+
+				//cumulative error
+				cOC=cOC + OC ; 
+				cdwe= cdwe + (dwe = dwe==null?0:dwe) ;
+				cse= cse + (se= se==null?0:se) ;
+				cre= cre + (re = re==null?0:re) ;
+				cbe= cbe + (be = be==null?0:be); 
+				csse= csse + (sse= sse==null?0:sse) ;
+				cspe= cspe + (spe= spe==null?0:spe) ; 
+				csspe= csspe + (sspe= sspe==null?0:sspe) ;
+				clrunle= clrunle + ( lrunle= lrunle==null?0:lrunle) ;
+				crnle= crnle + (rnle= rnle==null?0:rnle) ;
+				cgnre= cgnre + (gnre= gnre==null?0:gnre) ;
+				cpwse= cpwse + (pwse= pwse==null?0:pwse) ;
+				cfe= cfe + (fe= fe==null?0:fe) ;
+				csce= csce + (sce= sce==null?0:sce) ;
+				
+				bw.write(nextTime+","+OC+","+(dwe==null?0:dwe)+","+(se==null?0:se)+","+(re==null?0:re)+","+(be==null?0:be)+","+(sse==null?0:sse)+","+(spe==null?0:spe)+","+(sspe==null?0:sspe)+","+(lrunle==null?0:lrunle)+","+(rnle==null?0:rnle)+","+(gnre==null?0:gnre)+","+(pwse==null?0:pwse)+","+(fe==null?0:fe)+","+(sce==null?0:sce)+",");
+				bw.write(cOC+","+(cdwe==null?0:cdwe)+","+(cse==null?0:cse)+","+(cre==null?0:cre)+","+(cbe==null?0:cbe)+","+(csse==null?0:csse)+","+(cspe==null?0:cspe)+","+(csspe==null?0:csspe)+","+(clrunle==null?0:clrunle)+","+(crnle==null?0:crnle)+","+(cgnre==null?0:cgnre)+","+(cpwse==null?0:cpwse)+","+(cfe==null?0:cfe)+","+(csce==null?0:csce)+" \n");
+
+
 			}
 			bw.flush();
 			bw.close();

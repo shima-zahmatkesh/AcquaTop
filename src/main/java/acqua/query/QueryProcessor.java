@@ -10,6 +10,7 @@ import acqua.config.Config;
 import acqua.data.TwitterStreamCollector;
 import acqua.query.join.*;
 import acqua.query.join.bkg1.DWJoinOperator;
+import acqua.query.join.bkg1.FilteringJoinOperator;
 import acqua.query.join.bkg1.GNRUpperBound;
 import acqua.query.join.bkg1.LRUWithOutWindowsLocality;
 import acqua.query.join.bkg1.OracleJoinOperator;
@@ -18,6 +19,7 @@ import acqua.query.join.bkg1.LRUJoinOperator;
 import acqua.query.join.bkg1.PrefectSlidingOET;
 import acqua.query.join.bkg1.RandomCacheUpdateJoin;
 import acqua.query.join.bkg1.RandomWithOutWindowsLocality;
+import acqua.query.join.bkg1.ScoringJoinOperator;
 import acqua.query.join.bkg1.SlidingOETJoinOperator;
 import acqua.query.join.bkg1.WSJUpperBound;
 import acqua.query.join.bkg2.OracleDoubleJoinOperator;
@@ -70,6 +72,11 @@ public class QueryProcessor {
 		if(joinType==12)
 			join=new GNRUpperBound(Config.INSTANCE.getUpdateBudget());
 		
+		if(joinType==13)
+			join=new FilteringJoinOperator(Config.INSTANCE.getUpdateBudget());
+		if(joinType==14)
+			join=new ScoringJoinOperator(Config.INSTANCE.getUpdateBudget());
+		
 		long time=Config.INSTANCE.getQueryStartingTime()+Config.INSTANCE.getQueryWindowWidth()*1000;
 		int windowCount=0;
 		while(windowCount<150){
@@ -85,11 +92,11 @@ public class QueryProcessor {
 	
 	public static void main(String[] args){
 		QueryProcessor qp=new QueryProcessor();	
-    	qp.evaluateQuery(5);
-//		for(int i=1;i<13;i++){
+   	qp.evaluateQuery(13);
+//		for(int i=1;i<15;i++){
 //			System.out.println(i);
 //			qp.evaluateQuery(i);
 //		}
-		
+//		
 	}
 }

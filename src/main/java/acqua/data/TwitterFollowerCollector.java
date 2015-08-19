@@ -4,18 +4,21 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import acqua.config.Config;
-
 import twitter4j.ResponseList;
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
@@ -37,6 +40,7 @@ public class TwitterFollowerCollector {
 		.setOAuthAccessTokenSecret(Config.INSTANCE.getTwitterAccessTokenSecret());
 		snapshots = new HashMap<Long,HashMap<Long,Integer>>();
 	}
+	
 	public static long prevIntervalTimeStamp(long time, long userid){
 		long result=0L;
 		Connection c = null;
@@ -60,6 +64,7 @@ public class TwitterFollowerCollector {
 		}
 		return result;
 	}
+	
 	public HashMap<Long, String> readIntialUserSet(String userListFilePath){
 		HashMap<Long, String> result = new HashMap<Long, String>();
 		InputStream    fis;
@@ -130,7 +135,8 @@ public class TwitterFollowerCollector {
 			e.printStackTrace();
 		}	
 	}
-	public void importFollowerFileIntoDB(String followerFile){
+	
+    public void importFollowerFileIntoDB(String followerFile){
 		Connection c = null;
 		Statement stmt = null;
 		try {
@@ -257,6 +263,7 @@ public class TwitterFollowerCollector {
 		}
 		return result;
 	}
+	
 	//run the full query of status counts against remote source
 	public static HashMap<Long,Integer> getStsCountListFromDB(long timeStamp){
 		HashMap<Long,Integer> result=new HashMap<Long, Integer>();
@@ -287,7 +294,8 @@ public class TwitterFollowerCollector {
 		}
 		return result;
 	}
-	public static int getUserFollowerFromDB(long timeStamp, long userID){
+	
+	public static Integer getUserFollowerFromDB(long timeStamp, long userID){
 		int followers=0;
 		Connection c = null;
 		Statement stmt = null;
@@ -318,7 +326,8 @@ public class TwitterFollowerCollector {
 		}
 		return followers;
 	}
-public static long getPreviousExpTime(Long userId, Long timeStamp){
+
+	public static long getPreviousExpTime(Long userId, Long timeStamp){
 	long tpe=0L;
 	Connection c = null;
 	Statement stmt = null;
@@ -343,6 +352,7 @@ public static long getPreviousExpTime(Long userId, Long timeStamp){
 	}
 	return tpe;
 	}
+	
 	public static Long getUserNextExpFromDB(long timeStamp, long userID){
 		
 		Long nextExpT=Long.MAX_VALUE;
@@ -382,6 +392,7 @@ public static long getPreviousExpTime(Long userId, Long timeStamp){
 		return nextExpT;
 		
 	}
+	
 	public static int getUserStatusCountFromDB(long timeStamp, long userID){
 		int followers=0;
 		Connection c = null;
@@ -437,6 +448,7 @@ public static long getPreviousExpTime(Long userId, Long timeStamp){
 		}
 		return changeCount;
 	}
+	
 	public static HashMap<Long,String> getInitialUserFollowersFromDB(){
 		HashMap<Long,String> result=new HashMap<Long, String>();
 		Connection c = null;
@@ -454,13 +466,15 @@ public static long getPreviousExpTime(Long userId, Long timeStamp){
 			//		" GROUP BY USERID) A JOIN copyBK B ON A.USERID=B.USERID AND A.MINTS=B.TIMESTAMP";
 			System.out.println(sql);
 			ResultSet rs = stmt.executeQuery( sql);
-
+			System.out.println("followerCount start");
 			while ( rs.next() ) {
 				long userId = rs.getLong("USERID");
 				int followerCount  = rs.getInt("FOLLOWERCOUNT");
+				System.out.println(followerCount);
 				long timeStamp = rs.getLong("MINTS");
 				result.put(userId, followerCount+","+timeStamp);
 			}
+			System.out.println("followerCount end ");
 			rs.close();
 			stmt.close();
 			c.close();
@@ -470,6 +484,7 @@ public static long getPreviousExpTime(Long userId, Long timeStamp){
 		}
 		return result;
 	}
+	
 	public static HashMap<Long,Integer> getInitialUserStatusCountFromDB(){
 		HashMap<Long,Integer> result=new HashMap<Long, Integer>();
 		Connection c = null;
@@ -500,9 +515,11 @@ public static long getPreviousExpTime(Long userId, Long timeStamp){
 		}
 		return result;
 	}
+	
 	public static void main(String[] args){
-		TwitterFollowerCollector tfc=new TwitterFollowerCollector();
-		tfc.captureSnapshots("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followers.init","D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followerSnapshotsFile2.txt");
+		
+		//TwitterFollowerCollector tfc=new TwitterFollowerCollector();
+		//tfc.captureSnapshots("D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followers.init","D:/softwareData/git-clone-https---soheilade-bitbucket.org-soheilade-acqua.git/acquaProj/followerSnapshotsFile2.txt");
 		//note that followerSnapshotFile should have been sorted based on timestamp
 
 		//tfc.importFollowerFileIntoDB(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"followerSnapshotsFile.txt");
@@ -513,5 +530,173 @@ public static long getPreviousExpTime(Long userId, Long timeStamp){
 		//HashMap<Long,Integer> list = tfc.getFollowerListFromDB(time); //gets the first window
 		//int latestFollowerCount = tfc.getUserFollowerFromDB(time, userid);
 		//System.out.println(latestFollowerCount + ">>>"+ list.size());
+		generateNewDB();
 	}
+
+	
+	
+	
+	public static void generateNewDB(){
+	
+		long userID = -1;
+
+		Random rand = new Random(20);
+		List<Long> usersID = getUsersID();
+		
+		Iterator <Long> userIDIterator = usersID.iterator();
+		while (userIDIterator.hasNext()) {
+			
+			userID = (Long) userIDIterator.next();
+		    long randomNum = rand.nextInt(50);
+			System.out.println("randomNum = " +  randomNum);
+
+		    if (randomNum == 15){
+		    
+				HashMap<Long,Integer> followerList = getFollowerListOfUser(userID);	
+				
+				
+				//debuge
+//				System.out.println("user ID = " + userID  );
+//				Iterator<Integer> it= followerList.values().iterator();
+//				while(it.hasNext()){
+//					long follower=Integer.parseInt(it.next().toString());
+//					System.out.println("follower = " + follower);
+//				}
+				
+				
+				
+				int minFollowerNum = getMinFollowerOfUser (followerList);
+				int maxFollowerNum = getMaxFollowerOfUser (followerList);
+				long maxAddedValue = Config.INSTANCE.getQueryFilterThreshold() - minFollowerNum;
+				long minAddedValue = Config.INSTANCE.getQueryFilterThreshold() - maxFollowerNum;
+				long randomValue = randLong( minAddedValue, maxAddedValue);
+				System.out.println("max added value = " + maxAddedValue+ "    min added value = "+minAddedValue+ "    random value = "+ randomValue + "   user ID = " + userID  );
+				updateFollowerListOfUser(userID , randomValue);
+		    }
+		}
+		
+	}
+
+	public static List<Long> getUsersID(){
+		
+		List<Long> list = new ArrayList<Long> ();
+		Connection c = null;
+		Statement stmt = null;
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());
+			c.setAutoCommit(false);
+			stmt = c.createStatement();
+			String sql="SELECT distinct B.USERID FROM BKG B ";  
+
+			
+			ResultSet rs = stmt.executeQuery(sql );	      
+			while ( rs.next() ) {
+				long userID = rs.getLong("USERID");
+				list.add(userID);
+			}
+			rs.close();
+			stmt.close();
+			c.close();
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+			System.exit(0);
+		}
+		return list;
+		
+	}
+
+	public static HashMap<Long,Integer> getFollowerListOfUser(long userID){
+		
+		HashMap<Long,Integer> followers = new HashMap<Long, Integer>();;
+		Connection c = null;
+		Statement stmt = null;
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());
+			c.setAutoCommit(false);
+			stmt = c.createStatement();
+			String sql="SELECT B.TIMESTAMP, B.FOLLOWERCOUNT "+
+					" FROM BKG B WHERE B.USERID = "+ userID ;  
+
+			
+			ResultSet rs = stmt.executeQuery(sql );	      
+			while ( rs.next() ) {
+				long timestamp = rs.getLong("TIMESTAMP");
+				int followerCount  = rs.getInt("FOLLOWERCOUNT");
+				followers.put( timestamp , followerCount);
+				//System.out.println("followerCount = " + followerCount);
+			}
+			rs.close();
+			stmt.close();
+			c.close();
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+			System.exit(0);
+		}
+		return followers;
+
+	}
+	
+	private static int getMinFollowerOfUser (HashMap<Long,Integer> followersList){
+		
+		int min = -1;
+		for (Integer follower : followersList.values()) {
+		   if (follower < min || min == -1)
+			   min = follower;		   
+		}	
+		return min;
+	}
+	
+	private static int getMaxFollowerOfUser (HashMap<Long,Integer> followersList){
+		
+		int max = -1;
+		for (Integer follower : followersList.values()) {
+		   if (follower > max )
+			   max = follower;		   
+		}	
+		return max;
+	}
+
+	public static long randLong(long min, long max) {
+	    
+	    Random rand = new Random();
+	    long randomNum = rand.nextInt( (int) (max - min + 1) ) + min;
+	    return randomNum;
+	}
+	
+
+	private static void updateFollowerListOfUser(long userID , long randomValue){
+
+		Connection c = null;
+		Statement stmt = null;
+		try {
+			//System.out.println("start of user follower count:");
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());
+			//c.setAutoCommit(false);
+			stmt = c.createStatement();
+			String sql= " UPDATE BKG  "+
+						" SET FOLLOWERCOUNT = FOLLOWERCOUNT + (" + randomValue + " )"+
+						" WHERE USERID = "+ userID ;  
+			System.out.println("user ID = " + userID);
+			System.out.println("random value" + randomValue);
+			System.out.println(sql);
+			int rs = stmt.executeUpdate( sql );	      
+			System.out.println ("update  " + rs +" rows");
+			//rs.close();
+			stmt.close();
+			//c.commit();
+			c.close();
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+			System.exit(0);
+		}
+	
+	}
+
+
+
+
+
 }

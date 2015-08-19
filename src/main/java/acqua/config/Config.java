@@ -63,5 +63,9 @@ public class Config {
 	public String getDatasetDb(){
 		return config.getString("dataset.db");
 	}
+	
+	public Long getQueryFilterThreshold(){
+		return config.getLong("query.filter.threshold");
+	}
 
 }
