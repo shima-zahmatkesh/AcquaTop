@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -19,6 +20,7 @@ import acqua.config.Config;
 
 
 public class ResultAnalyser {
+	
 	public static void insertResultToDB(){
 
 		Connection c = null;
@@ -31,6 +33,7 @@ public class ResultAnalyser {
 			Statement stat = c.createStatement(); 
 			stat.executeUpdate("PRAGMA synchronous = OFF;");
 			stat.close();
+			System.out.println("create tables");
 
 			stmt = c.createStatement();
 			//stmt.executeQuery("DROP INDEX IF EXISTS timeIndex ON BKG;");
@@ -40,7 +43,7 @@ public class ResultAnalyser {
 					" `MENTIONCOUNT`     INT    NOT NULL, " + 
 					" `FOLLOWERCOUNT`    INT    NOT NULL, " + 
 					" `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `LRUtimeIndex` ON `LRUJ` (`TIMESTAMP` ASC);"; 
-			System.out.println(sql);
+			//System.out.println(sql);
 			stmt.executeUpdate(sql);
 			stmt.executeUpdate(" DROP TABLE IF EXISTS OJ ;");
 			sql = "CREATE TABLE  `OJ` ( " +
@@ -48,7 +51,7 @@ public class ResultAnalyser {
 					" `MENTIONCOUNT`     INT    NOT NULL, " + 
 					" `FOLLOWERCOUNT`    INT    NOT NULL, " + 
 					" `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `OtimeIndex` ON `OJ` (`TIMESTAMP` ASC);"; 
-			System.out.println(sql);
+			//System.out.println(sql);
 			stmt.executeUpdate(sql);
 			stmt.executeUpdate(" DROP TABLE IF EXISTS LRUNLJ ;");
 			sql = "CREATE TABLE  `LRUNLJ` ( " +
@@ -56,7 +59,7 @@ public class ResultAnalyser {
 					" `MENTIONCOUNT`     INT    NOT NULL, " + 
 					" `FOLLOWERCOUNT`    INT    NOT NULL, " + 
 					" `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `LRUNLJtimeIndex` ON `LRUNLJ` (`TIMESTAMP` ASC);"; 
-			System.out.println(sql);
+			//System.out.println(sql);
 			stmt.executeUpdate(sql);
 			stmt.executeUpdate(" DROP TABLE IF EXISTS RNLJ ;");
 			sql = "CREATE TABLE  `RNLJ` ( " +
@@ -64,7 +67,7 @@ public class ResultAnalyser {
 					" `MENTIONCOUNT`     INT    NOT NULL, " + 
 					" `FOLLOWERCOUNT`    INT    NOT NULL, " + 
 					" `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `RNLJtimeIndex` ON `RNLJ` (`TIMESTAMP` ASC);"; 
-			System.out.println(sql);
+			//System.out.println(sql);
 			stmt.executeUpdate(sql);
 			
 			stmt.executeUpdate(" DROP TABLE IF EXISTS DWJ ;");
@@ -73,7 +76,7 @@ public class ResultAnalyser {
 					" `MENTIONCOUNT`     INT    NOT NULL, " + 
 					" `FOLLOWERCOUNT`    INT    NOT NULL, " + 
 					" `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `DWtimeIndex` ON `DWJ` (`TIMESTAMP` ASC);"; 
-			System.out.println(sql);
+			//System.out.println(sql);
 			stmt.executeUpdate(sql);
 			stmt.executeUpdate(" DROP TABLE IF EXISTS RJ ;");
 			sql = "CREATE TABLE  `RJ` ( " +
@@ -81,7 +84,7 @@ public class ResultAnalyser {
 					" `MENTIONCOUNT`     INT    NOT NULL, " + 
 					" `FOLLOWERCOUNT`    INT    NOT NULL, " + 
 					" `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `RtimeIndex` ON `RJ` (`TIMESTAMP` ASC);"; 
-			System.out.println(sql);
+			//System.out.println(sql);
 			stmt.executeUpdate(sql);
 			stmt.executeUpdate(" DROP TABLE IF EXISTS SJ ;");
 			sql = "CREATE TABLE  `SJ` ( " +
@@ -89,7 +92,7 @@ public class ResultAnalyser {
 					" `MENTIONCOUNT`     INT    NOT NULL, " + 
 					" `FOLLOWERCOUNT`    INT    NOT NULL, " + 
 					" `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `StimeIndex` ON `SJ` (`TIMESTAMP` ASC);"; 
-			System.out.println(sql);
+			//System.out.println(sql);
 			stmt.executeUpdate(sql);
 			stmt.executeUpdate(" DROP TABLE IF EXISTS PWSJ ;");
 			sql = "CREATE TABLE  `PWSJ` ( " +
@@ -97,7 +100,7 @@ public class ResultAnalyser {
 					" `MENTIONCOUNT`     INT    NOT NULL, " + 
 					" `FOLLOWERCOUNT`    INT    NOT NULL, " + 
 					" `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `PWSJtimeIndex` ON `PWSJ` (`TIMESTAMP` ASC);"; 
-			System.out.println(sql);
+			//System.out.println(sql);
 			stmt.executeUpdate(sql);
 			stmt.executeUpdate(" DROP TABLE IF EXISTS SSJ ;");
 			sql = "CREATE TABLE  `SSJ` ( " +
@@ -105,7 +108,7 @@ public class ResultAnalyser {
 					" `MENTIONCOUNT`     INT    NOT NULL, " + 
 					" `FOLLOWERCOUNT`    INT    NOT NULL, " + 
 					" `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `SstimeIndex` ON `SSJ` (`TIMESTAMP` ASC);"; 
-			System.out.println(sql);
+			//System.out.println(sql);
 			stmt.executeUpdate(sql);
 
 			stmt.executeUpdate(" DROP TABLE IF EXISTS SpJ ;");
@@ -114,7 +117,7 @@ public class ResultAnalyser {
 					" `MENTIONCOUNT`     INT    NOT NULL, " + 
 					" `FOLLOWERCOUNT`    INT    NOT NULL, " + 
 					" `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `SptimeIndex` ON `SpJ` (`TIMESTAMP` ASC);"; 
-			System.out.println(sql);
+			//System.out.println(sql);
 			stmt.executeUpdate(sql);
 			
 			stmt.executeUpdate(" DROP TABLE IF EXISTS PGNR ;");
@@ -123,7 +126,7 @@ public class ResultAnalyser {
 					" `MENTIONCOUNT`     INT    NOT NULL, " + 
 					" `FOLLOWERCOUNT`    INT    NOT NULL, " + 
 					" `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `PGNRtimeIndex` ON `PGNR` (`TIMESTAMP` ASC);"; 
-			System.out.println(sql);
+			//System.out.println(sql);
 			stmt.executeUpdate(sql);
 			stmt.executeUpdate(" DROP TABLE IF EXISTS SSpJ ;");
 			sql = "CREATE TABLE  `SSpJ` ( " +
@@ -131,7 +134,7 @@ public class ResultAnalyser {
 					" `MENTIONCOUNT`     INT    NOT NULL, " + 
 					" `FOLLOWERCOUNT`    INT    NOT NULL, " + 
 					" `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `SsptimeIndex` ON `SSpJ` (`TIMESTAMP` ASC);"; 
-			System.out.println(sql);
+			//System.out.println(sql);
 			stmt.executeUpdate(sql);
 			stmt.executeUpdate(" DROP TABLE IF EXISTS FJ ;");
 			sql = "CREATE TABLE  `FJ` ( " +
@@ -139,7 +142,7 @@ public class ResultAnalyser {
 					" `MENTIONCOUNT`     INT    NOT NULL, " + 
 					" `FOLLOWERCOUNT`    INT    NOT NULL, " + 
 					" `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `FtimeIndex` ON `FJ` (`TIMESTAMP` ASC);"; 
-			System.out.println(sql);
+			//System.out.println(sql);
 			stmt.executeUpdate(sql);
 			stmt.executeUpdate(" DROP TABLE IF EXISTS ScJ ;");
 			sql = "CREATE TABLE  `ScJ` ( " +
@@ -147,7 +150,7 @@ public class ResultAnalyser {
 					" `MENTIONCOUNT`     INT    NOT NULL, " + 
 					" `FOLLOWERCOUNT`    INT    NOT NULL, " + 
 					" `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `SctimeIndex` ON `ScJ` (`TIMESTAMP` ASC);"; 
-			System.out.println(sql);
+			//System.out.println(sql);
 			stmt.executeUpdate(sql);
 			
 			InputStream    fis;
@@ -725,7 +728,10 @@ public class ResultAnalyser {
 		}catch(Exception e){e.printStackTrace();}
 		return result;
 	}
+	
+	
 	public static void main(String[] args){
+		
 		try{
 			insertResultToDB();
 			BufferedWriter bw=new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare.csv")));
@@ -791,7 +797,7 @@ public class ResultAnalyser {
 				csce= csce + (sce= sce==null?0:sce) ;
 				
 				bw.write(nextTime+","+OC+","+(dwe==null?0:dwe)+","+(se==null?0:se)+","+(re==null?0:re)+","+(be==null?0:be)+","+(sse==null?0:sse)+","+(spe==null?0:spe)+","+(sspe==null?0:sspe)+","+(lrunle==null?0:lrunle)+","+(rnle==null?0:rnle)+","+(gnre==null?0:gnre)+","+(pwse==null?0:pwse)+","+(fe==null?0:fe)+","+(sce==null?0:sce)+",");
-				bw.write(cOC+","+(cdwe==null?0:cdwe)+","+(cse==null?0:cse)+","+(cre==null?0:cre)+","+(cbe==null?0:cbe)+","+(csse==null?0:csse)+","+(cspe==null?0:cspe)+","+(csspe==null?0:csspe)+","+(clrunle==null?0:clrunle)+","+(crnle==null?0:crnle)+","+(cgnre==null?0:cgnre)+","+(cpwse==null?0:cpwse)+","+(cfe==null?0:cfe)+","+(csce==null?0:csce)+" \n");
+				bw.write(cOC+","+(cdwe==null?0:cdwe)+","+(cse==null?0:cse)+","+(cre==null?0:cre)+","+(cbe==null?0:cbe)+","+(csse==null?0:csse)+","+(cspe==null?0:cspe)+","+(csspe==null?0:csspe)+","+(clrunle==null?0:clrunle)+","+(crnle==null?0:crnle)+","+(cgnre==null?0:cgnre)+","+(cpwse==null?0:cpwse)+","+(cfe==null?0:cfe)+","+(csce==null?0:csce)+"\n");
 
 
 			}
@@ -799,4 +805,155 @@ public class ResultAnalyser {
 			bw.close();
 		}catch(Exception e){e.printStackTrace();}
 	}
+
+
+	public static void analysisExperiment(){
+		
+		try{
+			insertResultToDB();
+			BufferedWriter bw=new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare.csv")));
+			
+			TreeMap<Long,Integer> oracleCount=computeOJoin();
+			System.out.println(" OracleCount size  = " + oracleCount.size());
+
+			HashMap<Long,Integer> SSError=computeSslidingJoinPrecision();
+			HashMap<Long,Integer> RError=computeRJoinPrecision();
+			HashMap<Long,Integer> DWError=computeDWJoinPrecision();
+			HashMap<Long,Integer> PWSError=computePWSJoinPrecision();
+			HashMap<Long,Integer> SpError=computePrefectSJoinPrecision();
+			HashMap<Long,Integer> FError=computeFJoinPrecision();
+
+			
+			Iterator<Long> itO = oracleCount.keySet().iterator();
+			bw.write("timestampe,Oracle,WST,WSJ-RND,WSJ-WBM,WSJ*,WSJ-WBM*,Filter\n");
+
+			Integer cOC=0, cdwe=0, cre=0,csse=0, cpwse=0, cfe=0, cspe=0 ;
+			
+			while(itO.hasNext()){
+				
+				long nextTime = itO.next();
+				Integer OC=oracleCount.get(nextTime);
+				Integer dwe=DWError.get(nextTime);
+				Integer re=RError.get(nextTime);
+				Integer sse=SSError.get(nextTime);
+				Integer pwse=PWSError.get(nextTime);
+				Integer spe=SpError.get(nextTime);
+				Integer fe=FError.get(nextTime);
+
+				//cumulative error
+				cOC=cOC + OC ; 
+				cdwe= cdwe + (dwe = dwe==null?0:dwe) ;
+				cre= cre + (re = re==null?0:re) ;
+				csse= csse + (sse= sse==null?0:sse) ;
+				cpwse= cpwse + (pwse= pwse==null?0:pwse) ;
+				cspe= cspe + (spe= spe==null?0:spe) ;
+				cfe= cfe + (fe= fe==null?0:fe) ;
+				
+				bw.write(nextTime+","+cOC+","+(cdwe==null?0:cdwe)+","+(cre==null?0:cre)+","+(csse==null?0:csse)+"," +(cpwse==null?0:cpwse)+","+(cspe==null?0:cspe)+"," +(cfe==null?0:cfe)+"\n");
+
+			}
+			bw.flush();
+			bw.close();
+		}catch(Exception e){e.printStackTrace();}
+		
+	}
+
+	public static void analysisMultipleExperiments(){
+		
+		try{
+			
+			BufferedWriter bw=new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compareMultipleExperiments.csv")));
+			//bw.write("timestampe,cumulative oracle Min,cumulative DW Min,cumulative random Min,cumulative slidingSmart Min,cumulative PWSJ Min,cumulative perfect smart Min,cumulative Filter Min,cumulative oracle Max,cumulative DW Max,cumulative random Max,cumulative slidingSmart Max,cumulative PWSJ Max,cumulative perfect smart Max,cumulative Filter Max, cumulative oracle Avg,cumulative DW Avg,cumulative random Avg,cumulative slidingSmart Avg,cumulative PWSJ Avg,cumulative perfect smart Avg,cumulative Filter Avg\n");
+			bw.write("timestampe,Oracle Min,WST Min,WSJ-RND Min,WSJ-WBM Min,WSJ* Min,WSJ-WBM* Min,Filter Min,Oracle Max,WST Min,WSJ-RND Max,WSJ-WBM Max,WSJ* Max,WSJ-WBM* Max,Filter Max,Oracle Avg,WST Avg,WSJ-RND Avg,WSJ-WBM Avg,WSJ* Avg,WSJ-WBM* Avg,Filter Avg\n");
+			
+			
+			//Min variables
+			Integer OCMin = Integer.MAX_VALUE, dweMin = Integer.MAX_VALUE, reMin = Integer.MAX_VALUE, sseMin = Integer.MAX_VALUE, pwseMin = Integer.MAX_VALUE, speMin = Integer.MAX_VALUE, feMin = Integer.MAX_VALUE;
+			//Max variables
+			Integer OCMax = 0, dweMax= 0, reMax = 0,sseMax = 0, pwseMax = 0, speMax = 0, feMax = 0;
+			//Average variables 
+			Integer OCAvg = 0, dweAvg = 0, reAvg = 0, sseAvg = 0, pwseAvg = 0, speAvg = 0 , feAvg = 0;
+			//Sum variables 
+			Integer OCSum = 0, dweSum = 0, reSum = 0, sseSum = 0, pwseSum = 0, speSum = 0 , feSum = 0;
+			long nextTime = 0;
+			
+			for ( int e = 0 ; e <= 90 ; e++){
+				
+			
+			for ( int i = 1 ; i<= Config.INSTANCE.getExperimentIterationNumber() ; i++){
+				
+				BufferedReader br=new BufferedReader(new FileReader(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_"+ i +".csv")));
+				String line ="";
+				
+				for( int k =0;k<=e; k++){
+					line = br.readLine();
+				}
+				if (e==0)
+					break;
+				System.out.println("read second line" + e + " i = " + i  +"line = "+ line);
+				String [] lineSplit = line.split(",| ");
+				nextTime = Long.parseLong(lineSplit[0]);
+				Integer OC = Integer.parseInt(lineSplit[1]);
+				Integer dwe = Integer.parseInt(lineSplit[2]);
+				Integer re = Integer.parseInt(lineSplit[3]);
+				Integer sse = Integer.parseInt(lineSplit[4]);
+				Integer pwse = Integer.parseInt(lineSplit[5]);
+				Integer spe = Integer.parseInt(lineSplit[6]);
+				Integer fe = Integer.parseInt(lineSplit[7]);
+				
+				
+				if (OC < OCMin )  OCMin = OC;
+				if (dwe < dweMin )  dweMin = dwe;
+				if (re < reMin )  reMin = re;
+				if (sse < sseMin )  sseMin = sse;
+				if (pwse < pwseMin )  pwseMin = pwse;
+				if (spe < speMin) speMin = spe;
+				if (fe < feMin )  feMin = fe;
+				
+				if (OC > OCMax )  OCMax = OC;
+				if (dwe > dweMax )  dweMax = dwe;
+				if (re > reMax )  reMax = re;
+				if (sse > sseMax )  sseMax = sse;
+				if (pwse > pwseMax )  pwseMax = pwse;
+				if (spe > speMax) speMax = spe;
+				if (fe > feMax )  feMax = fe;
+
+				OCSum += OC;
+				dweSum += dwe;
+				reSum += re;
+				sseSum += sse;
+				pwseSum += pwse;
+				speSum +=spe;
+				feSum += fe;
+				
+			}
+			
+			int totalNum = Config.INSTANCE.getExperimentIterationNumber();
+			OCAvg = OCSum / totalNum;
+			dweAvg = dweSum / totalNum;
+			reAvg = reSum / totalNum;
+			sseAvg = sseSum / totalNum;
+			pwseAvg = pwseSum / totalNum;
+			speAvg = speSum / totalNum;
+			feAvg = feSum / totalNum;
+			
+			
+			
+			bw.write(nextTime+","+OCMin+","+(dweMin==null?0:dweMin)+","+(reMin==null?0:reMin)+","+(sseMin==null?0:sseMin)+"," +(pwseMin==null?0:pwseMin)+","+(speMin==null?0:speMin)+","+(feMin==null?0:feMin)
+					+","+OCMax+","+(dweMax==null?0:dweMax)+","+(reMax==null?0:reMax)+","+(sseMax==null?0:sseMax)+"," +(pwseMax==null?0:pwseMax)+","+(speMax==null?0:speMax)+","+(feMax==null?0:feMax)
+					+","+OCAvg+","+(dweAvg)+","+(reAvg)+","+(sseAvg)+"," +(pwseAvg)+","+(speAvg)+","+(feAvg)+"\n");
+
+			OCMin = Integer.MAX_VALUE; dweMin = Integer.MAX_VALUE; reMin = Integer.MAX_VALUE; sseMin = Integer.MAX_VALUE; pwseMin = Integer.MAX_VALUE; speMin =Integer.MAX_VALUE;  feMin = Integer.MAX_VALUE;
+			OCMax = 0; dweMax= 0; reMax = 0; sseMax = 0; pwseMax = 0; speMax = 0 ;feMax = 0;
+			OCAvg = 0; dweAvg = 0; reAvg = 0; sseAvg = 0; pwseAvg = 0;speAvg = 0; feAvg = 0;
+			OCSum = 0; dweSum = 0; reSum = 0; sseSum = 0; pwseSum = 0; speSum = 0; feSum = 0;
+			}
+			bw.close();
+		}catch(Exception e){e.printStackTrace();}
+		
+	}
+
+
+
+
 }

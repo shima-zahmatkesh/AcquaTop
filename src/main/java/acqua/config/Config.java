@@ -67,5 +67,20 @@ public class Config {
 	public Long getQueryFilterThreshold(){
 		return config.getLong("query.filter.threshold");
 	}
+	
+	public void setDatasetDb (String dbName){
+		config.setProperty("dataset.db", dbName);
+	}
+	
+	public Integer getExperimentIterationNumber(){
+		return config.getInt("experiment.iteration.number");
+	}
+	
+	public Boolean getQueryWithFiltering(){
+		if(config.getString("query.with.filtering").equals("true"))
+			return true;
+		return false;
+	}
+	
 
 }
