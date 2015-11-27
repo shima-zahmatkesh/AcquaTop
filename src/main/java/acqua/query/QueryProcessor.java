@@ -51,49 +51,54 @@ public class QueryProcessor {
 
 	public void evaluateQuery(int joinType){
 		
-//		if(joinType==1)
-//			join=new OracleJoinOperator();
-//		if(joinType==2)
-//			join=new DWJoinOperator();
-//		if(joinType==3)
-//			join=new LRUJoinOperator(Config.INSTANCE.getUpdateBudget());//update budget of 10
-//		if(joinType==4)
-//			join=new RandomCacheUpdateJoin(Config.INSTANCE.getUpdateBudget());
-//		if(joinType==5)
-//			join=new SlidingOETJoinOperator(Config.INSTANCE.getUpdateBudget(), true);
-//		if(joinType==6)
-//			join=new PrefectSlidingOET(Config.INSTANCE.getUpdateBudget(), true);
-//		if(joinType==7)
-//			join=new SlidingOETJoinOperator(Config.INSTANCE.getUpdateBudget(), false);
-//		if(joinType==8)
-//			join=new PrefectSlidingOET(Config.INSTANCE.getUpdateBudget(), false);
-//		if(joinType==9)
-//			join=new RandomWithOutWindowsLocality(Config.INSTANCE.getUpdateBudget());
-//		if(joinType==10)
-//			join=new LRUWithOutWindowsLocality(Config.INSTANCE.getUpdateBudget());
-//		if(joinType==11)
-//			join=new WSJUpperBound(Config.INSTANCE.getUpdateBudget());
-//		if(joinType==12)
-//			join=new GNRUpperBound(Config.INSTANCE.getUpdateBudget());
-//		if(joinType==13)
-//			join=new FilteringJoinOperator(Config.INSTANCE.getUpdateBudget());
-//		if(joinType==14)
-//			join=new ScoringJoinOperator(Config.INSTANCE.getUpdateBudget());
-//		
-		
-		
-		if(joinType==1)
+/*		if(joinType==1)
 			join=new OracleJoinOperator();
 		if(joinType==2)
 			join=new DWJoinOperator();
 		if(joinType==3)
-			join=new FilteringJoinOperator(Config.INSTANCE.getUpdateBudget());
+			join=new LRUJoinOperator(Config.INSTANCE.getUpdateBudget());//update budget of 10
 		if(joinType==4)
 			join=new RandomCacheUpdateJoin(Config.INSTANCE.getUpdateBudget());
 		if(joinType==5)
 			join=new SlidingOETJoinOperator(Config.INSTANCE.getUpdateBudget(), true);
 		if(joinType==6)
+			join=new PrefectSlidingOET(Config.INSTANCE.getUpdateBudget(), true);
+		if(joinType==7)
+			join=new SlidingOETJoinOperator(Config.INSTANCE.getUpdateBudget(), false);
+		if(joinType==8)
+			join=new PrefectSlidingOET(Config.INSTANCE.getUpdateBudget(), false);
+		if(joinType==9)
+			join=new RandomWithOutWindowsLocality(Config.INSTANCE.getUpdateBudget());
+		if(joinType==10)
+			join=new LRUWithOutWindowsLocality(Config.INSTANCE.getUpdateBudget());
+		if(joinType==11)
 			join=new WSJUpperBound(Config.INSTANCE.getUpdateBudget());
+		if(joinType==12)
+			join=new GNRUpperBound(Config.INSTANCE.getUpdateBudget());
+		if(joinType==13)
+			join=new FilteringJoinOperator(Config.INSTANCE.getUpdateBudget());
+		if(joinType==14)
+			join=new ScoringJoin	Operator(Config.INSTANCE.getUpdateBudget());
+*/	
+		//Oracle
+		if(joinType==1)
+			join=new OracleJoinOperator();
+		//WST
+		if(joinType==2)
+			join=new DWJoinOperator();
+		//Filter
+		if(joinType==3)
+			join=new FilteringJoinOperator(Config.INSTANCE.getUpdateBudget());
+		//WSJ-RND
+		if(joinType==4)
+			join=new RandomCacheUpdateJoin(Config.INSTANCE.getUpdateBudget());
+		//WSJ-WBM
+		if(joinType==5)
+			join=new SlidingOETJoinOperator(Config.INSTANCE.getUpdateBudget(), true);
+		//WSJ*
+		if(joinType==6)
+			join=new WSJUpperBound(Config.INSTANCE.getUpdateBudget());
+		//WSJ-WBM*
 		if(joinType==7)
 			join=new PrefectSlidingOET(Config.INSTANCE.getUpdateBudget(), false);
 		
@@ -109,6 +114,9 @@ public class QueryProcessor {
 			time = time + Config.INSTANCE.getQueryWindowSlide()*1000;			
 		}
 		join.close();
+
+		
+
 	}
 	
 	public static boolean renameFile(String oldFile , String newFile){
@@ -122,14 +130,14 @@ public class QueryProcessor {
 		
 		QueryProcessor qp=new QueryProcessor();	
 		String srcDB = Config.INSTANCE.getDatasetDb();
-		String desDB = srcDB.split("\\.")[0]+"_1.db" ;
+		String desDB = srcDB.split("\\.")[0]+"_4.db" ;
 		Config.INSTANCE.setDatasetDb(desDB);
 		
-		for(int i = 1 ; i < 4 ; i++){
+		for(int i = 1 ; i < 8 ; i++){
 			System.out.println("--------------------------Evaluation number = " + i + "----------------------");
 			qp.evaluateQuery(i);
 		}
-		ResultAnalyser.analysisExperiment();
+		ResultAnalyser.analysisExperimentJaccard();
 
 		
 		
@@ -144,7 +152,7 @@ public class QueryProcessor {
 //				qp.evaluateQuery(i);
 //			}	
 //			
-//			ResultAnalyser.analysisExperiment();
+//			ResultAnalyser.analysisExperimentJaccard();
 //			if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_"+ j +".csv") )
 //				break;
 //			System.out.println("--------------------------Evaluation done for database number"  + j + "----------------------");
