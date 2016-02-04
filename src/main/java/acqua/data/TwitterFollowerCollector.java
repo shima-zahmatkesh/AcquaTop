@@ -561,6 +561,7 @@ public class TwitterFollowerCollector {
 			System.out.println (desDB);
 			List<Long> usersID = getUsersID( desDB );
 			Iterator <Long> userIDIterator = usersID.iterator();
+			
 			while (userIDIterator.hasNext()) {
 				
 				userID = (Long) userIDIterator.next();
@@ -568,18 +569,22 @@ public class TwitterFollowerCollector {
 				//for monotonically decreasing DB
 				//generatingNonDecreasingFollowerCountList (desDB , userID );
 		
+				
 			    long randomNum = rand.nextInt(100);
-				System.out.println("randomNum = " +  randomNum);
+				//System.out.println("randomNum = " +  randomNum);
 			    if (randomNum < 25){
-			    
+			   
 					HashMap<Long,Integer> followerList = getFollowerListOfUser(desDB , userID);	
 					int minFollowerNum = getMinFollowerOfUser (followerList);
 					int maxFollowerNum = getMaxFollowerOfUser (followerList);
 					long maxAddedValue = Config.INSTANCE.getQueryFilterThreshold() - minFollowerNum;
 					long minAddedValue = Config.INSTANCE.getQueryFilterThreshold() - maxFollowerNum;
-					long randomValue = randLong( minAddedValue, maxAddedValue);
-					System.out.println("max added value = " + maxAddedValue+ "    min added value = "+minAddedValue+ "    random value = "+ randomValue + "   user ID = " + userID  );
-					updateFollowerListOfUser(desDB , userID , randomValue);
+					long randomValue = randLong( minAddedValue+1, maxAddedValue+1);
+				
+					updateFollowerListOfUser(desDB , userID , randomValue);		
+					
+					//System.out.println("filter = " + Config.INSTANCE.getQueryFilterThreshold()  + "   maxfollowercount = " + maxFollowerNum);
+					//updateFollowerListOfUser(desDB , userID , (maxAddedValue + minAddedValue ) / 2);
 			    }
 			}
 		}
@@ -683,11 +688,11 @@ public class TwitterFollowerCollector {
 			String sql= " UPDATE BKG  "+
 						" SET FOLLOWERCOUNT = FOLLOWERCOUNT + (" + randomValue + " )"+
 						" WHERE USERID = "+ userID ;  
-			System.out.println("user ID = " + userID);
-			System.out.println("random value" + randomValue);
-			System.out.println(sql);
+			//System.out.println("user ID = " + userID);
+			//System.out.println("random value = " + randomValue);
+			//System.out.println(sql);
 			int rs = stmt.executeUpdate( sql );	      
-			System.out.println ("update  " + rs +" rows");
+			//System.out.println ("update  " + rs +" rows");
 			//rs.close();
 			stmt.close();
 			//c.commit();

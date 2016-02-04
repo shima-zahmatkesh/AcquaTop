@@ -91,5 +91,12 @@ public class Config {
 		return config.getLong("difference.threshold");
 	}
 	
+	public void setUpdateBudget(String b){
+		config.setProperty("query.updatebudget", b);
+	} 
+	
+	public Integer getDatabaseNumber(){
+		return config.getInt("database.number");
+	}
 
 }

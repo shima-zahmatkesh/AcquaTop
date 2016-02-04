@@ -95,12 +95,12 @@ public class QueryProcessor {
 		//WSJ-WBM
 		if(joinType==5)
 			join=new SlidingOETJoinOperator(Config.INSTANCE.getUpdateBudget(), true);
-		//WSJ*
+		//WSJ-LRU
 		if(joinType==6)
-			join=new WSJUpperBound(Config.INSTANCE.getUpdateBudget());
+			join=new LRUJoinOperator(Config.INSTANCE.getUpdateBudget());
 		//WSJ-WBM*
 		if(joinType==7)
-			join=new PrefectSlidingOET(Config.INSTANCE.getUpdateBudget(), false);
+			join=new PrefectSlidingOET(Config.INSTANCE.getUpdateBudget(), true);
 		
 		
 		long time=Config.INSTANCE.getQueryStartingTime()+Config.INSTANCE.getQueryWindowWidth()*1000;
@@ -128,8 +128,24 @@ public class QueryProcessor {
 	
 	public static void main(String[] args){
 		
+		//oneExperiment ();
+		//multiExperiments();
+		
+		//percentageMultiExperiment();
+		budgetMultiExperiment();
+		
+		//percentageExperiment();
+		//budgetExperiment();
+				
+		
+	}
+	
+	
+	private static void oneExperiment (){
+		
 		QueryProcessor qp=new QueryProcessor();	
 		String srcDB = Config.INSTANCE.getDatasetDb();
+		
 		String desDB = srcDB.split("\\.")[0]+"_4.db" ;
 		Config.INSTANCE.setDatasetDb(desDB);
 		
@@ -138,32 +154,168 @@ public class QueryProcessor {
 			qp.evaluateQuery(i);
 		}
 		ResultAnalyser.analysisExperimentJaccard();
-
-		
-		
-//		for (int j=1 ; j<= Config.INSTANCE.getExperimentIterationNumber() ; j++){
-//			 
-//			String desDB = srcDB.split("\\.")[0]+"_"+ j +".db" ;
-//			Config.INSTANCE.setDatasetDb(desDB);
-//			System.out.println("--------------------------- working with database " + desDB + "------------------------------");
-//		
-//			for(int i=1 ; i < 8 ; i++){
-//				System.out.println("--------------------------Evaluation number = " + i + "----------------------");
-//				qp.evaluateQuery(i);
-//			}	
-//			
-//			ResultAnalyser.analysisExperimentJaccard();
-//			if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_"+ j +".csv") )
-//				break;
-//			System.out.println("--------------------------Evaluation done for database number"  + j + "----------------------");
-//
-//		}
-//		
-//		
-//		System.out.println("--------------------------Multiple Evaluation start----------------------");
-//		ResultAnalyser.analysisMultipleExperiments();
-//		System.out.println("--------------------------Multiple Evaluation end----------------------");
-
-		
 	}
+
+	private static void multiExperiments(){
+		
+		
+		QueryProcessor qp=new QueryProcessor();	
+		String srcDB = Config.INSTANCE.getDatasetDb();
+		
+		for (int j=1 ; j<= Config.INSTANCE.getDatabaseNumber() ; j++){
+			 
+			String desDB = srcDB.split("\\.")[0]+"_"+ j +"_25.db" ;
+			Config.INSTANCE.setDatasetDb(desDB);
+			System.out.println("--------------------------- working with database " + desDB + "------------------------------");
+		
+			for(int i=1 ; i < 8 ; i++){
+				System.out.println("--------------------------Evaluation number = " + i + "----------------------");
+				qp.evaluateQuery(i);
+			}	
+			
+			ResultAnalyser.analysisExperimentJaccard();
+			if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_"+ j +"_25.csv") )
+				break;
+			System.out.println("--------------------------Evaluation done for database number"  + j + "----------------------");
+
+		}
+		
+		
+		System.out.println("--------------------------Multiple Evaluation start----------------------");
+		ResultAnalyser.analysisMultipleExperimentsJaccard(25);
+		System.out.println("--------------------------Multiple Evaluation end----------------------");
+
+	}
+
+	private static void percentageMultiExperiment(){
+		
+		
+		QueryProcessor qp=new QueryProcessor();	
+		String [] percentage = { "10", "20", "25", "30" , "40" , "50"};
+		String srcDB = Config.INSTANCE.getDatasetDb();
+		
+//		for (int k=1 ; k<= Config.INSTANCE.getExperimentIterationNumber() ; k++){
+//		
+//			for (int j=0 ; j < percentage.length ; j++){
+//				 
+//				String desDB = srcDB.split("\\.")[0]+"_"+ k +"_"+ percentage[j] +".db" ;
+//				Config.INSTANCE.setDatasetDb(desDB);
+//				System.out.println("--------------------------- working with database " + desDB + "------------------------------");
+//			
+//				for(int i=1 ; i < 8 ; i++){
+//					System.out.println("--------------------------Evaluation number = " + i + "----------------------");
+//					qp.evaluateQuery(i);
+//				}	
+//				
+//				ResultAnalyser.analysisExperimentJaccard();
+//				if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_"+ k +"_" + percentage[j] +".csv") )
+//					break;
+//				System.out.println("--------------------------Evaluation done for database number"  + j + "----------------------");
+//	
+//			}
+//		}
+		
+		for (int j=0 ; j < percentage.length ; j++){
+			System.out.println("--------------------------Multiple Evaluation start----------------------");
+			ResultAnalyser.analysisMultipleExperimentsJaccard(Integer.parseInt(percentage[j]));
+			if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compareMultipleExperiments.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compareMultipleExperiments_" + percentage[j] +".csv") )
+				break;
+			System.out.println("--------------------------Multiple Evaluation end----------------------");
+		}
+	}
+
+	private static void budgetMultiExperiment(){
+		
+		
+		QueryProcessor qp=new QueryProcessor();	
+		String [] budget = { "1", "2", "3", "4" , "5" };
+		String srcDB = Config.INSTANCE.getDatasetDb();
+		
+		for (int k=1 ; k<= Config.INSTANCE.getDatabaseNumber() ; k++){
+		
+			String desDB = srcDB.split("\\.")[0]+"_"+ k +"_25.db" ;
+			Config.INSTANCE.setDatasetDb(desDB);
+			System.out.println("--------------------------- working with database " + desDB + "------------------------------");
+	
+		
+			for (int j=0 ; j < budget.length ; j++){ 
+				
+				Config.INSTANCE.setUpdateBudget( budget[j]);
+						
+				for(int i=1 ; i < 8 ; i++){
+					System.out.println("--------------------------Evaluation number = " + i + "----------------------");
+					qp.evaluateQuery(i);
+				}	
+				
+				ResultAnalyser.analysisExperimentJaccard();
+				if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_"+ k +"_" + budget[j] +".csv") )
+					break;
+				System.out.println("--------------------------Evaluation done for budget"  + budget[j] + "----------------------");
+	
+			}
+		}
+		
+		for (int j=0 ; j < budget.length ; j++){
+			System.out.println("--------------------------Multiple Evaluation start----------------------");
+			ResultAnalyser.analysisMultipleExperimentsJaccard(Integer.parseInt(budget[j]));
+			if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compareMultipleExperiments.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compareMultipleExperiments_" + budget[j] +".csv") )
+				break;
+			System.out.println("--------------------------Multiple Evaluation end----------------------");
+		}
+	}
+
+	private static void budgetExperiment(){
+		
+		
+		QueryProcessor qp=new QueryProcessor();	
+		String [] budget = { "1", "2", "3", "4" , "5" };
+		String srcDB = Config.INSTANCE.getDatasetDb();
+		String desDB = srcDB.split("\\.")[0]+"_4.db" ;
+		Config.INSTANCE.setDatasetDb(desDB);
+		
+		for (int j=0 ; j < budget.length ; j++){ 
+			
+			Config.INSTANCE.setUpdateBudget( budget[j]);
+					
+			for(int i=1 ; i < 8 ; i++){
+				System.out.println("--------------------------Evaluation number = " + i + "----------------------");
+				qp.evaluateQuery(i);
+			}	
+			
+			ResultAnalyser.analysisExperimentJaccard();
+			if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_budget_"+ budget[j] +".csv") )
+				break;
+			System.out.println("--------------------------Evaluation done for budget"  + budget[j] + "----------------------");
+
+		}
+	}
+	
+	private static void percentageExperiment(){
+		
+		
+		QueryProcessor qp=new QueryProcessor();	
+		String [] percentage = { "10", "20", "25", "30" , "40" , "50"};
+		String srcDB = Config.INSTANCE.getDatasetDb();
+		
+		for (int j=0 ; j < percentage.length ; j++){
+			 
+			String desDB = srcDB.split("\\.")[0]+"_4_"+ percentage[j] +".db" ;
+			Config.INSTANCE.setDatasetDb(desDB);
+			System.out.println("--------------------------- working with database " + desDB + "------------------------------");
+		
+			for(int i=1 ; i < 8 ; i++){
+				System.out.println("--------------------------Evaluation number = " + i + "----------------------");
+				qp.evaluateQuery(i);
+			}	
+			
+			ResultAnalyser.analysisExperimentJaccard();
+			if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_percentage_"+ percentage[j] +".csv") )
+				break;
+			System.out.println("--------------------------Evaluation done for database number"  + j + "----------------------");
+
+		}
+	}
+
+	
+
 }

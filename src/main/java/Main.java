@@ -127,10 +127,10 @@ public class Main {
 					}else;
 				long newTime=count*60000+Config.INSTANCE.getQueryStartingTime();
 				sql="update bkg set foLLOWERCOUNT="+followerCount+",TIMESTAMP="+newTime+" where USERID="+userId+" and TIMESTAMP="+times.getLong("time");	
-				System.out.println("user id>"+userId+" time>"+newTime+">>"+stmt3.executeUpdate(sql));
+				//System.out.println("user id>"+userId+" time>"+newTime+">>"+stmt3.executeUpdate(sql));
 				count++;
 			}
-			System.out.println(count);
+			//System.out.println(count);
 			times.close();
 		}
 		
