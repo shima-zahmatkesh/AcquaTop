@@ -82,11 +82,6 @@ public class Config {
 		return false;
 	}
 	
-	public Boolean getConsideringFilteringInUpdatePolicy(){
-		if(config.getString("considering.filtering.in.update.policy").equals("true"))
-			return true;
-		return false;
-	}
 	public Long getQueryDifferenceThreshold(){
 		return config.getLong("difference.threshold");
 	}

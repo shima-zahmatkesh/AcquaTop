@@ -1,29 +1,23 @@
 package acqua.query;
-import java.io.BufferedWriter;
+
 import java.io.File;
-import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import acqua.*;
 import acqua.config.Config;
 import acqua.data.TwitterStreamCollector;
 import acqua.query.join.*;
-import acqua.query.join.bkg1.DWJoinOperator;
-import acqua.query.join.bkg1.FilteringJoinOperator;
-import acqua.query.join.bkg1.GNRUpperBound;
-import acqua.query.join.bkg1.LRUWithOutWindowsLocality;
-import acqua.query.join.bkg1.OracleJoinOperator;
-import acqua.query.join.bkg1.OETJoinOperator;
-import acqua.query.join.bkg1.LRUJoinOperator;
-import acqua.query.join.bkg1.PrefectSlidingOET;
-import acqua.query.join.bkg1.RandomCacheUpdateJoin;
-import acqua.query.join.bkg1.RandomWithOutWindowsLocality;
-import acqua.query.join.bkg1.ScoringJoinOperator;
-import acqua.query.join.bkg1.SlidingOETJoinOperator;
-import acqua.query.join.bkg1.WSJUpperBound;
-import acqua.query.join.bkg2.OracleDoubleJoinOperator;
-import acqua.query.join.bkg2.DoubleBkgJoinOperator;
+import acqua.query.join.TACombine.LRUFTAOperator;
+import acqua.query.join.TACombine.RNDFTAOperator;
+import acqua.query.join.TACombine.WBMFTAOperator;
+import acqua.query.join.acqua.WSTJoinOperator;
+import acqua.query.join.acqua.FilterJoinOperator;
+import acqua.query.join.acqua.LRUJoinOperator;
+import acqua.query.join.acqua.OracleJoinOperator;
+import acqua.query.join.acqua.RNDJoinOperator;
+import acqua.query.join.acqua.WBMJoinOperator;
+import acqua.query.join.simpleCombine.LRUFOperator;
+import acqua.query.join.simpleCombine.RNDFOperator;
+import acqua.query.join.simpleCombine.WBMFOperator;
 import acqua.query.result.ResultAnalyser;
 
 public class QueryProcessor {
@@ -31,85 +25,61 @@ public class QueryProcessor {
 	TwitterStreamCollector tsc;	
 	ArrayList<HashMap<Long,Integer>> slidedwindows;
 	ArrayList<HashMap<Long,Long>> slidedwindowsTime;
-//	HashMap<Long, Integer> initialCache;
-//	public static long start=1416244306470L;//select min(TIMESTAMP) + 30000 from BKG 
-//	public static int windowSize=60;
+
 	
- QueryProcessor(){//class JoinOperator){
-		//updateBudget and join should be initiated
-		//join=new 
-		
+	QueryProcessor(){
 		tsc= new TwitterStreamCollector();
-		//tsc.extractWindow(Config.INSTANCE.getQueryWindowWidth(), Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"twitterStream.txt");		
 		tsc.extractSlides(Config.INSTANCE.getQueryWindowWidth(),Config.INSTANCE.getQueryWindowSlide(), Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"twitterStream.txt");
 		slidedwindows = tsc.aggregateSildedWindowsUser();
 		slidedwindowsTime=tsc.aggregateSildedWindowsUserTime();
-		//for (int i=0;i<tsc.windows.size();i++)
-		//System.out.println(tsc.windows.get(i).size());
-		//initialCache = tfc.getFollowerListFromDB(start); //gets the first window
 	}
 
 	public void evaluateQuery(int joinType){
 		
-/*		if(joinType==1)
-			join=new OracleJoinOperator();
-		if(joinType==2)
-			join=new DWJoinOperator();
-		if(joinType==3)
-			join=new LRUJoinOperator(Config.INSTANCE.getUpdateBudget());//update budget of 10
-		if(joinType==4)
-			join=new RandomCacheUpdateJoin(Config.INSTANCE.getUpdateBudget());
-		if(joinType==5)
-			join=new SlidingOETJoinOperator(Config.INSTANCE.getUpdateBudget(), true);
-		if(joinType==6)
-			join=new PrefectSlidingOET(Config.INSTANCE.getUpdateBudget(), true);
-		if(joinType==7)
-			join=new SlidingOETJoinOperator(Config.INSTANCE.getUpdateBudget(), false);
-		if(joinType==8)
-			join=new PrefectSlidingOET(Config.INSTANCE.getUpdateBudget(), false);
-		if(joinType==9)
-			join=new RandomWithOutWindowsLocality(Config.INSTANCE.getUpdateBudget());
-		if(joinType==10)
-			join=new LRUWithOutWindowsLocality(Config.INSTANCE.getUpdateBudget());
-		if(joinType==11)
-			join=new WSJUpperBound(Config.INSTANCE.getUpdateBudget());
-		if(joinType==12)
-			join=new GNRUpperBound(Config.INSTANCE.getUpdateBudget());
-		if(joinType==13)
-			join=new FilteringJoinOperator(Config.INSTANCE.getUpdateBudget());
-		if(joinType==14)
-			join=new ScoringJoin	Operator(Config.INSTANCE.getUpdateBudget());
-*/	
 		//Oracle
 		if(joinType==1)
 			join=new OracleJoinOperator();
 		//WST
 		if(joinType==2)
-			join=new DWJoinOperator();
-		//Filter
-		if(joinType==3)
-			join=new FilteringJoinOperator(Config.INSTANCE.getUpdateBudget());
+			join=new WSTJoinOperator();
 		//WSJ-RND
-		if(joinType==4)
-			join=new RandomCacheUpdateJoin(Config.INSTANCE.getUpdateBudget());
+		if(joinType==3)
+			join=new RNDJoinOperator(Config.INSTANCE.getUpdateBudget());
 		//WSJ-WBM
-		if(joinType==5)
-			join=new SlidingOETJoinOperator(Config.INSTANCE.getUpdateBudget(), true);
+		if(joinType==4)
+			join=new WBMJoinOperator(Config.INSTANCE.getUpdateBudget(), true);
 		//WSJ-LRU
-		if(joinType==6)
+		if(joinType==5)
 			join=new LRUJoinOperator(Config.INSTANCE.getUpdateBudget());
-		//WSJ-WBM*
+		//Filter
+		if(joinType==6)
+			join=new FilterJoinOperator(Config.INSTANCE.getUpdateBudget());
+		//LRU.F
 		if(joinType==7)
-			join=new PrefectSlidingOET(Config.INSTANCE.getUpdateBudget(), true);
+			join=new LRUFOperator(Config.INSTANCE.getUpdateBudget());
+		//RND.F
+		if(joinType==8)
+			join=new RNDFOperator(Config.INSTANCE.getUpdateBudget());
+		//WBM.F
+		if(joinType==9)
+			join=new WBMFOperator(Config.INSTANCE.getUpdateBudget(), true);
+		//LRU.F.TA
+		if(joinType==10)
+			join=new LRUFTAOperator(Config.INSTANCE.getUpdateBudget());
+		//RND.F.TA
+		if(joinType==11)
+			join=new RNDFTAOperator(Config.INSTANCE.getUpdateBudget());
+		//WBM.F.TA
+		if(joinType==12)
+			join=new WBMFTAOperator(Config.INSTANCE.getUpdateBudget(), true);
 		
 		
 		long time=Config.INSTANCE.getQueryStartingTime()+Config.INSTANCE.getQueryWindowWidth()*1000;
 		int windowCount=0;
 		while(windowCount<150){
-//			join.process(time,tsc.windows.get(windowCount),null);//TwitterFollowerCollector.getInitialUserFollowersFromDB());//					
-			//System.out.println(">>>>>>>>>>>>>>>"+time);
+
 			HashMap<Long,Long> currentCandidateTimeStamp = slidedwindowsTime.get(windowCount);
-			join.process(time,slidedwindows.get(windowCount),currentCandidateTimeStamp);//TwitterFollowerCollector.getInitialUserFollowersFromDB());//					
+			join.process(time,slidedwindows.get(windowCount),currentCandidateTimeStamp);				
 			windowCount++;
 			time = time + Config.INSTANCE.getQueryWindowSlide()*1000;			
 		}
@@ -128,28 +98,27 @@ public class QueryProcessor {
 	
 	public static void main(String[] args){
 		
-		//oneExperiment ();
+		oneExperiment ();
 		//multiExperiments();
 		
 		//percentageMultiExperiment();
-		budgetMultiExperiment();
+		//budgetMultiExperiment();
 		
 		//percentageExperiment();
-		//budgetExperiment();
-				
+		//budgetExperiment();			
 		
 	}
 	
 	
-	private static void oneExperiment (){
+	private static void oneExperiment(){
 		
 		QueryProcessor qp=new QueryProcessor();	
 		String srcDB = Config.INSTANCE.getDatasetDb();
 		
-		String desDB = srcDB.split("\\.")[0]+"_4.db" ;
+		String desDB = srcDB.split("\\.")[0]+"_test.db" ;
 		Config.INSTANCE.setDatasetDb(desDB);
 		
-		for(int i = 1 ; i < 8 ; i++){
+		for(int i = 1 ; i < 13 ; i++){
 			System.out.println("--------------------------Evaluation number = " + i + "----------------------");
 			qp.evaluateQuery(i);
 		}
@@ -168,7 +137,7 @@ public class QueryProcessor {
 			Config.INSTANCE.setDatasetDb(desDB);
 			System.out.println("--------------------------- working with database " + desDB + "------------------------------");
 		
-			for(int i=1 ; i < 8 ; i++){
+			for(int i=1 ; i < 13 ; i++){
 				System.out.println("--------------------------Evaluation number = " + i + "----------------------");
 				qp.evaluateQuery(i);
 			}	
@@ -192,28 +161,28 @@ public class QueryProcessor {
 		
 		QueryProcessor qp=new QueryProcessor();	
 		String [] percentage = { "10", "20", "25", "30" , "40" , "50"};
-		String srcDB = Config.INSTANCE.getDatasetDb();
+		String srcDB = Config.INSTANCE.getDatasetDb();			
 		
-//		for (int k=1 ; k<= Config.INSTANCE.getExperimentIterationNumber() ; k++){
-//		
-//			for (int j=0 ; j < percentage.length ; j++){
-//				 
-//				String desDB = srcDB.split("\\.")[0]+"_"+ k +"_"+ percentage[j] +".db" ;
-//				Config.INSTANCE.setDatasetDb(desDB);
-//				System.out.println("--------------------------- working with database " + desDB + "------------------------------");
-//			
-//				for(int i=1 ; i < 8 ; i++){
-//					System.out.println("--------------------------Evaluation number = " + i + "----------------------");
-//					qp.evaluateQuery(i);
-//				}	
-//				
-//				ResultAnalyser.analysisExperimentJaccard();
-//				if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_"+ k +"_" + percentage[j] +".csv") )
-//					break;
-//				System.out.println("--------------------------Evaluation done for database number"  + j + "----------------------");
-//	
-//			}
-//		}
+		for (int k=1 ; k<= Config.INSTANCE.getDatabaseNumber() ; k++){
+		
+			for (int j=0 ; j < percentage.length ; j++){
+				 
+				String desDB = srcDB.split("\\.")[0]+"_"+ k +"_"+ percentage[j] +".db" ;
+				Config.INSTANCE.setDatasetDb(desDB);
+				System.out.println("--------------------------- working with database " + desDB + "------------------------------");
+			
+				for(int i=1 ; i < 8 ; i++){
+					System.out.println("--------------------------Evaluation number = " + i + "----------------------");
+					qp.evaluateQuery(i);
+				}	
+				
+				ResultAnalyser.analysisExperimentJaccard();
+				if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_"+ k +"_" + percentage[j] +".csv") )
+					break;
+				System.out.println("--------------------------Evaluation done for database number"  + j + "----------------------");
+	
+			}
+		}
 		
 		for (int j=0 ; j < percentage.length ; j++){
 			System.out.println("--------------------------Multiple Evaluation start----------------------");
@@ -242,7 +211,7 @@ public class QueryProcessor {
 				
 				Config.INSTANCE.setUpdateBudget( budget[j]);
 						
-				for(int i=1 ; i < 8 ; i++){
+				for(int i=8 ; i < 13 ; i++){
 					System.out.println("--------------------------Evaluation number = " + i + "----------------------");
 					qp.evaluateQuery(i);
 				}	
