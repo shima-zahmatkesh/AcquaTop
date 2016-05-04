@@ -11,6 +11,7 @@ import java.util.Map;
 
 import acqua.config.Config;
 import acqua.data.TwitterFollowerCollector;
+import acqua.query.join.scoringCombine.User;
 
 public class FilterJoinOperator extends ApproximateJoinOperator {
 
@@ -18,83 +19,6 @@ public class FilterJoinOperator extends ApproximateJoinOperator {
 	
 	public FilterJoinOperator(int ub){
 		updateBudget=ub;
-	}
-	
-	
-	@Override
-	public void process(long evaluationTime, Map<Long,Integer> mentionList,Map<Long,Long> usersTimeStampOfTheCurrentSlidedWindow){	
-		
-		try {
-			//skip the first iteration
-			long windowDiff = evaluationTime-Config.INSTANCE.getQueryStartingTime();
-			if (windowDiff==0) return;
-			
-
-			//for statistics
-			freshFollowerCount = TwitterFollowerCollector.getFollowerListFromDB(evaluationTime);
-			Double E = computeWindowError(mentionList,evaluationTime);
-			Double E_b = computeReplicaError(evaluationTime );
-
-			//invoke FollowerTable::getFollowers(user,ts) and updates the replica for a subset of users that exist in stream
-			HashMap<Long,String> electedElements = updatePolicy(mentionList.keySet().iterator(),usersTimeStampOfTheCurrentSlidedWindow, evaluationTime);
-
-			selectedCondidatesFileWriter.write(electedElements.toString()+","+evaluationTime+"\n");
-
-			//update the users
-			for(long id : electedElements.keySet()){
-				//read the new value (= invoke the remote service)
-				int newValue = TwitterFollowerCollector.getUserFollowerFromDB(evaluationTime, id);
-				if(!followerReplica.get(id).equals(newValue)){
-					followerReplica.put(id,newValue);
-					estimatedLastChangeTime.put(id, evaluationTime);
-				} else {
-					//System.out.println(followerReplica.get(id) + " is equal to " + newValue);
-				}
-				bkgLastChangeTime.put(id, TwitterFollowerCollector.getPreviousExpTime(id,evaluationTime));
-				userInfoUpdateTime.put(id, evaluationTime);
-			}
-
-			//for stats
-			Double EP = computeWindowError( mentionList,evaluationTime);
-			Double EP_b = computeReplicaError(evaluationTime);
-			statsFileWriter.write(","+mentionList.size()+","+E+","+EP+","+E_b+","+EP_b+" \n");
-
-			//perform the join	
-			Iterator<Long> it= mentionList.keySet().iterator();
-			//System.out.println("join considering filtering");
-			while(it.hasNext()){
-				long userId=Long.parseLong(it.next().toString());
-				Integer userFollowers = followerReplica.get(userId);
-				if (userFollowers > Config.INSTANCE.getQueryFilterThreshold()){
-					answersFileWriter.write(userId +" "+mentionList.get(userId)+" "+userFollowers+" "+evaluationTime+"\n");
-				}
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	private double computeWindowError(Map<Long,Integer> mentionList,long evaluationTime){
-		double error=0;
-		Iterator<Long> windowContent = mentionList.keySet().iterator();
-		while(windowContent.hasNext()){
-			Long userId=windowContent.next();
-			if(freshFollowerCount.get(userId).intValue()!=followerReplica.get(userId).intValue())
-				error+=1;
-		}
-		return error;
-	}
-
-	private double computeReplicaError(long evaluationTime){
-		double error=0;
-		Iterator<Long> allUserCountIt = followerReplica.keySet().iterator();
-		while(allUserCountIt.hasNext()){
-			Long userId=allUserCountIt.next();
-			if(freshFollowerCount.get(userId).intValue()!=followerReplica.get(userId).intValue())
-				error+=1;
-		}
-		return error;
 	}
 	
 	@Override
@@ -111,10 +35,8 @@ public class FilterJoinOperator extends ApproximateJoinOperator {
 		while(CandidateIds.hasNext()){
 			long userid= CandidateIds.next();
 			long followerCount = followerReplica.get(userid);
-			//System.out.println ("follower count  = " + followerCount);
-			if ( Math.abs( followerCount - Config.INSTANCE.getQueryFilterThreshold() ) < Config.INSTANCE.getQueryDifferenceThreshold()){
 				userFilterDiff.add(new User(userid,  Math.abs( followerCount - Config.INSTANCE.getQueryFilterThreshold() ) ));				
-			}
+			
 		}
 		//Ascending Order
 		Collections.sort(userFilterDiff, new Comparator<User>() {
@@ -127,6 +49,12 @@ public class FilterJoinOperator extends ApproximateJoinOperator {
 			}
 		});
 
+//		System.out.println("Filter final sorted result = " );
+//		Iterator<User> it1 = userFilterDiff.iterator();
+//		while(it1.hasNext()){
+//			User t = it1.next();
+//			System.out.println("user Id =" + t.userId + "  score = " + t.filterDiff );
+//		}
 
 		//////////////////////////////////////////
 		

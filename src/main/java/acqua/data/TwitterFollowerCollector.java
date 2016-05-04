@@ -572,7 +572,7 @@ public class TwitterFollowerCollector {
 				
 			    long randomNum = rand.nextInt(100);
 				//System.out.println("randomNum = " +  randomNum);
-			    if (randomNum < 25){
+			    if (randomNum < 70){
 			   
 					HashMap<Long,Integer> followerList = getFollowerListOfUser(desDB , userID);	
 					int minFollowerNum = getMinFollowerOfUser (followerList);

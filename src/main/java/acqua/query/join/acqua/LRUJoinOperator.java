@@ -29,6 +29,7 @@ public class LRUJoinOperator extends ApproximateJoinOperator{
 		currentTimestamp =  timeStamp;
 		super.process(timeStamp, mentionList,usersTimeStampOfTheCurrentSlidedWindow);
 	}
+	
 	private double getchangerate(long userid){
 		double cr=0;
 		Connection c = null;
@@ -54,6 +55,7 @@ public class LRUJoinOperator extends ApproximateJoinOperator{
 		}
 		return cr;
 	}
+	
 	protected HashMap<Long,String> updatePolicy(Iterator<Long> candidateUserSetIterator,Map<Long,Long> usersTimeStampOfTheCurrentSlidedWindow, long evaluationTime){
 		//decide which rows to update and return the list
 		//it must satisfy the updateBudget constraint!
@@ -84,6 +86,16 @@ public class LRUJoinOperator extends ApproximateJoinOperator{
 				return res;
 			}
 		});
+		
+//		System.out.println(" LRU final sorted result = " );
+//		Iterator<User> it1 = userUpdateLatency.iterator();
+//		while(it1.hasNext()){
+//			User t = it1.next();
+//			System.out.println("user Id =" + t.userId + "  score = " + t.updateTimeDiff );
+//		}
+
+		
+		
 		HashMap<Long,String> result=new HashMap<Long,String>();
 		Iterator<User> it = userUpdateLatency.iterator();
 		int counter=0;

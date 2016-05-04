@@ -4,21 +4,22 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.LineNumberReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Locale;
-import java.util.Set;
 import java.util.TreeMap;
 
 import acqua.config.Config;
@@ -41,315 +42,83 @@ public class ResultAnalyser {
 			System.out.println("create tables");
 			stmt = c.createStatement();
 			
-			stmt.executeUpdate(" DROP TABLE IF EXISTS OJ ;");
-			String sql = "CREATE TABLE  `OJ` ( " +
-					" `USERID`           BIGINT    NOT NULL, " + 
-					" `MENTIONCOUNT`     INT    NOT NULL, " + 
-					" `FOLLOWERCOUNT`    INT    NOT NULL, " + 
-					" `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `OtimeIndex` ON `OJ` (`TIMESTAMP` ASC);"; 
-			//System.out.println(sql);
-			stmt.executeUpdate(sql);
-
-			stmt.executeUpdate(" DROP TABLE IF EXISTS WSTJ ;");
-			sql = "CREATE TABLE  `WSTJ` ( " +
-					" `USERID`           BIGINT    NOT NULL, " + 
-					" `MENTIONCOUNT`     INT    NOT NULL, " + 
-					" `FOLLOWERCOUNT`    INT    NOT NULL, " + 
-					" `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `WSTtimeIndex` ON `WSTJ` (`TIMESTAMP` ASC);"; 
-			//System.out.println(sql);
-			stmt.executeUpdate(sql);
+			createtable (stmt ,  "OJ");
+			createtable (stmt ,  "WSTJ");
+			createtable (stmt ,  "LRUJ");
+			createtable (stmt ,  "RNDJ");
+			createtable (stmt ,  "WBMJ");
+			createtable (stmt ,  "FJ");
+			createtable (stmt ,  "LRUFJ");
+			createtable (stmt ,  "RNDFJ");
+			createtable (stmt ,  "WBMFJ");
+			createtable (stmt ,  "LRUFTAJ");
+			createtable (stmt ,  "RNDFTAJ");
+			createtable (stmt ,  "WBMFTAJ");
+			createtable (stmt ,  "LRUFSAJ");
+			createtable (stmt ,  "RNDFSAJ");
+			createtable (stmt ,  "WBMFSAJ");
 			
-			
-			stmt.executeUpdate(" DROP TABLE IF EXISTS LRUJ ;");
-			sql = "CREATE TABLE  `LRUJ` ( " +
-					" `USERID`           BIGINT    NOT NULL, " + 
-					" `MENTIONCOUNT`     INT    NOT NULL, " + 
-					" `FOLLOWERCOUNT`    INT    NOT NULL, " + 
-					" `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `LRUtimeIndex` ON `LRUJ` (`TIMESTAMP` ASC);"; 
-			//System.out.println(sql);
-			stmt.executeUpdate(sql);
-			
-			stmt.executeUpdate(" DROP TABLE IF EXISTS RNDJ ;");
-			sql = "CREATE TABLE  `RNDJ` ( " +
-					" `USERID`           BIGINT    NOT NULL, " + 
-					" `MENTIONCOUNT`     INT    NOT NULL, " + 
-					" `FOLLOWERCOUNT`    INT    NOT NULL, " + 
-					" `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `RNDtimeIndex` ON `RNDJ` (`TIMESTAMP` ASC);"; 
-			//System.out.println(sql);
-			stmt.executeUpdate(sql);
-			
-			stmt.executeUpdate(" DROP TABLE IF EXISTS WBMJ ;");
-			sql = "CREATE TABLE  `WBMJ` ( " +
-					" `USERID`           BIGINT    NOT NULL, " + 
-					" `MENTIONCOUNT`     INT    NOT NULL, " + 
-					" `FOLLOWERCOUNT`    INT    NOT NULL, " + 
-					" `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `WBMtimeIndex` ON `WBMJ` (`TIMESTAMP` ASC);"; 
-			//System.out.println(sql);
-			stmt.executeUpdate(sql);
-
-		
-			stmt.executeUpdate(" DROP TABLE IF EXISTS FJ ;");
-			sql = "CREATE TABLE  `FJ` ( " +
-					" `USERID`           BIGINT    NOT NULL, " + 
-					" `MENTIONCOUNT`     INT    NOT NULL, " + 
-					" `FOLLOWERCOUNT`    INT    NOT NULL, " + 
-					" `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `FtimeIndex` ON `FJ` (`TIMESTAMP` ASC);"; 
-			//System.out.println(sql);
-			stmt.executeUpdate(sql);
-			
-			stmt.executeUpdate(" DROP TABLE IF EXISTS SCJ ;");
-			sql = "CREATE TABLE  `SCJ` ( " +
-					" `USERID`           BIGINT    NOT NULL, " + 
-					" `MENTIONCOUNT`     INT    NOT NULL, " + 
-					" `FOLLOWERCOUNT`    INT    NOT NULL, " + 
-					" `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `SCtimeIndex` ON `SCJ` (`TIMESTAMP` ASC);"; 
-			//System.out.println(sql);
-			stmt.executeUpdate(sql);
-			
-			///////////////////////////////////////////////////////// Simple combine     //////////////////////////////////////////////////////////
-
-			stmt.executeUpdate(" DROP TABLE IF EXISTS LRUFJ ;");
-			sql = "CREATE TABLE  `LRUFJ` ( " +
-					" `USERID`           BIGINT    NOT NULL, " + 
-					" `MENTIONCOUNT`     INT    NOT NULL, " + 
-					" `FOLLOWERCOUNT`    INT    NOT NULL, " + 
-					" `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `LRUFtimeIndex` ON `LRUFJ` (`TIMESTAMP` ASC);"; 
-			//System.out.println(sql);
-			stmt.executeUpdate(sql);
-			stmt.executeUpdate(" DROP TABLE IF EXISTS RNDFJ ;");
-			sql = "CREATE TABLE  `RNDFJ` ( " +
-					" `USERID`           BIGINT    NOT NULL, " + 
-					" `MENTIONCOUNT`     INT    NOT NULL, " + 
-					" `FOLLOWERCOUNT`    INT    NOT NULL, " + 
-					" `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `RNDFtimeIndex` ON `RNDFJ` (`TIMESTAMP` ASC);"; 
-			//System.out.println(sql);
-			stmt.executeUpdate(sql);
-			stmt.executeUpdate(" DROP TABLE IF EXISTS WBMFJ ;");
-			sql = "CREATE TABLE  `WBMFJ` ( " +
-					" `USERID`           BIGINT    NOT NULL, " + 
-					" `MENTIONCOUNT`     INT    NOT NULL, " + 
-					" `FOLLOWERCOUNT`    INT    NOT NULL, " + 
-					" `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `WBMFtimeIndex` ON `WBMFJ` (`TIMESTAMP` ASC);"; 
-			//System.out.println(sql);
-			stmt.executeUpdate(sql);
-			
-			///////////////////////////////////////////////////////// TA combine     //////////////////////////////////////////////////////////
-			stmt.executeUpdate(" DROP TABLE IF EXISTS LRUFTAJ ;");
-			sql = "CREATE TABLE  `LRUFTAJ` ( " +
-					" `USERID`           BIGINT    NOT NULL, " + 
-					" `MENTIONCOUNT`     INT    NOT NULL, " + 
-					" `FOLLOWERCOUNT`    INT    NOT NULL, " + 
-					" `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `LRUFTAtimeIndex` ON `LRUFTAJ` (`TIMESTAMP` ASC);"; 
-			//System.out.println(sql);
-			stmt.executeUpdate(sql);
-			stmt.executeUpdate(" DROP TABLE IF EXISTS RNDFTAJ ;");
-			sql = "CREATE TABLE  `RNDFTAJ` ( " +
-					" `USERID`           BIGINT    NOT NULL, " + 
-					" `MENTIONCOUNT`     INT    NOT NULL, " + 
-					" `FOLLOWERCOUNT`    INT    NOT NULL, " + 
-					" `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `RNDFTAtimeIndex` ON `RNDFTAJ` (`TIMESTAMP` ASC);"; 
-			//System.out.println(sql);
-			stmt.executeUpdate(sql);
-			stmt.executeUpdate(" DROP TABLE IF EXISTS WBMFTAJ ;");
-			sql = "CREATE TABLE  `WBMFTAJ` ( " +
-					" `USERID`           BIGINT    NOT NULL, " + 
-					" `MENTIONCOUNT`     INT    NOT NULL, " + 
-					" `FOLLOWERCOUNT`    INT    NOT NULL, " + 
-					" `TIMESTAMP`        BIGINT NOT NULL); CREATE INDEX `WBMTAFtimeIndex` ON `WBMFTAJ` (`TIMESTAMP` ASC);"; 
-			//System.out.println(sql);
-			stmt.executeUpdate(sql);
-			
-			InputStream    fis;
-			BufferedReader br;
-
-			
-
-			//-----------------------------------------------------------------------fill classqueryProcessorOracleJoinOperatorOutput
-			fis = new FileInputStream(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/OracleJoinOperatorOutput.txt");
-			br = new BufferedReader(new InputStreamReader(fis));
-			String line=null;
-			while((line=br.readLine())!=null)
-			{
-				String[] userInfo = line.split(" ");	
-				sql = "INSERT INTO OJ (USERID,MENTIONCOUNT,FOLLOWERCOUNT,TIMESTAMP) " +
-						"VALUES ("+userInfo[0]+","+userInfo[1]+","+userInfo[2]+","+userInfo[3]+")"; 
-				//System.out.println(sql);
-				stmt.executeUpdate(sql);
-			}
-			
-			//---------------------------------------------------------------------fill DWJ
-			fis = new FileInputStream(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/WSTJoinOperatorOutput.txt");
-			br = new BufferedReader(new InputStreamReader(fis));
-			line=null;
-			while((line=br.readLine())!=null)
-			{
-				String[] userInfo = line.split(" ");	
-				sql = "INSERT INTO WSTJ (USERID,MENTIONCOUNT,FOLLOWERCOUNT,TIMESTAMP) " +
-						"VALUES ("+userInfo[0]+","+userInfo[1]+","+userInfo[2]+","+userInfo[3]+")"; 
-				//System.out.println(sql);
-				stmt.executeUpdate(sql);
-			}
-
-			//---------------------------------------------------------------------fill baseline table
-			
-			fis = new FileInputStream(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/RNDJoinOperatorOutput.txt");
-			br = new BufferedReader(new InputStreamReader(fis));
-			line=null;
-			while((line=br.readLine())!=null)
-			{
-				String[] userInfo = line.split(" ");	
-				sql = "INSERT INTO RNDJ (USERID,MENTIONCOUNT,FOLLOWERCOUNT,TIMESTAMP) " +
-						"VALUES ("+userInfo[0]+","+userInfo[1]+","+userInfo[2]+","+userInfo[3]+")"; 
-				//System.out.println(sql);
-				stmt.executeUpdate(sql);
-			}
-
-			//---------------------------------------------------------------------fill baseline table
-			fis = new FileInputStream(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/LRUJoinOperatorOutput.txt");
-			br = new BufferedReader(new InputStreamReader(fis));
-			line=null;
-			while((line=br.readLine())!=null)
-			{
-				String[] userInfo = line.split(" ");	
-				sql = "INSERT INTO LRUJ (USERID,MENTIONCOUNT,FOLLOWERCOUNT,TIMESTAMP) " +
-						"VALUES ("+userInfo[0]+","+userInfo[1]+","+userInfo[2]+","+userInfo[3]+")"; 
-				//System.out.println(sql);
-				stmt.executeUpdate(sql);
-			}
-			
-			//---------------------------------------------------------------------fill WBMJ
-
-			fis = new FileInputStream(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/WBMJoinOperatorOutput.txt");
-			br = new BufferedReader(new InputStreamReader(fis));
-			line=null;
-			while((line=br.readLine())!=null)
-			{
-				String[] userInfo = line.split(" ");	
-				sql = "INSERT INTO WBMJ (USERID,MENTIONCOUNT,FOLLOWERCOUNT,TIMESTAMP) " +
-						"VALUES ("+userInfo[0]+","+userInfo[1]+","+userInfo[2]+","+userInfo[3]+")"; 
-				//System.out.println(sql);
-				stmt.executeUpdate(sql);
-			}
-			
-			//---------------------------------------------------------------------fill FJ
-			fis = new FileInputStream(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/FilterJoinOperatorOutput.txt");
-			br = new BufferedReader(new InputStreamReader(fis));
-			line=null;
-			while((line=br.readLine())!=null)
-			{
-				String[] userInfo = line.split(" ");	
-				sql = "INSERT INTO FJ (USERID,MENTIONCOUNT,FOLLOWERCOUNT,TIMESTAMP) " +
-						"VALUES ("+userInfo[0]+","+userInfo[1]+","+userInfo[2]+","+userInfo[3]+")"; 
-				//System.out.println(sql);
-				stmt.executeUpdate(sql);
-			}
-			
-			//---------------------------------------------------------------------fill ScJ
-//			fis = new FileInputStream(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/ScoringJoinOperatorOutput.txt");
-//			br = new BufferedReader(new InputStreamReader(fis));
-//			line=null;
-//			while((line=br.readLine())!=null)
-//			{
-//				String[] userInfo = line.split(" ");	
-//				sql = "INSERT INTO SCJ (USERID,MENTIONCOUNT,FOLLOWERCOUNT,TIMESTAMP) " +
-//						"VALUES ("+userInfo[0]+","+userInfo[1]+","+userInfo[2]+","+userInfo[3]+")"; 
-//				//System.out.println(sql);
-//				stmt.executeUpdate(sql);
-//			}
-//			
-			
-			//////////////////////////////////////////// Simple combine ////////////////////////////////////////////////////////////////////////
-			
-			//---------------------------------------------------------------------fill LRUFJ
-			fis = new FileInputStream(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/LRUFOperatorOutput.txt");
-			br = new BufferedReader(new InputStreamReader(fis));
-			line=null;
-			while((line=br.readLine())!=null)
-			{
-				String[] userInfo = line.split(" ");	
-				sql = "INSERT INTO LRUFJ (USERID,MENTIONCOUNT,FOLLOWERCOUNT,TIMESTAMP) " +
-						"VALUES ("+userInfo[0]+","+userInfo[1]+","+userInfo[2]+","+userInfo[3]+")"; 
-				//System.out.println(sql);
-				stmt.executeUpdate(sql);
-			}
-			//---------------------------------------------------------------------fill RNDFJ
-			fis = new FileInputStream(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/RNDFOperatorOutput.txt");
-			br = new BufferedReader(new InputStreamReader(fis));
-			line=null;
-			while((line=br.readLine())!=null)
-			{
-				String[] userInfo = line.split(" ");	
-				sql = "INSERT INTO RNDFJ (USERID,MENTIONCOUNT,FOLLOWERCOUNT,TIMESTAMP) " +
-						"VALUES ("+userInfo[0]+","+userInfo[1]+","+userInfo[2]+","+userInfo[3]+")"; 
-				//System.out.println(sql);
-				stmt.executeUpdate(sql);
-			}
-			//---------------------------------------------------------------------fill WBMFJ
-			fis = new FileInputStream(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/WBMFOperatorOutput.txt");
-			br = new BufferedReader(new InputStreamReader(fis));
-			line=null;
-			while((line=br.readLine())!=null)
-			{
-				String[] userInfo = line.split(" ");	
-				sql = "INSERT INTO WBMFJ (USERID,MENTIONCOUNT,FOLLOWERCOUNT,TIMESTAMP) " +
-						"VALUES ("+userInfo[0]+","+userInfo[1]+","+userInfo[2]+","+userInfo[3]+")"; 
-				//System.out.println(sql);
-				stmt.executeUpdate(sql);
-			}
-			
-			//////////////////////////////////////////// TA combine ////////////////////////////////////////////////////////////////////////
-			
-			
-			//---------------------------------------------------------------------fill LRUFTAJ
-			fis = new FileInputStream(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/LRUFTAOperatorOutput.txt");
-			br = new BufferedReader(new InputStreamReader(fis));
-			line=null;
-			while((line=br.readLine())!=null)
-			{
-				String[] userInfo = line.split(" ");	
-				sql = "INSERT INTO LRUFTAJ (USERID,MENTIONCOUNT,FOLLOWERCOUNT,TIMESTAMP) " +
-						"VALUES ("+userInfo[0]+","+userInfo[1]+","+userInfo[2]+","+userInfo[3]+")"; 
-				//System.out.println(sql);
-				stmt.executeUpdate(sql);
-			}
-			//---------------------------------------------------------------------fill RNDFTAJ
-			fis = new FileInputStream(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/RNDFTAOperatorOutput.txt");
-			br = new BufferedReader(new InputStreamReader(fis));
-			line=null;
-			while((line=br.readLine())!=null)
-			{
-				String[] userInfo = line.split(" ");	
-				sql = "INSERT INTO RNDFTAJ (USERID,MENTIONCOUNT,FOLLOWERCOUNT,TIMESTAMP) " +
-						"VALUES ("+userInfo[0]+","+userInfo[1]+","+userInfo[2]+","+userInfo[3]+")"; 
-				//System.out.println(sql);
-				stmt.executeUpdate(sql);
-			}
-			//---------------------------------------------------------------------fill WBMFTAJ
-			fis = new FileInputStream(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/WBMFTAOperatorOutput.txt");
-			br = new BufferedReader(new InputStreamReader(fis));
-			line=null;
-			while((line=br.readLine())!=null)
-			{
-				String[] userInfo = line.split(" ");	
-				sql = "INSERT INTO WBMFTAJ (USERID,MENTIONCOUNT,FOLLOWERCOUNT,TIMESTAMP) " +
-						"VALUES ("+userInfo[0]+","+userInfo[1]+","+userInfo[2]+","+userInfo[3]+")"; 
-				//System.out.println(sql);
-				stmt.executeUpdate(sql);
-			}
-			
+			putOutputInDatabase( stmt ,"joinOutput/OracleJoinOperatorOutput.txt" , "OJ");
+			putOutputInDatabase( stmt ,"joinOutput/WSTJoinOperatorOutput.txt" , "WSTJ");
+			putOutputInDatabase( stmt ,"joinOutput/RNDJoinOperatorOutput.txt" , "RNDJ");
+			putOutputInDatabase( stmt ,"joinOutput/LRUJoinOperatorOutput.txt" , "LRUJ");
+			putOutputInDatabase( stmt ,"joinOutput/WBMJoinOperatorOutput.txt" , "WBMJ");
+			putOutputInDatabase( stmt ,"joinOutput/FilterJoinOperatorOutput.txt" , "FJ");
+			putOutputInDatabase( stmt ,"joinOutput/LRUFOperatorOutput.txt" , "LRUFJ");
+			putOutputInDatabase( stmt ,"joinOutput/RNDFOperatorOutput.txt" , "RNDFJ");
+			putOutputInDatabase( stmt ,"joinOutput/WBMFOperatorOutput.txt" , "WBMFJ");
+			putOutputInDatabase( stmt ,"joinOutput/LRUFTAOperatorOutput.txt" , "LRUFTAJ");
+			putOutputInDatabase( stmt ,"joinOutput/RNDFTAOperatorOutput.txt" , "RNDFTAJ");
+			putOutputInDatabase( stmt ,"joinOutput/WBMFTAOperatorOutput.txt" , "WBMFTAJ");
+			putOutputInDatabase( stmt ,"joinOutput/LRUFSAOperatorOutput.txt" , "LRUFSAJ");
+			putOutputInDatabase( stmt ,"joinOutput/RNDFSAOperatorOutput.txt" , "RNDFSAJ");
+			putOutputInDatabase( stmt ,"joinOutput/WBMFSAOperatorOutput.txt" , "WBMFSAJ");
 
 			stmt.close();
 			//c.commit();
 			c.close();
-			br.close();
-
 
 		}catch(Exception e){e.printStackTrace();}
 	}
 
+	public static void createtable (Statement stmt , String table){
+		
+		try {
+			stmt.executeUpdate(" DROP TABLE IF EXISTS " + table + " ;");
+			String sql = "CREATE TABLE  `" + table + "` ( " +
+					" `USERID`           BIGINT    NOT NULL, " + 
+					" `MENTIONCOUNT`     INT    NOT NULL, " + 
+					" `FOLLOWERCOUNT`    INT    NOT NULL, " + 
+					" `TIMESTAMP`        BIGINT NOT NULL); "+
+					" CREATE INDEX `" + table + "timeIndex` ON `" + table + "` (`TIMESTAMP` ASC);"; 
+			stmt.executeUpdate(sql);
+			
+		} catch (SQLException e) { e.printStackTrace();}
+	}
 	
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//Functions related to Top-k Aqua
+	public static void putOutputInDatabase (Statement stmt , String outputPath , String table){
+		
+		InputStream    fis;
+		BufferedReader br;
+		String line = null;
+		String sql = null;
+		try {
+			fis = new FileInputStream(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder() + outputPath);
+			br = new BufferedReader(new InputStreamReader(fis));
+			line=null;
+			while((line=br.readLine())!=null){
+				
+				String[] userInfo = line.split(" ");	
+				sql = "INSERT INTO " + table + " (USERID,MENTIONCOUNT,FOLLOWERCOUNT,TIMESTAMP) " +
+						"VALUES ("+userInfo[0]+","+userInfo[1]+","+userInfo[2]+","+userInfo[3]+")"; 
+				//System.out.println(sql);
+				stmt.executeUpdate(sql);
+			}
+			br.close();
+		} catch (Exception e) {e.printStackTrace(); }
+		
+		
+	}
 	
 	public static void analysisExperimentJaccard(){
 		
@@ -359,22 +128,21 @@ public class ResultAnalyser {
 			TreeMap<Long,Integer> oracleCount=computeOJoin();
 
 			//use Jaccard Index for computing errors
-			HashMap<Long,Double> WBMError=computeErrorsJaccardIndex(getOracleUsersOfTimestaps() , getWBMJoinUsersOfTimestaps() );
-			HashMap<Long,Double> RNDError=computeErrorsJaccardIndex (getOracleUsersOfTimestaps() , getRNDJoinUsersOfTimestaps() );
-			HashMap<Long,Double> WSTError=computeErrorsJaccardIndex (getOracleUsersOfTimestaps() , getWSTJoinUsersOfTimestaps() );
-			HashMap<Long,Double> LRUError=computeErrorsJaccardIndex (getOracleUsersOfTimestaps() , getLRUJoinUsersOfTimestaps() );			
-			HashMap<Long,Double> FError=computeErrorsJaccardIndex(getOracleUsersOfTimestaps() , getFJoinUsersOfTimestaps() );
-			HashMap<Long,Double> LRUFError=computeErrorsJaccardIndex(getOracleUsersOfTimestaps() , getLRUFJoinUsersOfTimestaps() );
-			HashMap<Long,Double> RNDFError=computeErrorsJaccardIndex(getOracleUsersOfTimestaps() , getRNDFJoinUsersOfTimestaps() );
-			HashMap<Long,Double> WBMFError=computeErrorsJaccardIndex(getOracleUsersOfTimestaps() , getWBMFJoinUsersOfTimestaps() );
-			HashMap<Long,Double> LRUFTAError=computeErrorsJaccardIndex(getOracleUsersOfTimestaps() , getLRUFTAJoinUsersOfTimestaps() );
-			HashMap<Long,Double> RNDFTAError=computeErrorsJaccardIndex(getOracleUsersOfTimestaps() , getRNDFTAJoinUsersOfTimestaps() );
-			HashMap<Long,Double> WBMFTAError=computeErrorsJaccardIndex(getOracleUsersOfTimestaps() , getWBMFTAJoinUsersOfTimestaps() );
+			HashMap<Long,Double> WBMError=computeErrorsJaccardIndex(getUsersOfTimestaps("OJ") , getUsersOfTimestaps("WBMJ") );
+			HashMap<Long,Double> RNDError=computeErrorsJaccardIndex (getUsersOfTimestaps("OJ") , getUsersOfTimestaps("RNDJ") );
+			HashMap<Long,Double> WSTError=computeErrorsJaccardIndex (getUsersOfTimestaps("OJ") , getUsersOfTimestaps("WSTJ") );
+			HashMap<Long,Double> LRUError=computeErrorsJaccardIndex (getUsersOfTimestaps("OJ") , getUsersOfTimestaps("LRUJ") );			
+			HashMap<Long,Double> FError=computeErrorsJaccardIndex (getUsersOfTimestaps("OJ") , getUsersOfTimestaps("FJ") );
 			
+			HashMap<Long,Double> LRUFError=computeErrorsJaccardIndex(getUsersOfTimestaps("OJ") , getUsersOfTimestaps("LRUFJ") );
+			HashMap<Long,Double> RNDFError=computeErrorsJaccardIndex(getUsersOfTimestaps("OJ") , getUsersOfTimestaps("RNDFJ") );
+			HashMap<Long,Double> WBMFError=computeErrorsJaccardIndex(getUsersOfTimestaps("OJ"), getUsersOfTimestaps("WBMFJ") );
+			
+		
 			Iterator<Long> itO = oracleCount.keySet().iterator();
-			bw.write("timestampe,Oracle,WST,RND,WBM,LRU,Filter,LRU.F,RND.F,WBM.F,LRU.F.TA,RND.F.TA,WBM.F.TA\n");
+			bw.write("timestampe,Oracle,WST,RND,WBM,LRU,Filter,LRU.F,RND.F,WBM.F\n");
 
-			Double cOC=0.0, cwste=0.0, crnde=0.0,cwbme=0.0, clrue=0.0, cfe=0.0, cspe=0.0 ,clrufe =0.0 ,crndfe =0.0 ,cwbmfe =0.0,clruftae =0.0 ,crndftae =0.0 ,cwbmftae =0.0;
+			Double cOC=0.0, cwste=0.0, crnde=0.0,cwbme=0.0, clrue=0.0, cfe=0.0 ,clrufe =0.0 ,crndfe =0.0 ,cwbmfe =0.0;
 			while(itO.hasNext()){
 				
 				long nextTime = itO.next();
@@ -387,9 +155,7 @@ public class ResultAnalyser {
 				Double lrufe = LRUFError.get(nextTime);
 				Double rndfe = RNDFError.get(nextTime);
 				Double wbmfe = WBMFError.get(nextTime);
-				Double lruftae = LRUFTAError.get(nextTime);
-				Double rndftae = RNDFTAError.get(nextTime);
-				Double wbmftae = WBMFTAError.get(nextTime);
+				
 
 				//cumulative error
 				cOC=cOC + OC ; 
@@ -401,9 +167,7 @@ public class ResultAnalyser {
 				clrufe = clrufe + (lrufe= lrufe==null?0:lrufe) ;
 				crndfe = crndfe + (rndfe= rndfe==null?0:rndfe) ;
 				cwbmfe = cwbmfe + (wbmfe= wbmfe==null?0:wbmfe) ;
-				clruftae = clruftae + (lruftae= lruftae==null?0:lruftae) ;
-				crndftae = crndftae + (rndftae= rndftae==null?0:rndftae) ;
-				cwbmftae = cwbmftae + (wbmftae= wbmftae==null?0:wbmftae) ;
+				
 				
 				
 				bw.write(nextTime+","+String.format("%.2f",cOC)+
@@ -414,10 +178,7 @@ public class ResultAnalyser {
 						","+ String.format("%.2f",(cfe==null?0:cfe))+
 						","+ String.format("%.2f",(clrufe==null?0:clrufe))+
 						","+ String.format("%.2f",(crndfe==null?0:crndfe))+
-						","+ String.format("%.2f",(cwbmfe==null?0:cwbmfe))+
-						","+ String.format("%.2f",(clruftae==null?0:clruftae))+
-						","+ String.format("%.2f",(crndftae==null?0:crndftae))+
-						","+ String.format("%.2f",(cwbmftae==null?0:cwbmftae))+"\n");
+						","+ String.format("%.2f",(cwbmfe==null?0:cwbmfe))+"\n");
 
 				
 			}
@@ -427,19 +188,18 @@ public class ResultAnalyser {
 		
 	}
 
-	public static void analysisMultipleExperimentsJaccard(int index ){
-		
+	public static void analysisMultipleExperimentsJaccard(String index ){
+	
 		try{
 			
 			BufferedWriter bw=new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compareMultipleExperiments.csv")));
 
-			bw.write("timestampe,Oracle Min,WST Min,RND Min,WBM Min,LRU Min,Filter Min,LRU.F Min,RND.F Min,WBM.F Min,LRU.F.TA Min,RND.F.TA Min,WBM.F.TA Min,"
-							  + "Oracle Max,WST Min,RND Max,WBM Max,LRU Max,Filter Max,LRU.F Max,RND.F Max,WBM.F Max,LRU.F.TA Max,RND.F.TA Max,WBM.F.TA Max,"
-							  + "Oracle Avg,WST Avg,RND Avg,WBM Avg,LRU Avg,Filter Avg,LRU.F Avg,RND.F Avg,WBM.F Avg,LRU.F.TA Avg,RND.F.TA Avg,WBM.F.TA Avg\n");
-			
+			bw.write("timestampe,Oracle Min,WST Min,RND Min,WBM Min,LRU Min,Filter Min,LRU.F Min,RND.F Min,WBM.F Min,LRU.F.SA Min,RND.F.SA Min,WBM.F.SA Min,"
+							  + "Oracle Max,WST Min,RND Max,WBM Max,LRU Max,Filter Max,LRU.F Max,RND.F Max,WBM.F Max,LRU.F.SA Max,RND.F.SA Max,WBM.F.SA Max,"
+							  + "Oracle Avg,WST Avg,RND Avg,WBM Avg,LRU Avg,Filter Avg,LRU.F Avg,RND.F Avg,WBM.F Avg,LRU.F.SA Avg,RND.F.SA Avg,WBM.F.SA Avg\n");
 			
 			//Min variables
-			Double OCMin = Double.MAX_VALUE, wsteMin = Double.MAX_VALUE, rndeMin = Double.MAX_VALUE, wbmeMin = Double.MAX_VALUE, lrueMin = Double.MAX_VALUE, speMin = Double.MAX_VALUE;
+			Double OCMin = Double.MAX_VALUE, wsteMin = Double.MAX_VALUE, rndeMin = Double.MAX_VALUE, wbmeMin = Double.MAX_VALUE, lrueMin = Double.MAX_VALUE; 
 			Double feMin = Double.MAX_VALUE,lrufeMin =Double.MAX_VALUE ,rndfeMin =Double.MAX_VALUE ,wbmfeMin =Double.MAX_VALUE,lruftaeMin =Double.MAX_VALUE ,rndftaeMin =Double.MAX_VALUE ,wbmftaeMin =Double.MAX_VALUE;
 			//Max variables
 			Double OCMax = 0.0, wsteMax= 0.0, rndeMax = 0.0,wbmeMax = 0.0, lrueMax = 0.0, feMax = 0.0,lrufeMax =0.0 ,rndfeMax =0.0 ,wbmfeMax =0.0,lruftaeMax =0.0 ,rndftaeMax =0.0 ,wbmftaeMax =0.0;
@@ -479,9 +239,9 @@ public class ResultAnalyser {
 					Double lrufe = Double.parseDouble(lineSplit[7]);
 					Double rndfe = Double.parseDouble(lineSplit[8]);
 					Double wbmfe = Double.parseDouble(lineSplit[9]);
-					Double lruftae = Double.parseDouble(lineSplit[10]);
-					Double rndftae = Double.parseDouble(lineSplit[11]);
-					Double wbmftae = Double.parseDouble(lineSplit[12]);
+					Double lruftae = Double.parseDouble(lineSplit[13]);
+					Double rndftae = Double.parseDouble(lineSplit[14]);
+					Double wbmftae = Double.parseDouble(lineSplit[15]);
 				
 					if (OC < OCMin )  OCMin = OC;
 					if (wste < wsteMin )  wsteMin = wste;
@@ -523,7 +283,8 @@ public class ResultAnalyser {
 					lruftaeSum += lruftae;
 					rndftaeSum += rndftae;
 					wbmftaeSum += wbmftae;
-				
+					
+					br.close();
 				}
 			
 				int totalNum = Config.INSTANCE.getDatabaseNumber() - nullLine;
@@ -579,18 +340,20 @@ public class ResultAnalyser {
 						(rndftaeAvg)+","+
 						(wbmftaeAvg)+"\n");
 	
-				OCMin = Double.MAX_VALUE; wsteMin = Double.MAX_VALUE; rndeMin = Double.MAX_VALUE; wbmeMin = Double.MAX_VALUE; lrueMin = Double.MAX_VALUE; speMin =Double.MAX_VALUE;  
+				OCMin = Double.MAX_VALUE; wsteMin = Double.MAX_VALUE; rndeMin = Double.MAX_VALUE; wbmeMin = Double.MAX_VALUE; lrueMin = Double.MAX_VALUE;  
 				feMin = Double.MAX_VALUE;lrufeMin =Double.MAX_VALUE ;rndfeMin =Double.MAX_VALUE ;wbmfeMin =Double.MAX_VALUE;lruftaeMin =Double.MAX_VALUE ;rndftaeMin =Double.MAX_VALUE ;wbmftaeMin =Double.MAX_VALUE;
 				OCMax = 0.0; wsteMax = 0.0; rndeMax = 0.0; wbmeMax = 0.0; lrueMax = 0.0; feMax = 0.0; lrufeMax =0.0; rndfeMax =0.0; wbmfeMax =0.0;lruftaeMax =0.0; rndftaeMax =0.0; wbmftaeMax =0.0;
 				OCAvg = 0.0; wsteAvg = 0.0; rndeAvg = 0.0; wbmeAvg = 0.0; lrueAvg = 0.0; feAvg = 0.0; lrufeAvg =0.0; rndfeAvg =0.0; wbmfeAvg =0.0;lruftaeAvg =0.0; rndftaeAvg =0.0; wbmftaeAvg =0.0;
 				OCSum = 0.0; wsteSum = 0.0; rndeSum = 0.0; wbmeSum = 0.0; lrueSum = 0.0; feSum = 0.0; lrufeSum =0.0; rndfeSum =0.0; wbmfeSum =0.0;lruftaeSum =0.0; rndftaeSum =0.0; wbmftaeSum =0.0;
+			
 			}
 			bw.close();
+			
 		}catch(Exception e){e.printStackTrace();}
 		
 	}
-
-	public static TreeMap< Long, HashSet<Integer>> getOracleUsersOfTimestaps(){
+	
+	public static TreeMap< Long, HashSet<Integer>> getUsersOfTimestaps(String table){
 		
 		TreeMap< Long, HashSet<Integer>> result = new TreeMap< Long, HashSet<Integer>>();
 		Connection c = null;
@@ -602,50 +365,12 @@ public class ResultAnalyser {
 			stmt = c.createStatement();
 			stmt1 = c.createStatement();
 			
-			String sql="SELECT DISTINCT OJ.TIMESTAMP FROM OJ ";
+			String sql="SELECT DISTINCT " + table + ".TIMESTAMP FROM " + table ;
 			ResultSet rs = stmt.executeQuery( sql);
 
 			while ( rs.next() ) {
 				Long timeStamp  = rs.getLong("TIMESTAMP");
-				String sql1="SELECT OJ.USERID FROM OJ WHERE OJ.TIMESTAMP = " + timeStamp ;
-				ResultSet rs1 = stmt1.executeQuery( sql1);
-				HashSet<Integer> userSet = new HashSet<Integer>() ;
-				
-				while ( rs1.next() ) {
-					Integer userID  = rs1.getInt("USERID");
-					userSet.add(userID);
-				}
-				result.put(timeStamp,userSet);
-				rs1.close();
-				stmt1.close();
-				System.out.println ("time stamp = " + timeStamp + "   users = "+ userSet.toString());
-			}
-			
-			rs.close();
-			stmt.close();
-			c.close();
-		}catch(Exception e){e.printStackTrace();}
-		return result;
-	}
-
-	public static TreeMap< Long, HashSet<Integer>> getWBMJoinUsersOfTimestaps(){
-		
-		TreeMap< Long, HashSet<Integer>> result = new TreeMap< Long, HashSet<Integer>>();
-		Connection c = null;
-		Statement stmt = null, stmt1 = null;
-		try {		
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());	      
-			c.setAutoCommit(false);
-			stmt = c.createStatement();
-			stmt1 = c.createStatement();
-			
-			String sql="SELECT DISTINCT WBMJ.TIMESTAMP FROM WBMJ ";
-			ResultSet rs = stmt.executeQuery( sql);
-
-			while ( rs.next() ) {
-				Long timeStamp  = rs.getLong("TIMESTAMP");
-				String sql1="SELECT WBMJ.USERID FROM WBMJ WHERE WBMJ.TIMESTAMP = " + timeStamp ;
+				String sql1="SELECT " + table + ".USERID FROM " + table + " WHERE " + table + ".TIMESTAMP = " + timeStamp ;
 				ResultSet rs1 = stmt1.executeQuery( sql1);
 				HashSet<Integer> userSet = new HashSet<Integer>() ;
 				
@@ -658,474 +383,12 @@ public class ResultAnalyser {
 				stmt1.close();
 				//System.out.println ("time stamp = " + timeStamp + "   users = "+ userSet.toString());
 			}
+			
 			rs.close();
 			stmt.close();
 			c.close();
 		}catch(Exception e){e.printStackTrace();}
 		return result;
-	}
-
-	public static TreeMap< Long, HashSet<Integer>> getRNDJoinUsersOfTimestaps(){
-		
-		TreeMap< Long, HashSet<Integer>> result = new TreeMap< Long, HashSet<Integer>>();
-		Connection c = null;
-		Statement stmt = null, stmt1 = null;
-		try {		
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());	      
-			c.setAutoCommit(false);
-			stmt = c.createStatement();
-			stmt1 = c.createStatement();
-			
-			String sql="SELECT DISTINCT RNDJ.TIMESTAMP FROM RNDJ ";
-			ResultSet rs = stmt.executeQuery( sql);
-
-			
-			while ( rs.next() ) {
-				
-				Long timeStamp  = rs.getLong("TIMESTAMP");
-				String sql1="SELECT RNDJ.USERID FROM RNDJ WHERE RNDJ.TIMESTAMP = " + timeStamp ;
-				ResultSet rs1 = stmt1.executeQuery( sql1);
-				HashSet<Integer> userSet = new HashSet<Integer>() ;
-				
-				while ( rs1.next() ) {
-					Integer userID  = rs1.getInt("USERID");
-					userSet.add(userID);
-				}
-				
-				result.put(timeStamp,userSet);
-				rs1.close();
-				stmt1.close();
-			}
-			rs.close();
-			stmt.close();
-			c.close();
-		}catch(Exception e){e.printStackTrace();}
-		return result;
-	}
-
-	public static TreeMap< Long, HashSet<Integer>> getWSTJoinUsersOfTimestaps(){
-		
-		TreeMap< Long, HashSet<Integer>> result = new TreeMap< Long, HashSet<Integer>>();
-		Connection c = null;
-		Statement stmt = null, stmt1 = null;
-		try {		
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());	      
-			c.setAutoCommit(false);
-			stmt = c.createStatement();
-			stmt1 = c.createStatement();
-			
-			String sql="SELECT  DISTINCT WSTJ.TIMESTAMP FROM WSTJ ";
-			ResultSet rs = stmt.executeQuery( sql);
-
-			
-			while ( rs.next() ) {
-				Long timeStamp  = rs.getLong("TIMESTAMP");
-				String sql1="SELECT WSTJ.USERID FROM WSTJ WHERE WSTJ.TIMESTAMP = " + timeStamp ;
-				ResultSet rs1 = stmt1.executeQuery( sql1);
-				HashSet<Integer> userSet = new HashSet<Integer>() ;
-				
-				while ( rs1.next() ) {
-					Integer userID  = rs1.getInt("USERID");
-					userSet.add(userID);
-				}
-				
-				result.put(timeStamp,userSet);
-				rs1.close();
-				stmt1.close();
-				
-			}
-			rs.close();
-			stmt.close();
-			c.close();
-		}catch(Exception e){e.printStackTrace();}
-		return result;
-	}
-
-	public static TreeMap< Long, HashSet<Integer>> getLRUJoinUsersOfTimestaps(){
-		
-		TreeMap< Long, HashSet<Integer>> result = new TreeMap< Long, HashSet<Integer>>();
-		Connection c = null;
-		Statement stmt = null, stmt1 = null;
-		try {		
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());	      
-			c.setAutoCommit(false);
-			stmt = c.createStatement();
-			stmt1 = c.createStatement();
-			
-			String sql="SELECT DISTINCT LRUJ.TIMESTAMP FROM LRUJ ";
-			ResultSet rs = stmt.executeQuery( sql);
-
-			while ( rs.next() ) {
-				Long timeStamp  = rs.getLong("TIMESTAMP");
-				String sql1="SELECT LRUJ.USERID FROM LRUJ WHERE LRUJ.TIMESTAMP = " + timeStamp ;
-				ResultSet rs1 = stmt1.executeQuery( sql1);
-				HashSet<Integer> userSet = new HashSet<Integer>() ;
-				
-				while ( rs1.next() ) {
-					Integer userID  = rs1.getInt("USERID");
-					userSet.add(userID);
-				}
-				result.put(timeStamp,userSet);
-				rs1.close();
-				stmt1.close();
-				//System.out.println ("time stamp = " + timeStamp + "   users = "+ userSet.toString());
-			}
-			rs.close();
-			stmt.close();
-			c.close();
-		}catch(Exception e){e.printStackTrace();}
-		return result;
-	}
-
-	public static TreeMap< Long, HashSet<Integer>> getPrefectSJoinUsersOfTimestaps(){
-		
-		TreeMap< Long, HashSet<Integer>> result = new TreeMap< Long, HashSet<Integer>>();
-		Connection c = null;
-		Statement stmt = null, stmt1 = null;
-		try {		
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());	      
-			c.setAutoCommit(false);
-			stmt = c.createStatement();
-			stmt1 = c.createStatement();
-			
-			String sql="SELECT DISTINCT WBMJ.TIMESTAMP FROM WBMJ ";
-			ResultSet rs = stmt.executeQuery( sql);
-
-			while ( rs.next() ) {
-				Long timeStamp  = rs.getLong("TIMESTAMP");
-				String sql1="SELECT WBMJ.USERID FROM WBMJ WHERE WBMJ.TIMESTAMP = " + timeStamp ;
-				ResultSet rs1 = stmt1.executeQuery( sql1);
-				HashSet<Integer> userSet = new HashSet<Integer>() ;
-				
-				while ( rs1.next() ) {
-					Integer userID  = rs1.getInt("USERID");
-					userSet.add(userID);
-				}
-				result.put(timeStamp,userSet);
-				rs1.close();
-				stmt1.close();
-			//	System.out.println ("time stamp = " + timeStamp + "   users = "+ userSet.toString());
-			}
-			rs.close();
-			stmt.close();
-			c.close();
-		}catch(Exception e){e.printStackTrace();}
-		return result;
-	}
-
-	public static TreeMap< Long, HashSet<Integer>> getFJoinUsersOfTimestaps(){
-		
-		TreeMap< Long, HashSet<Integer>> result = new TreeMap< Long, HashSet<Integer>>();
-		Connection c = null;
-		Statement stmt = null, stmt1 = null;
-		try {		
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());	      
-			c.setAutoCommit(false);
-			stmt = c.createStatement();
-			stmt1 = c.createStatement();
-			
-			String sql="SELECT DISTINCT FJ.TIMESTAMP FROM FJ ";
-			ResultSet rs = stmt.executeQuery( sql);
-
-			while ( rs.next() ) {
-				Long timeStamp  = rs.getLong("TIMESTAMP");
-				String sql1="SELECT FJ.USERID FROM FJ WHERE FJ.TIMESTAMP = " + timeStamp ;
-				ResultSet rs1 = stmt1.executeQuery( sql1);
-				HashSet<Integer> userSet = new HashSet<Integer>() ;
-				
-				while ( rs1.next() ) {
-					Integer userID  = rs1.getInt("USERID");
-					userSet.add(userID);
-				}
-				result.put(timeStamp,userSet);
-				rs1.close();
-				stmt1.close();
-			//	System.out.println ("time stamp = " + timeStamp + "   users = "+ userSet.toString());
-			}
-			rs.close();
-			stmt.close();
-			c.close();
-		}catch(Exception e){e.printStackTrace();}
-		return result;
-	}
-	
-	public static TreeMap< Long, HashSet<Integer>> getLRUFJoinUsersOfTimestaps(){
-		
-		TreeMap< Long, HashSet<Integer>> result = new TreeMap< Long, HashSet<Integer>>();
-		Connection c = null;
-		Statement stmt = null, stmt1 = null;
-		try {		
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());	      
-			c.setAutoCommit(false);
-			stmt = c.createStatement();
-			stmt1 = c.createStatement();
-			
-			String sql="SELECT DISTINCT LRUFJ.TIMESTAMP FROM LRUFJ ";
-			ResultSet rs = stmt.executeQuery( sql);
-
-			while ( rs.next() ) {
-				Long timeStamp  = rs.getLong("TIMESTAMP");
-				String sql1="SELECT LRUFJ.USERID FROM LRUFJ WHERE LRUFJ.TIMESTAMP = " + timeStamp ;
-				ResultSet rs1 = stmt1.executeQuery( sql1);
-				HashSet<Integer> userSet = new HashSet<Integer>() ;
-				
-				while ( rs1.next() ) {
-					Integer userID  = rs1.getInt("USERID");
-					userSet.add(userID);
-				}
-				result.put(timeStamp,userSet);
-				rs1.close();
-				stmt1.close();
-			//	System.out.println ("time stamp = " + timeStamp + "   users = "+ userSet.toString());
-			}
-			rs.close();
-			stmt.close();
-			c.close();
-		}catch(Exception e){e.printStackTrace();}
-		return result;
-	}
-
-	public static TreeMap< Long, HashSet<Integer>> getRNDFJoinUsersOfTimestaps(){
-		
-		TreeMap< Long, HashSet<Integer>> result = new TreeMap< Long, HashSet<Integer>>();
-		Connection c = null;
-		Statement stmt = null, stmt1 = null;
-		try {		
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());	      
-			c.setAutoCommit(false);
-			stmt = c.createStatement();
-			stmt1 = c.createStatement();
-			
-			String sql="SELECT DISTINCT RNDFJ.TIMESTAMP FROM RNDFJ ";
-			ResultSet rs = stmt.executeQuery( sql);
-
-			while ( rs.next() ) {
-				Long timeStamp  = rs.getLong("TIMESTAMP");
-				String sql1="SELECT RNDFJ.USERID FROM RNDFJ WHERE RNDFJ.TIMESTAMP = " + timeStamp ;
-				ResultSet rs1 = stmt1.executeQuery( sql1);
-				HashSet<Integer> userSet = new HashSet<Integer>() ;
-				
-				while ( rs1.next() ) {
-					Integer userID  = rs1.getInt("USERID");
-					userSet.add(userID);
-				}
-				result.put(timeStamp,userSet);
-				rs1.close();
-				stmt1.close();
-			//	System.out.println ("time stamp = " + timeStamp + "   users = "+ userSet.toString());
-			}
-			rs.close();
-			stmt.close();
-			c.close();
-		}catch(Exception e){e.printStackTrace();}
-		return result;
-	}
-
-	public static TreeMap< Long, HashSet<Integer>> getWBMFJoinUsersOfTimestaps(){
-	
-	TreeMap< Long, HashSet<Integer>> result = new TreeMap< Long, HashSet<Integer>>();
-	Connection c = null;
-	Statement stmt = null, stmt1 = null;
-	try {		
-		Class.forName("org.sqlite.JDBC");
-		c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());	      
-		c.setAutoCommit(false);
-		stmt = c.createStatement();
-		stmt1 = c.createStatement();
-		
-		String sql="SELECT DISTINCT WBMFJ.TIMESTAMP FROM WBMFJ ";
-		ResultSet rs = stmt.executeQuery( sql);
-
-		while ( rs.next() ) {
-			Long timeStamp  = rs.getLong("TIMESTAMP");
-			String sql1="SELECT WBMFJ.USERID FROM WBMFJ WHERE WBMFJ.TIMESTAMP = " + timeStamp ;
-			ResultSet rs1 = stmt1.executeQuery( sql1);
-			HashSet<Integer> userSet = new HashSet<Integer>() ;
-			
-			while ( rs1.next() ) {
-				Integer userID  = rs1.getInt("USERID");
-				userSet.add(userID);
-			}
-			result.put(timeStamp,userSet);
-			rs1.close();
-			stmt1.close();
-		//	System.out.println ("time stamp = " + timeStamp + "   users = "+ userSet.toString());
-		}
-		rs.close();
-		stmt.close();
-		c.close();
-	}catch(Exception e){e.printStackTrace();}
-	return result;
-}
-
-	public static TreeMap< Long, HashSet<Integer>> getLRUFTAJoinUsersOfTimestaps(){
-		
-		TreeMap< Long, HashSet<Integer>> result = new TreeMap< Long, HashSet<Integer>>();
-		Connection c = null;
-		Statement stmt = null, stmt1 = null;
-		try {		
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());	      
-			c.setAutoCommit(false);
-			stmt = c.createStatement();
-			stmt1 = c.createStatement();
-			
-			String sql="SELECT DISTINCT LRUFTAJ.TIMESTAMP FROM LRUFTAJ ";
-			ResultSet rs = stmt.executeQuery( sql);
-
-			while ( rs.next() ) {
-				Long timeStamp  = rs.getLong("TIMESTAMP");
-				String sql1="SELECT LRUFTAJ.USERID FROM LRUFTAJ WHERE LRUFTAJ.TIMESTAMP = " + timeStamp ;
-				ResultSet rs1 = stmt1.executeQuery( sql1);
-				HashSet<Integer> userSet = new HashSet<Integer>() ;
-				
-				while ( rs1.next() ) {
-					Integer userID  = rs1.getInt("USERID");
-					userSet.add(userID);
-				}
-				result.put(timeStamp,userSet);
-				rs1.close();
-				stmt1.close();
-				System.out.println ("time stamp = " + timeStamp + "   users = "+ userSet.toString());
-			}
-			rs.close();
-			stmt.close();
-			c.close();
-		}catch(Exception e){e.printStackTrace();}
-		return result;
-	}
-
-	public static TreeMap< Long, HashSet<Integer>> getRNDFTAJoinUsersOfTimestaps(){
-		
-		TreeMap< Long, HashSet<Integer>> result = new TreeMap< Long, HashSet<Integer>>();
-		Connection c = null;
-		Statement stmt = null, stmt1 = null;
-		try {		
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());	      
-			c.setAutoCommit(false);
-			stmt = c.createStatement();
-			stmt1 = c.createStatement();
-			
-			String sql="SELECT DISTINCT RNDFTAJ.TIMESTAMP FROM RNDFTAJ ";
-			ResultSet rs = stmt.executeQuery( sql);
-
-			while ( rs.next() ) {
-				Long timeStamp  = rs.getLong("TIMESTAMP");
-				String sql1="SELECT RNDFTAJ.USERID FROM RNDFTAJ WHERE RNDFTAJ.TIMESTAMP = " + timeStamp ;
-				ResultSet rs1 = stmt1.executeQuery( sql1);
-				HashSet<Integer> userSet = new HashSet<Integer>() ;
-				
-				while ( rs1.next() ) {
-					Integer userID  = rs1.getInt("USERID");
-					userSet.add(userID);
-				}
-				result.put(timeStamp,userSet);
-				rs1.close();
-				stmt1.close();
-			//	System.out.println ("time stamp = " + timeStamp + "   users = "+ userSet.toString());
-			}
-			rs.close();
-			stmt.close();
-			c.close();
-		}catch(Exception e){e.printStackTrace();}
-		return result;
-	}
-
-	public static TreeMap< Long, HashSet<Integer>> getWBMFTAJoinUsersOfTimestaps(){
-	
-	TreeMap< Long, HashSet<Integer>> result = new TreeMap< Long, HashSet<Integer>>();
-	Connection c = null;
-	Statement stmt = null, stmt1 = null;
-	try {		
-		Class.forName("org.sqlite.JDBC");
-		c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());	      
-		c.setAutoCommit(false);
-		stmt = c.createStatement();
-		stmt1 = c.createStatement();
-		
-		String sql="SELECT DISTINCT WBMFTAJ.TIMESTAMP FROM WBMFTAJ ";
-		ResultSet rs = stmt.executeQuery( sql);
-
-		while ( rs.next() ) {
-			Long timeStamp  = rs.getLong("TIMESTAMP");
-			String sql1="SELECT WBMFTAJ.USERID FROM WBMFTAJ WHERE WBMFTAJ.TIMESTAMP = " + timeStamp ;
-			ResultSet rs1 = stmt1.executeQuery( sql1);
-			HashSet<Integer> userSet = new HashSet<Integer>() ;
-			
-			while ( rs1.next() ) {
-				Integer userID  = rs1.getInt("USERID");
-				userSet.add(userID);
-			}
-			result.put(timeStamp,userSet);
-			rs1.close();
-			stmt1.close();
-		//	System.out.println ("time stamp = " + timeStamp + "   users = "+ userSet.toString());
-		}
-		rs.close();
-		stmt.close();
-		c.close();
-	}catch(Exception e){e.printStackTrace();}
-	return result;
-}
-
-	public static HashMap<Long,Integer> computeErrors (TreeMap< Long, HashSet<Integer>> original , TreeMap< Long, HashSet<Integer>> replica){
-		
-		HashMap<Long,Integer> result=new HashMap<Long, Integer>();
-		
-		Iterator<Long> timeIt= original.keySet().iterator();
-		int t = 0;
-		
-		while(timeIt.hasNext()){
-			
-			Integer error = 0;
-			long timestamp = timeIt.next();
-			
-			// find same timestamps in original and replica
-			HashSet<Integer> originalUsers = original.get(timestamp);
-			HashSet<Integer> replicaUsers = new HashSet<Integer>();
-			if (replica.containsKey(timestamp)) {
-				replicaUsers = replica.get(timestamp);
-			}else { 
-				continue; 
-			}
-			
-			// for users exist in original but not exist in replica
-			Iterator<Integer> originalUserIt= originalUsers.iterator();
-			while(originalUserIt.hasNext()){
-				Integer userId = originalUserIt.next();
-				if( !replicaUsers.contains(userId)){
-					error ++;
-				}
-			}
-			
-			// for users exist in replica but not exist in original
-			Iterator<Integer> replicaUserIt= replicaUsers.iterator();
-			while(replicaUserIt.hasNext()){
-				Integer userId = replicaUserIt.next();
-				if( !originalUsers.contains(userId)){
-					error ++;
-				}
-			}
-			t++;
-			result.put(timestamp, error);
-			if ( t< 10){
-			//System.out.println("time stamp = " + timestamp );
-			//System.out.println("\noriginal users = " + originalUsers.toString() );
-			//System.out.println("replica users =  " + replicaUsers.toString() );
-			//System.out.println("error" + error + "\n\n\n");
-			}
-			
-		}
-		return result;
-		
 	}
 
 	public static HashMap<Long,Double> computeErrorsJaccardIndex (TreeMap< Long, HashSet<Integer>> original , TreeMap< Long, HashSet<Integer>> replica){
@@ -1192,18 +455,274 @@ public class ResultAnalyser {
 		return result;
 	}//--select X.TIMESTAMP,X.ERROR from (SELECT OJ.TIMESTAMP FROM OJ group by OJ.TIMESTAMP) as Y LEFT Outer join (SELECT SJ.TIMESTAMP as TIMESTAMP , COUNT(*) as ERROR FROM SJ,OJ  WHERE SJ.USERID=OJ.USERID AND SJ.TIMESTAMP=OJ.TIMESTAMP AND SJ.FOLLOWERCOUNT <> OJ.FOLLOWERCOUNT group by OJ.TIMESTAMP) as X on X.TIMESTAMP=Y.TIMESTAMP
 	
+	public static void generateOutputForBoxploting(String [] index){
+		
+
+		try{
+			BufferedWriter bw=new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compareMultipleExperiments.csv")));
+			int minLineNum = 75;
+
+			// find minimum line between all files
+//			for (int i=0 ; i < index.length ; i++){
+//			
+//				for ( int db = 1 ; db<= Config.INSTANCE.getDatabaseNumber() ; db++){
+//					
+//					LineNumberReader  lnr = new LineNumberReader(new FileReader(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compareMultipleAlpha_"+ db +"_" + index[i] + ".csv")));
+//					lnr.skip(Long.MAX_VALUE);
+//					if ( lnr.getLineNumber() < minLineNum){
+//						minLineNum = lnr.getLineNumber();
+//					}
+//					System.out.println(minLineNum);
+//					lnr.close(); 
+//				}
+//			}
+			
+			String lineToWrite = "", firstLineToWrite = ""; String line ="";
+			
+			for ( int db = 1 ; db<= Config.INSTANCE.getDatabaseNumber() ; db++){
+
+				lineToWrite = " ," + db + ", ,";
+				for (int i=0 ; i < index.length ; i++){
+					
+					BufferedReader br=new BufferedReader(new FileReader(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compareMultipleAlpha_"+ db +"_" + index[i] + ".csv")));
+				
+					if ( db == 1 && i == 0){
+						String firstLine = br.readLine();
+						bw.write( firstLine  + "\n");
+					}
+					
+					for( int k =0; k< minLineNum; k++){
+						line = br.readLine();
+					}
+					//System.out.println("line of db"+db +"_"+ index[i] + " = " + line);
+					bw.write(line + ", ,");
+					
+					br.close();
+
+				}
+				
+				bw.write("\n");
+			}
+			//br.close();
+			bw.close();
+		}catch(Exception e){e.printStackTrace();}
+	}
+	
+	public static void analysisExperimentScoringAlgorithm(){
+		
+		try{
+			insertResultToDB();
+			BufferedWriter bw=new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_alpha.csv")));
+			TreeMap<Long,Integer> oracleCount=computeOJoin();
+
+			//use Jaccard Index for computing errors
+
+			
+			HashMap<Long,Double> LRUFSAError=computeErrorsJaccardIndex(getUsersOfTimestaps("OJ") , getUsersOfTimestaps("LRUFSAJ") );
+			HashMap<Long,Double> RNDFSAError=computeErrorsJaccardIndex(getUsersOfTimestaps("OJ") , getUsersOfTimestaps("RNDFSAJ") );
+			HashMap<Long,Double> WBMFSAError=computeErrorsJaccardIndex(getUsersOfTimestaps("OJ") , getUsersOfTimestaps("WBMFSAJ") );
+			
+			Iterator<Long> itO = oracleCount.keySet().iterator();
+			bw.write("timestampe,Oracle,LRU.F.SA,RND.F.SA,WBM.F.SA\n");
+
+			Double cOC=0.0, clrufsae =0.0 ,crndfsae =0.0 ,cwbmfsae =0.0;
+			while(itO.hasNext()){
+				
+				long nextTime = itO.next();
+				Integer OC=oracleCount.get(nextTime);
+				
+				Double lrufsae = LRUFSAError.get(nextTime);
+				Double rndfsae = RNDFSAError.get(nextTime);
+				Double wbmfsae = WBMFSAError.get(nextTime);
+
+				//cumulative error
+				cOC=cOC + OC ; 
+				clrufsae = clrufsae + (lrufsae= lrufsae==null?0:lrufsae) ;
+				crndfsae = crndfsae + (rndfsae= rndfsae==null?0:rndfsae) ;
+				cwbmfsae = cwbmfsae + (wbmfsae= wbmfsae==null?0:wbmfsae) ;
+				
+				
+				bw.write(nextTime+","+String.format("%.2f",cOC)+
+						","+ String.format("%.2f",(clrufsae==null?0:clrufsae))+
+						","+ String.format("%.2f",(crndfsae==null?0:crndfsae))+
+						","+ String.format("%.2f",(cwbmfsae==null?0:cwbmfsae))+"\n");
+
+				
+			}
+			bw.flush();
+			bw.close();
+		}catch(Exception e){e.printStackTrace();}
+		
+	}
+
+	public static void analysisExperimentScoringAlgorithmMerge(String [] alpha , String percentage , String db){
+		
+		try {
+			
+			BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compareMultipleAlpha_"+ db + "_" + percentage + ".csv")));
+			String writeLine = "timestampe,Oracle,WST,RND,WBM,LRU,Filter,LRU.F,RND.F,WBM.F" ;
+			for ( int i = 0 ; i < alpha.length ; i++){
+				writeLine = writeLine.concat (",LRU.F.SA." + alpha[i] + ",RND.F.SA." + alpha[i] + ",WBM.F.SA." + alpha[i]  ) ;
+			}
+			writeLine = writeLine.concat ("\n");
+			bw.write(writeLine);
+			
+			writeLine = "";
+			String line ="";
+			
+			for ( int e = 0 ; e <= Config.INSTANCE.getExperimentIterationNumber() ; e++){
+				
+				BufferedReader br1=new BufferedReader(new FileReader(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare.csv")));
+
+				for( int k =0;k<=e; k++){
+					line = br1.readLine();
+				}
+				if (e==0){
+					continue;
+				}
+				if (line == null){
+					line = " , ,0,0,0,0,0,0,0,0";
+				}
+				writeLine = line;
+				for ( int i = 0 ; i < alpha.length ; i++){
+					
+					BufferedReader br2=new BufferedReader(new FileReader(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_alpha_" + db + "_"+ percentage + "_" + alpha[i] +".csv")));
+					
+					for( int k =0;k<=e; k++){
+						line = br2.readLine();
+					}
+					if (e==0){
+						continue;
+					}
+					if (line == null){
+						line = "0,0,0,0,0";
+					}
+					String [] lineSplit = line.split(",| ");
+					writeLine = writeLine.concat("," + lineSplit[2] + "," + lineSplit[3] + "," + lineSplit[4] );
+					
+				}
+				writeLine = writeLine.concat ("\n");
+				bw.write(writeLine);
+			}
+			bw.close();
+		
+		
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				
+	}
+	
+	public static void analysisMultipleExperimentsScoringAlgorithm(String [] alpha ,String index ){
+		
+		try{
+			
+			BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compareMultipleAlpha_" + index + ".csv")));
+			String writeLine = "timestampe,WST Min,RND Min,WBM Min,LRU Min,Filter Min,LRU.F Min,RND.F Min,WBM.F Min" ;
+			for ( int i = 0 ; i < alpha.length ; i++){
+				writeLine = writeLine.concat (",LRU.F.SA." + alpha[i] + " Min,RND.F.SA." + alpha[i] + "Min ,WBM.F.SA." + alpha[i]+ " Min"  ) ;
+			}
+			writeLine = writeLine.concat ("WST Min,RND Max,WBM Max,LRU Max,Filter Max,LRU.F Max,RND.F Max,WBM.F Max");
+			
+			for ( int i = 0 ; i < alpha.length ; i++){
+				writeLine = writeLine.concat (",LRU.F.SA." + alpha[i] + " Max,RND.F.SA." + alpha[i] + "Max ,WBM.F.SA." + alpha[i]+ " Max"  ) ;
+			}
+			writeLine = writeLine.concat ("WST Avg,RND Avg,WBM Avg,LRU Avg,Filter Avg,LRU.F Avg,RND.F Avg,WBM.F Avg");
+			for ( int i = 0 ; i < alpha.length ; i++){
+				writeLine = writeLine.concat (",LRU.F.SA." + alpha[i] + " Avg,RND.F.SA." + alpha[i] + "Avg ,WBM.F.SA." + alpha[i]+ " Avg"  ) ;
+			}
+			writeLine = writeLine.concat ("\n");
+			bw.write(writeLine);
+
+			Double [] err = new Double[1 + 3 * (8 + 3* alpha.length)] ;
+			Double [] Min = new Double[1 + 3 * (8 + 3* alpha.length)] ; 
+			Double [] Max = new Double[1 + 3 * (8 + 3* alpha.length)] ;
+			Double [] Avg = new Double[1 + 3 * (8 + 3* alpha.length)] ;
+			Double [] Sum = new Double[1 + 3 * (8 + 3* alpha.length)] ;
+			long nextTime = 0 ;
+			int splitNum = 0;
+			String line = "";
+			for ( int e = 0 ; e <=75  ; e++){   //Config.INSTANCE.getExperimentIterationNumber() ; e++){
+				
+				int nullLine = 0;
+				for ( int db = 1 ; db<= Config.INSTANCE.getDatabaseNumber() ; db++){
+					
+					BufferedReader br2=new BufferedReader(new FileReader(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compareMultipleAlpha_"+ db +"_" + index + ".csv")));
+					
+					for( int k =0;k<=e; k++){
+						line = br2.readLine();
+					}
+					if (e==0){
+						continue;
+					}
+					if (line == null){
+						nullLine ++;
+						System.out.println("iteration = " + e + "   database = " + db  +"   null line = "+ nullLine);
+						continue ;
+					}
+					String [] lineSplit = line.split(",| ");
+					splitNum = lineSplit.length;
+					System.out.println(splitNum);
+					for ( int i = 0 ; i < splitNum ; i++ ){
+						Min[i] = Double.MAX_VALUE;
+						Max[i] = 0.0;
+						Avg[i] = 0.0;
+						Sum[i] = 0.0;
+					}
+					for ( int i = 0 ; i < splitNum ; i++ ){
+						if ( i == 0){
+							nextTime = Long.parseLong(lineSplit[i]);
+						}
+						else if (i == 1){
+							continue;
+						}
+						else{
+							err[i] = Double.parseDouble(lineSplit[i]);
+							if (err[i] < Min[i] )  Min[i] = err[i];
+							if (err[i] > Max [i])  Max [i]= err[i];
+							Sum[i] +=err[i];
+						}
+					}
+					br2.close();	
+				}
+			
+				int totalNum = Config.INSTANCE.getDatabaseNumber() - nullLine;
+				writeLine = "";
+				for ( int i = 0 ; i < splitNum ; i++ ){
+				Avg [i] = Sum[i] / totalNum;
+				}
+				
+				writeLine = String.valueOf (nextTime)  ;
+				for ( int i = 0 ; i < splitNum ; i++ )
+					writeLine = writeLine.concat( "," + Min[i]);
+				for ( int i = 0 ; i < splitNum ; i++ )
+					writeLine = writeLine.concat( "," + Max[i]);
+				for ( int i = 0 ; i < splitNum ; i++ )
+					writeLine = writeLine.concat( "," + Avg[i]);
+				
+				writeLine = writeLine.concat ("\n");
+				bw.write(writeLine);
+	
+				for ( int i = 0 ; i < splitNum ; i++ ){
+					Min[i] = Double.MAX_VALUE;
+					Max[i] = Double.MIN_VALUE;
+					Avg[i] = 0.0;
+					Sum[i] = 0.0;
+				}
+			}
+			bw.close();
+			
+		}catch(Exception e){e.printStackTrace();}
+		
+	}
 	
 	public static void main(String[] args){
 		
-		String srcDB = Config.INSTANCE.getDatasetDb();
-		String desDB = srcDB.split("\\.")[0]+"_2.db" ;
-		Config.INSTANCE.setDatasetDb(desDB);
-//		ResultAnalyser.analysisExperimentJaccard();
-//		System.out.println ("  R join"); 
-//		HashMap<Long,Integer> RError=computeErrors (getOracleUsersOfTimestaps() , getRJoinUsersOfTimestaps() );
-//		System.out.println ("  DW join ");
-//		HashMap<Long,Integer> DWError=computeErrors (getOracleUsersOfTimestaps() , getDWJoinUsersOfTimestaps() );
-		HashMap<Long,Double> SpError= computeErrorsJaccardIndex  (getOracleUsersOfTimestaps() , getPrefectSJoinUsersOfTimestaps() );
+		
+		String [] index = { "10", "20", "25", "30" , "40" , "50" , "60" ,"70" };
+		generateOutputForBoxploting(index);
+
 
 	}
 

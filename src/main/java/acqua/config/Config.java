@@ -93,5 +93,13 @@ public class Config {
 	public Integer getDatabaseNumber(){
 		return config.getInt("database.number");
 	}
+	
+	public void setAlpha(float a){
+		config.setProperty("alpha", a);
+	} 
+	
+	public float getAlpha(){
+		return config.getFloat("alpha");
+	}
 
 }
