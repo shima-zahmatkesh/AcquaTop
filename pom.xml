@@ -59,5 +59,14 @@
 			<artifactId>commons-configuration</artifactId>
 			<version>1.10</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.jena</groupId>
+<!-- 			<artifactId>jena-arq-Percentile</artifactId> -->
+ 			<artifactId>jena-arq</artifactId>
+			<version>2.11.1</version>
+		</dependency>
+		
+		
 	</dependencies>
 </project>
