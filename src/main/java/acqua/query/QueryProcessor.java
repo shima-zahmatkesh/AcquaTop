@@ -4,6 +4,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -19,6 +23,10 @@ import acqua.query.join.acqua.LRUJoinOperator;
 import acqua.query.join.acqua.OracleJoinOperator;
 import acqua.query.join.acqua.RNDJoinOperator;
 import acqua.query.join.acqua.WBMJoinOperator;
+import acqua.query.join.cache.FilterCOperator;
+import acqua.query.join.cache.LRUCOperator;
+import acqua.query.join.cache.WBMCOperator;
+import acqua.query.join.partialView.FilterPVOperator;
 import acqua.query.join.scoringCombine.LRUFSAOperator;
 import acqua.query.join.scoringCombine.RNDFSAOperator;
 import acqua.query.join.scoringCombine.WBMFSAOneListOperator;
@@ -45,7 +53,7 @@ public class QueryProcessor {
 	public void evaluateQuery(int joinType){
 		
 		//Oracle
-		if(joinType==1)
+		if(joinType==6)
 			join=new OracleJoinOperator();
 		//WST
 		if(joinType==2)
@@ -60,28 +68,28 @@ public class QueryProcessor {
 		if(joinType==5)
 			join=new LRUJoinOperator(Config.INSTANCE.getUpdateBudget());
 		//Filter
-		if(joinType==6)
+		if(joinType==1)
 			join=new FilterJoinOperator(Config.INSTANCE.getUpdateBudget());
 		//LRU.F
-		if(joinType==9)
-			join=new LRUFOperator(Config.INSTANCE.getUpdateBudget());
-		//RND.F
-		if(joinType==8)
-			join=new RNDFOperator(Config.INSTANCE.getUpdateBudget());
-		//WBM.F
 		if(joinType==7)
+			join=new LRUFOperator(Config.INSTANCE.getUpdateBudget());
+		//WBM.F
+		if(joinType==8)
 			join=new WBMFOperator(Config.INSTANCE.getUpdateBudget(), true);
+		//RND.F
+		if(joinType==9)
+			join=new RNDFOperator(Config.INSTANCE.getUpdateBudget());
 		
 		//LRU.F.SA
 		if(joinType==10)
 			join=new LRUFSAOperator(Config.INSTANCE.getUpdateBudget());
 		//RND.F.SA
-		if(joinType==11)
+		if(joinType==12)
 			join=new RNDFSAOperator(Config.INSTANCE.getUpdateBudget());
 		//WBM.F.SA
-		if(joinType==12)
+		if(joinType==11)
 			join=new WBMFSAOperator(Config.INSTANCE.getUpdateBudget(), true);		
-		//WBM.F.SA
+		//WBM.F.SA.O
 		if(joinType==13)
 			join=new WBMFSAOneListOperator(Config.INSTANCE.getUpdateBudget(), true);	
 		
@@ -96,6 +104,19 @@ public class QueryProcessor {
 		if(joinType==16)
 			join=new WBMFTAOperator(Config.INSTANCE.getUpdateBudget(), true);
 		
+		//FILTER.C
+		if(joinType==17)
+			join=new FilterCOperator(Config.INSTANCE.getUpdateBudget());
+		//LRU.C
+		if(joinType==18)
+			join=new LRUCOperator(Config.INSTANCE.getUpdateBudget());
+		//WBM.C
+		if(joinType==19)
+			join=new WBMCOperator(Config.INSTANCE.getUpdateBudget(), true);
+		
+		//FILTER.PV
+		if(joinType==20)
+			join=new FilterPVOperator(Config.INSTANCE.getUpdateBudget());
 		
 		
 		long time=Config.INSTANCE.getQueryStartingTime()+Config.INSTANCE.getQueryWindowWidth()*1000;
@@ -123,18 +144,27 @@ public class QueryProcessor {
 	public static void main(String[] args){
 		
 		//oneExperiment ();
-		//multiExperiments();
+		//multiExperiments();   //also for partial view-k
 		
-		//percentageMultiExperiment();
-		//budgetMultiExperiment();
 		
 		//percentageExperiment();
 		//budgetExperiment();	
 		
-		scoringExperiment();
-		//scoringMultiExperiment();
-		//scoringSelectivityMultiExperiment();
 		
+		//percentageMultiExperiment();
+		//budgetMultiExperiment();
+		
+		
+		//scoringExperiment();
+		//scoringMultiExperiment();
+		//scoringMultiExperiment_Selectivity();
+		scoringMultiExperiment_Budget();
+		
+		
+		//partialViewMultiExperiment_Selectivity();
+		
+		
+		//correctChangeRate();
 	}
 	
 	private static void oneExperiment(){
@@ -158,13 +188,18 @@ public class QueryProcessor {
 		QueryProcessor qp=new QueryProcessor();	
 		String srcDB = Config.INSTANCE.getDatasetDb();
 		
-		for (int j=1 ; j<= Config.INSTANCE.getDatabaseNumber() ; j++){
+		for (int j=1 ; j<=1 ; j++){ // Config.INSTANCE.getDatabaseNumber() ; j++){
 			 
 			String desDB = srcDB.split("\\.")[0]+"_"+ j +"_25.db" ;
 			Config.INSTANCE.setDatasetDb(desDB);
 			System.out.println("--------------------------- working with database " + desDB + "------------------------------");
 		
-			for(int i=1 ; i < 13 ; i++){
+			for(int i=1 ; i < 4 ; i++){
+				System.out.println("--------------------------Evaluation number = " + i + "----------------------");
+				qp.evaluateQuery(i);
+			}
+			
+			for(int i=20 ; i < 21 ; i++){
 				System.out.println("--------------------------Evaluation number = " + i + "----------------------");
 				qp.evaluateQuery(i);
 			}	
@@ -177,9 +212,9 @@ public class QueryProcessor {
 		}
 		
 		
-		System.out.println("--------------------------Multiple Evaluation start----------------------");
-		ResultAnalyser.analysisMultipleExperimentsJaccard("25");
-		System.out.println("--------------------------Multiple Evaluation end----------------------");
+//		System.out.println("--------------------------Multiple Evaluation start----------------------");
+//		ResultAnalyser.analysisMultipleExperimentsJaccard("25");
+//		System.out.println("--------------------------Multiple Evaluation end----------------------");
 
 	}
 
@@ -187,7 +222,7 @@ public class QueryProcessor {
 		
 		
 		QueryProcessor qp=new QueryProcessor();	
-		String [] percentage = { "10", "20", "25", "30" , "40" , "50"};
+		String [] percentage ={"10", "20", "25", "30" , "40" , "50", "70" , "80" , "90"};    // { "10", "20", "25", "30" , "40" , "50"};
 		String srcDB = Config.INSTANCE.getDatasetDb();			
 		
 		for (int k=1 ; k<= Config.INSTANCE.getDatabaseNumber() ; k++){
@@ -198,7 +233,7 @@ public class QueryProcessor {
 				Config.INSTANCE.setDatasetDb(desDB);
 				System.out.println("--------------------------- working with database " + desDB + "------------------------------");
 			
-				for(int i=1 ; i < 8 ; i++){
+				for(int i=1 ; i < 10 ; i++){
 					System.out.println("--------------------------Evaluation number = " + i + "----------------------");
 					qp.evaluateQuery(i);
 				}	
@@ -266,7 +301,7 @@ public class QueryProcessor {
 		QueryProcessor qp=new QueryProcessor();	
 		String [] budget = { "1", "2", "3", "4" , "5" };
 		String srcDB = Config.INSTANCE.getDatasetDb();
-		String desDB = srcDB.split("\\.")[0]+"_4.db" ;
+		String desDB = srcDB.split("\\.")[0]+"_4_25.db" ;
 		Config.INSTANCE.setDatasetDb(desDB);
 		
 		for (int j=0 ; j < budget.length ; j++){ 
@@ -312,6 +347,7 @@ public class QueryProcessor {
 		}
 	}
 
+	// check different value of alpha
 	private static void scoringExperiment(){
 		
 		
@@ -349,12 +385,12 @@ public class QueryProcessor {
 		
 		
 		QueryProcessor qp=new QueryProcessor();	
-		String [] alpha = {"0", "0.01","0.05", "0.1", "0.15" , "1",  "0.167", "0.333", "0.5", "0.667" , "0.833" };
+		String [] alpha = { "0.167", "0.333", "0.5", "0.667" , "0.833" };
 		String srcDB = Config.INSTANCE.getDatasetDb();
 		
-		for (int k=1 ; k<= Config.INSTANCE.getDatabaseNumber() ; k++){
+		for (int db=1 ; db<= Config.INSTANCE.getDatabaseNumber() ; db++){
 		
-			String desDB = srcDB.split("\\.")[0]+"_"+ k +"_25.db" ;
+			String desDB = srcDB.split("\\.")[0]+"_"+ db +"_25.db" ;
 			Config.INSTANCE.setDatasetDb(desDB);
 			System.out.println("--------------------------- working with database " + desDB + "------------------------------");
 	
@@ -365,7 +401,7 @@ public class QueryProcessor {
 			
 			ResultAnalyser.analysisExperimentJaccard();
 		
-			for (int j=0 ; j < alpha.length ; j++){
+			for (int j = 0 ; j < alpha.length ; j++){
 				
 				Config.INSTANCE.setAlpha(Float.valueOf( alpha[j] ));
 		
@@ -375,11 +411,11 @@ public class QueryProcessor {
 				}
 				
 				ResultAnalyser.analysisExperimentScoringAlgorithm();
-				if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_alpha.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_alpha_"+ alpha[j] +".csv") )
+				if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_alpha.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_alpha_"+ db + "_25_" + alpha[j] +".csv") )
 					break;
 				System.out.println("--------------------------Evaluation done for alpha"  + alpha[j] + "----------------------");
 			}
-			ResultAnalyser.analysisExperimentScoringAlgorithmMerge(alpha , "25" , "4");
+			ResultAnalyser.analysisExperimentScoringAlgorithmMerge(alpha , "25" , String.valueOf(db));
 			
 		}
 		System.out.println("--------------------------Multiple Evaluation start----------------------");
@@ -388,12 +424,12 @@ public class QueryProcessor {
 		
 	}
 
-	private static void scoringSelectivityMultiExperiment(){
+	private static void scoringMultiExperiment_Selectivity(){
 	
 	
 	QueryProcessor qp=new QueryProcessor();	
 	String [] alpha = {"0.167", "0.333", "0.5", "0.667" , "0.833" };
-	String [] percentage = { "10", "20", "25", "30" , "40" , "50" , "60" ,"70" };
+	String [] percentage = { "10", "20", "25", "30" , "40" , "50" , "60" ,"70" ,"80" , "90" };
 	String srcDB = Config.INSTANCE.getDatasetDb();
 	
 	for (int db=1 ; db<= Config.INSTANCE.getDatabaseNumber() ; db++){
@@ -407,7 +443,7 @@ public class QueryProcessor {
 			for (int a=0 ; a < alpha.length ; a++){
 			
 				if ( a == 0){
-					for(int e=1 ; e < 8 ; e++){
+					for(int e=6 ; e < 10 ; e++){
 						System.out.println("--------------------------Evaluation number = " + e + "----------------------");
 						qp.evaluateQuery(e);
 					}
@@ -416,10 +452,10 @@ public class QueryProcessor {
 			
 				Config.INSTANCE.setAlpha(Float.valueOf( alpha[a] ));
 	
-				for(int e=10 ; e < 12 ; e++){
+				for(int e=10 ; e < 14 ; e++){
 					System.out.println("--------------------------Evaluation number = " + e + "----------------------");
 					qp.evaluateQuery(e);
-				}
+				} 
 			
 	
 				ResultAnalyser.analysisExperimentScoringAlgorithm();
@@ -439,4 +475,150 @@ public class QueryProcessor {
 			
 
 	}
+
+	private static void scoringMultiExperiment_Budget(){
+	
+	
+	QueryProcessor qp=new QueryProcessor();	
+	String [] alpha = {"0.167", "0.333", "0.5", "0.667" , "0.833" };
+	String [] budget = { "1", "2",  "3" , "4" , "5" , "6" ,"7" };
+	String srcDB = Config.INSTANCE.getDatasetDb();
+	
+	for (int db=1 ; db<= Config.INSTANCE.getDatabaseNumber() ; db++){
+	
+		System.out.println("----------------------------------- working with db " + db + "-------------------------------------");
+
+		for (int b=0 ; b < budget.length ; b++){
+			
+			Config.INSTANCE.setUpdateBudget( budget[b]);
+			 
+			String desDB = srcDB.split("\\.")[0]+"_"+ db +"_25.db" ;
+			Config.INSTANCE.setDatasetDb(desDB);
+			System.out.println("-------------- working with budget " + budget[b] + "------------");
+	
+			for(int e=6 ; e < 10 ; e++){
+				System.out.println("-----Evaluation number = " + e + "-----");
+				qp.evaluateQuery(e);
+			}
+			ResultAnalyser.analysisExperimentJaccard();
+			
+			
+			for (int a=0 ; a < alpha.length ; a++){
+			
+				Config.INSTANCE.setAlpha(Float.valueOf( alpha[a] ));
+	
+//				for(int e=10 ; e < 14 ; e++){
+//					System.out.println("-----Evaluation number = " + e + "-----");
+//					qp.evaluateQuery(e);
+//				}
+			
+	
+				ResultAnalyser.analysisExperimentScoringAlgorithm();
+				if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_alpha.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_alpha_"+ db + "_"+ budget[b] + "_" + alpha[a] +".csv") )
+					break;
+				//System.out.println("-------Evaluation done for alpha"  + alpha[a] + "-----");
+			}
+			
+			ResultAnalyser.analysisExperimentScoringAlgorithmMerge(alpha , budget[b] , String.valueOf(db) );
+		}
+	}
+	
+	for (int b=0 ; b < budget.length ; b++){
+		System.out.println("--------------------------Multiple Evaluation start----------------------");
+		ResultAnalyser.analysisMultipleExperimentsScoringAlgorithm(alpha ,budget[b]);
+		System.out.println("--------------------------Multiple Evaluation end----------------------");
+	}
+			
+
+	}
+
+	private static void partialViewMultiExperiment_Selectivity(){
+		
+		
+		QueryProcessor qp=new QueryProcessor();	
+		int [] k = {3, 5, 7, 10, 20, 50, 100, 1000, 10000 };
+		String [] percentage = { "10", "20", "25", "30" , "40" , "50" , "60" ,"70" };
+		String srcDB = Config.INSTANCE.getDatasetDb();
+		
+		for (int db=1 ; db<= Config.INSTANCE.getDatabaseNumber() ; db++){
+		
+			for (int p=0 ; p < percentage.length ; p++){
+			
+				String desDB = srcDB.split("\\.")[0]+"_"+ db +"_"+ percentage[p] +".db" ;
+				Config.INSTANCE.setDatasetDb(desDB);
+				System.out.println("--------------------------- working with database " + desDB + "------------------------------");
+		
+				for(int i=0 ; i < k.length ; i++){
+					System.out.println("--------------------------Evaluation for k = " + k[i]+ "----------------------");
+					Config.INSTANCE.setKThreshold(k[i]);
+					qp.evaluateQuery(1);
+					qp.evaluateQuery(20);
+					ResultAnalyser.analysisPartialViewExperiment();
+					if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_k_" + db + "_"+ percentage[p] + "_" + k[i] +".csv") )
+						break;
+				
+				}
+				ResultAnalyser.analysisPartialViewExperimentMerge(k, percentage[p], db);
+			}
+		}			
+	
+	}
+	
+	
+	
+	
+	
+	// adding the change rate for the users whose change rate is equal to zero based on the information in the DB, 
+	// but due to the formula that use this change rate, it can't be equal to zero
+	private static void correctChangeRate(){
+	
+	Connection c = null;
+	Statement stmt = null;
+	try {
+		Class.forName("org.sqlite.JDBC");
+		String srcDB = Config.INSTANCE.getDatasetDb();
+		String [] percentage = { "10", "20", "25", "30" , "40" , "50" , "60" ,"70" , "80" , "90" };
+		
+		for (int db=1 ; db<= Config.INSTANCE.getDatabaseNumber() ; db++){
+		
+			for (int p=0 ; p < percentage.length ; p++){
+				 
+				String desDB = srcDB.split("\\.")[0]+"_"+ db +"_"+ percentage[p] +".db" ;
+				Config.INSTANCE.setDatasetDb(desDB);
+		
+				c = DriverManager.getConnection(desDB);
+				
+				stmt = c.createStatement();
+				String sql = "INSERT INTO USER (USERID,  CHANGERATE)  "+
+				"VALUES ( 9007322, 0.0001 ) , "+
+				" ( 175295203, 0.0001 ), "+
+				" ( 44396034, 0.0001 ), "+
+				" ( 219452444, 0.0001 ), "+
+				" ( 11831752, 0.0001 ), "+
+				" ( 16497947, 0.0001 ), "+
+				" ( 231549941, 0.0001 ), "+
+				" ( 81632884, 0.0001 ), "+
+				" ( 18694134, 0.0001 ), "+
+				" ( 182031748, 0.0001 ), "+
+				" ( 234484328, 0.0001 ), "+
+				" ( 18685577, 0.0001 ), "+
+				" ( 38695381, 0.0001 ), "+
+				" ( 17820399, 0.0001 ) ";
+				
+				
+				stmt.executeUpdate( sql);
+				
+				System.out.println("query run on " + desDB);
+				stmt.close();
+				c.close();
+			
+			}
+		}
+	} catch ( Exception e ) {
+		System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+		System.exit(0);
+	}
+}
+
+
 }

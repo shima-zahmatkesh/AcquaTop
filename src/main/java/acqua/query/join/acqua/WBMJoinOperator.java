@@ -243,7 +243,7 @@ public class WBMJoinOperator extends ApproximateJoinOperator{
 		 ******************/
 
 		Iterator<User> expiredIt = expired.iterator();
-		Iterator<User> notExpiredIt = notExpired.iterator();
+		
 		int counter=0;
 		int countHit=0;
 		while(expiredIt.hasNext() && counter<updateBudget){
@@ -272,7 +272,9 @@ public class WBMJoinOperator extends ApproximateJoinOperator{
 		 ***********************************/
 
 		if(result.size()<updateBudget){
+			
 			Collections.sort(notExpired, new CandidateComparator());
+			Iterator<User> notExpiredIt = notExpired.iterator();
 			
 			while(notExpiredIt.hasNext()&&counter<updateBudget){
 				User temp=notExpiredIt.next();
@@ -290,15 +292,15 @@ public class WBMJoinOperator extends ApproximateJoinOperator{
 				counter++;
 			}
 		}
-		//System.out.println("skipped users: ");		
-		while(expiredIt.hasNext()){
-			User temp= expiredIt.next();
-			//System.out.printf("Expired: id "+temp.userId+" >>estimatedexp >> %d changerate>> "+userChangeRates.get(temp.userId)+" cachedvalue>> "+followerReplica.get(temp.userId)+" actualValue "+TwitterFollowerCollector.getUserFollowerFromDB(evaluationTime, temp.userId)+" \n",(evaluationTime - temp.nextExpirationTime)/60000);		
-		}
-		while(notExpiredIt.hasNext()){
-			User temp= notExpiredIt.next();
-			//System.out.printf("NOT Expired: id "+temp.userId+" >>estimatedexp >> %d changerate>> "+userChangeRates.get(temp.userId)+" cachedvalue>> "+followerReplica.get(temp.userId)+" actualValue "+TwitterFollowerCollector.getUserFollowerFromDB(evaluationTime, temp.userId)+" \n",(evaluationTime - temp.nextExpirationTime)/60000);
-		}
+//		//System.out.println("skipped users: ");		
+//		while(expiredIt.hasNext()){
+//			User temp= expiredIt.next();
+//			//System.out.printf("Expired: id "+temp.userId+" >>estimatedexp >> %d changerate>> "+userChangeRates.get(temp.userId)+" cachedvalue>> "+followerReplica.get(temp.userId)+" actualValue "+TwitterFollowerCollector.getUserFollowerFromDB(evaluationTime, temp.userId)+" \n",(evaluationTime - temp.nextExpirationTime)/60000);		
+//		}
+//		while(notExpiredIt.hasNext()){
+//			User temp= notExpiredIt.next();
+//			//System.out.printf("NOT Expired: id "+temp.userId+" >>estimatedexp >> %d changerate>> "+userChangeRates.get(temp.userId)+" cachedvalue>> "+followerReplica.get(temp.userId)+" actualValue "+TwitterFollowerCollector.getUserFollowerFromDB(evaluationTime, temp.userId)+" \n",(evaluationTime - temp.nextExpirationTime)/60000);
+//		}
 		/*******************************
 		 * Compute and store the stats *
 		 *******************************/

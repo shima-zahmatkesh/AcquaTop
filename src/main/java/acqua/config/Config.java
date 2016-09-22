@@ -102,4 +102,26 @@ public class Config {
 		return config.getFloat("alpha");
 	}
 
+	public Integer getCacheSize(){
+		return config.getInt("service.cache.size");
+	}
+	
+	public String getCacheType(){
+		return config.getString("service.cache.type");
+	}
+	
+	public Boolean getEnableCache(){
+		if(config.getString("service.cache.enabled").equals("true"))
+			return true;
+		return false;
+		
+	}
+	
+	public Long getKThreshold(){
+		return config.getLong("k.threshold");
+	}
+	
+	public void setKThreshold(long k){
+		config.setProperty("k.threshold" , k);
+	}
 }

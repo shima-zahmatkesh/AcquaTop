@@ -572,7 +572,7 @@ public class TwitterFollowerCollector {
 				
 			    long randomNum = rand.nextInt(100);
 				//System.out.println("randomNum = " +  randomNum);
-			    if (randomNum < 70){
+			    if (randomNum < 100){
 			   
 					HashMap<Long,Integer> followerList = getFollowerListOfUser(desDB , userID);	
 					int minFollowerNum = getMinFollowerOfUser (followerList);
@@ -766,4 +766,36 @@ public class TwitterFollowerCollector {
 		}
 	}
 
+	
+	public static HashMap<Long,String> getInitialUserFollowersFromDBForCache(){
+		HashMap<Long,String> result=new HashMap<Long, String>();
+		Connection c = null;
+		Statement stmt = null;
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());
+			c.setAutoCommit(false);
+			stmt = c.createStatement();
+			String sql="SELECT B.USERID, B.FOLLOWERCOUNT, A.MINTS"+
+					" FROM (SELECT USERID, MIN(TIMESTAMP) AS MINTS  FROM BKG  " + 
+					" GROUP BY USERID) A JOIN BKG B ON A.USERID=B.USERID AND A.MINTS=B.TIMESTAMP";
+			
+			ResultSet rs = stmt.executeQuery( sql);
+			while ( rs.next() ) {
+				long userId = rs.getLong("USERID");
+				int followerCount  = rs.getInt("FOLLOWERCOUNT");
+				long timeStamp = rs.getLong("MINTS");
+				if (followerCount >=  ( Config.INSTANCE.getQueryFilterThreshold() - Config.INSTANCE.getQueryDifferenceThreshold() ) ) {
+					result.put(userId, followerCount+","+timeStamp);
+				}
+			}
+			rs.close();
+			stmt.close();
+			c.close();
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+			System.exit(0);
+		}
+		return result;
+	}
 }
