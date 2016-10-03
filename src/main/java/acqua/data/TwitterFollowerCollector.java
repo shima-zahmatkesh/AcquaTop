@@ -34,6 +34,7 @@ import twitter4j.conf.ConfigurationBuilder;
 
 
 
+
 import java.nio.channels.FileChannel;
 import java.nio.file.Files;
 
@@ -543,14 +544,13 @@ public class TwitterFollowerCollector {
 		//HashMap<Long,Integer> list = tfc.getFollowerListFromDB(time); //gets the first window
 		//int latestFollowerCount = tfc.getUserFollowerFromDB(time, userid);
 		//System.out.println(latestFollowerCount + ">>>"+ list.size());
-		
-		generateNewDB();   //manually copy and paste your source db file and name them xxxx_i.db which xxxx is the name of source file and i is from 1 to 10 
+		generateNewDB(75 , "realtesteveningINC");   //manually copy and paste your source db file and name them xxxx_i.db which xxxx is the name of source file and i is from 1 to 10 and then call the function
 		//copyfile();
 	
 	}
 
 	
-	public static void generateNewDB(){
+	public static void generateNewDB(int percentage , String dbName) {
 	
 		long userID = -1;
 		int[] seeds = {10,11,12,13,14,15,16,17,18,19,20};
@@ -570,7 +570,7 @@ public class TwitterFollowerCollector {
 				//generatingNonDecreasingFollowerCountList (desDB , userID );
 		
 				
-			    long randomNum = rand.nextInt(100);
+			    long randomNum = rand.nextInt(percentage);
 				//System.out.println("randomNum = " +  randomNum);
 			    if (randomNum < 100){
 			   
@@ -583,9 +583,14 @@ public class TwitterFollowerCollector {
 				
 					updateFollowerListOfUser(desDB , userID , randomValue);		
 					
-					//System.out.println("filter = " + Config.INSTANCE.getQueryFilterThreshold()  + "   maxfollowercount = " + maxFollowerNum);
-					//updateFollowerListOfUser(desDB , userID , (maxAddedValue + minAddedValue ) / 2);
+					
 			    }
+			}
+		}
+		for (int j = 1 ; j<=10 ; j++){
+			System.out.println("rename file from    " + Config.INSTANCE.getProjectPath()+ dbName +"_"+ j +".db" + "     to      " + Config.INSTANCE.getProjectPath()+ dbName +"_"+ j +"_"+percentage+".db");
+			if (! renameFile (Config.INSTANCE.getProjectPath()+ dbName +"_"+ j +".db" , Config.INSTANCE.getProjectPath()+ dbName +"_"+ j +"_"+percentage+".db")  ){
+				System.out.println("Error in renaming files");
 			}
 		}
 	}
@@ -797,5 +802,12 @@ public class TwitterFollowerCollector {
 			System.exit(0);
 		}
 		return result;
+	}
+	
+	public static boolean renameFile(String oldFile , String newFile){
+		
+		File oldfile =new File(oldFile);
+		File newfile =new File(newFile);
+		return oldfile.renameTo(newfile);
 	}
 }

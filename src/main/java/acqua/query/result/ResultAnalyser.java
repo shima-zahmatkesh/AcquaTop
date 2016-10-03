@@ -25,6 +25,8 @@ import java.util.TreeMap;
 
 import org.apache.commons.lang.ArrayUtils;
 
+import com.sun.source.tree.ContinueTree;
+
 import acqua.config.Config;
 
 public class ResultAnalyser {
@@ -60,10 +62,10 @@ public class ResultAnalyser {
 			createtable (stmt ,  "RNDFSAJ");
 			createtable (stmt ,  "WBMFSAJ");
 			createtable (stmt ,  "WBMFSAOJ");
-			createtable (stmt ,  "FCJ");
-			createtable (stmt ,  "LRUCJ");
-			createtable (stmt ,  "WBMCJ");
-			createtable (stmt ,  "FPVJ");
+			//createtable (stmt ,  "FCJ");
+			//createtable (stmt ,  "LRUCJ");
+			//createtable (stmt ,  "WBMCJ");
+			//createtable (stmt ,  "FPVJ");
 			
 			putOutputInDatabase( stmt ,"joinOutput/OracleJoinOperatorOutput.txt" , "OJ");
 			putOutputInDatabase( stmt ,"joinOutput/WSTJoinOperatorOutput.txt" , "WSTJ");
@@ -81,10 +83,10 @@ public class ResultAnalyser {
 			putOutputInDatabase( stmt ,"joinOutput/RNDFSAOperatorOutput.txt" , "RNDFSAJ");
 			putOutputInDatabase( stmt ,"joinOutput/WBMFSAOperatorOutput.txt" , "WBMFSAJ");
 			putOutputInDatabase( stmt ,"joinOutput/WBMFSAOneListOperatorOutput.txt" , "WBMFSAOJ");
-			putOutputInDatabase( stmt ,"joinOutput/FilterCOperatorOutput.txt" , "FCJ");
-			putOutputInDatabase( stmt ,"joinOutput/LRUCOperatorOutput.txt" , "LRUCJ");
-			putOutputInDatabase( stmt ,"joinOutput/WBMCOperatorOutput.txt" , "WBMCJ");
-			putOutputInDatabase( stmt ,"joinOutput/FilterPVOperatorOutput.txt" , "FPVJ");
+			//putOutputInDatabase( stmt ,"joinOutput/FilterCOperatorOutput.txt" , "FCJ");
+			//putOutputInDatabase( stmt ,"joinOutput/LRUCOperatorOutput.txt" , "LRUCJ");
+			//putOutputInDatabase( stmt ,"joinOutput/WBMCOperatorOutput.txt" , "WBMCJ");
+			//putOutputInDatabase( stmt ,"joinOutput/FilterPVOperatorOutput.txt" , "FPVJ");
 			
 			
 			stmt.close();
@@ -152,16 +154,16 @@ public class ResultAnalyser {
 			HashMap<Long,Double> WBMFError=computeErrorsJaccardIndex(getUsersOfTimestaps("OJ"), getUsersOfTimestaps("WBMFJ") );
 			
 		
-			HashMap<Long,Double> FCError=computeErrorsJaccardIndex(getUsersOfTimestaps("OJ") , getUsersOfTimestaps("FCJ") );
-			HashMap<Long,Double> LRUCError=computeErrorsJaccardIndex(getUsersOfTimestaps("OJ") , getUsersOfTimestaps("LRUCJ") );
-			HashMap<Long,Double> WBMCError=computeErrorsJaccardIndex(getUsersOfTimestaps("OJ"), getUsersOfTimestaps("WBMCJ") );
+			//HashMap<Long,Double> FCError=computeErrorsJaccardIndex(getUsersOfTimestaps("OJ") , getUsersOfTimestaps("FCJ") );
+			//HashMap<Long,Double> LRUCError=computeErrorsJaccardIndex(getUsersOfTimestaps("OJ") , getUsersOfTimestaps("LRUCJ") );
+			//HashMap<Long,Double> WBMCError=computeErrorsJaccardIndex(getUsersOfTimestaps("OJ"), getUsersOfTimestaps("WBMCJ") );
 			
-			HashMap<Long,Double> FPVError=computeErrorsJaccardIndex(getUsersOfTimestaps("OJ") , getUsersOfTimestaps("FPVJ") );
+			//HashMap<Long,Double> FPVError=computeErrorsJaccardIndex(getUsersOfTimestaps("OJ") , getUsersOfTimestaps("FPVJ") );
 
 			
 			Iterator<Long> itO = oracleCount.keySet().iterator();
-			bw.write("timestampe,Oracle,WST,RND,WBM,LRU,Filter,LRU.F,RND.F,WBM.F,FC,LRUC, WBMC ,FPV\n");
-
+		//	bw.write("timestampe,Oracle,WST,RND,WBM,LRU,Filter,LRU.F,RND.F,WBM.F,FC,LRUC, WBMC ,FPV\n");
+			bw.write("timestampe,Oracle,WST,RND,WBM,LRU,Filter,LRU.F,RND.F,WBM.F\n");
 			Double cOC=0.0, cwste=0.0, crnde=0.0,cwbme=0.0, clrue=0.0, cfe=0.0 ,clrufe =0.0 ,crndfe =0.0 ,cwbmfe =0.0,clruce =0.0 ,cfce =0.0 ,cwbmce =0.0 , cfpve = 0.0 ;
 			while(itO.hasNext()){
 				
@@ -176,11 +178,11 @@ public class ResultAnalyser {
 				Double rndfe = RNDFError.get(nextTime);
 				Double wbmfe = WBMFError.get(nextTime);
 				
-				Double lruce = LRUCError.get(nextTime);
-				Double fce = FCError.get(nextTime);
-				Double wbmce = WBMCError.get(nextTime);
+				//Double lruce = LRUCError.get(nextTime);
+				//Double fce = FCError.get(nextTime);
+				//Double wbmce = WBMCError.get(nextTime);
 				
-				Double fpve = FPVError.get(nextTime);
+				//Double fpve = FPVError.get(nextTime);
 
 				//cumulative error
 				cOC=cOC + OC ; 
@@ -193,11 +195,11 @@ public class ResultAnalyser {
 				crndfe = crndfe + (rndfe= rndfe==null?0:rndfe) ;
 				cwbmfe = cwbmfe + (wbmfe= wbmfe==null?0:wbmfe) ;
 				
-				clruce = clruce + (lruce= lruce==null?0:lruce) ;
-				cfce = cfce + (fce= fce==null?0:fce) ;
-				cwbmce = cwbmce + (wbmce= wbmce==null?0:wbmce) ;
+			//	clruce = clruce + (lruce= lruce==null?0:lruce) ;
+			//	cfce = cfce + (fce= fce==null?0:fce) ;
+			//	cwbmce = cwbmce + (wbmce= wbmce==null?0:wbmce) ;
 				
-				cfpve = cfpve + (fpve= fpve==null?0:fpve) ;
+			//	cfpve = cfpve + (fpve= fpve==null?0:fpve) ;
 				
 				
 				bw.write(nextTime+","+String.format("%.2f",cOC)+
@@ -208,11 +210,11 @@ public class ResultAnalyser {
 						","+ String.format("%.2f",(cfe==null?0:cfe))+
 						","+ String.format("%.2f",(clrufe==null?0:clrufe))+
 						","+ String.format("%.2f",(crndfe==null?0:crndfe))+
-						","+ String.format("%.2f",(cwbmfe==null?0:cwbmfe))+
-						","+ String.format("%.2f",(clruce==null?0:clruce))+
-						","+ String.format("%.2f",(cfce==null?0:cfce))+
-						","+ String.format("%.2f",(cwbmce==null?0:cwbmce))+
-						","+ String.format("%.2f",(cfpve==null?0:cfpve))+"\n");
+						","+ String.format("%.2f",(cwbmfe==null?0:cwbmfe))+"\n");
+						//","+ String.format("%.2f",(clruce==null?0:clruce))+
+						//","+ String.format("%.2f",(cfce==null?0:cfce))+
+						//","+ String.format("%.2f",(cwbmce==null?0:cwbmce))+
+						//","+ String.format("%.2f",(cfpve==null?0:cfpve))+"\n");
 				
 			}
 			bw.flush();
@@ -227,13 +229,14 @@ public class ResultAnalyser {
 			
 			BufferedWriter bw=new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compareMultipleExperiments.csv")));
 
-			//bw.write("timestampe,Oracle Min,WST Min,RND Min,WBM Min,LRU Min,Filter Min,LRU.F Min,RND.F Min,WBM.F Min,LRU.F.SA Min,RND.F.SA Min,WBM.F.SA Min,"
-			//				  + "Oracle Max,WST Min,RND Max,WBM Max,LRU Max,Filter Max,LRU.F Max,RND.F Max,WBM.F Max,LRU.F.SA Max,RND.F.SA Max,WBM.F.SA Max,"
-			//				  + "Oracle Avg,WST Avg,RND Avg,WBM Avg,LRU Avg,Filter Avg,LRU.F Avg,RND.F Avg,WBM.F Avg,LRU.F.SA Avg,RND.F.SA Avg,WBM.F.SA Avg\n");
+			bw.write("timestampe,Oracle Min,WST Min,RND Min,WBM Min,LRU Min,Filter Min,LRU.F Min,RND.F Min,WBM.F Min,LRU.F+ Min,RND.F+ Min,WBM.F+ Min,"
+							  + "Oracle Max,WST Min,RND Max,WBM Max,LRU Max,Filter Max,LRU.F Max,RND.F Max,WBM.F Max,LRU.F+ Max,RND.F+ Max,WBM.F+ Max,"
+							  + "Oracle Avg,WST Avg,RND Avg,WBM Avg,LRU Avg,Filter Avg,LRU.F Avg,RND.F Avg,WBM.F Avg,LRU.F+ Avg,RND.F+ Avg,WBM.F+ Avg\n");
 			
-			bw.write("timestampe,Oracle Min,WST Min,RND Min,WBM Min,LRU Min,Filter Min,LRU.F Min,RND.F Min,WBM.F Min,F.C Min,LRU.F.C Min,WBM.F.C Min,FPV Min,"
-					  + "Oracle Max,WST Min,RND Max,WBM Max,LRU Max,Filter Max,LRU.F Max,RND.F Max,WBM.F Max,F.C Max,LRU.F.C Max,WBM.F.C Max, FPV Max,"
-					  + "Oracle Avg,WST Avg,RND Avg,WBM Avg,LRU Avg,Filter Avg,LRU.F Avg,RND.F Avg,WBM.F Avg,F.C Avg,LRU.F.C Avg,WBM.F.C Avg, FPV Avg\n");
+//			bw.write("timestampe,Oracle Min,WST Min,RND Min,WBM Min,LRU Min,Filter Min,LRU.F Min,RND.F Min,WBM.F Min,F.C Min,LRU.F.C Min,WBM.F.C Min,FPV Min,"
+//					  + "Oracle Max,WST Min,RND Max,WBM Max,LRU Max,Filter Max,LRU.F Max,RND.F Max,WBM.F Max,F.C Max,LRU.F.C Max,WBM.F.C Max, FPV Max,"
+//					  + "Oracle Avg,WST Avg,RND Avg,WBM Avg,LRU Avg,Filter Avg,LRU.F Avg,RND.F Avg,WBM.F Avg,F.C Avg,LRU.F.C Avg,WBM.F.C Avg, FPV Avg\n");
+			
 			//Min variables
 			Double OCMin = Double.MAX_VALUE, wsteMin = Double.MAX_VALUE, rndeMin = Double.MAX_VALUE, wbmeMin = Double.MAX_VALUE, lrueMin = Double.MAX_VALUE; 
 			Double feMin = Double.MAX_VALUE,lrufeMin =Double.MAX_VALUE ,rndfeMin =Double.MAX_VALUE ,wbmfeMin =Double.MAX_VALUE,lruftaeMin =Double.MAX_VALUE ,rndftaeMin =Double.MAX_VALUE ,wbmftaeMin =Double.MAX_VALUE;
@@ -564,7 +567,7 @@ public class ResultAnalyser {
 			HashMap<Long,Double> WBMFSAOError=computeErrorsJaccardIndex(getUsersOfTimestaps("OJ") , getUsersOfTimestaps("WBMFSAOJ") );
 			
 			Iterator<Long> itO = oracleCount.keySet().iterator();
-			bw.write("timestampe,Oracle,LRU.F.SA,RND.F.SA,WBM.F.SA,WBM.F.SA.O\n");
+			bw.write("timestampe,Oracle,LRU.F+,RND.F+,WBM.F+,WBM.F*\n");
 
 			Double cOC=0.0, clrufsae =0.0 ,crndfsae =0.0 ,cwbmfsae =0.0,cwbmfsaoe =0.0;
 			while(itO.hasNext()){
@@ -587,8 +590,8 @@ public class ResultAnalyser {
 				bw.write(nextTime+","+String.format("%.2f",cOC)+
 						","+ String.format("%.2f",(clrufsae==null?0:clrufsae))+
 						","+ String.format("%.2f",(crndfsae==null?0:crndfsae))+
-						","+ String.format("%.2f",(cwbmfsae==null?0:cwbmfsae))+
-						","+ String.format("%.2f",(cwbmfsaoe==null?0:cwbmfsaoe))+"\n");
+						","+ String.format("%.2f",(cwbmfsaoe==null?0:cwbmfsaoe))+
+						","+ String.format("%.2f",(cwbmfsae==null?0:cwbmfsae))+"\n");
 				
 			}
 			bw.flush();
@@ -604,7 +607,7 @@ public class ResultAnalyser {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compareMultipleAlpha_"+ db + "_" + percentage + ".csv")));
 			String writeLine = "timestampe,Oracle,WST,RND,WBM,LRU,Filter,LRU.F,RND.F,WBM.F" ;
 			for ( int i = 0 ; i < alpha.length ; i++){
-				writeLine = writeLine.concat (",LRU.F.SA." + alpha[i] + ",RND.F.SA." + alpha[i] + ",WBM.F.SA." + alpha[i] + ",WBM.F.SA.O." + alpha[i] ) ;
+				writeLine = writeLine.concat (",LRU.F+ " + alpha[i] + ",RND.F+ " + alpha[i] + ",WBM.F+ " + alpha[i] + ",WBM.F* " + alpha[i] ) ;
 			}
 			writeLine = writeLine.concat ("\n");
 			bw.write(writeLine);
@@ -623,7 +626,7 @@ public class ResultAnalyser {
 					continue;
 				}
 				if (line == null){
-					line = " , ,0,0,0,0,0,0,0,0";
+					line = "0,0,0,0,0,0,0,0,0,0";
 				}
 				writeLine = line;
 				for ( int i = 0 ; i < alpha.length ; i++){
@@ -664,16 +667,16 @@ public class ResultAnalyser {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compareMultipleAlpha_" + percentage + ".csv")));
 			String writeLine = "timestampe,WST Min,RND Min,WBM Min,LRU Min,Filter Min,LRU.F Min,RND.F Min,WBM.F Min" ;
 			for ( int i = 0 ; i < alpha.length ; i++){
-				writeLine = writeLine.concat (",LRU.F.SA." + alpha[i] + " Min,RND.F.SA." + alpha[i] + "Min ,WBM.F.SA." + alpha[i]+ "Min ,WBM.F.SA.O." + alpha[i]+ " Min"  ) ;
+				writeLine = writeLine.concat (",LRU.F+ " + alpha[i] + " Min,RND.F+ " + alpha[i] + "Min ,WBM.F+ " + alpha[i]+ "Min ,WBM.F* " + alpha[i]+ " Min"  ) ;
 			}
 			writeLine = writeLine.concat (",WST Min,RND Max,WBM Max,LRU Max,Filter Max,LRU.F Max,RND.F Max,WBM.F Max");
 			
 			for ( int i = 0 ; i < alpha.length ; i++){
-				writeLine = writeLine.concat (",LRU.F.SA." + alpha[i] + " Max,RND.F.SA." + alpha[i] + "Max ,WBM.F.SA." + alpha[i]+ "Max ,WBM.F.SA.O." + alpha[i]+ " Max"    ) ;
+				writeLine = writeLine.concat (",LRU.F+ " + alpha[i] + " Max,RND.F+ " + alpha[i] + "Max ,WBM.F+ " + alpha[i]+ "Max ,WBM.F* " + alpha[i]+ " Max"    ) ;
 			}
 			writeLine = writeLine.concat (",WST Median,RND Median,WBM Median,LRU Median,Filter Median,LRU.F Median,RND.F Median,WBM.F Median");
 			for ( int i = 0 ; i < alpha.length ; i++){
-				writeLine = writeLine.concat (",LRU.F.SA." + alpha[i] + " Median,RND.F.SA." + alpha[i] + "Median ,WBM.F.SA." + alpha[i]+ "Median ,WBM.F.SA.O." + alpha[i]+ " Median"   ) ;
+				writeLine = writeLine.concat (",LRU.F+ " + alpha[i] + " Median,RND.F+ " + alpha[i] + "Median ,WBM.F+ " + alpha[i]+ "Median ,WBM.F*" + alpha[i]+ " Median"   ) ;
 			}
 			writeLine = writeLine.concat ("\n");
 			bw.write(writeLine);
@@ -881,16 +884,20 @@ public static void analysisPartialViewExperimentMerge(int [] k , String percenta
 }
 
 
+/////////////////////////////////////////////////////    END - FUNCTIONS RELATED TO PARTIAL VIEW EXPERIMENTS      //////////////////////////////////////////////////////////	
+ 
+
 
 public static void generateDataForPlotingPercentage(){
 	
-	
-	String [] percentage ={ "10", "20", "25", "30" , "40" , "50" , "60" ,"70" ,"80" , "90" };
+	//String [] percentage ={ "10", "20", "25", "30" , "40" , "50" , "60" ,"70" ,"80" , "90" };
+
+	String [] percentage ={ "25", "50" ,"75" };
 	int maxline = 75;
 			try {
 		
 				BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/DataForPloting.csv")));
-				String writeLine = "percentage,db,policy,CJD\n";
+				String writeLine = "percentage,db,policy,CJD,selectivity\n";
 				bw.write(writeLine);
 				
 				for (int db=1 ; db<= Config.INSTANCE.getDatabaseNumber() ; db++){
@@ -910,12 +917,15 @@ public static void generateDataForPlotingPercentage(){
 						String [] lineSplit = line.split(",| ");
 						//System.out.println(fisrtLineSplit.length + " line length"+lineSplit.length);
 						for ( int i = 0 ; i < fisrtLineSplit.length ; i++){
-							if ( i < 10) {
-								writeLine = percentage[p]+","+db+","+ fisrtLineSplit[i]+","+ lineSplit[i]+"\n";
-							}else{
-								System.out.println(i + "db = " + db + "percentage = "+ percentage[p] );
-								writeLine = percentage[p]+","+db+","+ fisrtLineSplit[i]+","+ lineSplit[i+4]+"\n";
-							}
+							
+							if ( fisrtLineSplit[i].equals("timestampe") ||  fisrtLineSplit[i].equals("Oracle") ||  fisrtLineSplit[i].equals("WST"))
+								continue;
+							//if ( i < 10) {
+							writeLine = percentage[p]+","+db+","+ fisrtLineSplit[i]+","+ lineSplit[i]+","+(100-Integer.valueOf(percentage[p]))+"\n";
+							//}else{
+							//	System.out.println(i + "db = " + db + "percentage = "+ percentage[p] );
+							//	writeLine = percentage[p]+","+db+","+ fisrtLineSplit[i]+","+ lineSplit[i+4]+"\n";
+							//}
 							bw.write(writeLine);
 						}
 					}
@@ -933,9 +943,10 @@ public static void generateDataForPlotingPercentage(){
 
 public static void generateDataForPlotingBudget(){
 	
-	
-	String [] budget = { "1", "2", "3" , "4" , "5" , "6" ,"7" };
-	int maxline = 75;
+	//String [] budget = { "1", "2", "3" , "4" , "5" , "6" ,"7" };
+
+	String [] budget = { "2",  "4" ,  "6" };
+	int maxline = 125;
 			try {
 		
 				BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/DataForPloting.csv")));
@@ -959,12 +970,14 @@ public static void generateDataForPlotingBudget(){
 						String [] lineSplit = line.split(",| ");
 						//System.out.println(fisrtLineSplit.length + " line length"+lineSplit.length);
 						for ( int i = 0 ; i < fisrtLineSplit.length ; i++){
-							if ( i < 10) {
+							if ( fisrtLineSplit[i].equals("timestampe") ||  fisrtLineSplit[i].equals("Oracle") ||  fisrtLineSplit[i].equals("WST"))
+								continue;
+							//if ( i < 10) {
 								writeLine = budget[b]+","+db+","+ fisrtLineSplit[i]+","+ lineSplit[i]+"\n";
-							}else{
-								System.out.println(i + "db = " + db + "percentage = "+ budget[b]);
-								writeLine = budget[b]+","+db+","+ fisrtLineSplit[i]+","+ lineSplit[i+4]+"\n";
-							}
+							//}else{
+							//	System.out.println(i + "db = " + db + "percentage = "+ budget[b]);
+							//	writeLine = budget[b]+","+db+","+ fisrtLineSplit[i]+","+ lineSplit[i+4]+"\n";
+							//}
 							bw.write(writeLine);	
 						}
 					}
@@ -1027,7 +1040,7 @@ public static void main(String[] args){
 		//double d = getMedian(test);
 		//System.out.println(" median  = " + d);
 		generateDataForPlotingBudget();
-		//generateDataForPlotingPercentage();
+	//	generateDataForPlotingPercentage();
 		//generateDataForPlotingMultiRun();
 	}
 

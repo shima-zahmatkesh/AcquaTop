@@ -53,7 +53,7 @@ public class QueryProcessor {
 	public void evaluateQuery(int joinType){
 		
 		//Oracle
-		if(joinType==6)
+		if(joinType==1)
 			join=new OracleJoinOperator();
 		//WST
 		if(joinType==2)
@@ -68,7 +68,7 @@ public class QueryProcessor {
 		if(joinType==5)
 			join=new LRUJoinOperator(Config.INSTANCE.getUpdateBudget());
 		//Filter
-		if(joinType==1)
+		if(joinType==6)
 			join=new FilterJoinOperator(Config.INSTANCE.getUpdateBudget());
 		//LRU.F
 		if(joinType==7)
@@ -428,8 +428,11 @@ public class QueryProcessor {
 	
 	
 	QueryProcessor qp=new QueryProcessor();	
-	String [] alpha = {"0.167", "0.333", "0.5", "0.667" , "0.833" };
-	String [] percentage = { "10", "20", "25", "30" , "40" , "50" , "60" ,"70" ,"80" , "90" };
+	//String [] alpha = {"0.167", "0.333", "0.5", "0.667" , "0.833" };
+	//String [] percentage = { "10", "20", "25", "30" , "40" , "50" , "60" ,"70" ,"80" , "90" };
+	String [] alpha = {"0.167",  "0.5" , "0.833" };
+	String [] percentage = { "25" , "50" , "75" };
+
 	String srcDB = Config.INSTANCE.getDatasetDb();
 	
 	for (int db=1 ; db<= Config.INSTANCE.getDatabaseNumber() ; db++){
@@ -443,7 +446,7 @@ public class QueryProcessor {
 			for (int a=0 ; a < alpha.length ; a++){
 			
 				if ( a == 0){
-					for(int e=6 ; e < 10 ; e++){
+					for(int e=1 ; e < 10 ; e++){
 						System.out.println("--------------------------Evaluation number = " + e + "----------------------");
 						qp.evaluateQuery(e);
 					}
@@ -480,8 +483,11 @@ public class QueryProcessor {
 	
 	
 	QueryProcessor qp=new QueryProcessor();	
-	String [] alpha = {"0.167", "0.333", "0.5", "0.667" , "0.833" };
-	String [] budget = { "1", "2",  "3" , "4" , "5" , "6" ,"7" };
+	String [] alpha = {"0.167", "0.5", "0.833" };
+	String [] budget = {"2", "4" , "6" };
+	
+//	String [] alpha = {"0.167", "0.333", "0.5", "0.667" , "0.833" };
+//	String [] budget = { "1", "2",  "3" , "4" , "5" , "6" ,"7" };
 	String srcDB = Config.INSTANCE.getDatasetDb();
 	
 	for (int db=1 ; db<= Config.INSTANCE.getDatabaseNumber() ; db++){
@@ -496,7 +502,7 @@ public class QueryProcessor {
 			Config.INSTANCE.setDatasetDb(desDB);
 			System.out.println("-------------- working with budget " + budget[b] + "------------");
 	
-			for(int e=6 ; e < 10 ; e++){
+			for(int e=1 ; e < 10 ; e++){
 				System.out.println("-----Evaluation number = " + e + "-----");
 				qp.evaluateQuery(e);
 			}
@@ -507,16 +513,16 @@ public class QueryProcessor {
 			
 				Config.INSTANCE.setAlpha(Float.valueOf( alpha[a] ));
 	
-//				for(int e=10 ; e < 14 ; e++){
-//					System.out.println("-----Evaluation number = " + e + "-----");
-//					qp.evaluateQuery(e);
-//				}
+				for(int e=10 ; e < 14 ; e++){
+					System.out.println("-----Evaluation number = " + e + "-----");
+					qp.evaluateQuery(e);
+				}
 			
 	
 				ResultAnalyser.analysisExperimentScoringAlgorithm();
 				if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_alpha.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_alpha_"+ db + "_"+ budget[b] + "_" + alpha[a] +".csv") )
 					break;
-				//System.out.println("-------Evaluation done for alpha"  + alpha[a] + "-----");
+				System.out.println("-------Evaluation done for alpha"  + alpha[a] + "-----");
 			}
 			
 			ResultAnalyser.analysisExperimentScoringAlgorithmMerge(alpha , budget[b] , String.valueOf(db) );
@@ -587,8 +593,9 @@ public class QueryProcessor {
 				Config.INSTANCE.setDatasetDb(desDB);
 		
 				c = DriverManager.getConnection(desDB);
+		//        c = DriverManager.getConnection(srcDB);
 				
-				stmt = c.createStatement();
+		        stmt = c.createStatement();
 				String sql = "INSERT INTO USER (USERID,  CHANGERATE)  "+
 				"VALUES ( 9007322, 0.0001 ) , "+
 				" ( 175295203, 0.0001 ), "+
