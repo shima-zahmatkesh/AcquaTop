@@ -1,0 +1,8 @@
+Generated: class acqua.data.generator.BKGGenerator
+maxID: 400
+min Interval: 5
+max Interval: 40
+min Transition: 1
+max Transition: 10
+min Initial Value: 1000
+max Initial Value: 10000

@@ -544,7 +544,7 @@ public class TwitterFollowerCollector {
 		//HashMap<Long,Integer> list = tfc.getFollowerListFromDB(time); //gets the first window
 		//int latestFollowerCount = tfc.getUserFollowerFromDB(time, userid);
 		//System.out.println(latestFollowerCount + ">>>"+ list.size());
-		generateNewDB(75 , "realtesteveningINC");   //manually copy and paste your source db file and name them xxxx_i.db which xxxx is the name of source file and i is from 1 to 10 and then call the function
+		generateNewDB(60 , "realtesteveningDEC");   //manually copy and paste your source db file and name them xxxx_i.db which xxxx is the name of source file and i is from 1 to 10 and then call the function
 		//copyfile();
 	
 	}
@@ -570,9 +570,9 @@ public class TwitterFollowerCollector {
 				//generatingNonDecreasingFollowerCountList (desDB , userID );
 		
 				
-			    long randomNum = rand.nextInt(percentage);
+			    long randomNum = rand.nextInt(100);
 				//System.out.println("randomNum = " +  randomNum);
-			    if (randomNum < 100){
+			    if (randomNum < percentage){
 			   
 					HashMap<Long,Integer> followerList = getFollowerListOfUser(desDB , userID);	
 					int minFollowerNum = getMinFollowerOfUser (followerList);

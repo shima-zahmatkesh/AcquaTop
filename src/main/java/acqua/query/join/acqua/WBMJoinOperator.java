@@ -74,13 +74,13 @@ public class WBMJoinOperator extends ApproximateJoinOperator{
 		// TODO Auto-generated constructor stub
 	}
 
-	private void createUserTableFromBKG(){
+	public void createUserTableFromBKG(){
 		Connection c = null;
 		Statement stmt = null;
 		try {
 			Class.forName("org.sqlite.JDBC");
 			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());
-			c.setAutoCommit(false);
+			//c.setAutoCommit(false);
 			stmt = c.createStatement();
 			String sql="";
 			stmt.executeUpdate("Drop table IF EXISTS User");
@@ -88,8 +88,10 @@ public class WBMJoinOperator extends ApproximateJoinOperator{
 			stmt.executeUpdate("create table User ( USERID BIGINT, CHANGERATE real);");
 			sql="insert into User SELECT A.USERID , round(cast(COUNT(*) as real)/cast((SELECT COUNT(TIMESTAMP) FROM BKG C WHERE C.USERID = A.USERID) as real),4) FROM BKG A, BKG B WHERE A.TIMESTAMP-B.TIMESTAMP>0 AND A.TIMESTAMP-B.TIMESTAMP< 100000 AND A.USERID = B.USERID AND A.FOLLOWERCOUNT<>B.FOLLOWERCOUNT GROUP BY A.USERID";
 			//String sql="";
-			//System.out.println("create user table");
+			System.out.println("creat user table");
 			stmt.execute(sql);
+			stmt.close();
+			c.close();
 		}catch(Exception e){e.printStackTrace();}
 	}
 	

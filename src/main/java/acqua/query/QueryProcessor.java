@@ -80,16 +80,16 @@ public class QueryProcessor {
 		if(joinType==9)
 			join=new RNDFOperator(Config.INSTANCE.getUpdateBudget());
 		
-		//LRU.F.SA
+		//LRU.F+
 		if(joinType==10)
 			join=new LRUFSAOperator(Config.INSTANCE.getUpdateBudget());
-		//RND.F.SA
+		//RND.F+
 		if(joinType==12)
 			join=new RNDFSAOperator(Config.INSTANCE.getUpdateBudget());
-		//WBM.F.SA
+		//WBM.F*
 		if(joinType==11)
 			join=new WBMFSAOperator(Config.INSTANCE.getUpdateBudget(), true);		
-		//WBM.F.SA.O
+		//WBM.F+
 		if(joinType==13)
 			join=new WBMFSAOneListOperator(Config.INSTANCE.getUpdateBudget(), true);	
 		
@@ -165,6 +165,9 @@ public class QueryProcessor {
 		
 		
 		//correctChangeRate();
+		
+		//WBMJoinOperator join=new WBMJoinOperator(Config.INSTANCE.getUpdateBudget(), true);
+		//join.createUserTableFromBKG();
 	}
 	
 	private static void oneExperiment(){
@@ -430,8 +433,8 @@ public class QueryProcessor {
 	QueryProcessor qp=new QueryProcessor();	
 	//String [] alpha = {"0.167", "0.333", "0.5", "0.667" , "0.833" };
 	//String [] percentage = { "10", "20", "25", "30" , "40" , "50" , "60" ,"70" ,"80" , "90" };
-	String [] alpha = {"0.167",  "0.5" , "0.833" };
-	String [] percentage = { "25" , "50" , "75" };
+	String [] alpha = {"0.2",  "0.5"  };
+	String [] percentage = { "30" , "60"  };
 
 	String srcDB = Config.INSTANCE.getDatasetDb();
 	
@@ -460,7 +463,6 @@ public class QueryProcessor {
 					qp.evaluateQuery(e);
 				} 
 			
-	
 				ResultAnalyser.analysisExperimentScoringAlgorithm();
 				if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_alpha.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_alpha_"+ db + "_"+ percentage[p] + "_" + alpha[a] +".csv") )
 					break;
@@ -483,8 +485,8 @@ public class QueryProcessor {
 	
 	
 	QueryProcessor qp=new QueryProcessor();	
-	String [] alpha = {"0.167", "0.5", "0.833" };
-	String [] budget = {"2", "4" , "6" };
+	String [] alpha = {"0.2", "0.5" };
+	String [] budget = {"3", "5"  };
 	
 //	String [] alpha = {"0.167", "0.333", "0.5", "0.667" , "0.833" };
 //	String [] budget = { "1", "2",  "3" , "4" , "5" , "6" ,"7" };
@@ -498,7 +500,7 @@ public class QueryProcessor {
 			
 			Config.INSTANCE.setUpdateBudget( budget[b]);
 			 
-			String desDB = srcDB.split("\\.")[0]+"_"+ db +"_25.db" ;
+			String desDB = srcDB.split("\\.")[0]+"_"+ db +"_30.db" ;
 			Config.INSTANCE.setDatasetDb(desDB);
 			System.out.println("-------------- working with budget " + budget[b] + "------------");
 	

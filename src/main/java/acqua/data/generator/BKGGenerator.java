@@ -176,7 +176,7 @@ public class BKGGenerator {
 		
 		
 		//generate BKG text file that indicate the interval and transition for each user
-		BKGGenerator myBKG = new BKGGenerator(400,5,40,1,10,1000,10000);
+		BKGGenerator myBKG = new BKGGenerator(400,1,20,1,10,1000,10000);
 		String BKGFileName = myBKG.changeFrequencyWriter();
 		HashMap<Long,Integer>  modifiedFollowerListOfUser = new HashMap<Long,Integer> ();
 		
@@ -186,6 +186,8 @@ public class BKGGenerator {
 		
 		//for each user get the list of followerCount and timestamps and modify in based on the BKG text file (interval and transition for each user)
 		Iterator<Long> IDsIt= initialUsers.keySet().iterator();
+		try{
+			br = new BufferedReader(new InputStreamReader(new FileInputStream(BKGFileName)));
 		while(IDsIt.hasNext()){
 			
 			Long userId = IDsIt.next();
@@ -194,11 +196,11 @@ public class BKGGenerator {
 			String[] initialInfo = tempInfo.split(",");
 			int initialfollowerCount = Integer.valueOf(initialInfo[0]);
 			Long initialTimestamp = Long.valueOf(initialInfo[1]);
+			Random rand = new Random(System.currentTimeMillis());
 			
-			try{
-				br = new BufferedReader(new InputStreamReader(new FileInputStream(BKGFileName)));
-
-			if( (line = br.readLine()) != null ){
+			
+				line = br.readLine();
+			if( line != null ){
 				
 				String[] userInfo = line.split(",");
 				String userURL = userInfo[0];
@@ -206,7 +208,7 @@ public class BKGGenerator {
 				int transition = Integer.valueOf(userInfo[2]);
 				
 				System.out.println ("user id = " + userId + " interval = " + interval + " transition = " + transition);
-				System.out.println ("initial timestam = " + initialTimestamp + "initial follower = "+ initialfollowerCount );
+				//System.out.println ("initial timestam = " + initialTimestamp + "initial follower = "+ initialfollowerCount );
 				
 				TreeMap<Long,Integer>  followerListOfUser = getFollowerListOfUser(db ,userId);
 				Iterator<Long> followerIt= followerListOfUser.keySet().iterator();
@@ -217,24 +219,22 @@ public class BKGGenerator {
 					
 					Long timestamp = followerIt.next();
 					Integer followerCount = followerListOfUser.get( timestamp );
-					if (intervalCounter ==0){
+					if (intervalCounter == 0){
 						
 						switch (dbType) {
 				            case "INC":
-				            	newFollowerCount = + transition;
+				            	newFollowerCount = newFollowerCount + transition;
 				                break;
 				            case "DEC":
-				            	newFollowerCount = - transition;
+				            	newFollowerCount = newFollowerCount - transition;
 				                break;
-				            case "MIX":
-				            	Random rand = new Random(System.currentTimeMillis());
+				            case "MIX"
 				            	int randNum = rand.nextInt(2);
-				            	if (randNum == 0) {newFollowerCount = + transition;}
-				            	else if (randNum == 1) {newFollowerCount = - transition;}
-				            	newFollowerCount = + transition;
+				            	if (randNum == 0) {newFollowerCount = newFollowerCount + transition;}
+				            	else if (randNum == 1) {newFollowerCount= newFollowerCount - transition;}
 				                break;
 						}
-						newFollowerCount = + transition;
+						//newFollowerCount = + transition;
 						intervalCounter = interval;
 					}
 					modifiedFollowerListOfUser.put(timestamp ,newFollowerCount);
@@ -246,7 +246,7 @@ public class BKGGenerator {
 				}
 				Connection c = null;
 				Statement stmt = null;
-				try{
+				
 					//import modified value to DB
 					Class.forName("org.sqlite.JDBC");
 					c = DriverManager.getConnection(db);
@@ -258,29 +258,21 @@ public class BKGGenerator {
 						Integer followerCount = modifiedFollowerListOfUser.get( timestamp );
 					
 						sql = "UPDATE  BKG SET FOLLOWERCOUNT =" + followerCount + " WHERE TIMESTAMP =" + timestamp+ " AND USERID =" + userId;
-						System.out.println(sql);
+						//System.out.println(sql);
 						stmt.executeUpdate(sql);
 					}
 					
 					stmt.close();
 					//c.commit();
 					c.close();
-				}
-				catch(Exception ee){
-					ee.printStackTrace();
-				}
-			
+				
+				
 			}
 			
-			br.close();
-			} catch (Exception e) {e.printStackTrace(); }
 		}
-			
+	} catch (Exception e) {e.printStackTrace(); }
+		
 	
-
-
-		
-		
 	}
 	
 	public static void main(String[] agrs) {

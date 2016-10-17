@@ -123,7 +123,8 @@ public class ResultAnalyser {
 			line=null;
 			while((line=br.readLine())!=null){
 				
-				String[] userInfo = line.split(" ");	
+				String[] userInfo = line.split(" ");
+				//System.out.println(line);
 				sql = "INSERT INTO " + table + " (USERID,MENTIONCOUNT,FOLLOWERCOUNT,TIMESTAMP) " +
 						"VALUES ("+userInfo[0]+","+userInfo[1]+","+userInfo[2]+","+userInfo[3]+")"; 
 				//System.out.println(sql);
@@ -607,7 +608,7 @@ public class ResultAnalyser {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compareMultipleAlpha_"+ db + "_" + percentage + ".csv")));
 			String writeLine = "timestampe,Oracle,WST,RND,WBM,LRU,Filter,LRU.F,RND.F,WBM.F" ;
 			for ( int i = 0 ; i < alpha.length ; i++){
-				writeLine = writeLine.concat (",LRU.F+ " + alpha[i] + ",RND.F+ " + alpha[i] + ",WBM.F+ " + alpha[i] + ",WBM.F* " + alpha[i] ) ;
+				writeLine = writeLine.concat (",LRU.F+" + alpha[i] + ",RND.F+" + alpha[i] + ",WBM.F+" + alpha[i] + ",WBM.F*" + alpha[i] ) ;
 			}
 			writeLine = writeLine.concat ("\n");
 			bw.write(writeLine);
@@ -667,16 +668,16 @@ public class ResultAnalyser {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compareMultipleAlpha_" + percentage + ".csv")));
 			String writeLine = "timestampe,WST Min,RND Min,WBM Min,LRU Min,Filter Min,LRU.F Min,RND.F Min,WBM.F Min" ;
 			for ( int i = 0 ; i < alpha.length ; i++){
-				writeLine = writeLine.concat (",LRU.F+ " + alpha[i] + " Min,RND.F+ " + alpha[i] + "Min ,WBM.F+ " + alpha[i]+ "Min ,WBM.F* " + alpha[i]+ " Min"  ) ;
+				writeLine = writeLine.concat (",LRU.F+" + alpha[i] + " Min,RND.F+" + alpha[i] + "Min ,WBM.F+" + alpha[i]+ "Min ,WBM.F*" + alpha[i]+ " Min"  ) ;
 			}
 			writeLine = writeLine.concat (",WST Min,RND Max,WBM Max,LRU Max,Filter Max,LRU.F Max,RND.F Max,WBM.F Max");
 			
 			for ( int i = 0 ; i < alpha.length ; i++){
-				writeLine = writeLine.concat (",LRU.F+ " + alpha[i] + " Max,RND.F+ " + alpha[i] + "Max ,WBM.F+ " + alpha[i]+ "Max ,WBM.F* " + alpha[i]+ " Max"    ) ;
+				writeLine = writeLine.concat (",LRU.F+" + alpha[i] + " Max,RND.F+" + alpha[i] + "Max ,WBM.F+" + alpha[i]+ "Max ,WBM.F*" + alpha[i]+ " Max"    ) ;
 			}
 			writeLine = writeLine.concat (",WST Median,RND Median,WBM Median,LRU Median,Filter Median,LRU.F Median,RND.F Median,WBM.F Median");
 			for ( int i = 0 ; i < alpha.length ; i++){
-				writeLine = writeLine.concat (",LRU.F+ " + alpha[i] + " Median,RND.F+ " + alpha[i] + "Median ,WBM.F+ " + alpha[i]+ "Median ,WBM.F*" + alpha[i]+ " Median"   ) ;
+				writeLine = writeLine.concat (",LRU.F+" + alpha[i] + " Median,RND.F+" + alpha[i] + "Median ,WBM.F+" + alpha[i]+ "Median ,WBM.F*" + alpha[i]+ " Median"   ) ;
 			}
 			writeLine = writeLine.concat ("\n");
 			bw.write(writeLine);
@@ -888,12 +889,12 @@ public static void analysisPartialViewExperimentMerge(int [] k , String percenta
  
 
 
-public static void generateDataForPlotingPercentage(){
+public static void generateDataForPlotingSelectivity( int maxline){
 	
 	//String [] percentage ={ "10", "20", "25", "30" , "40" , "50" , "60" ,"70" ,"80" , "90" };
 
-	String [] percentage ={ "25", "50" ,"75" };
-	int maxline = 75;
+	String [] percentage ={ "30", "60"  };
+	
 			try {
 		
 				BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/DataForPloting.csv")));
@@ -921,6 +922,7 @@ public static void generateDataForPlotingPercentage(){
 							if ( fisrtLineSplit[i].equals("timestampe") ||  fisrtLineSplit[i].equals("Oracle") ||  fisrtLineSplit[i].equals("WST"))
 								continue;
 							//if ( i < 10) {
+							System.out.println("i = " + i + "p = " + p + " "+ fisrtLineSplit[i]);
 							writeLine = percentage[p]+","+db+","+ fisrtLineSplit[i]+","+ lineSplit[i]+","+(100-Integer.valueOf(percentage[p]))+"\n";
 							//}else{
 							//	System.out.println(i + "db = " + db + "percentage = "+ percentage[p] );
@@ -941,12 +943,12 @@ public static void generateDataForPlotingPercentage(){
 			
 }
 
-public static void generateDataForPlotingBudget(){
+public static void generateDataForPlotingBudget(int maxline){
 	
 	//String [] budget = { "1", "2", "3" , "4" , "5" , "6" ,"7" };
 
-	String [] budget = { "2",  "4" ,  "6" };
-	int maxline = 125;
+	String [] budget = { "3",  "5" };
+
 			try {
 		
 				BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/DataForPloting.csv")));
@@ -1039,8 +1041,8 @@ public static void main(String[] args){
 		//Double [] test = { 2.0,3.0,3.0,7.0,8.0,9.0,4.0,5.0,7.0, 10.0};
 		//double d = getMedian(test);
 		//System.out.println(" median  = " + d);
-		generateDataForPlotingBudget();
-	//	generateDataForPlotingPercentage();
+		generateDataForPlotingBudget(110);
+		generateDataForPlotingSelectivity(110);
 		//generateDataForPlotingMultiRun();
 	}
 
