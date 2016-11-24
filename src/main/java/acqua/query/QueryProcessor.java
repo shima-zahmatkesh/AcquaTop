@@ -154,22 +154,26 @@ public class QueryProcessor {
 		//percentageMultiExperiment();
 		//budgetMultiExperiment();
 		
-		
+		//experiments for .F, .F+, and .F* algorithms
 		//scoringExperiment();
 		//scoringMultiExperiment();
-		//scoringMultiExperiment_Selectivity();
-		scoringMultiExperiment_Budget();
+		scoringMultiExperiment_Selectivity();
+		//scoringMultiExperiment_Budget();
+		
+		//combineExperiments();
+		
 		
 		
 		//partialViewMultiExperiment_Selectivity();
 		
-		
 		//correctChangeRate();
+		//updateChangeRate();
 		
-		//WBMJoinOperator join=new WBMJoinOperator(Config.INSTANCE.getUpdateBudget(), true);
-		//join.createUserTableFromBKG();
+		
 	}
 	
+	
+
 	private static void oneExperiment(){
 		
 		QueryProcessor qp=new QueryProcessor();	
@@ -225,7 +229,7 @@ public class QueryProcessor {
 		
 		
 		QueryProcessor qp=new QueryProcessor();	
-		String [] percentage ={"10", "20", "25", "30" , "40" , "50", "70" , "80" , "90"};    // { "10", "20", "25", "30" , "40" , "50"};
+		String [] percentage ={"10", "20", "25", "30" , "40" , "50","60", "70" , "80" , "90"};    // { "10", "20", "25", "30" , "40" , "50"};
 		String srcDB = Config.INSTANCE.getDatasetDb();			
 		
 		for (int k=1 ; k<= Config.INSTANCE.getDatabaseNumber() ; k++){
@@ -261,39 +265,37 @@ public class QueryProcessor {
 	private static void budgetMultiExperiment(){
 		
 		
-		QueryProcessor qp=new QueryProcessor();	
-		String [] budget = { "1", "2", "3", "4" , "5" , "6" , "7" , "8" , "9" , "10" };
-		String srcDB = Config.INSTANCE.getDatasetDb();
-		
-		for (int k=1 ; k<= Config.INSTANCE.getDatabaseNumber() ; k++){
-		
-			String desDB = srcDB.split("\\.")[0]+"_"+ k +"_25.db" ;
-			Config.INSTANCE.setDatasetDb(desDB);
-			System.out.println("--------------------------- working with database " + desDB + "------------------------------");
-	
-		
-			for (int j=0 ; j < budget.length ; j++){ 
-				
-				Config.INSTANCE.setUpdateBudget( budget[j]);
-						
-				for(int i=1 ; i < 13 ; i++){
-					System.out.println("--------------------------Evaluation number = " + i + "----------------------");
-					qp.evaluateQuery(i);
-				}	
-				
-				ResultAnalyser.analysisExperimentJaccard();
-				if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_"+ k +"_" + budget[j] +".csv") )
-					break;
-				System.out.println("--------------------------Evaluation done for budget"  + budget[j] + "----------------------");
-	
-			}
-		}
-		
+//		QueryProcessor qp=new QueryProcessor();	
+	String [] budget = { "1", "2", "3", "4" , "5" , "6" , "7" };
+//		String srcDB = Config.INSTANCE.getDatasetDb();
+//		
+//		for (int k=1 ; k<= Config.INSTANCE.getDatabaseNumber() ; k++){
+//		
+//			String desDB = srcDB.split("\\.")[0]+"_"+ k +"_25.db" ;
+//			Config.INSTANCE.setDatasetDb(desDB);
+//			System.out.println("--------------------------- working with database " + desDB + "------------------------------");
+//	
+//		
+//			for (int j=0 ; j < budget.length ; j++){ 
+//				
+//				Config.INSTANCE.setUpdateBudget( budget[j]);
+//						
+//				for(int i=1 ; i < 10 ; i++){
+//					System.out.println("--------------------------Evaluation number = " + i + "----------------------");
+//					qp.evaluateQuery(i);
+//				}	
+//				
+//				ResultAnalyser.analysisExperimentJaccard();
+//				if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_"+ k +"_" + budget[j] +".csv") )
+//					break;
+//				System.out.println("--------------------------Evaluation done for budget"  + budget[j] + "----------------------");
+//	
+//			}
+//		}
+//		
 		for (int j=0 ; j < budget.length ; j++){
 			System.out.println("--------------------------Multiple Evaluation start----------------------");
-			ResultAnalyser.analysisMultipleExperimentsJaccard(budget[j]);
-			if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compareMultipleExperiments.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compareMultipleExperiments_" + budget[j] +".csv") )
-				break;
+			ResultAnalyser.analysisMultipleExperimentsJaccardMedian(budget[j]);
 			System.out.println("--------------------------Multiple Evaluation end----------------------");
 		}
 	}
@@ -433,57 +435,58 @@ public class QueryProcessor {
 	QueryProcessor qp=new QueryProcessor();	
 	//String [] alpha = {"0.167", "0.333", "0.5", "0.667" , "0.833" };
 	//String [] percentage = { "10", "20", "25", "30" , "40" , "50" , "60" ,"70" ,"80" , "90" };
-	String [] alpha = {"0.2",  "0.5"  };
-	String [] percentage = { "30" , "60"  };
+	String [] alpha = {"0.2" , "0.5"  };
+	String [] percentage = { "30"  };
 
-	String srcDB = Config.INSTANCE.getDatasetDb();
-	
-	for (int db=1 ; db<= Config.INSTANCE.getDatabaseNumber() ; db++){
-	
-		for (int p=0 ; p < percentage.length ; p++){
-			 
-			String desDB = srcDB.split("\\.")[0]+"_"+ db +"_"+ percentage[p] +".db" ;
-			Config.INSTANCE.setDatasetDb(desDB);
-			System.out.println("--------------------------- working with database " + desDB + "------------------------------");
-	
-			for (int a=0 ; a < alpha.length ; a++){
-			
-				if ( a == 0){
-					for(int e=1 ; e < 10 ; e++){
-						System.out.println("--------------------------Evaluation number = " + e + "----------------------");
-						qp.evaluateQuery(e);
-					}
-					ResultAnalyser.analysisExperimentJaccard();
-				}
-			
-				Config.INSTANCE.setAlpha(Float.valueOf( alpha[a] ));
-	
-				for(int e=10 ; e < 14 ; e++){
-					System.out.println("--------------------------Evaluation number = " + e + "----------------------");
-					qp.evaluateQuery(e);
-				} 
-			
-				ResultAnalyser.analysisExperimentScoringAlgorithm();
-				if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_alpha.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_alpha_"+ db + "_"+ percentage[p] + "_" + alpha[a] +".csv") )
-					break;
-				System.out.println("--------------------------Evaluation done for alpha"  + alpha[a] + "----------------------");
-			}
-			ResultAnalyser.analysisExperimentScoringAlgorithmMerge(alpha , percentage[p] , String.valueOf(db) );
-		}
-	}
+//	String srcDB = Config.INSTANCE.getDatasetDb();
+//	
+//	for (int db=1 ; db<= Config.INSTANCE.getDatabaseNumber() ; db++){
+//	
+//		for (int p=0 ; p < percentage.length ; p++){
+//			 
+//			String desDB = srcDB.split("\\.")[0]+"_"+ db +"_"+ percentage[p] +".db" ;
+//			Config.INSTANCE.setDatasetDb(desDB);
+//			System.out.println("--------------------------- working with database " + desDB + "------------------------------");
+//	
+//			for (int a=0 ; a < alpha.length ; a++){
+//			
+//				if ( a == 0){
+//					for(int e=1 ; e < 10 ; e++){
+//						System.out.println("--------------------------Evaluation number = " + e + "----------------------");
+//						qp.evaluateQuery(e);
+//					}
+//					ResultAnalyser.analysisExperimentJaccard();
+//				}
+//			
+//				Config.INSTANCE.setAlpha(Float.valueOf( alpha[a] ));
+//	
+//				for(int e=10 ; e < 14 ; e++){
+//		 			System.out.println("--------------------------Evaluation number = " + e + "----------------------");
+//					qp.evaluateQuery(e);
+//				} 
+//			
+//				ResultAnalyser.analysisExperimentScoringAlgorithm();
+//				if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_alpha.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_alpha_"+ db + "_"+ percentage[p] + "_" + alpha[a] +".csv") )
+//					break;
+//				System.out.println("--------------------------Evaluation done for alpha"  + alpha[a] + "----------------------");
+//			}
+//			ResultAnalyser.analysisExperimentScoringAlgorithmMerge(alpha , percentage[p] , String.valueOf(db) );
+//		}
+//	}
 	
 	for (int p=0 ; p < percentage.length ; p++){
 		System.out.println("--------------------------Multiple Evaluation start----------------------");
 		ResultAnalyser.analysisMultipleExperimentsScoringAlgorithm(alpha ,percentage[p]);
 		System.out.println("--------------------------Multiple Evaluation end----------------------");
 	}
-			
+	ResultAnalyser.generateDataForPlotingAllItreations2(110);
+		
 
 	}
 
 	private static void scoringMultiExperiment_Budget(){
 	
-	
+	 
 	QueryProcessor qp=new QueryProcessor();	
 	String [] alpha = {"0.2", "0.5" };
 	String [] budget = {"3", "5"  };
@@ -572,6 +575,56 @@ public class QueryProcessor {
 	
 	}
 	
+	private static void combineExperiments(){
+		
+
+		QueryProcessor qp=new QueryProcessor();	
+		
+		
+		//String [] fdft = { "500","1000","50000" };    //Filtering Distance From Threshold
+		//String [] fdft = { "62","125","250","750","12500","25000" }; 
+		//String [] fdft = { "93","187","375","625","875"}; 
+		//String [] fdft = { "77","109","156","218"}; 
+		//String [] fdft = { "85","101"}; 
+		//String [] fdft= { "140","171","202","234","312","437","562","687","812","937"};
+		
+		String [] fdft = { "500","1000","50000" ,"62","125","250","750","12500","25000","93","187","375","625","875","77","109","156","218","85","101"};    //Filtering Distance From Threshold
+
+		String [] percentage = {"60"};
+		//int [] evaluation = {1,4,5,6,7,8};
+		int [] evaluation = {1,7,8};
+		
+		String srcDB = Config.INSTANCE.getDatasetDb();
+		
+		for (int k = 0 ; k < fdft.length ; k++){
+			
+			System.out.println("--------------------------- working with distance threshold =  " + fdft[k] + "------------------------------");
+			
+			Config.INSTANCE.setDistanceFromThreshold( Long.valueOf(fdft[k]) );
+		
+			for (int db = 1 ; db <= Config.INSTANCE.getDatabaseNumber() ; db++){
+			
+				for (int p = 0 ; p < percentage.length ; p++){
+					 
+					String desDB = srcDB.split("\\.")[0]+"_"+ db +"_"+ percentage[p] +".db" ;
+					Config.INSTANCE.setDatasetDb(desDB);
+					System.out.println("------------- working with database " + desDB + "---------------");
+			
+					for(int e=0 ; e < evaluation.length ; e++){
+						System.out.println("--------Evaluation number = " + evaluation[e] + "-----------");
+						qp.evaluateQuery(evaluation[e]);
+					}
+					ResultAnalyser.analysisExperimentJaccard();	
+					
+					if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_" + db + "_" + percentage[p] + "_"+ fdft[k] +".csv") )
+						break;
+					
+				}
+			}
+		}
+		
+		ResultAnalyser.generateDataForPlotingCombineAlgorithm(75);
+	}
 	
 	
 	
@@ -629,5 +682,12 @@ public class QueryProcessor {
 	}
 }
 
+	//for updating change rate in new db
+	private static void updateChangeRate() {
+		
+		WBMJoinOperator join=new WBMJoinOperator(Config.INSTANCE.getUpdateBudget(), true);
+		join.createUserTableFromBKG();
+		
+	}
 
 }

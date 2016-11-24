@@ -790,7 +790,7 @@ public class TwitterFollowerCollector {
 				long userId = rs.getLong("USERID");
 				int followerCount  = rs.getInt("FOLLOWERCOUNT");
 				long timeStamp = rs.getLong("MINTS");
-				if (followerCount >=  ( Config.INSTANCE.getQueryFilterThreshold() - Config.INSTANCE.getQueryDifferenceThreshold() ) ) {
+				if (followerCount >=  ( Config.INSTANCE.getQueryFilterThreshold() - Config.INSTANCE.getDistanceFromThreshold() ) ) {
 					result.put(userId, followerCount+","+timeStamp);
 				}
 			}
@@ -809,5 +809,39 @@ public class TwitterFollowerCollector {
 		File oldfile =new File(oldFile);
 		File newfile =new File(newFile);
 		return oldfile.renameTo(newfile);
+	}
+	
+	
+	public static HashMap<Long,String> getInstanceSelectivity(){
+		
+		HashMap<Long,String> result=new HashMap<Long, String>();
+		Connection c = null;
+		Statement stmt = null;
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());
+			c.setAutoCommit(false);
+			stmt = c.createStatement();
+			String sql="SELECT B.USERID, B.FOLLOWERCOUNT, A.MINTS"+
+					" FROM (SELECT USERID, MIN(TIMESTAMP) AS MINTS  FROM BKG  " + 
+					" GROUP BY USERID) A JOIN BKG B ON A.USERID=B.USERID AND A.MINTS=B.TIMESTAMP";
+			
+			ResultSet rs = stmt.executeQuery( sql);
+			while ( rs.next() ) {
+				long userId = rs.getLong("USERID");
+				int followerCount  = rs.getInt("FOLLOWERCOUNT");
+				long timeStamp = rs.getLong("MINTS");
+				if (followerCount >=  ( Config.INSTANCE.getQueryFilterThreshold() - Config.INSTANCE.getDistanceFromThreshold() ) ) {
+					result.put(userId, followerCount+","+timeStamp);
+				}
+			}
+			rs.close();
+			stmt.close();
+			c.close();
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+			System.exit(0);
+		}
+		return result;
 	}
 }

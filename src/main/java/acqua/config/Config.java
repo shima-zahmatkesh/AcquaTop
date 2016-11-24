@@ -82,8 +82,12 @@ public class Config {
 		return false;
 	}
 	
-	public Long getQueryDifferenceThreshold(){
-		return config.getLong("difference.threshold");
+	public Long getDistanceFromThreshold(){
+		return config.getLong("distance.from.threshold");
+	}
+	
+	public void setDistanceFromThreshold(Long d){
+		config.setProperty("distance.from.threshold", d);
 	}
 	
 	public void setUpdateBudget(String b){

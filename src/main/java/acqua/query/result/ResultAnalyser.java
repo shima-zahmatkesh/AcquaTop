@@ -25,9 +25,13 @@ import java.util.TreeMap;
 
 import org.apache.commons.lang.ArrayUtils;
 
-import com.sun.source.tree.ContinueTree;
+//import com.sun.source.tree.ContinueTree;
+
+
+
 
 import acqua.config.Config;
+
 
 public class ResultAnalyser {
 	
@@ -279,9 +283,9 @@ public class ResultAnalyser {
 					Double lrufe = Double.parseDouble(lineSplit[7]);
 					Double rndfe = Double.parseDouble(lineSplit[8]);
 					Double wbmfe = Double.parseDouble(lineSplit[9]);
-					Double lruftae = Double.parseDouble(lineSplit[10]);
-					Double rndftae = Double.parseDouble(lineSplit[0]);
-					Double wbmftae = Double.parseDouble(lineSplit[0]);
+//					Double lruftae = Double.parseDouble(lineSplit[10]);
+//					Double rndftae = Double.parseDouble(lineSplit[0]);
+//					Double wbmftae = Double.parseDouble(lineSplit[0]);
 				
 					if (OC < OCMin )  OCMin = OC;
 					if (wste < wsteMin )  wsteMin = wste;
@@ -292,9 +296,9 @@ public class ResultAnalyser {
 					if (lrufe < lrufeMin )  lrufeMin = lrufe;
 					if (rndfe < rndfeMin )  rndfeMin = rndfe;
 					if (wbmfe < wbmfeMin )  wbmfeMin = wbmfe;
-					if (lruftae < lruftaeMin )  lruftaeMin = lruftae;
-					if (rndftae < rndftaeMin )  rndftaeMin = rndftae;
-					if (wbmftae < wbmftaeMin )  wbmftaeMin = wbmftae;
+//					if (lruftae < lruftaeMin )  lruftaeMin = lruftae;
+//					if (rndftae < rndftaeMin )  rndftaeMin = rndftae;
+//					if (wbmftae < wbmftaeMin )  wbmftaeMin = wbmftae;
 					
 					if (OC > OCMax )  OCMax = OC;
 					if (wste > wsteMax )  wsteMax = wste;
@@ -305,9 +309,9 @@ public class ResultAnalyser {
 					if (lrufe > lrufeMax )  lrufeMax = lrufe;
 					if (rndfe > rndfeMax )  rndfeMax = rndfe;
 					if (wbmfe > wbmfeMax )  wbmfeMax = wbmfe;
-					if (lruftae > lruftaeMax )  lruftaeMax = lruftae;
-					if (rndftae > rndftaeMax )  rndftaeMax = rndftae;
-					if (wbmftae > wbmftaeMax )  wbmftaeMax = wbmftae;
+//					if (lruftae > lruftaeMax )  lruftaeMax = lruftae;
+//					if (rndftae > rndftaeMax )  rndftaeMax = rndftae;
+//					if (wbmftae > wbmftaeMax )  wbmftaeMax = wbmftae;
 	
 					OCSum += OC;
 					wsteSum += wste;
@@ -320,9 +324,9 @@ public class ResultAnalyser {
 					lrufeSum += lrufe;
 					rndfeSum += rndfe;
 					wbmfeSum += wbmfe;
-					lruftaeSum += lruftae;
-					rndftaeSum += rndftae;
-					wbmftaeSum += wbmftae;
+//					lruftaeSum += lruftae;
+//					rndftaeSum += rndftae;
+//					wbmftaeSum += wbmftae;
 					
 					br.close();
 				}
@@ -393,6 +397,111 @@ public class ResultAnalyser {
 		
 	}
 	
+    public static void analysisMultipleExperimentsJaccardMedian(String index ){
+		
+		try{
+			
+			BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compareMultiExperiments_" + index + ".csv")));
+			String writeLine = "timestampe,WST Min,RND Min,WBM Min,LRU Min,Filter Min,LRU.F Min,RND.F Min,WBM.F Min"
+							 + ",WST Max,RND Max,WBM Max,LRU Max,Filter Max,LRU.F Max,RND.F Max,WBM.F Max"
+							 + ",WST Median,RND Median,WBM Median,LRU Median,Filter Median,LRU.F Median,RND.F Median,WBM.F Median\n";
+
+
+			
+			bw.write(writeLine);
+
+			Double [] err = new Double[1 + 3 * (8 )] ;
+			Double [] Min = new Double[1 + 3 * (8 )] ; 
+			Double [] Max = new Double[1 + 3 * (8 )] ;
+			Double [] Med = new Double[1 + 3 * (8 )] ;
+			Double [] Sum = new Double[1 + 3 * (8 )] ;
+			Double [] Avg = new Double[1 + 3 * (8 )] ;
+			Double [][] MedTemp = new Double  [1 + 3 * (8 )][10] ;
+			Double [][] Medians = new Double  [1 + 3 * (8 )][10] ;
+			
+			String nextTime = "0" ;
+			int splitNum = 0;
+			String line = "";
+			for ( int e = 0 ; e <=140  ; e++){   //Config.INSTANCE.getExperimentIterationNumber() ; e++){
+
+				int nullLine = 0;
+				for ( int db = 1 ; db<= Config.INSTANCE.getDatabaseNumber() ; db++){
+					
+					BufferedReader br2=new BufferedReader(new FileReader(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_"+ db +"_" + index + ".csv")));
+					
+					for( int k =0;k<=e; k++){
+						line = br2.readLine();
+					}
+					if (e==0){
+						continue;
+					}
+					if (line == null){
+						nullLine ++;
+						System.out.println("iteration = " + e + "   database = " + db  +"   null line = "+ nullLine);
+						continue ;
+					}
+					String [] lineSplit = line.split(",| ");
+					splitNum = lineSplit.length;
+					for ( int i = 0 ; i < splitNum ; i++ ){
+						Min[i] = Double.MAX_VALUE;
+						Max[i] = 0.0;
+						Avg[i] = 0.0;
+						Sum[i] = 0.0;
+						Med[i] = 0.0;
+						
+					}
+					for ( int i = 0 ; i < splitNum ; i++ ){
+						if ( i == 0){
+							nextTime = lineSplit[i];
+						}
+						else if (i == 1){
+							continue;
+						}
+						else{
+							System.out.println("iteration = " + e + "   database = " + db  );
+							err[i] = Double.parseDouble(lineSplit[i]);
+							if (err[i] < Min[i] )  Min[i] = err[i];
+							if (err[i] > Max [i])  Max [i]= err[i];
+							Sum[i] +=err[i];
+							MedTemp[i][db-1] = err[i];	
+						}
+					}
+					br2.close();
+						
+				}
+				int totalNum = Config.INSTANCE.getDatabaseNumber() - nullLine;
+				writeLine = "";
+				
+				for ( int i = 2 ; i < splitNum ; i++ ){
+					Avg [i] = Sum[i] / totalNum;
+					Med[i] = getMedian(MedTemp[i]);	
+				}
+				
+				writeLine = nextTime  ;
+				for ( int i = 2 ; i < splitNum ; i++ )
+					writeLine = writeLine.concat( "," + Min[i]);
+				for ( int i = 2 ; i < splitNum ; i++ )
+					writeLine = writeLine.concat( "," + Max[i]);
+				for ( int i = 2 ; i < splitNum ; i++ )
+					writeLine = writeLine.concat( "," + Med[i]);
+				
+				writeLine = writeLine.concat ("\n");
+				bw.write(writeLine);
+	
+				for ( int i = 0 ; i < splitNum ; i++ ){
+					Min[i] = Double.MAX_VALUE;
+					Max[i] = Double.MIN_VALUE;
+					Avg[i] = 0.0;
+					Sum[i] = 0.0;
+					Med[i] = 0.0;
+				}
+			}
+			bw.close();
+			
+		}catch(Exception e){e.printStackTrace();}
+		
+	}
+
 	public static TreeMap< Long, HashSet<Integer>> getUsersOfTimestaps(String table){
 		
 		TreeMap< Long, HashSet<Integer>> result = new TreeMap< Long, HashSet<Integer>>();
@@ -550,7 +659,7 @@ public class ResultAnalyser {
 	
 	
 	
-/////////////////////////////////////////////////   START - FUNCTIONS RELATED TO EXPERIMENTS WITH DIFFERENT VALUE OF ALPHA   /////////////////////////////////////////////////	
+/////////////////////////////////////////////////  FUNCTIONS RELATED TO EXPERIMENTS WITH DIFFERENT VALUE OF ALPHA   /////////////////////////////////////////////////	
 	
 	public static void analysisExperimentScoringAlgorithm(){
 		
@@ -666,20 +775,20 @@ public class ResultAnalyser {
 		try{
 			
 			BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compareMultipleAlpha_" + percentage + ".csv")));
-			String writeLine = "timestampe,WST Min,RND Min,WBM Min,LRU Min,Filter Min,LRU.F Min,RND.F Min,WBM.F Min" ;
+			String writeLine = "timestampe,WST-Min,RND-Min,WBM-Min,LRU-Min,Filter-Min,LRU.F-Min,RND.F-Min,WBM.F-Min" ;
 			for ( int i = 0 ; i < alpha.length ; i++){
-				writeLine = writeLine.concat (",LRU.F+" + alpha[i] + " Min,RND.F+" + alpha[i] + "Min ,WBM.F+" + alpha[i]+ "Min ,WBM.F*" + alpha[i]+ " Min"  ) ;
+				writeLine = writeLine.concat (",LRU.F+" + alpha[i] + "-Min,RND.F+" + alpha[i] + "-Min,WBM.F+" + alpha[i]+ "-Min,WBM.F*" + alpha[i]+ "-Min"  ) ;
 			}
-			writeLine = writeLine.concat (",WST Min,RND Max,WBM Max,LRU Max,Filter Max,LRU.F Max,RND.F Max,WBM.F Max");
+			writeLine = writeLine.concat (",WST-Max,RND-Max,WBM-Max,LRU-Max,Filter-Max,LRU.F-Max,RND.F-Max,WBM.F-Max");
 			
 			for ( int i = 0 ; i < alpha.length ; i++){
-				writeLine = writeLine.concat (",LRU.F+" + alpha[i] + " Max,RND.F+" + alpha[i] + "Max ,WBM.F+" + alpha[i]+ "Max ,WBM.F*" + alpha[i]+ " Max"    ) ;
+				writeLine = writeLine.concat (",LRU.F+" + alpha[i] + "-Max,RND.F+" + alpha[i] + "-Max,WBM.F+" + alpha[i]+ "-Max,WBM.F*" + alpha[i]+ "-Max"    ) ;
 			}
-			writeLine = writeLine.concat (",WST Median,RND Median,WBM Median,LRU Median,Filter Median,LRU.F Median,RND.F Median,WBM.F Median");
+			writeLine = writeLine.concat (",WST-Median,RND-Median,WBM-Median,LRU-Median,Filter-Median,LRU.F-Median,RND.F-Median,WBM.F-Median");
 			for ( int i = 0 ; i < alpha.length ; i++){
-				writeLine = writeLine.concat (",LRU.F+" + alpha[i] + " Median,RND.F+" + alpha[i] + "Median ,WBM.F+" + alpha[i]+ "Median ,WBM.F*" + alpha[i]+ " Median"   ) ;
+				writeLine = writeLine.concat (",LRU.F+" + alpha[i] + "-Median,RND.F+" + alpha[i] + "-Median,WBM.F+" + alpha[i]+ "-Median,WBM.F*" + alpha[i]+ "-Median"   ) ;
 			}
-			writeLine = writeLine.concat ("\n");
+			//writeLine = writeLine.concat ("\n");
 			bw.write(writeLine);
 
 			Double [] err = new Double[1 + 3 * (8 + 4* alpha.length)] ;
@@ -691,12 +800,19 @@ public class ResultAnalyser {
 			Double [][] MedTemp = new Double  [1 + 3 * (8 + 4* alpha.length)][10] ;
 			Double [][] Medians = new Double  [1 + 3 * (8 + 4* alpha.length)][10] ;
 			
-			String nextTime = "0" ;
+			String nextTime = "" ;
 			int splitNum = 0;
 			String line = "";
 			for ( int e = 0 ; e <=140  ; e++){   //Config.INSTANCE.getExperimentIterationNumber() ; e++){
 
 				int nullLine = 0;
+				for ( int i = 0 ; i < Min.length ; i++ ){
+					Min[i] = Double.MAX_VALUE;
+					Max[i] = 0.0;
+					Avg[i] = 0.0;
+					Sum[i] = 0.0;
+					Med[i] = 0.0;
+				}
 				for ( int db = 1 ; db<= Config.INSTANCE.getDatabaseNumber() ; db++){
 					
 					BufferedReader br2=new BufferedReader(new FileReader(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compareMultipleAlpha_"+ db +"_" + percentage + ".csv")));
@@ -714,14 +830,7 @@ public class ResultAnalyser {
 					}
 					String [] lineSplit = line.split(",| ");
 					splitNum = lineSplit.length;
-					for ( int i = 0 ; i < splitNum ; i++ ){
-						Min[i] = Double.MAX_VALUE;
-						Max[i] = 0.0;
-						Avg[i] = 0.0;
-						Sum[i] = 0.0;
-						Med[i] = 0.0;
-						
-					}
+					
 					for ( int i = 0 ; i < splitNum ; i++ ){
 						if ( i == 0){
 							nextTime = lineSplit[i];
@@ -732,8 +841,10 @@ public class ResultAnalyser {
 						else{
 							System.out.println("iteration = " + e + "   database = " + db  );
 							err[i] = Double.parseDouble(lineSplit[i]);
-							if (err[i] < Min[i] )  Min[i] = err[i];
-							if (err[i] > Max [i])  Max [i]= err[i];
+							if (err[i] < Min[i] ) 
+							{Min[i] = err[i];}
+							if (err[i] > Max [i]) 
+							{ Max [i] = err[i];}
 							Sum[i] +=err[i];
 							MedTemp[i][db-1] = err[i];	
 						}
@@ -789,14 +900,13 @@ public class ResultAnalyser {
 	}
 	
 	
-/////////////////////////////////////////////////   END - FUNCTIONS RELATED TO EXPERIMENTS WITH DIFFERENT VALUE OF ALPHA   ///////////////////////////////////////////////////		
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 
 	
 	
-	
-/////////////////////////////////////////////////////    START - FUNCTIONS RELATED TO PARTIAL VIEW EXPERIMENTS      //////////////////////////////////////////////////////////	
+////////////////////////////////////////////     FUNCTIONS RELATED TO PARTIAL VIEW EXPERIMENTS   //////////////////////////////////////////////////////////////////
 
-public static void analysisPartialViewExperiment(){
+	public static void analysisPartialViewExperiment(){
 		
 		try{
 			insertResultToDB();
@@ -827,8 +937,7 @@ public static void analysisPartialViewExperiment(){
 		
 	}
 
-
-public static void analysisPartialViewExperimentMerge(int [] k , String percentage , int db){
+	public static void analysisPartialViewExperimentMerge(int [] k , String percentage , int db){
 	
 	try {
 		
@@ -885,11 +994,12 @@ public static void analysisPartialViewExperimentMerge(int [] k , String percenta
 }
 
 
-/////////////////////////////////////////////////////    END - FUNCTIONS RELATED TO PARTIAL VIEW EXPERIMENTS      //////////////////////////////////////////////////////////	
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
  
 
+////////////////////////////////////////////          FUNCTIONS RELATED TO GENERATING PLOTS   //////////////////////////////////////////////////////////////////	
 
-public static void generateDataForPlotingSelectivity( int maxline){
+	public static void generateDataForPlotingAlphaSelectivity( int maxline){
 	
 	//String [] percentage ={ "10", "20", "25", "30" , "40" , "50" , "60" ,"70" ,"80" , "90" };
 
@@ -897,7 +1007,7 @@ public static void generateDataForPlotingSelectivity( int maxline){
 	
 			try {
 		
-				BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/DataForPloting.csv")));
+				BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/DataForPloting_Alpha_Selectivity_"+ maxline +".csv")));
 				String writeLine = "percentage,db,policy,CJD,selectivity\n";
 				bw.write(writeLine);
 				
@@ -943,7 +1053,7 @@ public static void generateDataForPlotingSelectivity( int maxline){
 			
 }
 
-public static void generateDataForPlotingBudget(int maxline){
+	public static void generateDataForPlotingAlphaBudget(int maxline){
 	
 	//String [] budget = { "1", "2", "3" , "4" , "5" , "6" ,"7" };
 
@@ -951,7 +1061,7 @@ public static void generateDataForPlotingBudget(int maxline){
 
 			try {
 		
-				BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/DataForPloting.csv")));
+				BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/DataForPloting_Alpha_Budget_"+ maxline +".csv")));
 				String writeLine = "budget,db,policy,CJD\n";
 				bw.write(writeLine);
 				
@@ -995,11 +1105,8 @@ public static void generateDataForPlotingBudget(int maxline){
 			
 }
 
-public static void generateDataForPlotingMultiRun(){
-	
-	
-	
-	int maxline = 28;
+	public static void generateDataForPlotingMultiRun(int maxline){
+
 			try {
 		
 				BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/DataForPloting.csv")));
@@ -1031,9 +1138,263 @@ public static void generateDataForPlotingMultiRun(){
 				e.printStackTrace();
 			}
 			
+	}
+
+	public static void generateDataForPlotingCombineAlgorithm( int maxline){
+	
+		//String [] distanceThershold = { "500","1000","50000" ,"62","125","250","750","12500","25000","93","187","375","625","875","77","109","156","218","85","101","140","171","202","234","312","437","562","687","812","937"};    //Filtering Distance From Threshold
+		String [] distanceThershold = { "500","1000","50000" ,"62","125","250","750","12500","25000","93","187","375","625","875","77","109","156","218","85","101"};    //Filtering Distance From Threshold
+		String [] percentage = {"30"};
+
+		try {
+		
+				
+			BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/DataForPloting_CombineAlgorithm_"+ maxline +".csv")));
+			String writeLine = "db,policy,distance,CJD,selectivity\n";
+			bw.write(writeLine);
+			for (int dt = 0 ; dt < distanceThershold.length ; dt++){	
+				for (int db=1 ; db<= Config.INSTANCE.getDatabaseNumber() ; db++){
+					
+					for (int p=0 ; p < percentage.length ; p++){
+				
+						//BufferedReader br=new BufferedReader(new FileReader(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_"+ db +"_" + percentage[p] + "_"+ distanceThershold[dt] + ".csv")));
+						BufferedReader br=new BufferedReader(new FileReader(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_"+ db +"_"+ distanceThershold[dt] + ".csv")));
+
+						String line ="" , firstLine = "";
+						
+						for( int k =0; k <= maxline; k++){
+							if ( k == 0)
+								firstLine = br.readLine(); 
+							else
+								line = br.readLine();
+						}
+						String [] fisrtLineSplit = firstLine.split(",| ");
+						String [] lineSplit = line.split(",| ");
+						//System.out.println(fisrtLineSplit.length + " line length"+lineSplit.length);
+						for ( int i = 0 ; i < fisrtLineSplit.length ; i++){
+							
+							if ( fisrtLineSplit[i].equals("timestampe") ||  
+								 fisrtLineSplit[i].equals("Oracle") ||  
+								 fisrtLineSplit[i].equals("WST") ||
+								 fisrtLineSplit[i].equals("RND") ||
+								 fisrtLineSplit[i].equals("RND.F") )
+								continue;
+							
+							writeLine = db +","+ fisrtLineSplit[i]+","+ distanceThershold[dt] +","+ lineSplit[i]+","+ (100-Integer.valueOf(percentage[p])) +"\n";
+							
+							bw.write(writeLine);
+						}
+					}
+				}
+			}
+			bw.close();
+			
+	
+		} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+		}
+			
 }
 
-public static void main(String[] args){
+	public static void generateDataForPlotingSelectivity( int maxline){
+		
+		String [] percentage ={ "10", "20", "25", "30" , "40" , "50" , "60" ,"70" ,"80" , "90" };
+		
+				try {
+			
+					BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/DataForPloting_Selectivity_"+ maxline +".csv")));
+					String writeLine = "percentage,db,policy,CJD,selectivity\n";
+					bw.write(writeLine);
+					
+					for (int db=1 ; db<= Config.INSTANCE.getDatabaseNumber() ; db++){
+						
+						for (int p=0 ; p < percentage.length ; p++){
+					
+							BufferedReader br=new BufferedReader(new FileReader(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_"+ db +"_" + percentage[p] + ".csv")));
+							String line ="" , firstLine = "";
+							
+							for( int k =0; k <= maxline; k++){
+								if ( k == 0)
+									firstLine = br.readLine(); 
+								else
+									line = br.readLine();
+							}
+							String [] fisrtLineSplit = firstLine.split(",| ");
+							String [] lineSplit = line.split(",| ");
+							//System.out.println(fisrtLineSplit.length + " line length"+lineSplit.length);
+							for ( int i = 0 ; i < fisrtLineSplit.length ; i++){
+								
+								if ( fisrtLineSplit[i].equals("timestampe") ||  fisrtLineSplit[i].equals("Oracle") ||  fisrtLineSplit[i].equals("WST"))
+									continue;
+							
+								System.out.println(db+ "   i = " + i + "   p = " + p + " "+ fisrtLineSplit[i]);
+								writeLine = percentage[p]+","+db+","+ fisrtLineSplit[i]+","+ lineSplit[i]+","+(100-Integer.valueOf(percentage[p]))+"\n";
+								
+								bw.write(writeLine);
+							}
+						}
+					}
+				
+					bw.close();
+		
+		
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+	}
+	
+	public static void generateDataForPlotingBudget( int maxline){
+		
+		String [] budget ={ "1", "2",  "3" , "4" , "5" , "6" ,"7"  };
+		
+				try {
+			
+					BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/DataForPloting_Budget_"+ maxline +".csv")));
+					String writeLine = "budget,db,policy,CJD\n";
+					bw.write(writeLine);
+					
+					for (int db=1 ; db<= Config.INSTANCE.getDatabaseNumber() ; db++){
+						
+						for (int b=0 ; b < budget.length ; b++){
+					
+							BufferedReader br=new BufferedReader(new FileReader(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_"+ db +"_" + budget[b] + ".csv")));
+							String line ="" , firstLine = "";
+							
+							for( int k =0; k <= maxline; k++){
+								if ( k == 0)
+									firstLine = br.readLine(); 
+								else
+									line = br.readLine();
+							}
+							String [] fisrtLineSplit = firstLine.split(",| ");
+							String [] lineSplit = line.split(",| ");
+							//System.out.println(fisrtLineSplit.length + " line length"+lineSplit.length);
+							for ( int i = 0 ; i < fisrtLineSplit.length ; i++){
+								
+								if ( fisrtLineSplit[i].equals("timestampe") ||  fisrtLineSplit[i].equals("Oracle") ||  fisrtLineSplit[i].equals("WST"))
+									continue;
+							
+								System.out.println(db+ "   i = " + i + "   b = " + b + " "+ fisrtLineSplit[i]);
+								writeLine = budget[b]+","+db+","+ fisrtLineSplit[i]+","+ lineSplit[i]+"\n";
+								
+								bw.write(writeLine);
+							}
+						}
+					}
+				
+					bw.close();
+		
+		
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+	}
+
+
+	public static void generateDataForPlotingAllItreations1( int maxline){
+
+	String [] percentage ={ "30"  };
+	
+			try {
+		
+				BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/DataForPloting_All_Itrations.csv")));
+				String writeLine = "iteration,db,policy,CJD\n";
+				bw.write(writeLine);
+				
+				for (int db=1 ; db <= Config.INSTANCE.getDatabaseNumber() ; db++){
+					
+					for (int p=0 ; p < percentage.length ; p++){
+				
+						BufferedReader br=new BufferedReader(new FileReader(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compareMultipleAlpha_"+ db +"_" + percentage[p] + ".csv")));
+						String line ="" , firstLine = "";
+						
+						for( int k =0; k <= maxline; k++){
+							
+							if ( k == 0){
+								firstLine = br.readLine(); 
+							}
+							else{
+								line = br.readLine();
+						
+								String [] fisrtLineSplit = firstLine.split(",| ");
+								String [] lineSplit = line.split(",| ");
+								for ( int i = 0 ; i < fisrtLineSplit.length ; i++){
+							
+									if ( fisrtLineSplit[i].equals("timestampe") ||  fisrtLineSplit[i].equals("Oracle") ||  fisrtLineSplit[i].equals("WST"))
+										continue;
+									//System.out.println("i = " + i + "p = " + p + " "+ fisrtLineSplit[i]);
+									writeLine = k+","+ db +","+ fisrtLineSplit[i]+","+ lineSplit[i] +"\n";
+							
+									bw.write(writeLine);
+								}
+							}
+						}
+					}
+				}
+				bw.close();
+	
+	
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+}
+
+	public static void generateDataForPlotingAllItreations2( int maxline){
+
+		String [] percentage ={ "30"  };
+		
+				try {
+			
+					BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/DataForPloting_All_Itrations2.csv")));
+					String writeLine = "iteration,policy,CJD\n";
+					bw.write(writeLine);
+					
+						for (int p=0 ; p < percentage.length ; p++){
+					
+							BufferedReader br=new BufferedReader(new FileReader(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compareMultipleAlpha_"+ percentage[p] + ".csv")));
+							String line ="" , firstLine = "";
+							
+							for( int k =0; k <= maxline; k++){
+								
+								if ( k == 0){
+									firstLine = br.readLine(); 
+								}
+								else{
+									
+									line = br.readLine();
+									String [] fisrtLineSplit = firstLine.split(",| ");
+									String [] lineSplit = line.split(",| ");
+									for ( int i = 0 ; i < fisrtLineSplit.length ; i++){
+								
+										if ( fisrtLineSplit[i].equals("timestampe") ||  fisrtLineSplit[i].equals("Oracle") ||  fisrtLineSplit[i].equals("WST"))
+											continue;
+										System.out.println("i = " + i + "k = " + k + " "+ fisrtLineSplit[i]);
+										writeLine = k+","+ fisrtLineSplit[i]+","+ lineSplit[i] +"\n";
+								
+										bw.write(writeLine);
+									}
+								}
+							}
+					}
+					bw.close();
+		
+		
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+	}
+
+			
+	public static void main(String[] args){
 		
 		
 		//String [] index = { "10", "20", "25", "30" , "40" , "50" , "60" ,"70" };
@@ -1041,9 +1402,17 @@ public static void main(String[] args){
 		//Double [] test = { 2.0,3.0,3.0,7.0,8.0,9.0,4.0,5.0,7.0, 10.0};
 		//double d = getMedian(test);
 		//System.out.println(" median  = " + d);
-		generateDataForPlotingBudget(110);
-		generateDataForPlotingSelectivity(110);
-		//generateDataForPlotingMultiRun();
+		
+		//generateDataForPlotingAlphaBudget(110);
+		//generateDataForPlotingAlphaSelectivity(110);
+		//generateDataForPlotingMultiRun(28);
+		
+		//generateDataForPlotingSelectivity(75);
+		//generateDataForPlotingBudget(139);
+		//generateDataForPlotingAllItreations1(140);
+		 generateDataForPlotingAllItreations2(140);
+		
+
 	}
 
 	
