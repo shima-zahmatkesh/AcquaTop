@@ -128,4 +128,12 @@ public class Config {
 	public void setKThreshold(long k){
 		config.setProperty("k.threshold" , k);
 	}
+	
+	public Long getTopK(){
+		return config.getLong("top.k");
+	}
+	
+	public void setTopK(long k){
+		config.setProperty("top.k" , k);
+	}
 }

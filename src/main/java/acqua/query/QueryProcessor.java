@@ -34,7 +34,9 @@ import acqua.query.join.scoringCombine.WBMFSAOperator;
 import acqua.query.join.simpleCombine.LRUFOperator;
 import acqua.query.join.simpleCombine.RNDFOperator;
 import acqua.query.join.simpleCombine.WBMFOperator;
+import acqua.query.result.DataPloting;
 import acqua.query.result.ResultAnalyser;
+import acqua.query.join.topk.*;
 
 public class QueryProcessor {
 	JoinOperator join;
@@ -118,6 +120,8 @@ public class QueryProcessor {
 		if(joinType==20)
 			join=new FilterPVOperator(Config.INSTANCE.getUpdateBudget());
 		
+		if (joinType == 21)
+			join = new TopKOracleJoinOperator();
 		
 		long time=Config.INSTANCE.getQueryStartingTime()+Config.INSTANCE.getQueryWindowWidth()*1000;
 		int windowCount=0;
@@ -157,18 +161,19 @@ public class QueryProcessor {
 		//experiments for .F, .F+, and .F* algorithms
 		//scoringExperiment();
 		//scoringMultiExperiment();
-		scoringMultiExperiment_Selectivity();
+		//scoringMultiExperiment_Selectivity();
 		//scoringMultiExperiment_Budget();
 		
 		//combineExperiments();
-		
-		
 		
 		//partialViewMultiExperiment_Selectivity();
 		
 		//correctChangeRate();
 		//updateChangeRate();
 		
+		
+		QueryProcessor qp=new QueryProcessor();	
+		qp.evaluateQuery(21);
 		
 	}
 	
@@ -479,7 +484,7 @@ public class QueryProcessor {
 		ResultAnalyser.analysisMultipleExperimentsScoringAlgorithm(alpha ,percentage[p]);
 		System.out.println("--------------------------Multiple Evaluation end----------------------");
 	}
-	ResultAnalyser.generateDataForPlotingAllItreations2(110);
+	DataPloting.generateDataForPlotingAllItreations2(110);
 		
 
 	}
@@ -623,7 +628,7 @@ public class QueryProcessor {
 			}
 		}
 		
-		ResultAnalyser.generateDataForPlotingCombineAlgorithm(75);
+		DataPloting.generateDataForPlotingCombineAlgorithm(75);
 	}
 	
 	
