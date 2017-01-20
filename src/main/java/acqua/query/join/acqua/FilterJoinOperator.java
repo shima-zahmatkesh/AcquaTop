@@ -72,7 +72,7 @@ public class FilterJoinOperator extends ApproximateJoinOperator {
 				}
 			else 
 				{
-				result.put(temp.userId, "<>");
+				result.put(temp.userId, "<>"+ replicaValue + "  " + bkgValue);
 				}
 			//System.out.println("id "+temp.userId+">> oldness "+ temp.filterDiff +"    chachedValue >> "+ replicaValue + "    actualValue >> "+ bkgValue +"    differenece >>" + ( bkgValue-replicaValue) + " \n");
 			counter++;

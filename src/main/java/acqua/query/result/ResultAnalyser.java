@@ -128,7 +128,7 @@ public class ResultAnalyser {
 			while((line=br.readLine())!=null){
 				
 				String[] userInfo = line.split(" ");
-				//System.out.println(line);
+				System.out.println(line);
 				sql = "INSERT INTO " + table + " (USERID,MENTIONCOUNT,FOLLOWERCOUNT,TIMESTAMP) " +
 						"VALUES ("+userInfo[0]+","+userInfo[1]+","+userInfo[2]+","+userInfo[3]+")"; 
 				//System.out.println(sql);

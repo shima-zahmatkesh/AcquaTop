@@ -12,6 +12,8 @@ import java.util.Map;
 import acqua.config.Config;
 import acqua.data.TwitterFollowerCollector;
 import acqua.query.join.JoinOperator;
+import acqua.query.join.topk.ScoringFunction;
+import acqua.query.join.topk.TopKOracleJoinOperator;
 
 
 public abstract class ApproximateJoinOperator implements JoinOperator{
@@ -109,20 +111,44 @@ public abstract class ApproximateJoinOperator implements JoinOperator{
 			statsFileWriter.write(","+mentionList.size()+","+E+","+EP+","+E_b+","+EP_b+" \n");
 
 			//perform the join	
-			Iterator<Long> it= mentionList.keySet().iterator();
-			while(it.hasNext()){
-				long userId=Long.parseLong(it.next().toString());
-				Integer userFollowers = followerReplica.get(userId);
+			
+			if (!Config.INSTANCE.getTopkQuery() ) {
 				
-				//query contains filtering part
-				if ( Config.INSTANCE.getQueryWithFiltering() ){
-					if (userFollowers > Config.INSTANCE.getQueryFilterThreshold()){
-						answersFileWriter.write(userId +" "+mentionList.get(userId)+" "+userFollowers+" "+evaluationTime+"\n");
+				Iterator<Long> it= mentionList.keySet().iterator();
+				while(it.hasNext()){
+					long userId=Long.parseLong(it.next().toString());
+					Integer userFollowers = followerReplica.get(userId);
+					if (userFollowers == null) userFollowers =0;
+					
+					//query contains filtering part
+					if ( Config.INSTANCE.getQueryWithFiltering() ){
+						if (userFollowers > Config.INSTANCE.getQueryFilterThreshold()){
+							answersFileWriter.write(userId +" "+mentionList.get(userId)+" "+userFollowers+" "+evaluationTime+"\n");
+						}
 					}
+					//query without filtering part
+					else{
+						answersFileWriter.write(userId +" "+mentionList.get(userId)+" "+userFollowers+" "+evaluationTime+"\n");	
+					}	
 				}
-				//query without filtering part
-				else{
-					answersFileWriter.write(userId +" "+mentionList.get(userId)+" "+userFollowers+" "+evaluationTime+"\n");	
+			}
+			// top-k query
+			else{
+				
+				HashMap<Long, Float> sortedUser = new HashMap<Long, Float>();
+				sortedUser = ScoringFunction.getSortedUsers(mentionList, followerReplica);
+				Long topk = Config.INSTANCE.getTopK();
+				int rank = 1;
+				
+				Iterator<Long> sortIt= sortedUser.keySet().iterator();
+				while(sortIt.hasNext() && topk > 0 ){
+					
+					long userId=Long.parseLong(sortIt.next().toString());
+					Integer userFollowers = followerReplica.get(userId);
+					if (userFollowers == null) userFollowers =0;
+					answersFileWriter.write(userId +" "+mentionList.get(userId)+" "+userFollowers+" "+evaluationTime+  " " + sortedUser.get(userId)+ " " + rank +"\n");
+					rank ++;
+					topk--;
 				}	
 			}
 			
@@ -140,7 +166,7 @@ public abstract class ApproximateJoinOperator implements JoinOperator{
 		{
 			Long userId=windowContent.next();
 			//System.out.println(userId);
-			if(freshFollowerCount.get(userId).intValue()!=followerReplica.get(userId).intValue())
+			if(freshFollowerCount.get(userId)==null || freshFollowerCount.get(userId).intValue()!=followerReplica.get(userId).intValue())
 			//if(TwitterFollowerCollector.getUserFollowerFromDB(evaluationTime, userId)!=followerReplica.get(userId).intValue())
 				error+=1;
 		}
@@ -153,9 +179,9 @@ public abstract class ApproximateJoinOperator implements JoinOperator{
 		Iterator<Long> allUserCountIt = followerReplica.keySet().iterator();
 		while(allUserCountIt.hasNext()){
 			Long userId=allUserCountIt.next();
-			//System.out.println(freshFollowerCount.get(userId));
-			//System.out.println(followerReplica.get(userId));
-			if(/*freshFollowerCount.get(userId)==null || */freshFollowerCount.get(userId).intValue()!=followerReplica.get(userId).intValue())
+			//System.out.println(userId +"   " + freshFollowerCount.get(userId));
+			//System.out.println(userId +"    " +followerReplica.get(userId));
+			if(freshFollowerCount.get(userId)==null || freshFollowerCount.get(userId).intValue()!=followerReplica.get(userId).intValue())
 			//if(TwitterFollowerCollector.getUserFollowerFromDB(evaluationTime, userId)!=followerReplica.get(userId).intValue())
 				error+=1;
 		}
@@ -177,6 +203,7 @@ public abstract class ApproximateJoinOperator implements JoinOperator{
 
 	protected boolean isStale(long timestamp, long id){
 		int newValue = TwitterFollowerCollector.getUserFollowerFromDB(timestamp, id);
+		//System.out.println(newValue);
 		if(followerReplica.get(id).equals(newValue))
 			return false;
 		return true;

@@ -228,7 +228,7 @@ public class BKGGenerator {
 				            case "DEC":
 				            	newFollowerCount = newFollowerCount - transition;
 				                break;
-				            case "MIX"
+				            case "MIX":
 				            	int randNum = rand.nextInt(2);
 				            	if (randNum == 0) {newFollowerCount = newFollowerCount + transition;}
 				            	else if (randNum == 1) {newFollowerCount= newFollowerCount - transition;}

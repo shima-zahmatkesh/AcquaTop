@@ -531,6 +531,50 @@ public class TwitterFollowerCollector {
 		return result;
 	}
 	
+	public static Long getMinimumFollowerCount(){
+		Connection c = null;
+		Statement stmt = null;
+		long followerCount =0;
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());
+			c.setAutoCommit(false);
+			stmt = c.createStatement();
+			String sql="SELECT  MIN(FOLLOWERCOUNT) AS MINFC  FROM BKG ";
+			ResultSet rs = stmt.executeQuery( sql);
+			followerCount  = rs.getLong("MINFC");
+			rs.close();
+			stmt.close();
+			c.close();
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+			System.exit(0);
+		}
+		return followerCount;
+	}
+	
+	public static Long getMaximumFollowerCount(){
+		Connection c = null;
+		Statement stmt = null;
+		long followerCount =0;
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());
+			c.setAutoCommit(false);
+			stmt = c.createStatement();
+			String sql="SELECT  MAX(FOLLOWERCOUNT) AS MAXFC  FROM BKG ";
+			ResultSet rs = stmt.executeQuery( sql);
+			followerCount  = rs.getLong("MAXFC");
+			rs.close();
+			stmt.close();
+			c.close();
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+			System.exit(0);
+		}
+		return followerCount;
+	}
+	
 	public static void main(String[] args){
 		
 		//TwitterFollowerCollector tfc=new TwitterFollowerCollector();
@@ -747,7 +791,7 @@ public class TwitterFollowerCollector {
 			Iterator<Long> it= followers.keySet().iterator();
 			while(it.hasNext()){
 				
-				timestamp=Long.parseLong(it.next().toString());
+				timestamp = it.next();
 				followerCount = followers.get(timestamp);
 				
 				String sql1= " UPDATE BKG  "+

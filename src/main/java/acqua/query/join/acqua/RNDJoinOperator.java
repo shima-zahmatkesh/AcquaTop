@@ -43,10 +43,11 @@ public class RNDJoinOperator extends ApproximateJoinOperator {
 		int counter=0;
 		while(counter<updateBudget){
 			Long temp = A.get(indexes.get(counter));
-			if(followerReplica.get(temp)==TwitterFollowerCollector.getUserFollowerFromDB(evaluationTime, temp))
+			int currentValue = TwitterFollowerCollector.getUserFollowerFromDB(evaluationTime, temp);
+			if(followerReplica.get(temp)==currentValue)
 				result.put(temp,"=");
 			else
-				result.put(temp,"<>");
+				result.put(temp,"<>"+ currentValue + "  " + followerReplica.get(temp));
 			counter++;
 		}
 		//System.out.println("-----------------------------------------------------------------");

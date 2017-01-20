@@ -136,4 +136,18 @@ public class Config {
 	public void setTopK(long k){
 		config.setProperty("top.k" , k);
 	}
+	
+	public Long getIntervalSnapshot(){
+		return config.getLong("interval.snapshot");
+	}
+	
+	public Long getSnapshotStart(){
+		return config.getLong("snapshot.start");
+	}
+	
+	public Boolean getTopkQuery(){
+		if(config.getString("topk.query").equals("true"))
+			return true;
+		return false;
+	}
 }

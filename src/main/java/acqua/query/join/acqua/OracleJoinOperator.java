@@ -41,9 +41,9 @@ public class OracleJoinOperator implements JoinOperator{
 				
 				//query contains filtering part
 				if ( Config.INSTANCE.getQueryWithFiltering() ){
-					if (userFollowers > Config.INSTANCE.getQueryFilterThreshold()){
+  
 						outputWriter.write(userId +" "+mentionList.get(userId)+" "+userFollowers+" "+timeStamp+"\n");
-					}
+					
 				}
 				//query without filtering part
 				else{

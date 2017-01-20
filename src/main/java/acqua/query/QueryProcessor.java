@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import acqua.config.Config;
+import acqua.data.StreamCollector;
+import acqua.data.TwitterFollowerCollector;
 import acqua.data.TwitterStreamCollector;
 import acqua.query.join.*;
 import acqua.query.join.TACombine.LRUFTAOperator;
@@ -36,26 +38,41 @@ import acqua.query.join.simpleCombine.RNDFOperator;
 import acqua.query.join.simpleCombine.WBMFOperator;
 import acqua.query.result.DataPloting;
 import acqua.query.result.ResultAnalyser;
+import acqua.query.result.TopKResultAnalyser;
 import acqua.query.join.topk.*;
 
 public class QueryProcessor {
 	JoinOperator join;
 	TwitterStreamCollector tsc;	
+	//StreamCollector tsc;	
 	ArrayList<HashMap<Long,Integer>> slidedwindows;
 	ArrayList<HashMap<Long,Long>> slidedwindowsTime;
 
 	
 	QueryProcessor(){
+		//tsc= new StreamCollector();
+		//tsc.extractSlides(Config.INSTANCE.getQueryWindowWidth(),Config.INSTANCE.getQueryWindowSlide(), Config.INSTANCE.getQueryStartingTime() , Config.INSTANCE.getQueryStartingTime()*1000*Config.INSTANCE.getExperimentIterationNumber() );
+
 		tsc= new TwitterStreamCollector();
 		tsc.extractSlides(Config.INSTANCE.getQueryWindowWidth(),Config.INSTANCE.getQueryWindowSlide(), Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"twitterStream.txt");
+
 		slidedwindows = tsc.aggregateSildedWindowsUser();
 		slidedwindowsTime=tsc.aggregateSildedWindowsUserTime();
+		
+		if (Config.INSTANCE.getTopkQuery()){
+			ScoringFunction.setMaxFollowerCount((float)TwitterFollowerCollector.getMaximumFollowerCount());
+			ScoringFunction.setMinFollowerCount((float)TwitterFollowerCollector.getMinimumFollowerCount());
+			ScoringFunction.setMaxMentions((float) tsc.getMaximumUserMentions(slidedwindows));
+			ScoringFunction.setMinMentions((float) tsc.getMinimumUserMentions(slidedwindows));
+		}
+		
+		
 	}
 
 	public void evaluateQuery(int joinType){
 		
 		//Oracle
-		if(joinType==1)
+		if(joinType==21)
 			join=new OracleJoinOperator();
 		//WST
 		if(joinType==2)
@@ -120,12 +137,14 @@ public class QueryProcessor {
 		if(joinType==20)
 			join=new FilterPVOperator(Config.INSTANCE.getUpdateBudget());
 		
-		if (joinType == 21)
+		if (joinType == 1)
 			join = new TopKOracleJoinOperator();
+		
+		
 		
 		long time=Config.INSTANCE.getQueryStartingTime()+Config.INSTANCE.getQueryWindowWidth()*1000;
 		int windowCount=0;
-		while(windowCount<150){
+		while(  windowCount < Config.INSTANCE.getExperimentIterationNumber()){
 
 			HashMap<Long,Long> currentCandidateTimeStamp = slidedwindowsTime.get(windowCount);
 			join.process(time,slidedwindows.get(windowCount),currentCandidateTimeStamp);				
@@ -146,8 +165,8 @@ public class QueryProcessor {
 	}
 	
 	public static void main(String[] args){
-		
-		//oneExperiment ();
+
+		oneExperiment ();
 		//multiExperiments();   //also for partial view-k
 		
 		
@@ -172,26 +191,31 @@ public class QueryProcessor {
 		//updateChangeRate();
 		
 		
-		QueryProcessor qp=new QueryProcessor();	
-		qp.evaluateQuery(21);
+		//QueryProcessor qp=new QueryProcessor();	
+		//qp.evaluateQuery(21);
 		
 	}
 	
 	
 
 	private static void oneExperiment(){
-		
-		QueryProcessor qp=new QueryProcessor();	
+
+		QueryProcessor qp=new QueryProcessor();
 		String srcDB = Config.INSTANCE.getDatasetDb();
 		
-		String desDB = srcDB.split("\\.")[0]+"_test.db" ;
+		String desDB = srcDB.split("\\.")[0]+"_1_60.db" ;
 		Config.INSTANCE.setDatasetDb(desDB);
 		
-		for(int i = 1 ; i < 13 ; i++){
+		for(int i = 1 ; i < 6 ; i++){
 			System.out.println("--------------------------Evaluation number = " + i + "----------------------");
 			qp.evaluateQuery(i);
 		}
-		ResultAnalyser.analysisExperimentJaccard();
+		if ( Config.INSTANCE.getTopkQuery()){
+			TopKResultAnalyser.analysisExperimentNDCG();
+		}
+		else{
+			ResultAnalyser.analysisExperimentJaccard();
+		}
 	}
 
 	private static void multiExperiments(){
@@ -691,7 +715,7 @@ public class QueryProcessor {
 	private static void updateChangeRate() {
 		
 		WBMJoinOperator join=new WBMJoinOperator(Config.INSTANCE.getUpdateBudget(), true);
-		join.createUserTableFromBKG();
+		join.createUserTableFromBKG(500000);
 		
 	}
 

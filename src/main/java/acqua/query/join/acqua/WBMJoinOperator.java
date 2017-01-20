@@ -74,7 +74,7 @@ public class WBMJoinOperator extends ApproximateJoinOperator{
 		// TODO Auto-generated constructor stub
 	}
 
-	public void createUserTableFromBKG(){
+	public void createUserTableFromBKG(int interval){
 		Connection c = null;
 		Statement stmt = null;
 		try {
@@ -86,7 +86,7 @@ public class WBMJoinOperator extends ApproximateJoinOperator{
 			stmt.executeUpdate("Drop table IF EXISTS User");
 			//---String sql = "CREATE TABLE  `User` as select bkg.USERID as USERID, cast(count(distinct(bkg.FOLLOWERCOUNT)) as real)/cast(count(distinct(bkg.tiMESTAMP)) as real) AS CHANGERATE from bkg group by bkg.USERID";
 			stmt.executeUpdate("create table User ( USERID BIGINT, CHANGERATE real);");
-			sql="insert into User SELECT A.USERID , round(cast(COUNT(*) as real)/cast((SELECT COUNT(TIMESTAMP) FROM BKG C WHERE C.USERID = A.USERID) as real),4) FROM BKG A, BKG B WHERE A.TIMESTAMP-B.TIMESTAMP>0 AND A.TIMESTAMP-B.TIMESTAMP< 100000 AND A.USERID = B.USERID AND A.FOLLOWERCOUNT<>B.FOLLOWERCOUNT GROUP BY A.USERID";
+			sql="insert into User SELECT A.USERID , round(cast(COUNT(*) as real)/cast((SELECT COUNT(TIMESTAMP) FROM BKG C WHERE C.USERID = A.USERID) as real),4) FROM BKG A, BKG B WHERE A.TIMESTAMP-B.TIMESTAMP>0 AND A.TIMESTAMP-B.TIMESTAMP< " + interval + " AND A.USERID = B.USERID AND A.FOLLOWERCOUNT<>B.FOLLOWERCOUNT GROUP BY A.USERID";
 			//String sql="";
 			System.out.println("creat user table");
 			stmt.execute(sql);
@@ -123,7 +123,7 @@ public class WBMJoinOperator extends ApproximateJoinOperator{
 		 ********************************/
 		while(candidateUserSetIterator.hasNext()){
 			long userid=candidateUserSetIterator.next();
-			
+			//System.out.println(userid);
 			if(isStale(evaluationTime, userid))actuallyExpiredUsers.add(userid);
 
 			//for test purposes
@@ -134,8 +134,8 @@ public class WBMJoinOperator extends ApproximateJoinOperator{
 				f= userChangeRates.get(userid);
 				changeCount=(int)Math.floor((double)1/f);
 			}catch(Exception ee){
-				ee.printStackTrace(); 
-				//System.out.println("couldn't find the change rate of "+userid+ " and skip this user because it will not expire");
+				//ee.printStackTrace(); 
+				System.out.println("skip user "+ userid + "  because it will not expire");
 				continue;
 			}
 
@@ -283,7 +283,7 @@ public class WBMJoinOperator extends ApproximateJoinOperator{
 				long currentValue = this.followerReplica.get(temp.userId);
 				long bkgValue = TwitterFollowerCollector.getUserFollowerFromDB(evaluationTime, temp.userId);
 				if(currentValue!=bkgValue){
-					result.put(temp.userId,"<>");
+					result.put(temp.userId,"<>" + currentValue + "  " + bkgValue);
 					//System.out.printf("NOT Expired: id "+temp.userId+" >>estimatedexp >> %d changerate>> "+userChangeRates.get(temp.userId)+" cachedvalue>> "+currentValue+" actualValue "+bkgValue+" \n",(evaluationTime - temp.nextExpirationTime)/60000);
 				} else {
 					result.put(temp.userId,"=");

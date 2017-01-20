@@ -109,7 +109,7 @@ public class LRUJoinOperator extends ApproximateJoinOperator{
 				}
 			else 
 				{
-				result.put(temp.userId, "<>");
+				result.put(temp.userId, "<>" + replicaValue + "  " + bkgValue);
 				}
 			//System.out.printf("id "+temp.userId+">>oldness "+temp.updateTimeDiff/60000+"  cr= "+getchangerate(temp.userId)+" chachedValue>> "+ replicaValue+ " actualValue>> "+bkgValue+" \n",(evaluationTime - temp.updateTimeDiff)/60000);
 			counter++;

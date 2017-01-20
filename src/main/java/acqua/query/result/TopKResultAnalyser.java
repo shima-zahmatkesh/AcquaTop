@@ -37,11 +37,17 @@ public class TopKResultAnalyser {
 			stmt = c.createStatement();
 			
 			createtable (stmt ,  "OTKJ");
-			createtable (stmt ,  "WSTTKJ");
+			createtable (stmt ,  "WSTJ");
+			createtable (stmt ,  "LRUJ");
+			createtable (stmt ,  "RNDJ");
+			createtable (stmt ,  "WBMJ");
+			
 			
 			putOutputInDatabase( stmt ,"joinOutput/TopKOracleJoinOperatorOutput.txt" , "OTKJ");
-			putOutputInDatabase( stmt ,"joinOutput/WSTTopKJoinOperatorOutput.txt" , "WSTTKJ");
-			
+			putOutputInDatabase( stmt ,"joinOutput/WSTJoinOperatorOutput.txt" , "WSTJ");
+			putOutputInDatabase( stmt ,"joinOutput/RNDJoinOperatorOutput.txt" , "RNDJ");
+			putOutputInDatabase( stmt ,"joinOutput/LRUJoinOperatorOutput.txt" , "LRUJ");
+			putOutputInDatabase( stmt ,"joinOutput/WBMJoinOperatorOutput.txt" , "WBMJ");			
 			
 			
 			stmt.close();
@@ -58,12 +64,12 @@ public class TopKResultAnalyser {
 					" `USERID`           BIGINT    NOT NULL, " + 
 					" `MENTIONCOUNT`     INT    NOT NULL, " + 
 					" `FOLLOWERCOUNT`    INT    NOT NULL, " + 
-					" `TIMESTAMP`        BIGINT NOT NULL); "+
+					" `TIMESTAMP`        BIGINT NOT NULL, "+
 					" `SCORE`            REAL    NOT NULL, " + 
-					" `ORDER`            INT    NOT NULL, " + 
+					" `RANK`             INT    NOT NULL); " + 
 					" CREATE INDEX `" + table + "timeIndex` ON `" + table + "` (`TIMESTAMP` ASC);"; 
 			stmt.executeUpdate(sql);
-			
+			//System.out.println(sql);
 		} catch (SQLException e) { e.printStackTrace();}
 	}
 	
@@ -81,7 +87,7 @@ public class TopKResultAnalyser {
 				
 				String[] userInfo = line.split(" ");
 				//System.out.println(line);
-				sql = "INSERT INTO " + table + " (USERID,MENTIONCOUNT,FOLLOWERCOUNT,TIMESTAMP,SCORE,ORDER) " +
+				sql = "INSERT INTO " + table + " (USERID,MENTIONCOUNT,FOLLOWERCOUNT,TIMESTAMP,SCORE,RANK) " +
 						"VALUES ("+userInfo[0]+","+userInfo[1]+","+userInfo[2]+","+userInfo[3]+","+userInfo[4]+","+userInfo[5]+")"; 
 				//System.out.println(sql);
 				stmt.executeUpdate(sql);
@@ -100,23 +106,36 @@ public class TopKResultAnalyser {
 			TreeMap<Long,Integer> oracleCount=computeOJoin();
 
 			//use nDCG to compute errors
-			HashMap<Long,Double> WSTError=computeErrorsNDCG(getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("WSTTKJ") );
-			
+			HashMap<Long,Double> WSTError=computeErrorsNDCG(getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("WSTJ") );
+			HashMap<Long,Double> RNDError=computeErrorsNDCG (getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("RNDJ") );
+			HashMap<Long,Double> LRUError=computeErrorsNDCG (getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("LRUJ") );			
+			HashMap<Long,Double> WBMError=computeErrorsNDCG(getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("WBMJ") );
+
 			
 			Iterator<Long> itO = oracleCount.keySet().iterator();
-			bw.write("timestampe,Oracle,WST\n");
-			Double cOC=0.0, cwste=0.0 ;
+			bw.write("timestampe,Oracle,WST,RND,WBM,LRU\n");
+			Double cOC=0.0, cwste=0.0 ,crnde=0.0,cwbme=0.0, clrue=0.0 ;
 			while(itO.hasNext()){
 				
 				long nextTime = itO.next();
 				Integer OC=oracleCount.get(nextTime);
 				Double wste=WSTError.get(nextTime);
+				Double rnde=RNDError.get(nextTime);
+				Double wbme=WBMError.get(nextTime);
+				Double lrue=LRUError.get(nextTime);
 
 				//cumulative error
 				cOC=cOC + OC ; 
 				cwste= cwste + (wste = wste==null?0:wste) ;
+				crnde= crnde + (rnde = rnde==null?0:rnde) ;
+				cwbme= cwbme + (wbme= wbme==null?0:wbme) ;
+				clrue= clrue + (lrue= lrue==null?0:lrue) ;
 			
-				bw.write(nextTime+","+String.format("%.2f",cOC)+ ","+ String.format("%.2f",(cwste==null?0:cwste))+ "\n");
+				bw.write(nextTime+","+String.format("%.5f",cOC)+
+						","+ String.format("%.5f",(cwste==null?0:cwste))+ 
+						","+ String.format("%.5f",(crnde==null?0:crnde))+
+						","+ String.format("%.5f",(cwbme==null?0:cwbme)) +
+						","+ String.format("%.5f",(clrue==null?0:clrue)) + "\n");
 				
 			}
 			bw.flush();
@@ -134,7 +153,7 @@ public class TopKResultAnalyser {
 			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());	      
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
-			String sql="SELECT oj.TIMESTAMP as TIMESTAMP, count(OJ.USERID) as windowcount FROM OJ  group by OJ.TIMESTAMP order by OJ.TIMESTAMP ASC";      //System.out.println(sql);
+			String sql="SELECT otkj.TIMESTAMP as TIMESTAMP, count(OTKJ.USERID) as windowcount FROM OTKJ  group by OTKJ.TIMESTAMP order by OTKJ.TIMESTAMP ASC";      //System.out.println(sql);
 			ResultSet rs = stmt.executeQuery( sql);
 
 			while ( rs.next() ) {
@@ -150,9 +169,9 @@ public class TopKResultAnalyser {
 		return result;
 	}	
 	
-	public static TreeMap< Long, HashSet<String>> getResultsOfTimestaps(String table){
+	public static TreeMap< Long, HashMap<Long ,String>> getResultsOfTimestaps(String table){
 		
-		TreeMap< Long, HashSet<String>> result = new TreeMap< Long, HashSet<String>>();
+		TreeMap< Long, HashMap<Long,String>> result = new TreeMap<Long, HashMap<Long,String>>();
 		Connection c = null;
 		Statement stmt = null, stmt1 = null;
 		try {		
@@ -167,15 +186,17 @@ public class TopKResultAnalyser {
 
 			while ( rs.next() ) {
 				Long timeStamp  = rs.getLong("TIMESTAMP");
-				String sql1="SELECT USERID,SCORE,ORDER FROM " + table + " WHERE " + table + ".TIMESTAMP = " + timeStamp + "ORDER BY ORDER ASC" ;
+				String sql1="SELECT USERID, SCORE, RANK FROM " + table + " WHERE " + table + ".TIMESTAMP = " + timeStamp + " ORDER BY RANK ASC" ;
+				//System.out.println(sql1);
+
 				ResultSet rs1 = stmt1.executeQuery( sql1);
-				HashSet<String> resultSet = new HashSet<String>() ;
+				HashMap<Long , String> resultSet = new HashMap<Long , String>() ;
 				
 				while ( rs1.next() ) {
-					Integer userID  = rs1.getInt("USERID");
+					Long userID  = rs1.getLong("USERID");
 					Double score  = rs1.getDouble("SCORE");
-					Integer order  = rs1.getInt("ORDER");
-					resultSet.add(userID+","+score+","+order);
+					Integer order  = rs1.getInt("RANK");
+					resultSet.put(userID , score+","+order);
 				}
 				result.put(timeStamp,resultSet);
 				rs1.close();
@@ -188,7 +209,7 @@ public class TopKResultAnalyser {
 		return result;
 	}
 
-	public static HashMap<Long,Double> computeErrorsNDCG (TreeMap< Long, HashSet<String>> original , TreeMap< Long, HashSet<String>> replica){
+	public static HashMap<Long,Double> computeErrorsNDCG (TreeMap< Long, HashMap<Long ,String>> original , TreeMap< Long, HashMap<Long ,String>> replica){
 	
 		HashMap<Long,Double> result=new HashMap<Long, Double>();
 		
@@ -199,51 +220,148 @@ public class TopKResultAnalyser {
 			long timestamp = timeIt.next();
 			
 			// find same timestamps in original and replica
-			HashSet<String> originalResults = original.get(timestamp);
-			HashSet<String> replicaResults = new HashSet<String>();
+			HashMap<Long ,String> originalResults = original.get(timestamp);
+			HashMap<Long ,String> replicaResults = new HashMap<Long ,String> ();
 			if (replica.containsKey(timestamp)) {
 				replicaResults = replica.get(timestamp);
 			}else { 
 				continue; 
 			}
 			
-			DCG = computeDCG(replicaResults);
-			IDCG = computeDCG(originalResults);
+			//HashSet<String> rerankOriginalResults = rerankOriginalResults(originalResults , replicaResults);
+			HashMap<Long ,String> newOriginalResults = setOriginalRelevancy(originalResults);
+			HashMap<Long ,String> newReplicaResults = setReplicaRelevancy(replicaResults, originalResults);
+			DCG = computeDCG(newReplicaResults);
+			IDCG = computeDCG(newOriginalResults);
+			//DCG = computeDCG(replicaResults);
+			//IDCG = computeDCG(originalResults);
 			NDCG = DCG /IDCG;
 			
-			result.put(timestamp, NDCG);
+			result.put(timestamp, (1d-NDCG));
 			
 		}
 		return result;
 	
 	}
 
-	private static Double computeDCG(HashSet<String> list) {
+	private static Double computeDCG(HashMap<Long ,String> list) {
 		
 		Double result = 0.0;
+		
+		Iterator<Long> it= list.keySet().iterator();
+		while(it.hasNext()){
+			long id =it.next();
+			String temp = list.get(id);
+			String [] tempSplit = temp.split(",");
+			Double score = Double.valueOf(tempSplit[0]);
+			Integer rank = Integer.valueOf(tempSplit[1]);
+
+			result +=  ( Math.pow(2, score) - 1 ) / ( Math.log( rank + 1) / Math.log(2) );
+			
+		}
+		return result;
+	}
+
+	private static HashSet<String> rerankOriginalResults(HashSet<String> list , HashSet<String> replica) {
+		
+		HashSet<String> result = new HashSet<String>();
+		TreeMap <Integer , String> orderedList = new TreeMap<Integer , String>();
 		
 		Iterator<String> it= list.iterator();
 		while(it.hasNext()){
 			String temp =it.next();
 			String [] tempSplit = temp.split(",");
 			Integer userId = Integer.valueOf(tempSplit[0]);
-			Double score = Double.valueOf(tempSplit[1]);
-			Integer order = Integer.valueOf(tempSplit[2]);
-//			if (order ==1){
-//				result += score ;
-//			}
-//			else{
-//				result += score / (Math.log(order) / Math.log(2));
-//			}
+			Integer rank = Integer.valueOf(tempSplit[2]);
 			
-			result +=  ( Math.pow(2, score) - 1 ) / ( Math.log(order+1) / Math.log(2) );
+			Iterator<String> itrep= replica.iterator();
+			while(itrep.hasNext()){
+				String temprep =itrep.next();
+				String [] temprepSplit = temprep.split(",");
+				Integer userIdrep = Integer.valueOf(temprepSplit[0]);
+				if (userIdrep.intValue() == userId.intValue()){
+						orderedList.put(rank, temp);
+				}
+			}
+
+		}
+		
+		Iterator<Integer> ordIt= orderedList.keySet().iterator();
+		int newrank = 1;
+		while(ordIt.hasNext() && newrank <= Config.INSTANCE.getTopK()){
+			
+			Integer oldRank =ordIt.next();
+			String temp = orderedList.get(oldRank);
+			String [] tempSplit = temp.split(",");
+			Integer userId = Integer.valueOf(tempSplit[0]);
+			Double score = Double.valueOf(tempSplit[1]);
+			Integer rank = Integer.valueOf(tempSplit[2]);
+			
+			result.add(userId + "," + score + "," + rank);        //newrank removed
+			newrank ++;
 			
 		}
 		return result;
 	}
 
+	private static HashMap<Long ,String> setOriginalRelevancy(HashMap<Long ,String> original){
+		
+		HashMap<Long ,String> result = new HashMap<Long ,String>();
+		int originalRelevancy = 3;
+		
+		Iterator<Long> it= original.keySet().iterator();
+		while(it.hasNext()){
+			long id =it.next();
+			String temp = original.get(id);
+			String [] tempSplit = temp.split(",");
+			Integer rank = Integer.valueOf(tempSplit[1]);
+			result.put(id , originalRelevancy + "," + rank);
+		}
+		return result;
+	}
 	
+	private static HashMap<Long ,String> setReplicaRelevancy(HashMap<Long ,String> replica , HashMap<Long ,String> original){
+		
+		HashMap<Long ,String> result = new HashMap<Long ,String>();
+		int originalRelevancy = 3 ,replicaRelevancy = 1;
+		
+		Iterator<Long> it= replica.keySet().iterator();
+		while(it.hasNext()){
+			long id =it.next();
+			String temp = replica.get(id);
+			String [] tempSplit = temp.split(",");
+			Integer rank = Integer.valueOf(tempSplit[1]);
+			if (original.containsKey(id)){
+				result.put(id , originalRelevancy + "," + rank);
+			}else{
+				result.put(id , replicaRelevancy + "," + rank);	
+			}
+		}
+		return result;
+	}
 	
+	public static void main(String[] args){
 	
-	
+		HashMap<Long ,String> original = new HashMap<Long ,String>();
+		HashMap<Long ,String> replica = new HashMap<Long ,String>();
+		Double DCG = 0.0 , IDCG = 0.0 , NDCG = 0.0;
+
+		
+		original.put(101l, "0.9,1");
+		original.put(102l, "0.8,2");
+		original.put(103l, "0.7,3");
+		original.put(104l, "0.6,4");
+
+		replica.put(101l, "0.9,1");
+		replica.put(105l, "0.8,2");
+		replica.put(103l, "0.7,3");
+		replica.put(107l, "0.5,4");
+
+		HashMap<Long ,String> newOriginalResults = setOriginalRelevancy(original);
+		HashMap<Long ,String> newReplicaResults = setReplicaRelevancy(replica, original);
+		DCG = computeDCG(newReplicaResults);
+		IDCG = computeDCG(newOriginalResults);
+		
+		NDCG = DCG /IDCG;
+	}
 }

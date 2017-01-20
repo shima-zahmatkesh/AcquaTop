@@ -32,34 +32,24 @@ public class TopKOracleJoinOperator implements JoinOperator{
 	}
 	public void process(long timeStamp, Map<Long,Integer> mentionList,Map<Long,Long> usersTimeStampOfTheCurrentSlidedWindow){
 		try {
-			HashMap<Long, Float> scoreOfUsers = new HashMap<Long, Float>();
 			HashMap<Long, Float> sortedUser = new HashMap<Long, Float>();
 			HashMap<Long, Integer> currentFollowerCount=TwitterFollowerCollector.getFollowerListFromDB(timeStamp);
 			
 			long windowDiff = timeStamp-Config.INSTANCE.getQueryStartingTime();
 			if (windowDiff==0) return;
 			
-			
-			
-			Iterator<Long> it= mentionList.keySet().iterator();
-			while(it.hasNext()){
-				long userId=Long.parseLong(it.next().toString());
-				Integer userFollowers = currentFollowerCount.get(userId);
-				Integer mentionNumber = mentionList.get(userId);
-				
-				Float score = computeScore(userId ,userFollowers, mentionNumber );
-				scoreOfUsers.put(userId, score);
-			}
-			sortedUser = sortByValue(scoreOfUsers , DESC);	
+			sortedUser = ScoringFunction.getSortedUsers(mentionList , currentFollowerCount);
 			
 			Long topk = Config.INSTANCE.getTopK();
+			int rank = 1;
 			Iterator<Long> sortIt= sortedUser.keySet().iterator();
-			while(sortIt.hasNext() && topk > 0 ){
+			while(sortIt.hasNext() &&  topk > 0 ){
 				
 				long userId=Long.parseLong(sortIt.next().toString());
 				Integer userFollowers = currentFollowerCount.get(userId);
 				
-				outputWriter.write( userId + " " + mentionList.get(userId) + " " + userFollowers + " " + timeStamp + " " + sortedUser.get(userId)+ "\n");
+				outputWriter.write( userId + " " + mentionList.get(userId) + " " + userFollowers + " " + timeStamp + " " + sortedUser.get(userId)+" " + rank + "\n");
+				rank ++;
 				topk--;
 			}
 			
@@ -70,12 +60,12 @@ public class TopKOracleJoinOperator implements JoinOperator{
 
 	}
 	
-	public Float computeScore(Long userId , Integer userFollowers, Integer mentionNumber ){
+	public static Float computeScore(Long userId , Integer userFollowers, Integer mentionNumber ){
 	
-		return (float)(userFollowers + mentionNumber);
+		return (float)(  userFollowers + mentionNumber);
 	}
 	
-	public  HashMap<Long, Float> sortByValue (HashMap<Long, Float> unsortMap, final boolean order)
+	public  static HashMap<Long, Float> sortByValue (HashMap<Long, Float> unsortMap, final boolean order)
 	{
 
 		List<Entry<Long, Float>> list = new LinkedList<Entry<Long, Float>>(unsortMap.entrySet());

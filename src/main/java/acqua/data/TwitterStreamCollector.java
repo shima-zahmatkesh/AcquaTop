@@ -395,6 +395,45 @@ public class TwitterStreamCollector {
 		}
 		return slidedWindowsTime;
 	}
+	
+	public Integer getMaximumUserMentions(ArrayList<HashMap<Long,Integer>> slidedWindows){
+		
+		Integer maxMentions = Integer.MIN_VALUE ;
+		
+		for ( int i = 0 ; i < slidedWindows.size() ; i++){
+			
+			HashMap<Long,Integer> userMentions = slidedWindows.get(i);
+			Iterator<Long> it= userMentions.keySet().iterator();
+			while(it.hasNext()){
+				Long id=it.next();
+				Integer mentions = userMentions.get(id);
+				if (mentions > maxMentions){
+					maxMentions = mentions ;
+				}
+			}
+		}
+		return maxMentions;
+	}
+	
+	public Integer getMinimumUserMentions(ArrayList<HashMap<Long,Integer>> slidedWindows){
+		
+		Integer minMentions = Integer.MAX_VALUE ;
+		
+		for ( int i = 0 ; i < slidedWindows.size() ; i++){
+			
+			HashMap<Long,Integer> userMentions = slidedWindows.get(i);
+			Iterator<Long> it= userMentions.keySet().iterator();
+			while(it.hasNext()){
+				Long id=it.next();
+				Integer mentions = userMentions.get(id);
+				if (mentions < minMentions){
+					minMentions = mentions ;
+				}
+			}
+		}
+		return minMentions;
+	}
+	
 	public static void main(String[] args)
 	{
 		TwitterStreamCollector tsc=new TwitterStreamCollector();
