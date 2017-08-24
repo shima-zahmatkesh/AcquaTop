@@ -66,7 +66,10 @@ public class TwitterFollowerCollector {
 			c.setAutoCommit(false);
 			stmt = c.createStatement();
 			//String sql="select max(X.timestamp) as TS from (select bkg.tiMESTAMP as timestamp from bkg where bkg.tiMESTAMP<"+time+" and bkg.USERID="+userid+") as X";
-			String sql="select min(bkg.tiMESTAMP) as MTS from bkg, (select max(X.timestamp) as TS,X.fc as FC from (select bkg.tiMESTAMP as timestamp ,bkg.foLLOWERCOUNT as fc from bkg where bkg.tiMESTAMP<"+time+" and bkg.USERID="+userid+") as X)as y where bkg.foLLOWERCOUNT =y.FC";
+			String sql="select min(bkg.tiMESTAMP) as MTS from bkg, "
+					+ "(select max(X.timestamp) as TS,X.fc as FC from "
+					+ "(select bkg.tiMESTAMP as timestamp ,bkg.foLLOWERCOUNT as fc from bkg where bkg.tiMESTAMP<"+time+" and bkg.USERID="+userid+") as X) as y "
+					+ "where bkg.foLLOWERCOUNT =y.FC";
 			ResultSet rs = stmt.executeQuery( sql);
 
 			result = rs.getLong("MTS");
@@ -854,7 +857,6 @@ public class TwitterFollowerCollector {
 		File newfile =new File(newFile);
 		return oldfile.renameTo(newfile);
 	}
-	
 	
 	public static HashMap<Long,String> getInstanceSelectivity(){
 		

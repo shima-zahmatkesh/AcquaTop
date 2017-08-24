@@ -72,7 +72,7 @@ public class QueryProcessor {
 	public void evaluateQuery(int joinType){
 		
 		//Oracle
-		if(joinType==21)
+		if(joinType==1)
 			join=new OracleJoinOperator();
 		//WST
 		if(joinType==2)
@@ -137,7 +137,7 @@ public class QueryProcessor {
 		if(joinType==20)
 			join=new FilterPVOperator(Config.INSTANCE.getUpdateBudget());
 		
-		if (joinType == 1)
+		if (joinType == 21)
 			join = new TopKOracleJoinOperator();
 		
 		
@@ -166,8 +166,8 @@ public class QueryProcessor {
 	
 	public static void main(String[] args){
 
-		oneExperiment ();
-		//multiExperiments();   //also for partial view-k
+		//oneExperiment ();
+		multiExperiments();   //also for partial view-k
 		
 		
 		//percentageExperiment();
@@ -220,37 +220,33 @@ public class QueryProcessor {
 
 	private static void multiExperiments(){
 		
-		
-		QueryProcessor qp=new QueryProcessor();	
-		String srcDB = Config.INSTANCE.getDatasetDb();
-		
-		for (int j=1 ; j<=1 ; j++){ // Config.INSTANCE.getDatabaseNumber() ; j++){
-			 
-			String desDB = srcDB.split("\\.")[0]+"_"+ j +"_25.db" ;
-			Config.INSTANCE.setDatasetDb(desDB);
-			System.out.println("--------------------------- working with database " + desDB + "------------------------------");
-		
-			for(int i=1 ; i < 4 ; i++){
-				System.out.println("--------------------------Evaluation number = " + i + "----------------------");
-				qp.evaluateQuery(i);
-			}
-			
-			for(int i=20 ; i < 21 ; i++){
-				System.out.println("--------------------------Evaluation number = " + i + "----------------------");
-				qp.evaluateQuery(i);
-			}	
-			
-			ResultAnalyser.analysisExperimentJaccard();
-			if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_"+ j +"_25.csv") )
-				break;
-			System.out.println("--------------------------Evaluation done for database number"  + j + "----------------------");
-
-		}
+//		
+//		QueryProcessor qp=new QueryProcessor();	
+//		String srcDB = Config.INSTANCE.getDatasetDb();
+//		
+//		for (int j=1 ; j<= Config.INSTANCE.getDatabaseNumber() ; j++){
+//			 
+//			String desDB = srcDB.split("\\.")[0]+"_"+ j +"_25.db" ;
+//			Config.INSTANCE.setDatasetDb(desDB);
+//			System.out.println("--------------------------- working with database " + desDB + "------------------------------");
+//		
+//			for(int i=1 ; i < 7 ; i++){
+//				System.out.println("--------------------------Evaluation number = " + i + "----------------------");
+//				qp.evaluateQuery(i);
+//			}
+//			
+//			
+//			ResultAnalyser.analysisExperimentJaccard();
+//			if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_"+ j +"_25.csv") )
+//				break;
+//			System.out.println("--------------------------Evaluation done for database number"  + j + "----------------------");
+//
+//		}
 		
 		
-//		System.out.println("--------------------------Multiple Evaluation start----------------------");
-//		ResultAnalyser.analysisMultipleExperimentsJaccard("25");
-//		System.out.println("--------------------------Multiple Evaluation end----------------------");
+		System.out.println("--------------------------Multiple Evaluation start----------------------");
+		ResultAnalyser.analysisMultipleExperimentsJaccardMedian("25");
+		System.out.println("--------------------------Multiple Evaluation end----------------------");
 
 	}
 
