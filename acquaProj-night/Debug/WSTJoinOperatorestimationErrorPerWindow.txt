@@ -1,4 +1,4 @@
-p,s,p&s,totalNumberOfCandidatesinML,numberOfExpiredCandidatesinML,numberOfExpiredCandidatesAfterTheMaintenanceinML,numberOfExpiredElementsInTheView,numberOfExpiredElementsInTheViewAfterTheMaintenance 
+p, s, p&s, totalNumberOfCandidatesinML, numberOfExpiredCandidatesinML, numberOfExpiredCandidatesAfterTheMaintenanceinML, numberOfExpiredElementsInTheView, numberOfExpiredElementsInTheViewAfterTheMaintenance 
 ,39,4.0,4.0,22.0,22.0 
 ,41,9.0,9.0,41.0,41.0 
 ,32,9.0,9.0,47.0,47.0 

@@ -129,12 +129,19 @@ public class Config {
 		config.setProperty("k.threshold" , k);
 	}
 	
-	public Long getTopK(){
-		return config.getLong("top.k");
+	public int getK(){
+		return config.getInt("top.K");
 	}
 	
-	public void setTopK(long k){
-		config.setProperty("top.k" , k);
+	public void setK(long k){
+		config.setProperty("top.K" , k);
+	}
+	public int getN(){
+		return config.getInt("top.N");
+	}
+	
+	public void setN(long n){
+		config.setProperty("top.N" , n);
 	}
 	
 	public Long getIntervalSnapshot(){

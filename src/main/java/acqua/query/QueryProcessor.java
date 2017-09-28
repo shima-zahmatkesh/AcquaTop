@@ -10,11 +10,13 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.TreeMap;
 
 import acqua.config.Config;
 import acqua.data.StreamCollector;
 import acqua.data.TwitterFollowerCollector;
 import acqua.data.TwitterStreamCollector;
+import acqua.maintenance.MinTopK;
 import acqua.query.join.*;
 import acqua.query.join.TACombine.LRUFTAOperator;
 import acqua.query.join.TACombine.RNDFTAOperator;
@@ -48,6 +50,7 @@ public class QueryProcessor {
 	ArrayList<HashMap<Long,Integer>> slidedwindows;
 	ArrayList<HashMap<Long,Long>> slidedwindowsTime;
 
+	protected MinTopK minTopK = new MinTopK();
 	
 	QueryProcessor(){
 		//tsc= new StreamCollector();
@@ -64,6 +67,7 @@ public class QueryProcessor {
 			ScoringFunction.setMinFollowerCount((float)TwitterFollowerCollector.getMinimumFollowerCount());
 			ScoringFunction.setMaxMentions((float) tsc.getMaximumUserMentions(slidedwindows));
 			ScoringFunction.setMinMentions((float) tsc.getMinimumUserMentions(slidedwindows));
+
 		}
 		
 		

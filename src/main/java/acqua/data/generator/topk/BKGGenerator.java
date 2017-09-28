@@ -1,5 +1,8 @@
 package acqua.data.generator.topk;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -9,6 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.TreeMap;
+
 import acqua.config.Config;
 
 public class BKGGenerator {
@@ -18,7 +22,7 @@ public class BKGGenerator {
 	private static TreeMap<Long,Integer> targetFollowerCountChanges = new TreeMap<Long,Integer> ();  //key = timestamp , value = number of changes for all users
 	
 	private static float avgOfChanges = 0 ;
-	private static float targetAvgOfChanges = 1;   //should be changed to generate different data sets.
+	private static float targetAvgOfChanges = 10f;   //should be changed to generate different data sets.
 	
 	
 	private static List<Long> getTimestamps(){
@@ -390,14 +394,61 @@ public class BKGGenerator {
 
 	}
 	
+	private static void computeNumberOfChangesPerWindow() throws IOException{
+		
+		FileWriter NumberOfChanges = new FileWriter(new File(Config.INSTANCE.getProjectPath()+"NumberOfChanges.csv"));
+
+		
+		TreeMap <Integer , Integer> followerCountChangesPerWindow = new TreeMap <Integer , Integer>();
+		ComputeChangsPerTimestamp();
+		int sum = 0;
+		Iterator <Long> it = followerCountChanges.keySet().iterator();
+		while(it.hasNext()){
+			Long timestamp = it.next();
+			int count = followerCountChanges.get(timestamp);
+			sum = sum + count;
+			int window = computeNumberOfWindowForTimestamp(timestamp);
+			if (followerCountChangesPerWindow.containsKey(window))
+				count = followerCountChangesPerWindow.get(window) + count ;
+
+			followerCountChangesPerWindow.put(window, count);	
+		}
+		// iterate for printing the list
+		Iterator <Integer> it2 = followerCountChangesPerWindow.keySet().iterator();
+		while(it2.hasNext()){
+			int window = it2.next();
+			int count = followerCountChangesPerWindow.get(window);
+			System.out.println("window= " + window + "  count = " + count);
+			NumberOfChanges.write(window + "," + count + "\n");
+		}
+		
+		//print avrage
+		System.out.println("AvgOfChanges= " + (float )sum /  followerCountChangesPerWindow.size());
+		NumberOfChanges.flush();
+		NumberOfChanges.close();
+		
+	}
 	
-	
+	private static int computeNumberOfWindowForTimestamp(Long timestamp) {
+		
+		int temp = (int) (( timestamp - Config.INSTANCE.getQueryStartingTime() ) / (Config.INSTANCE.getQueryWindowSlide() * 1000 )) ;
+		return temp;
+		
+	}
+
 	public static void main(String[] args){
 
-		ComputeChangsPerTimestamp();
-		computeTargetFollowerCountChanges ();
-		modifyFollowerCountChanges();
-		ComputeChangsPerTimestamp();
+//		ComputeChangsPerTimestamp();
+//		computeTargetFollowerCountChanges ();
+//		modifyFollowerCountChanges();
+//		ComputeChangsPerTimestamp();
+		
+		try {
+			computeNumberOfChangesPerWindow();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 
