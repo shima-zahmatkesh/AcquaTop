@@ -37,6 +37,7 @@ public class TopKResultAnalyser {
 			stmt = c.createStatement();
 			
 			createtable (stmt ,  "OTKJ");
+			createtable (stmt ,  "OMTKJ");
 			createtable (stmt ,  "WSTJ");
 			createtable (stmt ,  "LRUJ");
 			createtable (stmt ,  "RNDJ");
@@ -44,10 +45,11 @@ public class TopKResultAnalyser {
 			
 			
 			putOutputInDatabase( stmt ,"joinOutput/TopKOracleJoinOperatorOutput.txt" , "OTKJ");
+			putOutputInDatabase( stmt ,"joinOutput/TopKMtknOracleJoinOperatorOutput.txt" , "OMTKJ");
 			putOutputInDatabase( stmt ,"joinOutput/WSTJoinOperatorOutput.txt" , "WSTJ");
 			putOutputInDatabase( stmt ,"joinOutput/RNDJoinOperatorOutput.txt" , "RNDJ");
-			putOutputInDatabase( stmt ,"joinOutput/LRUJoinOperatorOutput.txt" , "LRUJ");
-			putOutputInDatabase( stmt ,"joinOutput/WBMJoinOperatorOutput.txt" , "WBMJ");			
+			//putOutputInDatabase( stmt ,"joinOutput/LRUJoinOperatorOutput.txt" , "LRUJ");
+			//putOutputInDatabase( stmt ,"joinOutput/WBMJoinOperatorOutput.txt" , "WBMJ");			
 			
 			
 			stmt.close();
@@ -106,6 +108,7 @@ public class TopKResultAnalyser {
 			TreeMap<Long,Integer> oracleCount=computeOJoin();
 
 			//use nDCG to compute errors
+			HashMap<Long,Double> OMTKError=computeErrorsNDCG(getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("OMTKJ") );
 			HashMap<Long,Double> WSTError=computeErrorsNDCG(getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("WSTJ") );
 			HashMap<Long,Double> RNDError=computeErrorsNDCG (getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("RNDJ") );
 			HashMap<Long,Double> LRUError=computeErrorsNDCG (getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("LRUJ") );			
@@ -113,25 +116,28 @@ public class TopKResultAnalyser {
 
 			
 			Iterator<Long> itO = oracleCount.keySet().iterator();
-			bw.write("timestampe,Oracle,WST,RND,WBM,LRU\n");
-			Double cOC=0.0, cwste=0.0 ,crnde=0.0,cwbme=0.0, clrue=0.0 ;
+			bw.write("timestampe,Oracle,Oracle MTKN,WST,RND,WBM,LRU\n");
+			Double cOC=0.0, comtke =0.0, cwste=0.0 ,crnde=0.0,cwbme=0.0, clrue=0.0 ;
 			while(itO.hasNext()){
 				
 				long nextTime = itO.next();
 				Integer OC=oracleCount.get(nextTime);
+				Double omtke=OMTKError.get(nextTime);
 				Double wste=WSTError.get(nextTime);
 				Double rnde=RNDError.get(nextTime);
 				Double wbme=WBMError.get(nextTime);
 				Double lrue=LRUError.get(nextTime);
 
 				//cumulative error
-				cOC=cOC + OC ; 
+				cOC=cOC + OC ;
+				comtke = comtke + (omtke = omtke==null?0:omtke) ;
 				cwste= cwste + (wste = wste==null?0:wste) ;
 				crnde= crnde + (rnde = rnde==null?0:rnde) ;
 				cwbme= cwbme + (wbme= wbme==null?0:wbme) ;
 				clrue= clrue + (lrue= lrue==null?0:lrue) ;
 			
 				bw.write(nextTime+","+String.format("%.5f",cOC)+
+						","+ String.format("%.5f",(comtke==null?0:comtke))+ 
 						","+ String.format("%.5f",(cwste==null?0:cwste))+ 
 						","+ String.format("%.5f",(crnde==null?0:crnde))+
 						","+ String.format("%.5f",(cwbme==null?0:cwbme)) +
@@ -288,7 +294,7 @@ public class TopKResultAnalyser {
 		
 		Iterator<Integer> ordIt= orderedList.keySet().iterator();
 		int newrank = 1;
-		while(ordIt.hasNext() && newrank <= Config.INSTANCE.getTopK()){
+		while(ordIt.hasNext() && newrank <= Config.INSTANCE.getK()){
 			
 			Integer oldRank =ordIt.next();
 			String temp = orderedList.get(oldRank);

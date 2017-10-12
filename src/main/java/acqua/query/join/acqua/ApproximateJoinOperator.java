@@ -137,7 +137,7 @@ public abstract class ApproximateJoinOperator implements JoinOperator{
 				
 				HashMap<Long, Float> sortedUser = new HashMap<Long, Float>();
 				sortedUser = ScoringFunction.getSortedUsers(mentionList, followerReplica);
-				Long topk = Config.INSTANCE.getTopK();
+				int topk = Config.INSTANCE.getK();
 				int rank = 1;
 				
 				Iterator<Long> sortIt= sortedUser.keySet().iterator();

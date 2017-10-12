@@ -30,6 +30,7 @@ public class TopKOracleJoinOperator implements JoinOperator{
 		}catch(Exception e){e.printStackTrace();}
 
 	}
+	
 	public void process(long timeStamp, Map<Long,Integer> mentionList,Map<Long,Long> usersTimeStampOfTheCurrentSlidedWindow){
 		try {
 			HashMap<Long, Float> sortedUser = new HashMap<Long, Float>();
@@ -40,7 +41,7 @@ public class TopKOracleJoinOperator implements JoinOperator{
 			
 			sortedUser = ScoringFunction.getSortedUsers(mentionList , currentFollowerCount);
 			
-			Long topk = Config.INSTANCE.getTopK();
+			int topk = Config.INSTANCE.getK();
 			int rank = 1;
 			Iterator<Long> sortIt= sortedUser.keySet().iterator();
 			while(sortIt.hasNext() &&  topk > 0 ){
@@ -96,7 +97,6 @@ public class TopKOracleJoinOperator implements JoinOperator{
 		return sortedMap;
 	}
 
-	
 	public void close(){try{outputWriter.flush();outputWriter.close();}catch(Exception e ){e.printStackTrace();}}
 
 

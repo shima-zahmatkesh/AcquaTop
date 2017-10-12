@@ -1,5 +1,6 @@
 package acqua.maintenance;
 
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -13,6 +14,7 @@ import java.util.TreeMap;
 import java.util.Map.Entry;
 
 import acqua.config.Config;
+import acqua.data.TwitterFollowerCollector;
 import acqua.query.join.MTKN.ApproximateJoinMTKNOperator;
 
 import com.hp.hpl.jena.reasoner.rulesys.SilentAddI;
@@ -66,24 +68,34 @@ public class MinTopK {
 			long time = sortUserByTimestamp.get(objectId);
 			int followerNum = followerReplica.get(objectId);
 			int mentionNum = currentCandidate.get(objectId);
+			
 			data.checkExpiredWindow(time);
 			data.checkNewActiveWindow(time);
+			
 			//System.out.println("time " + time + "   endOfPreviouseWindow" + endOfPreviouseWindow() );
-			if ( data.getCurrentWindow() == data.getInitialWindow() || time >= endOfPreviouseWindow()){
+			
+			if ( data.getCurrentWindow() == data.getInitialWindow()|| time >= endOfPreviouseWindow()){ // time < startOfNextWindow()){ //|| time >= endOfPreviouseWindow()){
 				Node newNode = new Node();
 				newNode.setScore(ScoringFunction.computeScore(objectId, followerNum, mentionNum));
 				newNode.setObjectId(objectId);
 				newNode.setTime(time);
-				if ( time == 1420574696679l)
-					System.out.print("debug");;
-				data.updateMtkn(newNode);		// all the arriving node will add to the MTKN list if they have enough score  even the same user id which come in new window
-				System.out.println("ariving node " + newNode.getObjectId() + "   at time " + time);
+
+				
+				if (data.getCurrentWindow() != data.getInitialWindow() && time < endOfPreviouseWindow()){
+					System.out.println("ariving  existing node " + newNode.getObjectId() +" with  score" + newNode.getScore()+ "   at time " + time);
+					data.updateMtkn(newNode);
+				}else{
+					data.updateMtkn(newNode);		// all the arriving node will add to the MTKN list if they have enough score  even the same user id which come in new window
+					System.out.println("ariving node " + newNode.getObjectId() +" with  score" + newNode.getScore()+ "   at time " + time);
+				}
+			//	System.out.println("new ariving node " + newNode.getObjectId() +" with  score" + newNode.getScore() + "   at time " + time);
+			//	data.updateMtkn(newNode);		// all the arriving node will add to the MTKN list if they have enough score  even the same user id which come in new window
+				//System.out.println("new ariving node " + newNode.getObjectId() + "   at time " + time);
 				data.printMTKN();
 				data.printLBP();
 				data.printActiveWindow();	
 			}
 		}
-		
 		// update mtkn based on changes of current window
 		Iterator<Long> itch = currentChanges.keySet().iterator() ;
 		while (itch.hasNext()){
@@ -98,32 +110,38 @@ public class MinTopK {
 				newNode.setObjectId(objectId);
 				newNode.setTime(time);
 				data.updateMtknForChanges(newNode);
-				System.out.println("\nchanging node " + newNode.getObjectId());
+				System.out.println("changing node " + newNode.getObjectId()+" with new score" + newNode.getScore() +  "   at time " + time);
 				data.printMTKN();
 				data.printLBP();
 				data.printActiveWindow();
 			}
 		}
-		
+	
 	}
+	
+	private long startOfNextWindow() {
+		long time = data.getInitialTime()+ ((data.getCurrentWindow()+1) * data.getSlideTime()) ;
+		return time;
+	}
+		
 
-	private long endOfPreviouseWindow() {
+	protected long endOfPreviouseWindow() {
 		long time = data.getInitialTime()+ ((data.getCurrentWindow()-1) * data.getSlideTime()) + data.getWindowTime() ;
 		return time;
 	}
 	
-	private long endOfCurrentWindow() {
+	protected long endOfCurrentWindow() {
 		long time = data.getInitialTime()+ ((data.getCurrentWindow()) * data.getSlideTime()) + data.getWindowTime() ;
 		return time;
 	}
 	
-	private long beginOfcurrentWindow() {
+	protected long beginOfcurrentWindow() {
 		long time = data.getInitialTime()+ ((data.getCurrentWindow()) * data.getSlideTime())  ;
 		return time;
 	}
 	
 	// return top-k results
-	public TreeMap <Long,Float> getTopKResult() {
+	public ArrayList<String> getTopKResult() {
 				
 		return data.getTopKResult();
 	}	
@@ -177,11 +195,17 @@ public class MinTopK {
 
 	public void populateFollowerReplica(HashMap<Long, Integer> followerReplicaList) {
 		
+//		Iterator<Long> it = followerReplicaList.keySet().iterator();
+//		while(it.hasNext()){
+//			long key = it.next();
+//			int	value = followerReplicaList.get(key);
+//			followerReplica.put(key, value);
+//		}
 		followerReplica.putAll(followerReplicaList);	 
 		
 	}
 
-	private  static HashMap<Long, Long> sortByValue (TreeMap<Long, Long> unsortMap, final boolean order)
+	protected static HashMap<Long, Long> sortByValue (TreeMap<Long, Long> unsortMap, final boolean order)
 	{
 
 		List<Entry<Long, Long>> list = new LinkedList<Entry<Long, Long>>(unsortMap.entrySet());
@@ -217,5 +241,7 @@ public class MinTopK {
 		data.setCurrentWindow(window);
 	}
 
+	
+	
 	
 }

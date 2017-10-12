@@ -12,7 +12,9 @@ import acqua.data.TwitterFollowerCollector;
 import acqua.query.join.JoinOperator;
 
 public class OracleJoinOperator implements JoinOperator{
+	
 	public  FileWriter outputWriter;
+	
 	public OracleJoinOperator(){
 		try{
 			String path= Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/"+this.getClass().getSimpleName()+"Output.txt";
@@ -20,6 +22,7 @@ public class OracleJoinOperator implements JoinOperator{
 		}catch(Exception e){e.printStackTrace();}
 
 	}
+	
 	public void process(long timeStamp, Map<Long,Integer> mentionList,Map<Long,Long> usersTimeStampOfTheCurrentSlidedWindow){
 		try {
 
@@ -58,11 +61,6 @@ public class OracleJoinOperator implements JoinOperator{
 		}
 
 	}
-	
-	
-
-	
-	
 	
 	public void close(){try{outputWriter.flush();outputWriter.close();}catch(Exception e ){e.printStackTrace();}}
 }

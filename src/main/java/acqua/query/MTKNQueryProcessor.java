@@ -1,19 +1,19 @@
 package acqua.query;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.TreeMap;
+import java.util.Iterator;
 
 import acqua.config.Config;
 import acqua.data.TwitterFollowerCollector;
 import acqua.data.TwitterStreamCollector;
-import acqua.maintenance.MinTopK;
+import acqua.maintenance.ScoringFunction;
 import acqua.query.join.MTKN.ApproximateJoinMTKNOperator;
+import acqua.query.join.MTKN.MTKNOracleJoinOperator;
+import acqua.query.join.MTKN.OracleJoinOperator;
+import acqua.query.join.MTKN.RNDJoinOperator;
 import acqua.query.join.MTKN.WSTJoinOperator;
-import acqua.query.join.topk.ScoringFunction;
-import acqua.query.join.topk.TopKOracleJoinOperator;
-import acqua.query.result.ResultAnalyser;
+import acqua.query.result.TopKResultAnalyser;
 
 
 public class MTKNQueryProcessor {
@@ -48,9 +48,15 @@ public class MTKNQueryProcessor {
 		//WST
 		if(joinType==1)
 			join=new  WSTJoinOperator();
-		
+		if (joinType==2)
+			join = new MTKNOracleJoinOperator();
+		if (joinType==3)
+			join = new OracleJoinOperator();
+		if (joinType==4)
+			join = new RNDJoinOperator();
 		
 		join.populateMTKN(slidedwindows,slidedwindowsTime);
+		//printSlidedwindows();
 		
 		long time=Config.INSTANCE.getQueryStartingTime()+Config.INSTANCE.getQueryWindowWidth()*1000;
 		int windowCount=0;
@@ -59,6 +65,7 @@ public class MTKNQueryProcessor {
 			
 			HashMap<Long,Long> currentCandidateTimeStamp = slidedwindowsTime.get(windowCount);
 			join.setCurrentWindow(windowCount);
+			System.out.println("------------------------current window = " + windowCount+ "-------------------------------------------\n\n");
 			join.process(time,slidedwindows.get(windowCount),currentCandidateTimeStamp);
 			join.outputTopKResult() ;
 			join.purgeExpiredWindow(windowCount);
@@ -70,10 +77,29 @@ public class MTKNQueryProcessor {
 
 	}
 	
+	private void printSlidedwindows() {
+		
+		for (int i = 1 ; i < slidedwindows.size() ; i++){
+			System.out.println("\nwindow     "+ i);
+			Iterator <Long> it = slidedwindows.get(i).keySet().iterator();
+			while(it.hasNext()){
+				Long id = it.next();
+				System.out.println(id);
+			}
+		}
+		
+	}
+
 	public static void main(String[] args){
 		
 		MTKNQueryProcessor qp = new MTKNQueryProcessor();
-		qp.evaluateQuery(1);
+		for ( int i = 4 ; i <= 4 ; i++){
+			System.out.println("--------------------------------------------Evaluation number = " + i + "-------------------------------------------");
+			qp.evaluateQuery(i);
+		}
+		TopKResultAnalyser.analysisExperimentNDCG();
+		
+		
 
 	}
 	

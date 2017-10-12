@@ -49,22 +49,19 @@ public class ScoringFunction {
 		
 	}
 	
-	public static HashMap<Long, Float> getSortedUsers(Map<Long,Integer> mentionList , HashMap<Long, Integer> followerCount){
+	public static HashMap<Long, Float> getSortedUsers(Map<Long,Integer> mentionList , HashMap<Long, Integer> followerCount, Map<Long,Long> mentionListTime ){
 	
 		HashMap<Long, Float> scoreOfUsers = new HashMap<Long, Float>();
 		HashMap<Long, Float> sortedUser = new HashMap<Long, Float>();
-		
-		
-		//setParam1Values (mentionList);
-		//setParam2Values (followerCount);
 		
 		Iterator<Long> it= mentionList.keySet().iterator();
 		while(it.hasNext()){
 			long userId=Long.parseLong(it.next().toString());
 			Integer userFollowers = followerCount.get(userId);
 			Integer mentionNumber = mentionList.get(userId);
-			
 			Float score = computeScore(userId ,userFollowers, mentionNumber );
+			if (scoreOfUsers.containsKey(userId) && scoreOfUsers.get(userId) > score)
+				continue;
 			scoreOfUsers.put(userId, score);
 		}
 		sortedUser = sortByValue(scoreOfUsers , DESC);
@@ -75,9 +72,11 @@ public class ScoringFunction {
 		
 		//return (float)( ((float) userFollowers /100) +  mentionNumber);
 
-		//return (float)(  alpha *( (userFollowers- minFollowerCount)/(maxFollowerCount-minFollowerCount) ) + (1-alpha)*( (mentionNumber- minMentions)/(maxMentions-minMentions) ) );
+		//return (float)((  alpha * Math.pow(( (userFollowers- minFollowerCount)/(maxFollowerCount-minFollowerCount) ), 3) + (1-alpha)*( (mentionNumber- minMentions)/(maxMentions-minMentions) ) )* 100000000);
+
+		return (float)((  alpha * ( (userFollowers- minFollowerCount)/(maxFollowerCount-minFollowerCount) ) + (1-alpha)*( (mentionNumber- minMentions)/(maxMentions-minMentions) ) )* 100000000);
 	
-		return (float) userFollowers + (mentionNumber);
+		//return (float) userFollowers + (mentionNumber);
 	}
 	
 	private  static HashMap<Long, Float> sortByValue (HashMap<Long, Float> unsortMap, final boolean order)

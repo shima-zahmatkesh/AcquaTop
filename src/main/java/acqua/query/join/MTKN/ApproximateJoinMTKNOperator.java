@@ -4,19 +4,22 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.Map.Entry;
 
 import acqua.config.Config;
 import acqua.data.TwitterFollowerCollector;
 import acqua.maintenance.MinTopK;
-import acqua.query.join.JoinOperator;
-import acqua.query.join.topk.ScoringFunction;
 
-
-public abstract class ApproximateJoinMTKNOperator implements JoinOperator{
+public abstract class ApproximateJoinMTKNOperator {
 
 
 	protected HashMap<Long, Integer> followerReplica;
@@ -88,16 +91,21 @@ public abstract class ApproximateJoinMTKNOperator implements JoinOperator{
 			HashMap<Long,String> electedElements = updatePolicy(mentionList.keySet().iterator(),usersTimeStampOfTheCurrentSlidedWindow, evaluationTime);
 			selectedCondidatesFileWriter.write(electedElements.toString() + "," + evaluationTime + "\n");
 			TreeMap<Long,Integer> currentChanges = new TreeMap<Long,Integer>();
+			
 			//update the users
 			for(long id : electedElements.keySet()){
+				
 				//read the new value (= invoke the remote service)
-				int newValue = TwitterFollowerCollector.getUserFollowerFromDB(evaluationTime, id);
-				if(!followerReplica.get(id).equals(newValue)){
+				Integer newValue = TwitterFollowerCollector.getUserFollowerFromDB(evaluationTime, id);
+				Integer oldValue = followerReplica.get(id);
+				
+				if(!oldValue.equals(newValue)){
 					followerReplica.put(id,newValue);
 					estimatedLastChangeTime.put(id, evaluationTime);
 					currentChanges.put(id, newValue);
+					System.out.println("add user id = "+ id + " to the current changes with value = " + newValue + " - the old value = " + oldValue);
 				} else {
-					//System.out.println(followerReplica.get(id) + " is equal to " + newValue);
+					
 				}
 				bkgLastChangeTime.put(id, TwitterFollowerCollector.getPreviousExpTime(id,evaluationTime));
 				userInfoUpdateTime.put(id, evaluationTime);
@@ -117,22 +125,32 @@ public abstract class ApproximateJoinMTKNOperator implements JoinOperator{
 			currentCandidate.putAll(mentionList);
 			currentCandidateTime.putAll(usersTimeStampOfTheCurrentSlidedWindow);
 			
+			
+			
 			minTopK.processCurrentWindow(currentCandidate , currentCandidateTime ,  currentChanges);
 			
-			TreeMap <Long,Float> topKResult = minTopK.getTopKResult();
 			
-			int rank = 1;
-			Iterator<Long> it= topKResult.keySet().iterator();
-			while(it.hasNext()){
+			ArrayList<String> topKResult =minTopK.getTopKResult() ;
+				int rank = 1;
+				Iterator<String> it= topKResult.iterator();
+				while(it.hasNext()){
 				
-				long userId = it.next();
-				float score = topKResult.get(userId);
-				Integer userFollowers = followerReplica.get(userId);
-				if (userFollowers == null) userFollowers =0;
+					String temp = it.next();
+					String[] splitTemp = temp.split(",");
+					long userId = Long.parseLong(splitTemp[0]);
+					float score = Float.parseFloat(splitTemp[1]);
+					Integer userFollowers = followerReplica.get(userId);
+					if (userFollowers == null) userFollowers =0;
+					if (currentCandidate.get(userId)== null) 
+						System.out.println("----------------------------- ERRRRROR ---------------------" +userId);
+					
+					answersFileWriter.write(userId +" "+ currentCandidate.get(userId) +" "+ userFollowers +" "+ evaluationTime +  " " + score + " " + rank +"\n");
+					rank ++;
+				}
 				
-				answersFileWriter.write(userId +" "+ mentionList.get(userId) +" "+ userFollowers +" "+ evaluationTime +  " " + score + " " + rank +"\n");
-				rank ++;
-			}	
+				currentCandidate.clear();
+				currentCandidateTime.clear();
+				
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -183,7 +201,7 @@ public abstract class ApproximateJoinMTKNOperator implements JoinOperator{
 		return true;
 	}
 	
-	protected abstract HashMap<Long,String> updatePolicy(Iterator<Long> CandidateIds,Map<Long,Long> candidateUserSetIterator, long evaluationTime );
+	protected abstract HashMap<Long,String> updatePolicy(Iterator<Long> candidateUserSetIterator,Map<Long,Long> usersTimeStampOfTheCurrentSlidedWindow, long evaluationTime );
 	
 	public void outputTopKResult() {
 		minTopK.outputTopKResult();
