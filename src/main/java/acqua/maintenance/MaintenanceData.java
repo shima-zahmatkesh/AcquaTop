@@ -26,8 +26,11 @@ public class MaintenanceData {
 			int res = (int) (k2.getScore() - k1.getScore());
 			if(res!=0)
 				return res;
-			res=(int)(k2.getObjectId() - k1.getObjectId());   //res=(int)(k2.getTime() - k1.getTime());   TODO check for changing the tie breaker
-				return res;    
+			res=(int)(k2.getTime() - k1.getTime()); // res=(int)(k2.getObjectId() - k1.getObjectId()); //   TODO check for changing the tie breaker (done)
+			if(res!=0)
+				return res;  
+			res=(int)(k2.getObjectId() - k1.getObjectId());
+			return res;
 		}
 	});
 	private TreeMap< Integer, Node> lbp = new TreeMap<Integer, Node>();    //LBP = Lower Bound Pointer for each Window  (number of the window map to the BNode of MTKN list ( Integer -> number of window, Node-> node in the MTKN list)
@@ -57,37 +60,37 @@ public class MaintenanceData {
 		
 	}
 
-///////////////////////////////////////////////////////////////update MtTKN For Oracle///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////update MtTKN////////////////////////////////////////////////////////////////////////////
+
 	
-	public void updateMtknForOracle(Node newNode) {
+	public void updateMtkn(Node newNode) {
 
 		if ( mtknContainsNode(newNode)){
-			
 			Node oldNode = getOldNode( newNode);
-			replaceNewNodeForOracle(oldNode , newNode);
+			replaceNewNode(oldNode , newNode);
 		}
 		else{
-			
 			insertNodeToMTKN(newNode);	
 		}
 		mtknLastNode = mtkn.get(mtkn.lastKey());
 	}
 	
-	private void replaceNewNodeForOracle(Node oldNode, Node newNode) {
-		
+	
+	private void replaceNewNode(Node oldNode, Node newNode) {
 		
 		newNode.setStartWin(oldNode.getStartWin());
-		newNode.setEndWin(oldNode.getEndWin());
-		
-		mtkn.remove(new Key(oldNode.getObjectId() , oldNode.getScore()));
-		mtkn.put(new Key(newNode.getObjectId() , newNode.getScore()), newNode);
-		printMTKN();
-		refreshLbpForOracle();
+		newNode.setEndWin(oldNode.getEndWin()); 
+		Key oldKey = new Key(oldNode.getObjectId() , oldNode.getScore() , oldNode.getTime());
+		Key newKey = new Key(newNode.getObjectId() , newNode.getScore() , newNode.getTime());
+		mtkn.remove(oldKey);
+		mtkn.put(newKey, newNode);
+		refreshLbp();
 			
 	}
 	
-	private void refreshLbpForOracle() {
-
+	private void refreshLbp() {
+		
+		//printMTKN();
 		// count top k elements of each window
 		TreeMap < Integer , Integer> TopKForWindow = new TreeMap < Integer , Integer>();
 		Iterator<Integer> itac = activeWindow.keySet().iterator();
@@ -105,175 +108,17 @@ public class MaintenanceData {
 				//System.out.println("i = " + i + "node = " + node.getObjectId());
 				//printLBP();
 				TopKForWindow.replace(i, TopKForWindow.get(i)+1);
-				//System.out.println(" TopKForWindow.get("+i+") = " + TopKForWindow.get(i));
 				if ( TopKForWindow.get(i) == mtknSize )
 					lbp.replace(i, node);
 				
 			}
 		}
 	}
-/////////////////////////////////////////////////////////////////////update MtTKN////////////////////////////////////////////////////////////////////////////
-
-	public void updateMtkn(Node newNode) {
-
-		if ( mtknContainsNode(newNode)){
-			
-			Node oldNode = getOldNode( newNode);
-			replaceNewNode(oldNode , newNode);
-		}
-		else{
-			
-			insertNodeToMTKN(newNode);	
-		}
-		mtknLastNode = mtkn.get(mtkn.lastKey());
-	}
 	
-	private void replaceNewNode(Node oldNode, Node newNode) {
-		
-		
-		newNode.setStartWin(oldNode.getStartWin());
-		newNode.setEndWin(oldNode.getEndWin());  //TODO
-		
-		mtkn.remove(new Key(oldNode.getObjectId() , oldNode.getScore()));
-		mtkn.put(new Key(newNode.getObjectId() , newNode.getScore()), newNode);
-		printMTKN();
-		refreshLbpForChanges();
-			
-	}
-	
-	private void refreshLbpAndActiveWindow(Node oldNode) {
-
-		// count top k elements of each window
-		TreeMap < Integer , Integer> TopKForWindow = new TreeMap < Integer , Integer>();
-		Iterator<Integer> itac = activeWindow.keySet().iterator();
-		while(itac.hasNext()){
-			int key = itac.next();
-			TopKForWindow.put(key, 0);	
-		}
-		
-		
-		//update LBP
-		ArrayList <Node> removingNodes = new ArrayList <Node>();
-		Iterator<Key> it = mtkn.keySet().iterator();
-		while(it.hasNext()){
-			Key key = it.next();
-			Node node = mtkn.get(key);
-			for ( int i = node.getStartWin() ; i <= node.getEndWin() ; i++ ){
-				System.out.println("i = " + i + "node = " + node.getObjectId());
-				//printLBP();
-				TopKForWindow.replace(i, TopKForWindow.get(i)+1);
-				System.out.println(" TopKForWindow.get("+i+") = " + TopKForWindow.get(i));
-				if ( TopKForWindow.get(i) == mtknSize ){
-					
-					Node lbpNode  = lbp.get(i);
-					if(lbpNode!= null && !lbpNode.getObjectId().equals(node.getObjectId())  && !lbpNode.getObjectId().equals(oldNode.getObjectId())){
-						
-						removingNodes.add(lbp.get(i));
-						lbp.replace(i, node);
-					}
-				}
-			}
-		}
-		
-		//updates the previous lbp nodes
-		for( int i = 0 ; i < removingNodes.size() ; i++){
-			
-			Key mtknKey = new Key (removingNodes.get(i).getObjectId() ,removingNodes.get(i).getScore());
-			Node mtknNode =  mtkn.get(mtknKey);
-			mtknNode.setStartWin(mtknNode.getStartWin()+1);
-			mtkn.replace(mtknKey, mtknNode);
-			
-			//remove node from mtkn list
-			if (mtknNode.getStartWin() > mtknNode.getEndWin()){
-				Key k = mtkn.lowerKey(mtknKey);
-				if ( k == null)
-					k = mtkn.higherKey(mtknKey);
-				for (Map.Entry<Integer, Node> n : lbp.entrySet()) {
-					if(n.getValue().equals(mtknNode)){
-						lbp.replace( n.getKey() , mtkn.get( k ) );
-					}
-				}
-				mtkn.remove(mtknKey);
-			}
-			
-			
-		}
-		
-		//update active window
-		Iterator<Integer> itTemp = TopKForWindow.keySet().iterator();
-		while(itTemp.hasNext()){
-			int key = itTemp.next();
-			if(TopKForWindow.get(key) != activeWindow.get(key) && TopKForWindow.get(key) <= mtknSize){
-				if (TopKForWindow.get(key) == mtknSize)
-					generateLBP(key);	
-				activeWindow.replace(key, TopKForWindow.get(key));
-			
-			}
-		}
-		
-	}
-
-	
-/////////////////////////////////////////////////////////////////update MtTKN For Changes///////////////////////////////////////////////////////////////////
-
-	public void updateMtknForChanges(Node newNode) {
-
-		if ( mtknContainsNode(newNode)){
-			
-			Node oldNode = getOldNode( newNode);
-			replaceNewNodeForChanges(oldNode , newNode);
-		}
-		else{
-			
-			insertNodeToMTKN(newNode);	
-		}
-		mtknLastNode = mtkn.get(mtkn.lastKey());
-	}
-	
-	private void replaceNewNodeForChanges(Node oldNode, Node newNode) {
-		
-		
-		newNode.setStartWin(oldNode.getStartWin());
-		newNode.setEndWin(oldNode.getEndWin());
-		
-		mtkn.remove(new Key(oldNode.getObjectId() , oldNode.getScore()));
-		mtkn.put(new Key(newNode.getObjectId() , newNode.getScore()), newNode);
-		printMTKN();
-		refreshLbpForChanges();
-			
-	}
-	
-	private void refreshLbpForChanges() {
-
-		// count top k elements of each window
-		TreeMap < Integer , Integer> TopKForWindow = new TreeMap < Integer , Integer>();
-		Iterator<Integer> itac = activeWindow.keySet().iterator();
-		while(itac.hasNext()){
-			int key = itac.next();
-			TopKForWindow.put(key, 0);	
-		}
-		
-		//update LBP
-		Iterator<Key> it = mtkn.keySet().iterator();
-		while(it.hasNext()){
-			Key key = it.next();
-			Node node = mtkn.get(key);
-			for ( int i = node.getStartWin() ; i <= node.getEndWin() ; i++ ){
-				System.out.println("i = " + i + "node = " + node.getObjectId());
-				printLBP();
-				TopKForWindow.replace(i, TopKForWindow.get(i)+1);
-				//System.out.println(" TopKForWindow.get("+i+") = " + TopKForWindow.get(i));
-				if ( TopKForWindow.get(i) == mtknSize )
-					lbp.replace(i, node);
-				
-			}
-		}
-	}
-
 	
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-
+	
 	//insert new node in mtkn
 	public void insertNodeToMTKN(Node newNode){
 		
@@ -289,12 +134,13 @@ public class MaintenanceData {
 				return;
 			}
 				
+			Key key = new Key(newNode.getObjectId() , newNode.getScore() , newNode.getTime());
 			
-			if (mtkn.containsKey(new Key(newNode.getObjectId() , newNode.getScore()))){
+			if (mtkn.containsKey(key)){
 				updateExistingNode(newNode);
 			}
 			else{
-				mtkn.put(new Key(newNode.getObjectId() , newNode.getScore()), newNode);
+				mtkn.put(key, newNode);
 				updateMinDistance(newNode);
 				updateLbp(newNode);
 			}
@@ -306,7 +152,7 @@ public class MaintenanceData {
 
 	private void updateExistingNode(Node newNode) {
 		
-		Key newKey= new Key(newNode.getObjectId() , newNode.getScore());
+		Key newKey= new Key(newNode.getObjectId() , newNode.getScore() , newNode.getTime());
 		Node oldNode = mtkn.get(newKey);
 		int oldEndWin = oldNode.getEndWin();
 		
@@ -327,7 +173,7 @@ public class MaintenanceData {
 				continue;
 			}
 			
-			Key mtknKey = new Key( lbpNode.getObjectId() , lbpNode.getScore());
+			Key mtknKey = new Key( lbpNode.getObjectId() , lbpNode.getScore() , lbpNode.getTime());
 			Node mtknNode = mtkn.get(mtknKey);
 				
 				if ( lbpNode.getScore() <= newNode.getScore() ){
@@ -382,7 +228,8 @@ public class MaintenanceData {
 				continue;
 			}
 			
-			Key mtknKey = new Key( lbpNode.getObjectId() , lbpNode.getScore());
+			Key mtknKey = new Key( lbpNode.getObjectId() , lbpNode.getScore(), lbpNode.getTime());
+			
 			Node mtknNode = mtkn.get(mtknKey);
 				
 				if ( lbpNode.getScore() <= newNode.getScore() ){
@@ -417,11 +264,12 @@ public class MaintenanceData {
 					
 				}
 		}
-				
+		
+		// check if lpb is correct, if it is not fitted in start and end window we have to bring it up.
 		for (Map.Entry<Integer, Node> entry : lbp.entrySet()) {
 				
-			if (entry.getKey() > entry.getValue().getEndWin() || entry.getKey() < entry.getValue().getStartWin()){
-				Key mtknKey =  new Key (entry.getValue().getObjectId() , entry.getValue().getScore());
+			while (entry.getKey() > entry.getValue().getEndWin() || entry.getKey() < entry.getValue().getStartWin()){
+				Key mtknKey =  new Key (entry.getValue().getObjectId() , entry.getValue().getScore() , entry.getValue().getTime());
 				Key k = mtkn.lowerKey(mtknKey);
 				if ( k == null)
 				k = mtkn.higherKey(mtknKey);
@@ -431,13 +279,13 @@ public class MaintenanceData {
 				
 	}
 
-	
 	// Update mtkn after expiration of a window
 		public void purgeExpiredWindow(int expiredWindow){
+			
 		
 			Iterator<Key> iter = mtkn.keySet().iterator();
 			int index = 0;
-			while ( iter.hasNext() && index < mtknSize){ //&& index < activeWindow.get(expiredWindow)) {
+			while ( iter.hasNext() && index <= mtknSize){ //&& index < activeWindow.get(expiredWindow)) {
 				Key key  = iter.next();
 				Node node = mtkn.get(key);
 				if(node.getStartWin() == expiredWindow){
@@ -447,7 +295,7 @@ public class MaintenanceData {
 					if (node.getStartWin() > node.getEndWin()){
 						
 						//update the lbp list id the deleted node has some pointers from lbp
-						Key mtknKey = new Key( node.getObjectId() , node.getScore());
+						Key mtknKey = new Key( node.getObjectId() , node.getScore() , node.getTime());
 						Key k = mtkn.lowerKey(mtknKey);
 						if ( k == null)
 							k = mtkn.higherKey(mtknKey);
@@ -471,9 +319,6 @@ public class MaintenanceData {
 		}
 
 		
-		
-		
-		
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 		
@@ -488,14 +333,14 @@ public class MaintenanceData {
 	// Update the MinDistance after inserting new node in mtkn
 	private void updateMinDistance(Node newNode) {
 		
-		if (mtkn.ceilingKey(new Key( newNode.getObjectId() , newNode.getScore())) != null ){
-			Node ceilingNode = mtkn.get(mtkn.ceilingKey(new Key( newNode.getObjectId() , newNode.getScore())));
+		if (mtkn.ceilingKey(new Key( newNode.getObjectId() , newNode.getScore() , newNode.getTime() )) != null ){
+			Node ceilingNode = mtkn.get(mtkn.ceilingKey(new Key( newNode.getObjectId() , newNode.getScore(), newNode.getTime())));
 			if ( ceilingNode.getScore() - newNode.getScore() < minDistance )
 				minDistance = ceilingNode.getScore() - newNode.getScore();
 		}
 		
-		if (mtkn.floorKey(new Key( newNode.getObjectId() , newNode.getScore()))!= null){
-			Node floorNode = mtkn.get(mtkn.floorKey(new Key( newNode.getObjectId() , newNode.getScore())));
+		if (mtkn.floorKey(new Key( newNode.getObjectId() , newNode.getScore() , newNode.getTime()))!= null){
+			Node floorNode = mtkn.get(mtkn.floorKey(new Key( newNode.getObjectId() , newNode.getScore() , newNode.getTime())));
 			if ( newNode.getScore() - floorNode.getScore() < minDistance)
 				minDistance = newNode.getScore() -  floorNode.getScore();
 		}
@@ -570,6 +415,7 @@ public class MaintenanceData {
 				return true;
 			}
 		}
+		
 		return false;
 		
 	}
@@ -605,7 +451,26 @@ public class MaintenanceData {
 		}
 		return result;	
 	
-	}	
+	}
+	
+	public ArrayList<String> getKMiddleResult() {
+		
+		ArrayList<String> result =new ArrayList<String>();
+		
+		int budget = Config.INSTANCE.getUpdateBudget() ;
+		int index = k + 1 - (int) budget/2;
+		int counter = 0 ;
+		Iterator<Key> it = mtkn.keySet().iterator();
+		
+		while (it.hasNext() && counter <= budget){
+					
+			Key key = it.next();					
+			result.add(key.getObjectId() + "," + key.getScore());
+			index++;
+			counter++;
+		}
+		return result;	
+	}
 	
 	private  static HashMap<Long, Float> sortByValue (HashMap<Long, Float> unsortMap, final boolean order)
 	{
@@ -662,7 +527,7 @@ public class MaintenanceData {
 		System.out.println("Print MTKN / mtkn results:  size = " + mtkn.size());
 		while (it.hasNext()){
 			Key key = it.next();
-			System.out.println("[" + key.getObjectId() + " , score=" + key.getScore() + " , sw=" + mtkn.get(key).getStartWin() + " , ew=" + mtkn.get(key).getEndWin() + " , t=" + mtkn.get(key).getTime() +"]");		
+			System.out.println("[" + key.getObjectId() + " , score=" + key.getScore() + " , sw=" + mtkn.get(key).getStartWin() + " , ew=" + mtkn.get(key).getEndWin() + " , t=" + mtkn.get(key).getTime() + " , t=" +key.getTime()+"]");		
 		}
 
 	}
@@ -753,7 +618,7 @@ public class MaintenanceData {
 			lbp.put(window, mtknLastNode);
 		
 		if (window > mtknLastNode.getEndWin() || window < mtknLastNode.getStartWin()){
-			Key mtknKey= new Key (mtknLastNode.getObjectId() , mtknLastNode.getScore()) ; 
+			Key mtknKey= new Key (mtknLastNode.getObjectId() , mtknLastNode.getScore(), mtknLastNode.getTime()) ; 
 			Key k = mtkn.lowerKey(mtknKey);
 			if ( k == null)
 			k = mtkn.higherKey(mtknKey);
@@ -862,6 +727,9 @@ public class MaintenanceData {
 	}
 
 	
+	
+
+	
 //	// remove a node from mtkn
 //	public void removeNodeFromMTKN(Node  node){
 //		
@@ -948,5 +816,91 @@ public class MaintenanceData {
 //	updateLbp(newNode);
 //}
 
+	
+	
 
+//	public void updateMtknForOracle(Node newNode) {
+//
+//		if ( mtknContainsNode(newNode)){
+//			
+//			Node oldNode = getOldNode( newNode);
+//			replaceNewNodeForOracle(oldNode , newNode);
+//		}
+//		else{
+//			
+//			insertNodeToMTKN(newNode);	
+//		}
+//		mtknLastNode = mtkn.get(mtkn.lastKey());
+//	}
+//	
+//	private void replaceNewNodeForOracle(Node oldNode, Node newNode) {
+//		
+//		
+//		newNode.setStartWin(oldNode.getStartWin());
+//		newNode.setEndWin(oldNode.getEndWin());
+//		
+//		mtkn.remove(new Key(oldNode.getObjectId() , oldNode.getScore()));
+//		mtkn.put(new Key(newNode.getObjectId() , newNode.getScore()), newNode);
+//		printMTKN();
+//		refreshLbpForOracle();
+//			
+//	}
+//	
+//	private void refreshLbpForOracle() {
+//
+//		// count top k elements of each window
+//		TreeMap < Integer , Integer> TopKForWindow = new TreeMap < Integer , Integer>();
+//		Iterator<Integer> itac = activeWindow.keySet().iterator();
+//		while(itac.hasNext()){
+//			int key = itac.next();
+//			TopKForWindow.put(key, 0);	
+//		}
+//		
+//		//update LBP
+//		Iterator<Key> it = mtkn.keySet().iterator();
+//		while(it.hasNext()){
+//			Key key = it.next();
+//			Node node = mtkn.get(key);
+//			for ( int i = node.getStartWin() ; i <= node.getEndWin() ; i++ ){
+//				//System.out.println("i = " + i + "node = " + node.getObjectId());
+//				//printLBP();
+//				TopKForWindow.replace(i, TopKForWindow.get(i)+1);
+//				//System.out.println(" TopKForWindow.get("+i+") = " + TopKForWindow.get(i));
+//				if ( TopKForWindow.get(i) == mtknSize )
+//					lbp.replace(i, node);
+//				
+//			}
+//		}
+//	}
+//
+	
+/////////////////////////////////////////////////////////////////update MtTKN For Changes///////////////////////////////////////////////////////////////////
+
+//public void updateMtknForChanges(Node newNode) {
+//
+//if ( mtknContainsNode(newNode)){
+//
+//Node oldNode = getOldNode( newNode);
+//replaceNewNodeForChanges(oldNode , newNode);
+//}
+//else{
+//
+//insertNodeToMTKN(newNode);	
+//}
+//mtknLastNode = mtkn.get(mtkn.lastKey());
+//}
+//
+//private void replaceNewNodeForChanges(Node oldNode, Node newNode) {
+//
+//
+//newNode.setStartWin(oldNode.getStartWin());
+//newNode.setEndWin(oldNode.getEndWin());
+//
+//mtkn.remove(new Key(oldNode.getObjectId() , oldNode.getScore()));
+//mtkn.put(new Key(newNode.getObjectId() , newNode.getScore()), newNode);
+//printMTKN();
+//refreshLbpForChanges();
+//
+//}
+//
 }

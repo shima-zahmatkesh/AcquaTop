@@ -4,13 +4,21 @@ public class Key {
 	
 	private long objectId;
 	private float score;
+	private long time ;
 	
 	
 	
-	public Key(long objectId, float score) {
+	public long getTime() {
+		return time;
+	}
+	public void setTime(long time) {
+		this.time = time;
+	}
+	public Key(long objectId, float score , long time) {
 		super();
 		this.objectId = objectId;
 		this.score = score;
+		this.time = time;
 	}
 	public long getObjectId() {
 		return objectId;

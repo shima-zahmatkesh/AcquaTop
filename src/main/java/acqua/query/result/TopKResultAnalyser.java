@@ -37,15 +37,21 @@ public class TopKResultAnalyser {
 			stmt = c.createStatement();
 			
 			createtable (stmt ,  "OTKJ");
-			createtable (stmt ,  "OMTKJ");
+			createtable (stmt ,  "OMTKNJ");
+			createtable (stmt ,  "MTKNTJ");
+			createtable (stmt ,  "MTKNFJ");
+			createtable (stmt ,  "MTKNAJ");
 			createtable (stmt ,  "WSTJ");
 			createtable (stmt ,  "LRUJ");
 			createtable (stmt ,  "RNDJ");
 			createtable (stmt ,  "WBMJ");
 			
 			
-			putOutputInDatabase( stmt ,"joinOutput/TopKOracleJoinOperatorOutput.txt" , "OTKJ");
-			putOutputInDatabase( stmt ,"joinOutput/TopKMtknOracleJoinOperatorOutput.txt" , "OMTKJ");
+			putOutputInDatabase( stmt ,"joinOutput/OracleJoinOperatorOutput.txt" , "OTKJ");
+			putOutputInDatabase( stmt ,"joinOutput/MTKNOracleJoinOperatorOutput.txt" , "OMTKNJ");
+			putOutputInDatabase( stmt ,"joinOutput/MTKNTJoinOperatorOutput.txt" , "MTKNTJ");
+			putOutputInDatabase( stmt ,"joinOutput/MTKNFJoinOperatorOutput.txt" , "MTKNFJ");
+			putOutputInDatabase( stmt ,"joinOutput/MTKNAllJoinOperatorOutput.txt" , "MTKNAJ");
 			putOutputInDatabase( stmt ,"joinOutput/WSTJoinOperatorOutput.txt" , "WSTJ");
 			putOutputInDatabase( stmt ,"joinOutput/RNDJoinOperatorOutput.txt" , "RNDJ");
 			//putOutputInDatabase( stmt ,"joinOutput/LRUJoinOperatorOutput.txt" , "LRUJ");
@@ -108,31 +114,42 @@ public class TopKResultAnalyser {
 			TreeMap<Long,Integer> oracleCount=computeOJoin();
 
 			//use nDCG to compute errors
-			HashMap<Long,Double> OMTKError=computeErrorsNDCG(getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("OMTKJ") );
+			HashMap<Long,Double> OMTKNError=computeErrorsNDCG(getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("OMTKNJ") );
 			HashMap<Long,Double> WSTError=computeErrorsNDCG(getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("WSTJ") );
 			HashMap<Long,Double> RNDError=computeErrorsNDCG (getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("RNDJ") );
+			HashMap<Long,Double> MTKNTError=computeErrorsNDCG(getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("MTKNTJ") );
+			HashMap<Long,Double> MTKNFError=computeErrorsNDCG(getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("MTKNFJ") );
+			HashMap<Long,Double> MTKNAError=computeErrorsNDCG(getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("MTKNAJ") );
+			
 			HashMap<Long,Double> LRUError=computeErrorsNDCG (getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("LRUJ") );			
 			HashMap<Long,Double> WBMError=computeErrorsNDCG(getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("WBMJ") );
 
 			
 			Iterator<Long> itO = oracleCount.keySet().iterator();
-			bw.write("timestampe,Oracle,Oracle MTKN,WST,RND,WBM,LRU\n");
-			Double cOC=0.0, comtke =0.0, cwste=0.0 ,crnde=0.0,cwbme=0.0, clrue=0.0 ;
+			bw.write("timestampe,Oracle,Oracle MTKN,WST,RND,MTKNT,MTKNF,MTKNA,WBM,LRU\n");
+			Double cOC=0.0, comtke =0.0, cwste=0.0 ,crnde=0.0,cwbme=0.0, clrue=0.0 ,cmtknte =0.0,cmtknfe =0.0 ,cmtknae =0.0;
 			while(itO.hasNext()){
 				
 				long nextTime = itO.next();
 				Integer OC=oracleCount.get(nextTime);
-				Double omtke=OMTKError.get(nextTime);
+				Double omtkne=OMTKNError.get(nextTime);
 				Double wste=WSTError.get(nextTime);
 				Double rnde=RNDError.get(nextTime);
+				Double mtknte=MTKNTError.get(nextTime);
+				Double mtknfe=MTKNFError.get(nextTime);
+				Double mtknae=MTKNAError.get(nextTime);
 				Double wbme=WBMError.get(nextTime);
 				Double lrue=LRUError.get(nextTime);
 
 				//cumulative error
 				cOC=cOC + OC ;
-				comtke = comtke + (omtke = omtke==null?0:omtke) ;
+				comtke = comtke + (omtkne = omtkne==null?0:omtkne) ;
 				cwste= cwste + (wste = wste==null?0:wste) ;
 				crnde= crnde + (rnde = rnde==null?0:rnde) ;
+				cmtknte = cmtknte + (mtknte = mtknte==null?0:mtknte) ;
+				cmtknfe = cmtknfe + (mtknfe = mtknfe==null?0:mtknfe) ;
+				cmtknae = cmtknae + (mtknae = mtknae==null?0:mtknae) ;
+				
 				cwbme= cwbme + (wbme= wbme==null?0:wbme) ;
 				clrue= clrue + (lrue= lrue==null?0:lrue) ;
 			
@@ -140,6 +157,9 @@ public class TopKResultAnalyser {
 						","+ String.format("%.5f",(comtke==null?0:comtke))+ 
 						","+ String.format("%.5f",(cwste==null?0:cwste))+ 
 						","+ String.format("%.5f",(crnde==null?0:crnde))+
+						","+ String.format("%.5f",(cmtknte==null?0:cmtknte))+ 
+						","+ String.format("%.5f",(cmtknfe==null?0:cmtknfe))+ 
+						","+ String.format("%.5f",(cmtknae==null?0:cmtknae))+ 
 						","+ String.format("%.5f",(cwbme==null?0:cwbme)) +
 						","+ String.format("%.5f",(clrue==null?0:clrue)) + "\n");
 				
@@ -243,6 +263,9 @@ public class TopKResultAnalyser {
 			//IDCG = computeDCG(originalResults);
 			NDCG = DCG /IDCG;
 			
+		//	System.out.println("DCG = "+ DCG + "IDCG = "+ IDCG +"NDCG = "+ NDCG);
+			
+			
 			result.put(timestamp, (1d-NDCG));
 			
 		}
@@ -313,15 +336,21 @@ public class TopKResultAnalyser {
 	private static HashMap<Long ,String> setOriginalRelevancy(HashMap<Long ,String> original){
 		
 		HashMap<Long ,String> result = new HashMap<Long ,String>();
-		int originalRelevancy = 3;
+		//int originalRelevancy = 3;
 		
+		//System.out.println("setOriginalRelevancy");
 		Iterator<Long> it= original.keySet().iterator();
 		while(it.hasNext()){
 			long id =it.next();
 			String temp = original.get(id);
 			String [] tempSplit = temp.split(",");
 			Integer rank = Integer.valueOf(tempSplit[1]);
+			//result.put(id , originalRelevancy + "," + rank);
+			int originalRelevancy = (original.size() - Integer.parseInt(original.get(id).split(",")[1]) + 1)/2 ;
 			result.put(id , originalRelevancy + "," + rank);
+			
+			//System.out.println("id = " + id + " relevancy = " + originalRelevancy  + " rank = "+ rank);
+			
 		}
 		return result;
 	}
@@ -329,8 +358,9 @@ public class TopKResultAnalyser {
 	private static HashMap<Long ,String> setReplicaRelevancy(HashMap<Long ,String> replica , HashMap<Long ,String> original){
 		
 		HashMap<Long ,String> result = new HashMap<Long ,String>();
-		int originalRelevancy = 3 ,replicaRelevancy = 1;
+		int replicaRelevancy = 0;
 		
+	//	System.out.println("setReplicaRelevancy");
 		Iterator<Long> it= replica.keySet().iterator();
 		while(it.hasNext()){
 			long id =it.next();
@@ -338,9 +368,14 @@ public class TopKResultAnalyser {
 			String [] tempSplit = temp.split(",");
 			Integer rank = Integer.valueOf(tempSplit[1]);
 			if (original.containsKey(id)){
-				result.put(id , originalRelevancy + "," + rank);
+				//result.put(id , originalRelevancy + "," + rank);
+				int originalRelevancy = (original.size() - Integer.parseInt(original.get(id).split(",")[1]) + 1 )/2;
+				result.put(id, originalRelevancy + "," + rank);
+				//System.out.println("id = " + id + " relevancy = " + original.get(id).split(",")[1]  + " rank = "+ rank);
+				
 			}else{
 				result.put(id , replicaRelevancy + "," + rank);	
+				//System.out.println("id = " + id + " relevancy = " + replicaRelevancy + " rank = "+ rank);
 			}
 		}
 		return result;

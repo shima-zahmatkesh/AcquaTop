@@ -28,16 +28,16 @@ public class MinTopKForOracle extends MinTopK{
 				newNode.setTime(time);
 
 				if (data.getCurrentWindow() != data.getInitialWindow() && time < endOfPreviouseWindow()){
-					System.out.println("ariving  existing node " + newNode.getObjectId() + "   at time " + time);
-					data.updateMtknForOracle(newNode);
+				//	System.out.println("ariving  existing node " + newNode.getObjectId() + "   at time " + time);
+					data.updateMtkn(newNode);
 				}else{
-					data.updateMtknForOracle(newNode);		// all the arriving node will add to the MTKN list if they have enough score  even the same user id which come in new window
-					System.out.println("ariving node " + newNode.getObjectId() + "   at time " + time);
+					data.updateMtkn(newNode);		// all the arriving node will add to the MTKN list if they have enough score  even the same user id which come in new window
+				//	System.out.println("ariving node " + newNode.getObjectId() + "   at time " + time);
 				}
 
-				data.printMTKN();
-				data.printLBP();
-				data.printActiveWindow();	
+				//data.printMTKN();
+				//data.printLBP();
+				//data.printActiveWindow();	
 			}
 		}
 	}

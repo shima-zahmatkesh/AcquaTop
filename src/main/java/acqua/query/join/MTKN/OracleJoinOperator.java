@@ -53,6 +53,7 @@ public class OracleJoinOperator extends ApproximateJoinMTKNOperator{
 				Integer userFollowers = currentFollowerCount.get(userId);
 				
 				outputWriter.write( userId + " " + mentionList.get(userId) + " " + userFollowers + " " + timeStamp + " " + sortedUser.get(userId)+" " + rank + "\n");
+			//	System.out.println( userId + " " + mentionList.get(userId) + " " + userFollowers + " " + timeStamp + " " + sortedUser.get(userId)+" " + rank );
 				rank ++;
 				topk--;
 			}

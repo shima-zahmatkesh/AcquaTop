@@ -1,5 +1,6 @@
 package acqua.query;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -9,7 +10,10 @@ import acqua.data.TwitterFollowerCollector;
 import acqua.data.TwitterStreamCollector;
 import acqua.maintenance.ScoringFunction;
 import acqua.query.join.MTKN.ApproximateJoinMTKNOperator;
+import acqua.query.join.MTKN.MTKNAllJoinOperator;
+import acqua.query.join.MTKN.MTKNFJoinOperator;
 import acqua.query.join.MTKN.MTKNOracleJoinOperator;
+import acqua.query.join.MTKN.MTKNTJoinOperator;
 import acqua.query.join.MTKN.OracleJoinOperator;
 import acqua.query.join.MTKN.RNDJoinOperator;
 import acqua.query.join.MTKN.WSTJoinOperator;
@@ -49,11 +53,17 @@ public class MTKNQueryProcessor {
 		if(joinType==1)
 			join=new  WSTJoinOperator();
 		if (joinType==2)
-			join = new MTKNOracleJoinOperator();
-		if (joinType==3)
 			join = new OracleJoinOperator();
+		if (joinType==3)
+			join = new MTKNOracleJoinOperator();
 		if (joinType==4)
 			join = new RNDJoinOperator();
+		if (joinType==5)
+			join = new MTKNTJoinOperator();
+		if (joinType==6)
+			join = new MTKNFJoinOperator();
+		if (joinType==7)
+			join = new MTKNAllJoinOperator();
 		
 		join.populateMTKN(slidedwindows,slidedwindowsTime);
 		//printSlidedwindows();
@@ -65,9 +75,11 @@ public class MTKNQueryProcessor {
 			
 			HashMap<Long,Long> currentCandidateTimeStamp = slidedwindowsTime.get(windowCount);
 			join.setCurrentWindow(windowCount);
-			System.out.println("------------------------current window = " + windowCount+ "-------------------------------------------\n\n");
+			//System.out.println("------------------------current window = " + windowCount+ "-------------------------------------------\n\n");
+			
 			join.process(time,slidedwindows.get(windowCount),currentCandidateTimeStamp);
-			join.outputTopKResult() ;
+			
+			//join.outputTopKResult() ;
 			join.purgeExpiredWindow(windowCount);
 			
 			windowCount++;
@@ -92,17 +104,38 @@ public class MTKNQueryProcessor {
 
 	public static void main(String[] args){
 		
-		MTKNQueryProcessor qp = new MTKNQueryProcessor();
-		for ( int i = 4 ; i <= 4 ; i++){
-			System.out.println("--------------------------------------------Evaluation number = " + i + "-------------------------------------------");
-			qp.evaluateQuery(i);
-		}
-		TopKResultAnalyser.analysisExperimentNDCG();
-		
-		
+		runExperimentForDifferentBudgets();
+			
 
+	}
+	
+	public static void runExperimentForDifferentBudgets(){
+		
+		Integer [] budget = {1,2,3,4,5,6,7,8,9,10,15,20,25,30};
+
+			for (int j=0 ; j < budget.length ; j++){ 
+				
+				Config.INSTANCE.setUpdateBudget( budget[j]);
+				MTKNQueryProcessor qp = new MTKNQueryProcessor();
+				
+				for ( int i = 1 ; i <= 7 ; i++){
+					System.out.println("----------------Evaluation number = " + i + "-------------------");
+					qp.evaluateQuery(i);
+				}
+			
+			TopKResultAnalyser.analysisExperimentNDCG();
+			if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_budget_"+ budget[j] +".csv") )
+				break;
+		}
 	}
 	
 
 
+	public static boolean renameFile(String oldFile , String newFile){
+		
+		File oldfile =new File(oldFile);
+		File newfile =new File(newFile);
+		return oldfile.renameTo(newfile);
+	}
+	
 }

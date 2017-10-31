@@ -92,6 +92,10 @@ public class Config {
 	
 	public void setUpdateBudget(String b){
 		config.setProperty("query.updatebudget", b);
+	}
+	
+	public void setUpdateBudget(int b){
+		config.setProperty("query.updatebudget", b);
 	} 
 	
 	public Integer getDatabaseNumber(){

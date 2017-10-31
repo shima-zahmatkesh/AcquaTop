@@ -82,18 +82,15 @@ public class MinTopK {
 
 				
 				if (data.getCurrentWindow() != data.getInitialWindow() && time < endOfPreviouseWindow()){
-					System.out.println("ariving  existing node " + newNode.getObjectId() +" with  score" + newNode.getScore()+ "   at time " + time);
+					//System.out.println("ariving  existing node " + newNode.getObjectId() +" with  score" + newNode.getScore()+ "   at time " + time);
 					data.updateMtkn(newNode);
 				}else{
 					data.updateMtkn(newNode);		// all the arriving node will add to the MTKN list if they have enough score  even the same user id which come in new window
-					System.out.println("ariving node " + newNode.getObjectId() +" with  score" + newNode.getScore()+ "   at time " + time);
+					//System.out.println("ariving node " + newNode.getObjectId() +" with  score" + newNode.getScore()+ "   at time " + time);
 				}
-			//	System.out.println("new ariving node " + newNode.getObjectId() +" with  score" + newNode.getScore() + "   at time " + time);
-			//	data.updateMtkn(newNode);		// all the arriving node will add to the MTKN list if they have enough score  even the same user id which come in new window
-				//System.out.println("new ariving node " + newNode.getObjectId() + "   at time " + time);
-				data.printMTKN();
-				data.printLBP();
-				data.printActiveWindow();	
+				//data.printMTKN();
+				//data.printLBP();
+				//data.printActiveWindow();	
 			}
 		}
 		// update mtkn based on changes of current window
@@ -109,11 +106,11 @@ public class MinTopK {
 				newNode.setScore(ScoringFunction.computeScore(objectId, followerNum, mentionNum));
 				newNode.setObjectId(objectId);
 				newNode.setTime(time);
-				data.updateMtknForChanges(newNode);
-				System.out.println("changing node " + newNode.getObjectId()+" with new score" + newNode.getScore() +  "   at time " + time);
-				data.printMTKN();
-				data.printLBP();
-				data.printActiveWindow();
+				data.updateMtkn(newNode);
+				//System.out.println("changing node " + newNode.getObjectId()+" with new score" + newNode.getScore() +  "   at time " + time);
+				//data.printMTKN();
+				//data.printLBP();
+				//data.printActiveWindow();
 			}
 		}
 	
@@ -239,6 +236,11 @@ public class MinTopK {
 
 	public void setCurrentWindow(int window) {
 		data.setCurrentWindow(window);
+	}
+
+	public ArrayList<String> getKMiddleResult() {
+
+		return data.getKMiddleResult();
 	}
 
 	

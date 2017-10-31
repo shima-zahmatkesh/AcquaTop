@@ -103,7 +103,7 @@ public abstract class ApproximateJoinMTKNOperator {
 					followerReplica.put(id,newValue);
 					estimatedLastChangeTime.put(id, evaluationTime);
 					currentChanges.put(id, newValue);
-					System.out.println("add user id = "+ id + " to the current changes with value = " + newValue + " - the old value = " + oldValue);
+					//System.out.println("add user id = "+ id + " to the current changes with value = " + newValue + " - the old value = " + oldValue);
 				} else {
 					
 				}
@@ -127,7 +127,7 @@ public abstract class ApproximateJoinMTKNOperator {
 			
 			
 			
-			minTopK.processCurrentWindow(currentCandidate , currentCandidateTime ,  currentChanges);
+ 			minTopK.processCurrentWindow(currentCandidate , currentCandidateTime ,  currentChanges);
 			
 			
 			ArrayList<String> topKResult =minTopK.getTopKResult() ;

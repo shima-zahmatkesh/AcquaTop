@@ -8,13 +8,17 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.TreeMap;
 
 import acqua.config.Config;
+import acqua.data.TwitterFollowerCollector;
 
+
+// this class generate data set wit different value of changes per time stamp (changes of number of follower)
 public class BKGGenerator {
 
 	private static List<Long> timestamps = new ArrayList<Long>();
@@ -443,13 +447,98 @@ public class BKGGenerator {
 //		modifyFollowerCountChanges();
 //		ComputeChangsPerTimestamp();
 		
-		try {
-			computeNumberOfChangesPerWindow();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			computeNumberOfChangesPerWindow();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+		
+		computeFollowerCountDifferences();
 	}
 	
 
+	public static TreeMap<Long,Integer> getFollowerListOfUser( long userId){
+		
+		TreeMap<Long,Integer> followers = new TreeMap<Long, Integer>();;
+		Connection c = null;
+		Statement stmt = null;
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection( Config.INSTANCE.getDatasetDb() );
+			c.setAutoCommit(false);
+			stmt = c.createStatement();
+			String sql=	"SELECT B.TIMESTAMP, B.FOLLOWERCOUNT "+
+						" FROM BKG B WHERE B.USERID = "+ userId +
+						" ORDER BY TIMESTAMP";  
+			ResultSet rs = stmt.executeQuery( sql );	      
+			while ( rs.next() ) {
+				long timestamp = rs.getLong("TIMESTAMP");
+				int followerCount  = rs.getInt("FOLLOWERCOUNT");
+				followers.put( timestamp , followerCount);
+				System.out.println("followerCount = " + followerCount + "    userId = " +userId);
+			}
+			rs.close();
+			stmt.close();
+			c.close();
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+			System.exit(0);
+		}
+		return followers;
+
+	}
+	
+	public static void computeFollowerCountDifferences(){
+		
+		Statement stmt = null;
+		Random rand = new Random();
+		List <Long> IDs = TwitterFollowerCollector.getUsersID(Config.INSTANCE.getDatasetDb());
+		Iterator <Long> it = IDs.iterator();
+		while(it.hasNext()){
+			
+			Long userId = it.next();
+			TreeMap<Long,Integer> followerListOfUser =  getFollowerListOfUser( userId);
+			
+			try {
+				Class.forName("org.sqlite.JDBC");
+				Connection c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb() );
+				stmt = c.createStatement();
+				
+				int difference = 0;
+				Iterator <Long> itf = followerListOfUser.keySet().iterator();
+				while (itf.hasNext()){
+					long timestamp = itf.next();
+					int currentFollower = followerListOfUser.get(timestamp);
+					if (followerListOfUser.lowerKey(timestamp)!= null){
+						int previousFollower = followerListOfUser.get (followerListOfUser.lowerKey(timestamp) );
+						difference = currentFollower - previousFollower;
+					}
+					difference = difference + 5 + rand. nextInt(20) ;
+					String updatesql = 	" UPDATE BKG SET FOLLOWERCOUNTDIFFERENCE = "+ difference +"  WHERE USERID = " + userId + " AND TIMESTAMP =  " + timestamp ;
+					//System.out.println(updatesql + "\n");
+					stmt = c.createStatement();
+					stmt.executeUpdate(updatesql);
+				}
+				stmt.close();
+				
+			} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+			System.exit(0);
+		}		
+				
+		}
+	}
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
 }

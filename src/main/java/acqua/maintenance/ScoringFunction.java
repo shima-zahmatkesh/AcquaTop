@@ -14,7 +14,7 @@ import java.util.Map.Entry;
 public class ScoringFunction {
 	
 	public static boolean DESC = false;
-	public static float minMentions = Float.MAX_VALUE, minFollowerCount= Float.MAX_VALUE, maxMentions= Float.MIN_VALUE, maxFollowerCount= Float.MIN_VALUE , alpha = 0.9f;
+	public static float minMentions = Float.MAX_VALUE, minFollowerCount= Float.MAX_VALUE, maxMentions= Float.MIN_VALUE, maxFollowerCount= Float.MIN_VALUE , alpha = 0.3f;
 	
 	
 	public static void setParam1Values (Map<Long, Integer> List){
@@ -54,6 +54,7 @@ public class ScoringFunction {
 		HashMap<Long, Float> scoreOfUsers = new HashMap<Long, Float>();
 		HashMap<Long, Float> sortedUser = new HashMap<Long, Float>();
 		
+	
 		Iterator<Long> it= mentionList.keySet().iterator();
 		while(it.hasNext()){
 			long userId=Long.parseLong(it.next().toString());
@@ -90,15 +91,25 @@ public class ScoringFunction {
 			public int compare(Entry<Long, Float> o1,Entry<Long, Float> o2){
 				if (order)
 				{
-					return o1.getValue().compareTo(o2.getValue());
+					int res = o1.getValue().compareTo(o2.getValue());
+					if(res!=0)
+						return res;
+					else
+						return o1.getKey().compareTo(o2.getKey());
 				}
 				else
 				{
-					return o2.getValue().compareTo(o1.getValue());
+					int res = o2.getValue().compareTo(o1.getValue());
+					if(res!=0)
+						return res;
+					else
+						return o2.getKey().compareTo(o1.getKey());
 
 				}
 			}
 		});
+		
+	
 
 		// Maintaining insertion order with the help of LinkedList
 		HashMap<Long, Float> sortedMap = new LinkedHashMap<Long, Float>();

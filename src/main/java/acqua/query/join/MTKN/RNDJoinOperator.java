@@ -43,7 +43,6 @@ public class RNDJoinOperator extends ApproximateJoinMTKNOperator {
 				result.put(temp,"<>"+ currentValue + "  " + followerReplica.get(temp));
 			counter++;
 		}
-		//System.out.println("-----------------------------------------------------------------");
 		return result;
 	}
 
