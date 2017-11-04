@@ -47,13 +47,14 @@ public class OracleJoinOperator extends ApproximateJoinMTKNOperator{
 			int topk = Config.INSTANCE.getK();
 			int rank = 1;
 			Iterator<Long> sortIt= sortedUser.keySet().iterator();
+			//System.out.println(timeStamp + "," + sortedUser.size());
 			while(sortIt.hasNext() &&  topk > 0 ){
 				
 				long userId=Long.parseLong(sortIt.next().toString());
 				Integer userFollowers = currentFollowerCount.get(userId);
 				
 				outputWriter.write( userId + " " + mentionList.get(userId) + " " + userFollowers + " " + timeStamp + " " + sortedUser.get(userId)+" " + rank + "\n");
-			//	System.out.println( userId + " " + mentionList.get(userId) + " " + userFollowers + " " + timeStamp + " " + sortedUser.get(userId)+" " + rank );
+				//System.out.println( userId + " " + mentionList.get(userId) + " " + userFollowers + " " + timeStamp + " " + sortedUser.get(userId)+" " + rank );
 				rank ++;
 				topk--;
 			}

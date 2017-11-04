@@ -22,6 +22,7 @@ public class MTKNTJoinOperator extends ApproximateJoinMTKNOperator {
 		HashMap<Long,String> result=new HashMap<Long,String>();
 
 		ArrayList<String> topKResult = minTopK.getTopKResult() ;
+		//System.out.println("size = " + topKResult.size() + "    middle result = " + topKResult.toString() );
 		int counter = 1;
 		Iterator<String> it= topKResult.iterator();
 		while(it.hasNext() && counter< updateBudget){

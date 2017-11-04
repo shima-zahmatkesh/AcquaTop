@@ -26,7 +26,7 @@ public class BKGGenerator {
 	private static TreeMap<Long,Integer> targetFollowerCountChanges = new TreeMap<Long,Integer> ();  //key = timestamp , value = number of changes for all users
 	
 	private static float avgOfChanges = 0 ;
-	private static float targetAvgOfChanges = 10f;   //should be changed to generate different data sets.
+	private static float targetAvgOfChanges = 200f;   //should be changed to generate different data sets.
 	
 	
 	private static List<Long> getTimestamps(){
@@ -442,10 +442,10 @@ public class BKGGenerator {
 
 	public static void main(String[] args){
 
-//		ComputeChangsPerTimestamp();
-//		computeTargetFollowerCountChanges ();
-//		modifyFollowerCountChanges();
-//		ComputeChangsPerTimestamp();
+		ComputeChangsPerTimestamp();
+		computeTargetFollowerCountChanges ();
+		modifyFollowerCountChanges();
+		ComputeChangsPerTimestamp();
 		
 //		try {
 //			computeNumberOfChangesPerWindow();
@@ -453,9 +453,9 @@ public class BKGGenerator {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-//		
 		
-		computeFollowerCountDifferences();
+		
+//		computeFollowerCountDifferences();
 	}
 	
 

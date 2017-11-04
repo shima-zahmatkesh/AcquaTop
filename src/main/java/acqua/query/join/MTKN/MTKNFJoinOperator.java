@@ -21,7 +21,8 @@ protected int updateBudget = Config.INSTANCE.getUpdateBudget();
 		HashMap<Long,String> result=new HashMap<Long,String>();
 
 		ArrayList<String> topKResult = minTopK.getKMiddleResult() ;
-		int counter = 1;
+		//System.out.println("middle result = " + topKResult.toString() );
+		int counter = 0;
 		Iterator<String> it= topKResult.iterator();
 		while(it.hasNext() && counter< updateBudget){
 		
@@ -41,8 +42,8 @@ protected int updateBudget = Config.INSTANCE.getUpdateBudget();
 
 			counter ++;
 		}
-		//System.out.println("---------------evaluation time = " + evaluationTime);
-		//printResult(result);
+		System.out.println("---------------evaluation time = " + evaluationTime);
+		printResult(result);
 		return result;
 	}
 

@@ -453,20 +453,46 @@ public class MaintenanceData {
 	
 	}
 	
+	// return top-k results
+		public ArrayList<String> getMTKNList() {
+
+			//get top-k distinct users
+			HashMap <Long,Float> distinctResult = new HashMap <Long,Float>();
+			ArrayList<String> result =new ArrayList<String>();
+			
+			Iterator<Key> it = mtkn.keySet().iterator();
+			while (it.hasNext()){
+				Key key = it.next();
+				Node node = mtkn.get(key);
+				if (distinctResult.containsKey(key.getObjectId())  &&  distinctResult.get(key.getObjectId()) > node.getScore() )
+					continue;
+				result.add(key.getObjectId()+","+ key.getScore());
+					
+			}
+			return result;	
+		
+		}
+	
 	public ArrayList<String> getKMiddleResult() {
 		
 		ArrayList<String> result =new ArrayList<String>();
 		
 		int budget = Config.INSTANCE.getUpdateBudget() ;
 		int index = k + 1 - (int) budget/2;
-		int counter = 0 ;
+		if ((index+budget-1) > mtkn.size() )
+			index = mtkn.size()-budget+1;
+		System.out.println("index = " + index);
+		int counter = 1 ;
+		int budgetCounter = 1;
 		Iterator<Key> it = mtkn.keySet().iterator();
 		
-		while (it.hasNext() && counter <= budget){
+		while (it.hasNext() && budgetCounter <= budget){
 					
-			Key key = it.next();					
-			result.add(key.getObjectId() + "," + key.getScore());
-			index++;
+			Key key = it.next();
+			if (counter >= index){
+				result.add(key.getObjectId() + "," + key.getScore());
+				budgetCounter++;
+			}
 			counter++;
 		}
 		return result;	
@@ -725,6 +751,16 @@ public class MaintenanceData {
 	public void setInitialWindow(int initialWindow) {
 		this.initialWindow = initialWindow;
 	}
+
+	public TreeMap<Key, Node> getMtkn() {
+		return mtkn;
+	}
+
+	public void setMtkn(TreeMap<Key, Node> mtkn) {
+		this.mtkn = mtkn;
+	}
+
+	
 
 	
 	

@@ -20,9 +20,9 @@ protected int updateBudget = Config.INSTANCE.getUpdateBudget();
 		
 		HashMap<Long,String> result=new HashMap<Long,String>();
 
-		ArrayList<String> topKResult = minTopK.getKMiddleResult() ;
+		ArrayList<String> MTKNList = minTopK.getMTKNList();
 
-		Iterator<String> it= topKResult.iterator();
+		Iterator<String> it= MTKNList.iterator();
 		while(it.hasNext() ){
 		
 			String temp = it.next();

@@ -243,6 +243,10 @@ public class MinTopK {
 		return data.getKMiddleResult();
 	}
 
+	public ArrayList<String> getMTKNList() {
+		return data.getMTKNList();
+	}
+
 	
 	
 	

@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -42,9 +43,10 @@ public class TopKResultAnalyser {
 			createtable (stmt ,  "MTKNFJ");
 			createtable (stmt ,  "MTKNAJ");
 			createtable (stmt ,  "WSTJ");
-			createtable (stmt ,  "LRUJ");
 			createtable (stmt ,  "RNDJ");
-			createtable (stmt ,  "WBMJ");
+			createtable (stmt ,  "MTKNLRUJ");
+			createtable (stmt ,  "MTKNWBMJ");
+			createtable (stmt ,  "MTKNRNDJ");
 			
 			
 			putOutputInDatabase( stmt ,"joinOutput/OracleJoinOperatorOutput.txt" , "OTKJ");
@@ -54,8 +56,9 @@ public class TopKResultAnalyser {
 			putOutputInDatabase( stmt ,"joinOutput/MTKNAllJoinOperatorOutput.txt" , "MTKNAJ");
 			putOutputInDatabase( stmt ,"joinOutput/WSTJoinOperatorOutput.txt" , "WSTJ");
 			putOutputInDatabase( stmt ,"joinOutput/RNDJoinOperatorOutput.txt" , "RNDJ");
-			//putOutputInDatabase( stmt ,"joinOutput/LRUJoinOperatorOutput.txt" , "LRUJ");
-			//putOutputInDatabase( stmt ,"joinOutput/WBMJoinOperatorOutput.txt" , "WBMJ");			
+			putOutputInDatabase( stmt ,"joinOutput/MTKNLRUJoinOperatorOutput.txt" , "MTKNLRUJ");
+			putOutputInDatabase( stmt ,"joinOutput/MTKNWBMJoinOperatorOutput.txt" , "MTKNWBMJ");	
+			putOutputInDatabase( stmt ,"joinOutput/MTKNRNDJoinOperatorOutput.txt" , "MTKNRNDJ");
 			
 			
 			stmt.close();
@@ -110,7 +113,7 @@ public class TopKResultAnalyser {
 		
 		try{
 			insertResultToDB();
-			BufferedWriter bw=new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare.csv")));
+			BufferedWriter bw=new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/NDCGcompare.csv")));
 			TreeMap<Long,Integer> oracleCount=computeOJoin();
 
 			//use nDCG to compute errors
@@ -121,13 +124,14 @@ public class TopKResultAnalyser {
 			HashMap<Long,Double> MTKNFError=computeErrorsNDCG(getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("MTKNFJ") );
 			HashMap<Long,Double> MTKNAError=computeErrorsNDCG(getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("MTKNAJ") );
 			
-			HashMap<Long,Double> LRUError=computeErrorsNDCG (getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("LRUJ") );			
-			HashMap<Long,Double> WBMError=computeErrorsNDCG(getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("WBMJ") );
+			HashMap<Long,Double> LRUError=computeErrorsNDCG (getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("MTKNLRUJ") );			
+			HashMap<Long,Double> WBMError=computeErrorsNDCG(getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("MTKNWBMJ") );
+			HashMap<Long,Double> MTKNRNDError=computeErrorsNDCG (getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("MTKNRNDJ") );
 
 			
 			Iterator<Long> itO = oracleCount.keySet().iterator();
-			bw.write("timestampe,Oracle,Oracle MTKN,WST,RND,MTKNT,MTKNF,MTKNA,WBM,LRU\n");
-			Double cOC=0.0, comtke =0.0, cwste=0.0 ,crnde=0.0,cwbme=0.0, clrue=0.0 ,cmtknte =0.0,cmtknfe =0.0 ,cmtknae =0.0;
+			bw.write("timestampe,Oracle,Oracle MTKN,WST,RND,MTKN-T,MTKN-F,MTKN-A,MTKN-WBM,MTKN-LRU,MTKN-RND\n");
+			Double cOC=0.0, comtke =0.0, cwste=0.0 ,crnde=0.0,cwbme=0.0, clrue=0.0 ,cmtknte =0.0,cmtknfe =0.0 ,cmtknae =0.0  ,cmtknrnde = 0.0;
 			while(itO.hasNext()){
 				
 				long nextTime = itO.next();
@@ -140,6 +144,7 @@ public class TopKResultAnalyser {
 				Double mtknae=MTKNAError.get(nextTime);
 				Double wbme=WBMError.get(nextTime);
 				Double lrue=LRUError.get(nextTime);
+				Double mtknrnde=MTKNRNDError.get(nextTime);
 
 				//cumulative error
 				cOC=cOC + OC ;
@@ -152,6 +157,7 @@ public class TopKResultAnalyser {
 				
 				cwbme= cwbme + (wbme= wbme==null?0:wbme) ;
 				clrue= clrue + (lrue= lrue==null?0:lrue) ;
+				cmtknrnde= cmtknrnde + (mtknrnde = mtknrnde==null?0:mtknrnde) ;
 			
 				bw.write(nextTime+","+String.format("%.5f",cOC)+
 						","+ String.format("%.5f",(comtke==null?0:comtke))+ 
@@ -161,7 +167,8 @@ public class TopKResultAnalyser {
 						","+ String.format("%.5f",(cmtknfe==null?0:cmtknfe))+ 
 						","+ String.format("%.5f",(cmtknae==null?0:cmtknae))+ 
 						","+ String.format("%.5f",(cwbme==null?0:cwbme)) +
-						","+ String.format("%.5f",(clrue==null?0:clrue)) + "\n");
+						","+ String.format("%.5f",(clrue==null?0:clrue)) +
+						","+ String.format("%.5f",(cmtknrnde==null?0:cmtknrnde)) +"\n");
 				
 			}
 			bw.flush();
@@ -170,6 +177,74 @@ public class TopKResultAnalyser {
 		
 	}
 
+	public static void analysisExperimentACCK(){
+		
+		try{
+			insertResultToDB();
+			BufferedWriter bw=new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/ACCKcompare.csv")));
+			TreeMap<Long,Integer> oracleCount=computeOJoin();
+
+			//use nDCG to compute errors
+			HashMap<Long,Double> OMTKNError=computeErrorsACCK(getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("OMTKNJ") );
+			HashMap<Long,Double> WSTError=computeErrorsACCK(getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("WSTJ") );
+			HashMap<Long,Double> RNDError=computeErrorsACCK (getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("RNDJ") );
+			HashMap<Long,Double> MTKNTError=computeErrorsACCK(getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("MTKNTJ") );
+			HashMap<Long,Double> MTKNFError=computeErrorsACCK(getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("MTKNFJ") );
+			HashMap<Long,Double> MTKNAError=computeErrorsACCK(getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("MTKNAJ") );
+			
+			HashMap<Long,Double> LRUError=computeErrorsACCK (getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("MTKNLRUJ") );			
+			HashMap<Long,Double> WBMError=computeErrorsACCK(getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("MTKNWBMJ") );
+			HashMap<Long,Double> MTKNRNDError=computeErrorsACCK (getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("MTKNRNDJ") );
+
+			
+			Iterator<Long> itO = oracleCount.keySet().iterator();
+			bw.write("timestampe,Oracle,Oracle MTKN,WST,RND,MTKN-T,MTKN-F,MTKN-A,MTKN-WBM,MTKN-LRU,MTKN-RND\n");
+			Double cOC=0.0, comtke =0.0, cwste=0.0 ,crnde=0.0,cwbme=0.0, clrue=0.0 ,cmtknte =0.0,cmtknfe =0.0 ,cmtknae =0.0  ,cmtknrnde = 0.0;
+			while(itO.hasNext()){
+				
+				long nextTime = itO.next();
+				Integer OC=oracleCount.get(nextTime);
+				Double omtkne=OMTKNError.get(nextTime);
+				Double wste=WSTError.get(nextTime);
+				Double rnde=RNDError.get(nextTime);
+				Double mtknte=MTKNTError.get(nextTime);
+				Double mtknfe=MTKNFError.get(nextTime);
+				Double mtknae=MTKNAError.get(nextTime);
+				Double wbme=WBMError.get(nextTime);
+				Double lrue=LRUError.get(nextTime);
+				Double mtknrnde=MTKNRNDError.get(nextTime);
+
+				//cumulative error
+				cOC=cOC + OC ;
+				comtke = comtke + (omtkne = omtkne==null?0:omtkne) ;
+				cwste= cwste + (wste = wste==null?0:wste) ;
+				crnde= crnde + (rnde = rnde==null?0:rnde) ;
+				cmtknte = cmtknte + (mtknte = mtknte==null?0:mtknte) ;
+				cmtknfe = cmtknfe + (mtknfe = mtknfe==null?0:mtknfe) ;
+				cmtknae = cmtknae + (mtknae = mtknae==null?0:mtknae) ;
+				
+				cwbme= cwbme + (wbme= wbme==null?0:wbme) ;
+				clrue= clrue + (lrue= lrue==null?0:lrue) ;
+				cmtknrnde= cmtknrnde + (mtknrnde = mtknrnde==null?0:mtknrnde) ;
+			
+				bw.write(nextTime+","+String.format("%.5f",cOC)+
+						","+ String.format("%.5f",(comtke==null?0:comtke))+ 
+						","+ String.format("%.5f",(cwste==null?0:cwste))+ 
+						","+ String.format("%.5f",(crnde==null?0:crnde))+
+						","+ String.format("%.5f",(cmtknte==null?0:cmtknte))+ 
+						","+ String.format("%.5f",(cmtknfe==null?0:cmtknfe))+ 
+						","+ String.format("%.5f",(cmtknae==null?0:cmtknae))+ 
+						","+ String.format("%.5f",(cwbme==null?0:cwbme)) +
+						","+ String.format("%.5f",(clrue==null?0:clrue)) +
+						","+ String.format("%.5f",(cmtknrnde==null?0:cmtknrnde)) +"\n");
+				
+			}
+			bw.flush();
+			bw.close();
+		}catch(Exception e){e.printStackTrace();}
+		
+	}
+	
 	public static TreeMap<Long,Integer> computeOJoin(){
 		TreeMap<Long,Integer> result=new TreeMap<Long, Integer>();
 		Connection c = null;
@@ -272,6 +347,37 @@ public class TopKResultAnalyser {
 		return result;
 	
 	}
+	
+	public static HashMap<Long,Double> computeErrorsACCK (TreeMap< Long, HashMap<Long ,String>> original , TreeMap< Long, HashMap<Long ,String>> replica){
+		
+		HashMap<Long,Double> result=new HashMap<Long, Double>();
+		
+		Iterator<Long> timeIt= original.keySet().iterator();
+		while(timeIt.hasNext()){
+			
+			Double DCG = 0.0 , IDCG = 0.0 , NDCG = 0.0;
+			long timestamp = timeIt.next();
+			
+			// find same timestamps in original and replica
+			HashMap<Long ,String> originalResults = original.get(timestamp);
+			HashMap<Long ,String> replicaResults = new HashMap<Long ,String> ();
+			if (replica.containsKey(timestamp)) {
+				replicaResults = replica.get(timestamp);
+			}else { 
+				continue; 
+			}
+			
+			HashMap<Long ,String> newOriginalResults = setOriginalRelevancyforACCK(originalResults);
+			HashMap<Long ,String> newReplicaResults = setReplicaRelevancyforACCK(replicaResults, originalResults);
+			DCG = computeDCG(newReplicaResults);
+			IDCG = computeDCG(newOriginalResults);
+			NDCG = DCG /IDCG;
+			result.put(timestamp, (1d-NDCG));
+			
+		}
+		return result;
+	
+	}
 
 	private static Double computeDCG(HashMap<Long ,String> list) {
 		
@@ -291,54 +397,13 @@ public class TopKResultAnalyser {
 		return result;
 	}
 
-	private static HashSet<String> rerankOriginalResults(HashSet<String> list , HashSet<String> replica) {
-		
-		HashSet<String> result = new HashSet<String>();
-		TreeMap <Integer , String> orderedList = new TreeMap<Integer , String>();
-		
-		Iterator<String> it= list.iterator();
-		while(it.hasNext()){
-			String temp =it.next();
-			String [] tempSplit = temp.split(",");
-			Integer userId = Integer.valueOf(tempSplit[0]);
-			Integer rank = Integer.valueOf(tempSplit[2]);
-			
-			Iterator<String> itrep= replica.iterator();
-			while(itrep.hasNext()){
-				String temprep =itrep.next();
-				String [] temprepSplit = temprep.split(",");
-				Integer userIdrep = Integer.valueOf(temprepSplit[0]);
-				if (userIdrep.intValue() == userId.intValue()){
-						orderedList.put(rank, temp);
-				}
-			}
-
-		}
-		
-		Iterator<Integer> ordIt= orderedList.keySet().iterator();
-		int newrank = 1;
-		while(ordIt.hasNext() && newrank <= Config.INSTANCE.getK()){
-			
-			Integer oldRank =ordIt.next();
-			String temp = orderedList.get(oldRank);
-			String [] tempSplit = temp.split(",");
-			Integer userId = Integer.valueOf(tempSplit[0]);
-			Double score = Double.valueOf(tempSplit[1]);
-			Integer rank = Integer.valueOf(tempSplit[2]);
-			
-			result.add(userId + "," + score + "," + rank);        //newrank removed
-			newrank ++;
-			
-		}
-		return result;
-	}
-
+	
 	private static HashMap<Long ,String> setOriginalRelevancy(HashMap<Long ,String> original){
 		
 		HashMap<Long ,String> result = new HashMap<Long ,String>();
 		//int originalRelevancy = 3;
 		
-		//System.out.println("setOriginalRelevancy");
+		System.out.println("setOriginalRelevancy");
 		Iterator<Long> it= original.keySet().iterator();
 		while(it.hasNext()){
 			long id =it.next();
@@ -346,21 +411,31 @@ public class TopKResultAnalyser {
 			String [] tempSplit = temp.split(",");
 			Integer rank = Integer.valueOf(tempSplit[1]);
 			//result.put(id , originalRelevancy + "," + rank);
-			int originalRelevancy = (original.size() - Integer.parseInt(original.get(id).split(",")[1]) + 1)/2 ;
+			//int originalRelevancy = (  Math.floorDiv( (original.size() - Integer.parseInt(original.get(id).split(",")[1])+1 )  , Math.floorDiv(original.size(),2) ))  ;
+			int originalRelevancy = 0;
+			
+			if (rank <= Math.floorDiv(original.size(), 3))
+				originalRelevancy = 3;
+			else if (rank > Math.floorDiv(original.size(), 3) && rank <= Math.floorDiv(original.size(), 3) * 2) 
+				originalRelevancy = 2;
+			else
+				originalRelevancy = 1;
+			
 			result.put(id , originalRelevancy + "," + rank);
 			
-			//System.out.println("id = " + id + " relevancy = " + originalRelevancy  + " rank = "+ rank);
+			System.out.println("id = " + id + " original relevancy = " + originalRelevancy  + " rank = "+ rank);
 			
 		}
 		return result;
 	}
+	
 	
 	private static HashMap<Long ,String> setReplicaRelevancy(HashMap<Long ,String> replica , HashMap<Long ,String> original){
 		
 		HashMap<Long ,String> result = new HashMap<Long ,String>();
 		int replicaRelevancy = 0;
 		
-	//	System.out.println("setReplicaRelevancy");
+		System.out.println("setReplicaRelevancy");
 		Iterator<Long> it= replica.keySet().iterator();
 		while(it.hasNext()){
 			long id =it.next();
@@ -369,20 +444,167 @@ public class TopKResultAnalyser {
 			Integer rank = Integer.valueOf(tempSplit[1]);
 			if (original.containsKey(id)){
 				//result.put(id , originalRelevancy + "," + rank);
-				int originalRelevancy = (original.size() - Integer.parseInt(original.get(id).split(",")[1]) + 1 )/2;
+				//int originalRelevancy = ((original.size() - Integer.parseInt(original.get(id).split(",")[1]) )/(original.size()/3))+1 ;
+				
+				int originalRelevancy = 0;
+				
+				if (rank <= Math.floorDiv(original.size(), 3))
+					originalRelevancy = 3;
+				else if (rank > Math.floorDiv(original.size(), 3) && rank <= Math.floorDiv(original.size(), 3) * 2) 
+					originalRelevancy = 2;
+				else
+					originalRelevancy = 1;
 				result.put(id, originalRelevancy + "," + rank);
-				//System.out.println("id = " + id + " relevancy = " + original.get(id).split(",")[1]  + " rank = "+ rank);
+				System.out.println("id = " + id + " originalRelevancy = " + originalRelevancy  + " rank = "+ rank);
 				
 			}else{
 				result.put(id , replicaRelevancy + "," + rank);	
-				//System.out.println("id = " + id + " relevancy = " + replicaRelevancy + " rank = "+ rank);
+				System.out.println("id = " + id + " replica relevancy = " + replicaRelevancy + " rank = "+ rank);
 			}
 		}
 		return result;
 	}
 	
-	public static void main(String[] args){
 	
+	private static HashMap<Long ,String> setOriginalRelevancyforACCK(HashMap<Long ,String> original){
+		
+		HashMap<Long ,String> result = new HashMap<Long ,String>();
+		int originalRelevancy = 1;
+
+		Iterator<Long> it= original.keySet().iterator();
+		while(it.hasNext()){
+			long id =it.next();
+			String temp = original.get(id);
+			String [] tempSplit = temp.split(",");
+			Integer rank = Integer.valueOf(tempSplit[1]);
+			result.put(id , originalRelevancy + "," + rank);	
+		}
+		return result;
+	}
+	
+	
+	private static HashMap<Long ,String> setReplicaRelevancyforACCK(HashMap<Long ,String> replica , HashMap<Long ,String> original){
+		
+		HashMap<Long ,String> result = new HashMap<Long ,String>();
+		int replicaRelevancy = 0 , originalRelevancy=1;
+		Iterator<Long> it= replica.keySet().iterator();
+		while(it.hasNext()){
+			long id =it.next();
+			String temp = replica.get(id);
+			String [] tempSplit = temp.split(",");
+			Integer rank = Integer.valueOf(tempSplit[1]);
+			if (original.containsKey(id))
+				result.put(id, originalRelevancy + "," + rank);				
+			else
+				result.put(id , replicaRelevancy + "," + rank);	
+		}
+		return result;
+	}
+	
+	
+	public static void mergeCompareFilesForBudget(Integer [] budgets , String metric){
+		
+		try{
+			
+			BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/"+ metric +"compareTotal_budget.csv")));
+			
+			bw.write( "budget,timestampe,Oracle,Oracle MTKN,WST,RND,MTKN-T,MTKN-F,MTKN-A,MTKN-WBM,MTKN-LRU,MTKN-RND\n");
+		
+			
+			for ( int i = 0 ; i< budgets.length ; i++){
+				
+				BufferedReader br=new BufferedReader(new FileReader(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/"+ metric +"compare_budget_"+ budgets[i] + ".csv")));
+				
+				String lastLine = null , temp = null;
+				while( (temp = br.readLine()) != null){
+					lastLine = temp;
+				}
+				bw.write( budgets[i] +","+ lastLine + "\n");
+				br.close();
+			}
+			bw.close();
+			
+		}catch(Exception e){e.printStackTrace();}
+	}
+	
+	public static void mergeCompareFilesForK(Long[] K , String metric){
+		
+		try{
+			
+			BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/"+ metric +"compareTotal_budget.csv")));
+			
+			bw.write( "K,timestampe,Oracle,Oracle MTKN,WST,RND,MTKN-T,MTKN-F,MTKN-A,MTKN-WBM,MTKN-LRU,MTKN-RND\n");
+		
+			
+			for ( int i = 0 ; i< K.length ; i++){
+				
+				BufferedReader br=new BufferedReader(new FileReader(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/"+ metric +"compare_K_"+ K[i] + ".csv")));
+				
+				String lastLine = null , temp = null;
+				while( (temp = br.readLine()) != null){
+					lastLine = temp;
+				}
+				bw.write( K[i] +","+ lastLine + "\n");
+				br.close();
+			}
+			bw.close();
+			
+		}catch(Exception e){e.printStackTrace();}
+	}
+
+	public static void mergeCompareFilesForN(Long[] N , String metric){
+		
+		try{
+			
+			BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/"+ metric +"compareTotal_budget.csv")));
+			
+			bw.write( "N,timestampe,Oracle,Oracle MTKN,WST,RND,MTKN-T,MTKN-F,MTKN-A,MTKN-WBM,MTKN-LRU,MTKN-RND\n");
+		
+			
+			for ( int i = 0 ; i< N.length ; i++){
+				
+				BufferedReader br=new BufferedReader(new FileReader(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/"+ metric +"compare_N_"+ N[i] + ".csv")));
+				
+				String lastLine = null , temp = null;
+				while( (temp = br.readLine()) != null){
+					lastLine = temp;
+				}
+				bw.write( N[i] +","+ lastLine + "\n");
+				br.close();
+			}
+			bw.close();
+			
+		}catch(Exception e){e.printStackTrace();}
+	}
+	
+	public static void mergeCompareFilesForDB ( int[] ch, String metric) {
+		try{
+			
+			BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/"+ metric +"compareTotal_DB.csv")));
+			
+			bw.write( "DB,timestampe,Oracle,Oracle MTKN,WST,RND,MTKN-T,MTKN-F,MTKN-A,MTKN-WBM,MTKN-LRU,MTKN-RND\n");
+		
+			
+			for ( int i = 0 ; i< ch.length ; i++){
+				
+				BufferedReader br=new BufferedReader(new FileReader(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/"+ metric +"compare_N_"+ ch[i] + ".csv")));
+				
+				String lastLine = null , temp = null;
+				while( (temp = br.readLine()) != null){
+					lastLine = temp;
+				}
+				bw.write( ch[i] +","+ lastLine + "\n");
+				br.close();
+			}
+			bw.close();
+			
+		}catch(Exception e){e.printStackTrace();}
+		
+	}
+	
+
+	public static void main(String[] args){
+		
 		HashMap<Long ,String> original = new HashMap<Long ,String>();
 		HashMap<Long ,String> replica = new HashMap<Long ,String>();
 		Double DCG = 0.0 , IDCG = 0.0 , NDCG = 0.0;
@@ -405,4 +627,8 @@ public class TopKResultAnalyser {
 		
 		NDCG = DCG /IDCG;
 	}
+
+	
+
+
 }
