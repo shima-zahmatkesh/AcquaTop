@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+
 import acqua.config.Config;
 import acqua.data.TwitterFollowerCollector;
 
@@ -12,7 +13,6 @@ public class MTKNFJoinOperator extends ApproximateJoinMTKNOperator{
 
 protected int updateBudget = Config.INSTANCE.getUpdateBudget();
 
-	
 	@Override
 	protected HashMap<Long, String> updatePolicy(	Iterator<Long> candidateUserSetIterator,
 													Map<Long, Long> usersTimeStampOfTheCurrentSlidedWindow,
@@ -42,7 +42,7 @@ protected int updateBudget = Config.INSTANCE.getUpdateBudget();
 
 			counter ++;
 		}
-		System.out.println("---------------evaluation time = " + evaluationTime);
+		System.out.println("-----update elemets of evaluation time = " + evaluationTime);
 		printResult(result);
 		return result;
 	}

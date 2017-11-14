@@ -53,8 +53,8 @@ protected int updateBudget = Config.INSTANCE.getUpdateBudget();
 
 			counter ++;
 		}
-		System.out.println("---------------evaluation time = " + evaluationTime);
-		printResult(result);
+		//System.out.println("---------------evaluation time = " + evaluationTime);
+		//printResult(result);
 			return result;
 		}
 

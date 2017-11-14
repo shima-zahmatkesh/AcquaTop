@@ -22,7 +22,7 @@ import acqua.query.join.JoinOperator;
 
 public class OracleJoinOperator extends ApproximateJoinMTKNOperator{
 	
-	public  FileWriter outputWriter;
+	public  FileWriter outputWriter,  outputWriter2;
     public static boolean DESC = false;
 
     
@@ -30,6 +30,10 @@ public class OracleJoinOperator extends ApproximateJoinMTKNOperator{
 		try{
 			String path= Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/"+this.getClass().getSimpleName()+"Output.txt";
 			outputWriter = new FileWriter(new File(path));
+			
+			String path2= Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/TotalResultNumber.txt";
+			outputWriter2 = new FileWriter(new File(path2));
+			
 		}catch(Exception e){e.printStackTrace();}
 
 	}
@@ -47,7 +51,7 @@ public class OracleJoinOperator extends ApproximateJoinMTKNOperator{
 			int topk = Config.INSTANCE.getK();
 			int rank = 1;
 			Iterator<Long> sortIt= sortedUser.keySet().iterator();
-			//System.out.println(timeStamp + "," + sortedUser.size());
+			outputWriter2.write(timeStamp + "," + sortedUser.size() + "\n");
 			while(sortIt.hasNext() &&  topk > 0 ){
 				
 				long userId=Long.parseLong(sortIt.next().toString());
@@ -59,10 +63,16 @@ public class OracleJoinOperator extends ApproximateJoinMTKNOperator{
 				topk--;
 			}
 			
+//			outputWriter.flush();
+			outputWriter2.flush();
+//			outputWriter.close();
+//			outputWriter2.close();
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	
 
 	}
 	

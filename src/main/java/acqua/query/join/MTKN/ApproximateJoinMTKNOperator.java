@@ -4,17 +4,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.Map.Entry;
-
 import acqua.config.Config;
 import acqua.data.TwitterFollowerCollector;
 import acqua.maintenance.MinTopK;
@@ -87,11 +80,23 @@ public abstract class ApproximateJoinMTKNOperator {
 
 			// MTKN algorithm
 			
+			//perform MTKN to get the top-k query results
+			TreeMap<Long,Integer> currentCandidate = new TreeMap<Long,Integer>();
+			TreeMap<Long,Long> currentCandidateTime = new TreeMap<Long,Long>();
+			TreeMap<Long,Integer> currentChanges = new TreeMap<Long,Integer>();
+			
+			currentCandidate.putAll(mentionList);
+			currentCandidateTime.putAll(usersTimeStampOfTheCurrentSlidedWindow);
+			
+			
+			minTopK.processCurrentWindowForNewArrival(currentCandidate , currentCandidateTime ,  currentChanges);
+		
+			
 			//invoke FollowerTable::getFollowers(user,ts) and updates the replica for a subset of users that exist in stream
 			HashMap<Long,String> electedElements = updatePolicy(mentionList.keySet().iterator(),usersTimeStampOfTheCurrentSlidedWindow, evaluationTime);
 			selectedCondidatesFileWriter.write(electedElements.toString() + "," + evaluationTime + "\n");
-			TreeMap<Long,Integer> currentChanges = new TreeMap<Long,Integer>();
-			
+		
+		
 			//update the users
 			for(long id : electedElements.keySet()){
 				
@@ -103,32 +108,21 @@ public abstract class ApproximateJoinMTKNOperator {
 					followerReplica.put(id,newValue);
 					estimatedLastChangeTime.put(id, evaluationTime);
 					currentChanges.put(id, newValue);
-					//System.out.println("add user id = "+ id + " to the current changes with value = " + newValue + " - the old value = " + oldValue);
+					System.out.println("add user id = "+ id + " to the current changes with value = " + newValue + " - the old value = " + oldValue);
 				} else {
 					
 				}
 				bkgLastChangeTime.put(id, TwitterFollowerCollector.getPreviousExpTime(id,evaluationTime));
 				userInfoUpdateTime.put(id, evaluationTime);
 			}
-
+			
 			//for statistics
 			Double EP = computeWindowError( mentionList,evaluationTime);
 			Double EP_b = computeReplicaError(evaluationTime);
 			statsFileWriter.write(","+ mentionList.size()+","+ E +","+ EP +","+ E_b +","+ EP_b +" \n");
-
-			
-			//perform MTKN to get the top-k query results
-			TreeMap<Long,Integer> currentCandidate = new TreeMap<Long,Integer>();
-			TreeMap<Long,Long> currentCandidateTime = new TreeMap<Long,Long>();
-			//TreeMap<Long,Integer> currentChanges = new TreeMap<Long,Integer>();
-			
-			currentCandidate.putAll(mentionList);
-			currentCandidateTime.putAll(usersTimeStampOfTheCurrentSlidedWindow);
-			
-			
-			
- 			minTopK.processCurrentWindow(currentCandidate , currentCandidateTime ,  currentChanges);
-			
+		
+		
+			minTopK.processCurrentWindowForBKGChanges(currentCandidate , currentCandidateTime ,  currentChanges);
 			
 			ArrayList<String> topKResult =minTopK.getTopKResult() ;
 				int rank = 1;

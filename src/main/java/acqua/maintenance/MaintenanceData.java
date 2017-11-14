@@ -33,6 +33,8 @@ public class MaintenanceData {
 			return res;
 		}
 	});
+	//private ArrayList <Long> MTKNEntryOfCurrentWindow = new ArrayList<Long>();
+	
 	private TreeMap< Integer, Node> lbp = new TreeMap<Integer, Node>();    //LBP = Lower Bound Pointer for each Window  (number of the window map to the BNode of MTKN list ( Integer -> number of window, Node-> node in the MTKN list)
 	private TreeMap <Integer , Integer > activeWindow = new TreeMap <Integer , Integer> (); //(Integer -> number of window , Integer -> top-k counter)
 
@@ -141,6 +143,7 @@ public class MaintenanceData {
 			}
 			else{
 				mtkn.put(key, newNode);
+				//MTKNEntryOfCurrentWindow.add(key.getObjectId());
 				updateMinDistance(newNode);
 				updateLbp(newNode);
 			}
@@ -759,6 +762,19 @@ public class MaintenanceData {
 	public void setMtkn(TreeMap<Key, Node> mtkn) {
 		this.mtkn = mtkn;
 	}
+
+//	public ArrayList<Long> getMTKNEntryOfCurrentWindow() {
+//		return MTKNEntryOfCurrentWindow;
+//	}
+//
+//	public void setMTKNEntryOfCurrentWindow(ArrayList<Long> mTKNEntryOfCurrentWindow) {
+//		MTKNEntryOfCurrentWindow = mTKNEntryOfCurrentWindow;
+//	}
+//
+//	public void addToMTKNEntryOfCurrentWindow(long userId) {
+//		MTKNEntryOfCurrentWindow.add(userId);
+//		
+//	}
 
 	
 
