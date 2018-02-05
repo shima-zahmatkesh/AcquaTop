@@ -52,7 +52,7 @@ public class OracleJoinOperator extends ApproximateJoinMTKNOperator{
 			int rank = 1;
 			Iterator<Long> sortIt= sortedUser.keySet().iterator();
 			outputWriter2.write(timeStamp + "," + sortedUser.size() + "\n");
-			while(sortIt.hasNext() &&  topk > 0 ){
+			while(sortIt.hasNext()  &&  topk > 0 ){
 				
 				long userId=Long.parseLong(sortIt.next().toString());
 				Integer userFollowers = currentFollowerCount.get(userId);

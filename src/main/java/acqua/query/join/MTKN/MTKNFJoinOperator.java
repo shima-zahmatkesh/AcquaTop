@@ -20,7 +20,8 @@ protected int updateBudget = Config.INSTANCE.getUpdateBudget();
 		
 		HashMap<Long,String> result=new HashMap<Long,String>();
 
-		ArrayList<String> topKResult = minTopK.getKMiddleResult() ;
+		ArrayList<String> topKResult = minTopK.getKMiddleResult(Config.INSTANCE.getK()) ;
+		//minTopK.printMTKN();
 		//System.out.println("middle result = " + topKResult.toString() );
 		int counter = 0;
 		Iterator<String> it= topKResult.iterator();
@@ -36,14 +37,15 @@ protected int updateBudget = Config.INSTANCE.getUpdateBudget();
 			int currentValue = TwitterFollowerCollector.getUserFollowerFromDB(evaluationTime, userId);
 			
 			if( replicaValue == currentValue )
-				result.put(userId,"=");
-			else
-				result.put(userId,"<>"+ currentValue + "  " + replicaValue);
-
+				result.put(userId,"=" );
+			else{
+				result.put(userId,"<>"+ currentValue + "  " + replicaValue );
+				minTopK.addFollowerReplica (userId , currentValue );
+			}
 			counter ++;
 		}
-		System.out.println("-----update elemets of evaluation time = " + evaluationTime);
-		printResult(result);
+//		System.out.println("-----update elemets of evaluation time = " + evaluationTime);
+//		printResult(result);
 		return result;
 	}
 

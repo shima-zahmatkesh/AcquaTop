@@ -59,7 +59,7 @@ public class Node {
 	}
 	
 	public Key getKey(){
-		return new Key(this.objectId ,  this.score );
+		return new Key(this.objectId ,  this.score, this.objectId );
 	}
 	
 	

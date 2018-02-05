@@ -13,6 +13,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.TreeMap;
@@ -21,7 +22,7 @@ import acqua.config.Config;
 
 public class TopKResultAnalyserWithIRMetrics {
 	
-	private static String header =  "timestampe,Oracle,Oracle MTKN,WST,MTKN-T,MTKN-F,MTKN-A,RND,WBM,LRU,MTKN-RND,MTKN-WBM,MTKN-LRU\n";
+	private static String header =  "timestampe,Oracle,OracleMTKN,WST,MTKN-T,MTKN-F,MTKN-A,RND,WBM,LRU,MTKN-RND,MTKN-WBM,MTKN-LRU\n";
 
 	public static void insertResultToDB(){
 
@@ -338,11 +339,14 @@ public class TopKResultAnalyserWithIRMetrics {
 			float f1 =(float) 2 * recall* precision /(recall + precision) ; 
 			if (recall==0 && precision == 0) f1=0;
 			
-			System.out.println("timestap = " + timestamp + "f1 = " + f1 + "    tp = " + tp + "  tn = "+ tn + "  p+n = " +totalNumber);
+			float avgPrecisionAtK = computeAvgPrecisionAtK (originalTopKResult , replicaTopKResult);
+			
+			//System.out.println("timestap = " + timestamp + "f1 = " + f1 + "    tp = " + tp + "  tn = "+ tn + "  p+n = " +totalNumber);
 			tempResult.put("accuracy", accuracy);
 			tempResult.put("recall", recall);
 			tempResult.put("precision", precision);
 			tempResult.put("f1", f1);
+			tempResult.put("avgPrecisionAtK", avgPrecisionAtK);
 			
 			result.put(timestamp, tempResult);
 			
@@ -350,6 +354,51 @@ public class TopKResultAnalyserWithIRMetrics {
 		return result;
 	}
 	
+
+	private static float computeAvgPrecisionAtK(HashMap<Long, String> originalTopKResult, HashMap<Long, String> replicaTopKResult) {
+		
+
+		ArrayList <Float> precisionAtK = new ArrayList<Float>();
+		ArrayList <Integer> rel = new ArrayList<Integer>();
+		ArrayList <Long> orderedReplica = new ArrayList<Long>();
+		
+		for (int i = 0 ; i < Config.INSTANCE.getK() ; i++){
+			precisionAtK.add(i, 0.0f);
+			rel.add(i, 0);
+			orderedReplica.add(i, 0l);
+		}
+		
+		Iterator<Long> replicaIt= replicaTopKResult.keySet().iterator();
+		while(replicaIt.hasNext()){
+			Long userId = replicaIt.next();
+			String temp = replicaTopKResult.get(userId);
+			Integer rank = Integer.valueOf(temp.split(",")[1]);
+			orderedReplica.set(rank-1, userId);
+			
+			if( originalTopKResult.containsKey(userId))
+				rel.set(rank-1, 1);
+			else
+				rel.set(rank-1, 0);
+		}
+		
+		for (int i = 0 ; i < Config.INSTANCE.getK() ; i++){
+			
+			long userId = orderedReplica.get(i);
+			if( originalTopKResult.containsKey(userId)){
+				for ( int j = i ; j < Config.INSTANCE.getK() ; j++){
+					precisionAtK.set(j, precisionAtK.get(j)+ 1) ;
+				}
+			}
+		}
+		for (int i = 0 ; i < Config.INSTANCE.getK() ; i++)
+			precisionAtK.set(i, precisionAtK.get(i)/(i+1));
+		
+		float sum =0 ;
+		for (int i = 0 ; i < Config.INSTANCE.getK() ; i++)
+			sum += (precisionAtK.get(i) * rel.get(i));
+		
+		return (sum / Config.INSTANCE.getK() ) ;
+	}
 
 	public static void mergeCompareFilesForBudget(Integer [] budgets , String metric){
 		
@@ -452,5 +501,25 @@ public class TopKResultAnalyserWithIRMetrics {
 	}
 	
 
+	
+	public static void main(String[] args){
+		
+		HashMap<Long ,String> original = new HashMap<Long ,String>();
+		HashMap<Long ,String> replica = new HashMap<Long ,String>();
+
+		
+		original.put(101l, "0.9,1");
+		original.put(102l, "0.8,2");
+		original.put(103l, "0.7,3");
+		original.put(104l, "0.6,4");
+		original.put(105l, "0.6,5");
+
+		replica.put(101l, "0.9,1");
+		replica.put(108l, "0.8,2");
+		replica.put(103l, "0.7,3");
+		replica.put(107l, "0.5,4");
+		replica.put(105l, "0.5,5");
+		System.out.println (" Avg precision at k = " + computeAvgPrecisionAtK(original , replica));
+	}
 
 }

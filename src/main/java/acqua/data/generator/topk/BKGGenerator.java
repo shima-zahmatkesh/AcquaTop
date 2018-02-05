@@ -26,7 +26,7 @@ public class BKGGenerator {
 	private static TreeMap<Long,Integer> targetFollowerCountChanges = new TreeMap<Long,Integer> ();  //key = timestamp , value = number of changes for all users
 	
 	private static float avgOfChanges = 0 ;
-	private static float targetAvgOfChanges = 200f;   //should be changed to generate different data sets.
+	private static float targetAvgOfChanges = 5f;   //should be changed to generate different data sets.
 	
 	
 	private static List<Long> getTimestamps(){
@@ -138,13 +138,13 @@ public class BKGGenerator {
 }
 
 	private static void computeAvgOfChanges(){
-	
+		System.out.println("followerCountChanges= ");
 		int sum = 0;
 		Iterator<Integer> it = followerCountChanges.values().iterator();
 		while(it.hasNext()){
 			 int changes = it.next();
 			 sum = sum + changes;
-			// System.out.println("sum= " + sum + "  i= " + i);
+			 System.out.println(changes);
 		}
 		avgOfChanges = (float )sum / followerCountChanges.size();
 		System.out.println("avgOfChanges= " + avgOfChanges + "  followerCountChanges size = " + followerCountChanges.size());
@@ -412,6 +412,7 @@ public class BKGGenerator {
 			int count = followerCountChanges.get(timestamp);
 			sum = sum + count;
 			int window = computeNumberOfWindowForTimestamp(timestamp);
+			System.out.println (window  + "   " + timestamp);
 			if (followerCountChangesPerWindow.containsKey(window))
 				count = followerCountChangesPerWindow.get(window) + count ;
 
@@ -439,25 +440,6 @@ public class BKGGenerator {
 		return temp;
 		
 	}
-
-	public static void main(String[] args){
-
-		ComputeChangsPerTimestamp();
-		computeTargetFollowerCountChanges ();
-		modifyFollowerCountChanges();
-		ComputeChangsPerTimestamp();
-		
-//		try {
-//			computeNumberOfChangesPerWindow();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
-		
-//		computeFollowerCountDifferences();
-	}
-	
 
 	public static TreeMap<Long,Integer> getFollowerListOfUser( long userId){
 		
@@ -493,7 +475,7 @@ public class BKGGenerator {
 	public static void computeFollowerCountDifferences(){
 		
 		Statement stmt = null;
-		Random rand = new Random();
+		Random rand = new Random(System.currentTimeMillis());
 		List <Long> IDs = TwitterFollowerCollector.getUsersID(Config.INSTANCE.getDatasetDb());
 		Iterator <Long> it = IDs.iterator();
 		while(it.hasNext()){
@@ -516,10 +498,12 @@ public class BKGGenerator {
 						difference = currentFollower - previousFollower;
 					}
 					difference = difference + 5 + rand. nextInt(20) ;
+					
 					String updatesql = 	" UPDATE BKG SET FOLLOWERCOUNTDIFFERENCE = "+ difference +"  WHERE USERID = " + userId + " AND TIMESTAMP =  " + timestamp ;
 					//System.out.println(updatesql + "\n");
 					stmt = c.createStatement();
 					stmt.executeUpdate(updatesql);
+					
 				}
 				stmt.close();
 				
@@ -531,12 +515,73 @@ public class BKGGenerator {
 		}
 	}
 	
+	public static void computeTimestampPerWindow(){
+		
+		long time = Config.INSTANCE.getQueryStartingTime();
+		
+		List<Long> list = new ArrayList<Long> ();
+		Connection c = null;
+		Statement stmt = null;
+		try {
+			Class.forName("org.sqlite.JDBC").newInstance();
+			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb() );
+			c.setAutoCommit(false);
+			stmt = c.createStatement();
+			for ( int i = 0 ; i<150 ;i++){
+				
+				String sql= "select count ( distinct timestamp ) as count from BKG "
+						+"where timestamp > " + time + " and timestamp < " +  (time+Config.INSTANCE.getQueryWindowWidth()*1000) ; 
+				System.out.println(sql);
+				ResultSet rs = stmt.executeQuery(sql );	 
+				
+				while ( rs.next() ) {
+					long count = rs.getLong("count");
+					list.add(count);
+				}
+				time = time + Config.INSTANCE.getQueryWindowSlide()*1000;	
+				rs.close();
+			}
+			stmt.close();
+			c.close();
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+			System.exit(0);
+		}
+		
+		for ( int i=0 ; i < list.size() ; i++){
+			System.out.println( list.get(i));
+		
+	}
+		
 	
+}
+	
+	
+	
+	public static void main(String[] args){
 
-	
-	
-	
-	
+//		for ( int i = 1 ; i <=1 ; i++){
+//			System.out.println("change dataset " + i);
+//			Config.INSTANCE.setDatasetDb("jdbc:sqlite:testevening-"+i+".db");
+			ComputeChangsPerTimestamp();
+//			computeTargetFollowerCountChanges ();
+//			modifyFollowerCountChanges();
+//			ComputeChangsPerTimestamp();
+//		}
+//		
+		
+//		try {
+//			computeNumberOfChangesPerWindow();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+		
+//		computeFollowerCountDifferences();
+			
+//		computeTimestampPerWindow();
+	}	
 	
 	
 	

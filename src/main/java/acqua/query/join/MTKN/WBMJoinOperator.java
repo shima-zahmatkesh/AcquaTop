@@ -127,7 +127,7 @@ public class WBMJoinOperator extends ApproximateJoinMTKNOperator {
 				changeCount=(int)Math.floor((double)1/f);
 			}catch(Exception ee){
 				//ee.printStackTrace(); 
-				System.out.println("skip user "+ userid + "  because it will not expire");
+				//System.out.println("skip user "+ userid + "  because it will not expire");
 				continue;
 			}
 
@@ -236,10 +236,11 @@ public class WBMJoinOperator extends ApproximateJoinMTKNOperator {
 			User temp=expiredIt.next();
 			//System.out.println("user Id: "+temp.userId+" "+"Expiration Time: "+temp.expirationTime);
 			long replicaValue = this.followerReplica.get(temp.userId);
-			long bkgValue = TwitterFollowerCollector.getUserFollowerFromDB(evaluationTime, temp.userId);
+			int bkgValue = TwitterFollowerCollector.getUserFollowerFromDB(evaluationTime, temp.userId);
 			if(replicaValue!=bkgValue)
 			{
 				result.put(temp.userId, "<>");
+				minTopK.addFollowerReplica(temp.userId, bkgValue);
 				//System.out.printf("Expired: id "+temp.userId+" estimatedxep>> %d changerate>> "+userChangeRates.get(temp.userId)+" chachedValue>> "+ replicaValue+ " actualValue>> "+bkgValue+" \n",(evaluationTime - temp.nextExpirationTime)/60000);
 			}
 			else

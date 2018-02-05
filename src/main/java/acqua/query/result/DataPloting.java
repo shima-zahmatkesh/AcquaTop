@@ -10,7 +10,6 @@ import java.io.IOException;
 import acqua.config.Config;
 
 public class DataPloting {
-
 	
 
 	public static void generateDataForPlotingAlphaSelectivity( int maxline){
@@ -309,7 +308,6 @@ public class DataPloting {
 				
 	}
 
-
 	public static void generateDataForPlotingAllItreations1( int maxline){
 
 	String [] percentage ={ "30"  };
@@ -407,19 +405,123 @@ public class DataPloting {
 				
 	}
 
+	public static void generateDataForPlotingMTKN( String metric , String measureTopic ){
+	
+		String path = Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder( );
+				try {
+			
+					BufferedWriter bw = new BufferedWriter(new FileWriter(new File(path+"joinOutput/"+ metric +"CompareTotal_"+ measureTopic +".csv")));
+					String writeLine = measureTopic + ",db,policy,NDCG\n";
+					bw.write(writeLine);
+					
+					for (int db=1 ; db<= Config.INSTANCE.getDatabaseNumber() ; db++){
+											
+							BufferedReader br=new BufferedReader(new FileReader(new File(path+"joinOutput/"+ metric +"CompareTotal_"+ measureTopic +"_" + db + ".csv")));
+							String line ="" , firstLine = "";
+							
+							firstLine = br.readLine(); 
+							String [] fisrtLineSplit = firstLine.split(",| ");
+							System.out.println ("firstLine = "  + firstLine) ;	
+							while	((line = br.readLine())!= null ){
+								
+								System.out.println ("Line = "  + line) ;
+								String [] lineSplit = line.split(",| ");
+						
+								for ( int i = 0 ; i < fisrtLineSplit.length ; i++){
+								
+								if ( fisrtLineSplit[i].equals(measureTopic) || fisrtLineSplit[i].equals("timestampe") ||  fisrtLineSplit[i].equals("Oracle") ||  fisrtLineSplit[i].equals("OracleMTKN"))
+									continue;
+							
+								writeLine = lineSplit[0]+","+db+","+ fisrtLineSplit[i]+","+ (150f-Float.parseFloat(lineSplit[i]))+"\n";
+								
+								bw.write(writeLine);
+							}
+						}
+					}
+				
+					bw.close();
+		
+		
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+	}
+	
+	public static void generateDataForPlotingAllItreationsMTKN( String fileName){
+
+		String [] percentage ={ "30"  };
+		
+				try {
+			
+					BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/DataForPlotingAllItration" + fileName)));
+					String writeLine = "iteration,policy,NDCG\n";
+					bw.write(writeLine);
+					
+						for (int p=0 ; p < percentage.length ; p++){
+					
+							BufferedReader br=new BufferedReader(new FileReader(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/" + fileName)));
+							String line ="" , firstLine = "";
+							
+							for( int k =0; k <= 150; k++){
+								
+								if ( k == 0){
+									firstLine = br.readLine(); 
+								}
+								else{
+									
+									line = br.readLine();
+									String [] fisrtLineSplit = firstLine.split(",| ");
+									String [] lineSplit = line.split(",| ");
+									for ( int i = 0 ; i < fisrtLineSplit.length ; i++){
+								
+										if ( fisrtLineSplit[i].equals("timestampe") ||  fisrtLineSplit[i].equals("Oracle") ||  fisrtLineSplit[i].equals("OracleMTKN")  )
+											continue;
+										System.out.println("i = " + i + "k = " + k + " "+ fisrtLineSplit[i]);
+										writeLine = k +","+ fisrtLineSplit[i]+","+ ( k - Float.parseFloat(lineSplit[i])) +"\n";
+								
+										bw.write(writeLine);
+									}
+								}
+							}
+					}
+					bw.close();
+		
+		
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+	}
+
 	
 	public static void main(String[] args){
 	
 		//generateDataForPlotingAlphaBudget(110);
 		//generateDataForPlotingAlphaSelectivity(110);
 		//generateDataForPlotingMultiRun(28);
-		
 		//generateDataForPlotingSelectivity(75);
 		//generateDataForPlotingBudget(139);
 		//generateDataForPlotingAllItreations1(140);
-		 generateDataForPlotingAllItreations2(140);
+	//	generateDataForPlotingAllItreations2(140);
+		 
 		
+	//	 generateDataForPlotingMTKN("NDCG" ,"budget");
+	//	 generateDataForPlotingMTKN("NDCG" ,"K");
+	//	 generateDataForPlotingMTKN("NDCG" ,"N");
+	//	 generateDataForPlotingMTKN("NDCG" ,"CH");
+		
+	//	 generateDataForPlotingMTKN("ACCK" ,"budget");
+		 generateDataForPlotingMTKN("ACCK" ,"K");
+	//	 generateDataForPlotingMTKN("ACCK" ,"N");
+	//	 generateDataForPlotingMTKN("ACCK" ,"CH");
+		
+		 
 
+		 generateDataForPlotingAllItreationsMTKN( "NDCGcompare-CH20-N10-B7-K5.csv");
+		 generateDataForPlotingAllItreationsMTKN( "ACCKcompare-CH20-N10-B7-K5.csv");
 	}
 
 	

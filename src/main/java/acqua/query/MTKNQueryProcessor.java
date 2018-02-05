@@ -4,12 +4,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+
 import acqua.config.Config;
 import acqua.data.TwitterFollowerCollector;
 import acqua.data.TwitterStreamCollector;
 import acqua.maintenance.ScoringFunction;
 import acqua.query.join.MTKN.ApproximateJoinMTKNOperator;
 import acqua.query.join.MTKN.MTKNAllJoinOperator;
+import acqua.query.join.MTKN.MTKNF2KJoinOperator;
 import acqua.query.join.MTKN.MTKNFJoinOperator;
 import acqua.query.join.MTKN.LRUJoinOperator;
 import acqua.query.join.MTKN.MTKNLRUJoinOperator;
@@ -32,7 +34,7 @@ public class MTKNQueryProcessor {
 	TwitterStreamCollector tsc;	
 	ArrayList<HashMap<Long,Integer>> slidedwindows;
 	ArrayList<HashMap<Long,Long>> slidedwindowsTime;
-
+	static int policyNumber = 12 ;
 	
 	
 	MTKNQueryProcessor(){
@@ -90,7 +92,7 @@ public class MTKNQueryProcessor {
 		int windowCount=0;
 		while(  windowCount < Config.INSTANCE.getExperimentIterationNumber()){
 
-			
+			//System.out.println("--------------window  =" + windowCount + "  ---------------");
 			HashMap<Long,Long> currentCandidateTimeStamp = slidedwindowsTime.get(windowCount);
 			join.setCurrentWindow(windowCount);
 			
@@ -128,12 +130,26 @@ public class MTKNQueryProcessor {
 //		runExperimentForDifferentK();
 //		Config.INSTANCE.setK(5);
 //		Config.INSTANCE.setDatasetDb("jdbc:sqlite:synthetictestevening.db");
-//		runExperimentForDifferentDatasets();
+//		runExperimentForDifferentDatasets(1);
+	
+	
+	for ( int i = 1 ; i <=1 ; i++){
+		
+		System.out.println("change dataset " + i);
+		Config.INSTANCE.setDatasetDb("jdbc:sqlite:synthetictest-"+i+".db");
+		Config.INSTANCE.setK(5);
+		runExperimentForDifferentBudgets(i);
+//		Config.INSTANCE.setUpdateBudget(15);
+//		runExperimentForDifferentN(i);
+//		Config.INSTANCE.setN(10);
+//		runExperimentForDifferentK(i);
+//		Config.INSTANCE.setK(5);
+		//Config.INSTANCE.setDatasetDb("jdbc:sqlite:synthetictestevening.db");
+		//runExperimentForDifferentDatasets(1);		
+	}
 		
 	
 	}
-	
-	
 	
 	
 	
@@ -141,8 +157,9 @@ public class MTKNQueryProcessor {
 		
 		MTKNQueryProcessor qp = new MTKNQueryProcessor();
 		Integer [] index = {1,2,3,4,5,6,7,8,9,10,11,12};
+		//Integer [] index = {3,4,5};
 		for (int i=0 ; i < index.length; i++){
-			System.out.println("----------------Evaluation number = " + i + "-------------------");
+			System.out.println("----------------Evaluation number = " + index[i] + "-------------------");
 			qp.evaluateQuery(index[i]);
 		}
 		TopKResultAnalyser.analysisExperimentNDCG();
@@ -152,154 +169,219 @@ public class MTKNQueryProcessor {
 //		TopKResultAnalyserWithIRMetrics.analysisExperimentIRMetrics("recall");
 //		TopKResultAnalyserWithIRMetrics.analysisExperimentIRMetrics("precision");
 //		TopKResultAnalyserWithIRMetrics.analysisExperimentIRMetrics("f1");
+//		TopKResultAnalyserWithIRMetrics.analysisExperimentIRMetrics("avgPrecisionAtK");
+		
 	}
 
-	public static void runExperimentForDifferentBudgets(){
+	public static void runExperimentForDifferentBudgets(int dataset){
 		
-		Integer [] budget = {1,2,3,4,5,6,7,8,9,10,15,20,25,30};
+		//Integer [] budget = {1,3,57,10,15,20,25,30};
+		
+		Integer [] budget = {7};
+		String path = Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder();
 
 		for (int j=0 ; j < budget.length ; j++){ 
 				
 			Config.INSTANCE.setUpdateBudget( budget[j]);
 			MTKNQueryProcessor qp = new MTKNQueryProcessor();
 				
-			for ( int i = 1 ; i <= 12 ; i++){
+			for ( int i = 1 ; i <= policyNumber ; i++){
 				System.out.println("----------------Evaluation number = " + i + "-------------------");
 				qp.evaluateQuery(i);
 			}
 			
 			TopKResultAnalyser.analysisExperimentNDCG();
-			if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/NDCGcompare.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/NDCGcompare_budget_"+ budget[j] +".csv") )
+			if (!renameFile (path+"joinOutput/NDCGcompare.csv" , path+"joinOutput/NDCGcompare_budget_"+ budget[j] +".csv") )
 				break;
 			
 			TopKResultAnalyser.analysisExperimentACCK();
-			if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/ACCKcompare.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/ACCKcompare_budget_"+ budget[j] +".csv") )
+			if (!renameFile (path +"joinOutput/ACCKcompare.csv" ,path+"joinOutput/ACCKcompare_budget_"+ budget[j] +".csv") )
 				break;
 			
 			TopKResultAnalyserWithIRMetrics.analysisExperimentIRMetrics("accuracy");
-			if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/accuracyCompare.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/accuracyCompare_budget_"+ budget[j] +".csv") )
+			if (!renameFile (path+"joinOutput/accuracyCompare.csv" , path+"joinOutput/accuracyCompare_budget_"+ budget[j] +".csv") )
 				break;
 			TopKResultAnalyserWithIRMetrics.analysisExperimentIRMetrics("precision");
-			if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/precisionCompare.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/precisionCompare_budget_"+ budget[j] +".csv") )
+			if (!renameFile (path+"joinOutput/precisionCompare.csv" , path+"joinOutput/precisionCompare_budget_"+ budget[j] +".csv") )
+				break;
+			TopKResultAnalyserWithIRMetrics.analysisExperimentIRMetrics("avgPrecisionAtK");
+			if (!renameFile (path+"joinOutput/avgPrecisionAtKCompare.csv" , path+"joinOutput/avgPrecisionAtKCompare_budget_"+ budget[j] +".csv") )
 				break;
 		}
 		TopKResultAnalyser.mergeCompareFilesForBudget( budget ,"NDCG");
+		renameFile (path+"joinOutput/NDCGCompareTotal_budget.csv" , path+"joinOutput/NDCGCompareTotal_budget_"+ dataset +".csv") ;
+			
 		TopKResultAnalyser.mergeCompareFilesForBudget( budget ,"ACCK");
+		renameFile (path+"joinOutput/ACCKCompareTotal_budget.csv" , path+"joinOutput/ACCKCompareTotal_budget_"+ dataset +".csv") ;
+		
 		TopKResultAnalyserWithIRMetrics.mergeCompareFilesForBudget(budget, "accuracy");
+		renameFile (path+"joinOutput/accuracyCompareTotal_budget.csv" , path+"joinOutput/accuracyCompareTotal_budget_"+ dataset +".csv") ;
+
 		TopKResultAnalyserWithIRMetrics.mergeCompareFilesForBudget(budget, "precision");
+		renameFile (path+"joinOutput/precisionCompareTotal_budget.csv" , path+"joinOutput/precisionCompareTotal_budget_"+ dataset +".csv") ;
+
+		TopKResultAnalyserWithIRMetrics.mergeCompareFilesForBudget(budget, "avgPrecisionAtK");
+		renameFile (path+"joinOutput/avgPrecisionAtKCompareTotal_budget.csv" , path+"joinOutput/avgPrecisionAtKCompareTotal_budget_"+ dataset +".csv") ;
+
 
 	}
 	
-	
-	public static void runExperimentForDifferentNumberOfChanges(){
+	public static void runExperimentForDifferentN(int dataset){
 		
-		Long [] change = {0l , 5l, 10l, 20l, 30l, 40l, 50l, 60l, 70l, 80l};
+		Long [] change = {0l , 5l, 10l, 20l, 30l, 40l, 50l};
+		String path = Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder();
 
 		for (int j=0 ; j < change.length ; j++){ 
 				
 			Config.INSTANCE.setN(change[j]);
 			MTKNQueryProcessor qp = new MTKNQueryProcessor();
 				
-			for ( int i = 1 ; i <= 12 ; i++){
+			for ( int i = 1 ; i <= policyNumber ; i++){
 				System.out.println("----------------Evaluation number = " + i + "-------------------");
 				qp.evaluateQuery(i);
 			}
 			
 			TopKResultAnalyser.analysisExperimentNDCG();
-			if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/NDCGcompare.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/NDCGcompare_N_"+ change[j] +".csv") )
+			if (!renameFile (path+"joinOutput/NDCGcompare.csv" , path+"joinOutput/NDCGcompare_N_"+ change[j] +".csv") )
 				break;
 			
 			TopKResultAnalyser.analysisExperimentACCK();
-			if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/ACCKcompare.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/ACCKcompare_N_"+ change[j] +".csv") )
+			if (!renameFile (path+"joinOutput/ACCKcompare.csv" , path+"joinOutput/ACCKcompare_N_"+ change[j] +".csv") )
 				break;
 			
 			TopKResultAnalyserWithIRMetrics.analysisExperimentIRMetrics("accuracy");
-			if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/accuracyCompare.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/accuracyCompare_N_"+ change[j] +".csv") )
+			if (!renameFile (path+"joinOutput/accuracyCompare.csv" , path+"joinOutput/accuracyCompare_N_"+ change[j] +".csv") )
 				break;
 			TopKResultAnalyserWithIRMetrics.analysisExperimentIRMetrics("precision");
-			if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/precisionCompare.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/precisionCompare_N_"+ change[j] +".csv") )
+			if (!renameFile (path+"joinOutput/precisionCompare.csv" , path+"joinOutput/precisionCompare_N_"+ change[j] +".csv") )
+				break;
+			TopKResultAnalyserWithIRMetrics.analysisExperimentIRMetrics("avgPrecisionAtK");
+			if (!renameFile (path+"joinOutput/avgPrecisionAtKCompare.csv" , path+"joinOutput/avgPrecisionAtKCompare_N_"+ change[j] +".csv") )
 				break;
 		}
 		TopKResultAnalyser.mergeCompareFilesForN(change ,"NDCG");
+		renameFile (path+"joinOutput/NDCGCompareTotal_N.csv" , path+"joinOutput/NDCGCompareTotal_N_"+ dataset +".csv") ;
+
 		TopKResultAnalyser.mergeCompareFilesForN(change ,"ACCK");
+		renameFile (path+"joinOutput/ACCKCompareTotal_N.csv" , path+"joinOutput/ACCKCompareTotal_N_"+ dataset +".csv") ;
+
 		TopKResultAnalyserWithIRMetrics.mergeCompareFilesForN(change, "accuracy");
+		renameFile (path+"joinOutput/accuracyCompareTotal_N.csv" , path+"joinOutput/accuracyCompareTotal_N_"+ dataset +".csv") ;
+
 		TopKResultAnalyserWithIRMetrics.mergeCompareFilesForN(change, "precision");
+		renameFile (path+"joinOutput/precisionCompareTotal_N.csv" , path+"joinOutput/precisionCompareTotal_N_"+ dataset +".csv") ;
+
+		TopKResultAnalyserWithIRMetrics.mergeCompareFilesForN(change, "avgPrecisionAtK");
+		renameFile (path+"joinOutput/avgPrecisionAtKCompareTotal_N.csv" , path+"joinOutput/avgPrecisionAtKCompareTotal_N_"+ dataset +".csv") ;
+
 			
 	}
 	
-	public static void runExperimentForDifferentK(){
+	public static void runExperimentForDifferentK(int dataset){
 		
-		Long [] K = {5l,10l,15l,20l,25l,30l,35l,40l,45l,50l};
-
+		Long [] K = {2l,5l,7l,10l,15l,20l ,30l,50l};
+		String path = Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder();
+		
 		for (int j=0 ; j < K.length ; j++){ 
 				
 			Config.INSTANCE.setK(K[j]);
 			MTKNQueryProcessor qp = new MTKNQueryProcessor();
 				
-			for ( int i = 1 ; i <= 12 ; i++){
+			for ( int i = 1 ; i <= policyNumber ; i++){
 				System.out.println("----------------Evaluation number = " + i + "-------------------");
 				qp.evaluateQuery(i);
 			}
 			
 			TopKResultAnalyser.analysisExperimentNDCG();
-			if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/NDCGcompare.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/NDCGcompare_K_"+ K[j] +".csv") )
+			if (!renameFile (path+"joinOutput/NDCGcompare.csv" , path+"joinOutput/NDCGcompare_K_"+ K[j] +".csv") )
 				break;
 			
 			TopKResultAnalyser.analysisExperimentACCK();
-			if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/ACCKcompare.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/ACCKcompare_K_"+ K[j] +".csv") )
+			if (!renameFile (path+"joinOutput/ACCKcompare.csv" , path+"joinOutput/ACCKcompare_K_"+ K[j] +".csv") )
 				break;
 			
 			TopKResultAnalyserWithIRMetrics.analysisExperimentIRMetrics("accuracy");
-			if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/accuracyCompare.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/accuracyCompare_K_"+ K[j] +".csv") )
+			if (!renameFile (path+"joinOutput/accuracyCompare.csv" , path+"joinOutput/accuracyCompare_K_"+ K[j] +".csv") )
 				break;
 			TopKResultAnalyserWithIRMetrics.analysisExperimentIRMetrics("precision");
-			if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/precisionCompare.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/precisionCompare_K_"+ K[j] +".csv") )
+			if (!renameFile (path+"joinOutput/precisionCompare.csv" , path+"joinOutput/precisionCompare_K_"+ K[j] +".csv") )
+				break;
+			TopKResultAnalyserWithIRMetrics.analysisExperimentIRMetrics("avgPrecisionAtK");
+			if (!renameFile (path+"joinOutput/avgPrecisionAtKCompare.csv" , path+"joinOutput/avgPrecisionAtKCompare_K_"+ K[j] +".csv") )
 				break;
 		}
 		TopKResultAnalyser.mergeCompareFilesForK(K ,"NDCG");
-		TopKResultAnalyser.mergeCompareFilesForK(K ,"ACCK");
-		TopKResultAnalyserWithIRMetrics.mergeCompareFilesForK( K, "accuracy");
-		TopKResultAnalyserWithIRMetrics.mergeCompareFilesForK( K, "precision");
-	}
+		renameFile (path+"joinOutput/NDCGCompareTotal_K.csv" , path+"joinOutput/NDCGCompareTotal_K_"+ dataset +".csv") ;
 
-	public static void runExperimentForDifferentDatasets(){
+		TopKResultAnalyser.mergeCompareFilesForK(K ,"ACCK");
+		renameFile (path+"joinOutput/ACCKCompareTotal_K.csv" , path+"joinOutput/ACCKCompareTotal_K_"+ dataset +".csv") ;
+
+		TopKResultAnalyserWithIRMetrics.mergeCompareFilesForK( K, "accuracy");
+		renameFile (path+"joinOutput/accuracyCompareTotal_K.csv" , path+"joinOutput/accuracyCompareTotal_K_"+ dataset +".csv") ;
+
+		TopKResultAnalyserWithIRMetrics.mergeCompareFilesForK( K, "precision");
+		renameFile (path+"joinOutput/precisionCompareTotal_K.csv" , path+"joinOutput/precisionCompareTotal_K_"+ dataset +".csv") ;
+
+		TopKResultAnalyserWithIRMetrics.mergeCompareFilesForK( K, "avgPrecisionAtK");
+		renameFile (path+"joinOutput/avgPrecisionAtKCompareTotal_K.csv" , path+"joinOutput/avgPrecisionAtKCompareTotal_K_"+ dataset +".csv") ;
+
+	}
+	
+	public static void runExperimentForDifferentDatasets(int dataset){
 		
-		int [] ch = {10,20,40,60,80,100};
+		int [] ch = {5,10,20,40,80};
 		String srcDB = Config.INSTANCE.getDatasetDb();			
+		String path = Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder();
 		
 		for (int j=0 ; j < ch.length ; j++){ 
 				
+			//String desDB = srcDB.split("\\.")[0]+"-"+ dataset +"-ch"+ ch[j] +".db" ;
 			String desDB = srcDB.split("\\.")[0]+"-ch"+ ch[j] +".db" ;
 			Config.INSTANCE.setDatasetDb(desDB);
 			
 			MTKNQueryProcessor qp = new MTKNQueryProcessor();
 				
-			for ( int i = 1 ; i <= 12 ; i++){
+			for ( int i = 1 ; i <= policyNumber ; i++){
 				System.out.println("----------------Evaluation number = " + i + "-------------------");
 				qp.evaluateQuery(i);
 			}
 			
 			TopKResultAnalyser.analysisExperimentNDCG();
-			if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/NDCGcompare.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/NDCGcompare_CH_"+ ch[j] +".csv") )
+			if (!renameFile (path+"joinOutput/NDCGcompare.csv" , path+"joinOutput/NDCGcompare_CH_"+ ch[j] +".csv") )
 				break;
 			
 			TopKResultAnalyser.analysisExperimentACCK();
-			if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/ACCKcompare.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/ACCKcompare_CH_"+ ch[j] +".csv") )
+			if (!renameFile (path+"joinOutput/ACCKcompare.csv" , path+"joinOutput/ACCKcompare_CH_"+ ch[j] +".csv") )
 				break;
 			
 			TopKResultAnalyserWithIRMetrics.analysisExperimentIRMetrics("accuracy");
-			if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/accuracyCompare.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/accuracyCompare_CH_"+ ch[j] +".csv") )
+			if (!renameFile (path+"joinOutput/accuracyCompare.csv" , path+"joinOutput/accuracyCompare_CH_"+ ch[j] +".csv") )
 				break;
 			TopKResultAnalyserWithIRMetrics.analysisExperimentIRMetrics("precision");
-			if (!renameFile (Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/precisionCompare.csv" , Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/precisionCompare_CH_"+ ch[j] +".csv") )
+			if (!renameFile (path+"joinOutput/precisionCompare.csv" , path+"joinOutput/precisionCompare_CH_"+ ch[j] +".csv") )
+				break;
+			TopKResultAnalyserWithIRMetrics.analysisExperimentIRMetrics("avgPrecisionAtK");
+			if (!renameFile (path+"joinOutput/avgPrecisionAtKCompare.csv" , path+"joinOutput/avgPrecisionAtKCompare_CH_"+ ch[j] +".csv") )
 				break;
 		}
 		TopKResultAnalyser.mergeCompareFilesForDB(ch ,"NDCG");
-		TopKResultAnalyser.mergeCompareFilesForDB(ch ,"ACCK");
-		TopKResultAnalyserWithIRMetrics.mergeCompareFilesForDB( ch, "accuracy");
-		TopKResultAnalyserWithIRMetrics.mergeCompareFilesForDB( ch, "precision");
-	}
+		renameFile (path+"joinOutput/NDCGCompareTotal_CH.csv" , path+"joinOutput/NDCGCompareTotal_CH_"+ dataset +".csv") ;
 
+		TopKResultAnalyser.mergeCompareFilesForDB(ch ,"ACCK");
+		renameFile (path+"joinOutput/ACCKCompareTotal_CH.csv" , path+"joinOutput/ACCKCompareTotal_CH_"+ dataset +".csv") ;
+
+		TopKResultAnalyserWithIRMetrics.mergeCompareFilesForDB( ch, "accuracy");
+		renameFile (path+"joinOutput/accuracyCompareTotal_CH.csv" , path+"joinOutput/accuracyCompareTotal_CH_"+ dataset +".csv") ;
+
+		TopKResultAnalyserWithIRMetrics.mergeCompareFilesForDB( ch, "precision");
+		renameFile (path+"joinOutput/precisionCompareTotal_CH.csv" , path+"joinOutput/precisionCompareTotal_CH_"+ dataset +".csv") ;
+
+		TopKResultAnalyserWithIRMetrics.mergeCompareFilesForDB( ch, "avgPrecisionAtK");
+		renameFile (path+"joinOutput/avgPrecisionAtKCompareTotal_CH.csv" , path+"joinOutput/avgPrecisionAtKCompareTotal_CH_"+ dataset +".csv") ;
+
+
+	}
+	
 	public static boolean renameFile(String oldFile , String newFile){
 		
 		File oldfile =new File(oldFile);

@@ -66,12 +66,12 @@ public class MaintenanceData {
 
 	
 	public void updateMtkn(Node newNode) {
-
+		
 		if ( mtknContainsNode(newNode)){
 			Node oldNode = getOldNode( newNode);
 			replaceNewNode(oldNode , newNode);
-		}
-		else{
+		
+		}else{
 			insertNodeToMTKN(newNode);	
 		}
 		mtknLastNode = mtkn.get(mtkn.lastKey());
@@ -128,7 +128,8 @@ public class MaintenanceData {
 			return;
 		else{
 			
-			newNode.setEndWin(calculateEndWin(newNode.getTime()));
+			newNode.setEndWin(calculateEndWin(newNode));
+			
 			newNode.setStartWin(calculateStartWin(newNode));
 			
 			if (!possibleToInsert(newNode)){
@@ -143,8 +144,6 @@ public class MaintenanceData {
 			}
 			else{
 				mtkn.put(key, newNode);
-				//MTKNEntryOfCurrentWindow.add(key.getObjectId());
-				updateMinDistance(newNode);
 				updateLbp(newNode);
 			}
 			
@@ -154,6 +153,8 @@ public class MaintenanceData {
 	}
 
 	private void updateExistingNode(Node newNode) {
+		
+		System.out.println("updateExistingNode");
 		
 		Key newKey= new Key(newNode.getObjectId() , newNode.getScore() , newNode.getTime());
 		Node oldNode = mtkn.get(newKey);
@@ -182,6 +183,7 @@ public class MaintenanceData {
 				if ( lbpNode.getScore() <= newNode.getScore() ){
  					// number of top-k elements in window increase by 1 
 					if(activeWindow.get(i) < mtknSize){
+						System.out.println("update lbp by 1");
 						activeWindow.replace(i, activeWindow.get(i)+1);
 						if (activeWindow.get(i) == mtknSize)
 							generateLBP(i);
@@ -333,24 +335,7 @@ public class MaintenanceData {
 			return false;
 	}
 
-	// Update the MinDistance after inserting new node in mtkn
-	private void updateMinDistance(Node newNode) {
-		
-		if (mtkn.ceilingKey(new Key( newNode.getObjectId() , newNode.getScore() , newNode.getTime() )) != null ){
-			Node ceilingNode = mtkn.get(mtkn.ceilingKey(new Key( newNode.getObjectId() , newNode.getScore(), newNode.getTime())));
-			if ( ceilingNode.getScore() - newNode.getScore() < minDistance )
-				minDistance = ceilingNode.getScore() - newNode.getScore();
-		}
-		
-		if (mtkn.floorKey(new Key( newNode.getObjectId() , newNode.getScore() , newNode.getTime()))!= null){
-			Node floorNode = mtkn.get(mtkn.floorKey(new Key( newNode.getObjectId() , newNode.getScore() , newNode.getTime())));
-			if ( newNode.getScore() - floorNode.getScore() < minDistance)
-				minDistance = newNode.getScore() -  floorNode.getScore();
-		}
-		
-		
-		
-	}
+	
 
 	// Calculate the start window of the new inserting node
 	private int calculateStartWin( Node calNode) {
@@ -375,9 +360,10 @@ public class MaintenanceData {
 	}
 	
 	// Calculate the end window of the new inserting node
-	private int calculateEndWin( long time) {
+	private int calculateEndWin( Node calNode) {
 			
 		int result = -1;
+		long time = calNode.getTime();
 		for ( int window = 0 ; window < Config.INSTANCE.getExperimentIterationNumber() +10 ;  window++){
 				
 			long startTimeWindow = (window * slideTime) + initialTime;
@@ -390,6 +376,10 @@ public class MaintenanceData {
 		if(!activeWindow.containsKey(result)){
 			activeWindow.put(result, 0);
 			//System.out.println("Window " + result + " is added to the active windows - aendWin" + time);
+		}
+		
+		while(  lbp.get(result) != null && lbp.get(result).getScore() > calNode.getScore()){
+			result--;
 		}
 		return result;
 	}
@@ -457,6 +447,37 @@ public class MaintenanceData {
 	}
 	
 	// return top-k results
+		public ArrayList<String> getTopBResultFromMTKN() {
+
+			int budget = Config.INSTANCE.getUpdateBudget();
+			//get top-k distinct users
+			HashMap <Long,Float> distinctResult = new HashMap <Long,Float>();
+			int index = 0;
+			Iterator<Key> it = mtkn.keySet().iterator();
+			while (it.hasNext() && index < budget){
+				Key key = it.next();
+				Node node = mtkn.get(key);
+				if (distinctResult.containsKey(key.getObjectId())  &&  distinctResult.get(key.getObjectId()) > node.getScore() )
+					continue;
+				distinctResult.put(key.getObjectId(), key.getScore());
+				index++;	
+			}
+			HashMap<Long, Float> orderedDistinctResult = sortByValue(distinctResult , false); 
+			//put top-k distinct users in array list
+			ArrayList<String> result =new ArrayList<String>();
+			index = 0;
+			Iterator<Long> it2 = orderedDistinctResult.keySet().iterator();
+			while (it2.hasNext() && index < budget){
+				Long key = it2.next();
+				Float value = orderedDistinctResult.get(key);
+				result.add(key+ "," +value);
+				index++;	
+			}
+			return result;	
+		
+		}
+	
+	// return top-k results
 		public ArrayList<String> getMTKNList() {
 
 			//get top-k distinct users
@@ -476,15 +497,15 @@ public class MaintenanceData {
 		
 		}
 	
-	public ArrayList<String> getKMiddleResult() {
+	public ArrayList<String> getKMiddleResult(int startIndex) {
 		
 		ArrayList<String> result =new ArrayList<String>();
 		
 		int budget = Config.INSTANCE.getUpdateBudget() ;
-		int index = k + 1 - (int) budget/2;
+		int index = startIndex + 1 - (int) budget/2;
 		if ((index+budget-1) > mtkn.size() )
 			index = mtkn.size()-budget+1;
-		System.out.println("index = " + index);
+		//System.out.println("index = " + index);
 		int counter = 1 ;
 		int budgetCounter = 1;
 		Iterator<Key> it = mtkn.keySet().iterator();

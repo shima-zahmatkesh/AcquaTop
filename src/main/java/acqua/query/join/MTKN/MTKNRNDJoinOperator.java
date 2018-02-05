@@ -28,7 +28,7 @@ protected int updateBudget = Config.INSTANCE.getUpdateBudget();
 		Random rand = new Random(System.currentTimeMillis());
 		
 		ArrayList<Integer> indexes = new ArrayList<Integer>();
-		System.out.println ("------------------------------ random number = " + MTKNList.size());
+		//System.out.println ("------------------------------ random number = " + MTKNList.size());
 		while(indexes.size()<updateBudget){
 			indexes.add(rand.nextInt(MTKNList.size()));
 		}
@@ -48,9 +48,10 @@ protected int updateBudget = Config.INSTANCE.getUpdateBudget();
 			
 			if( replicaValue == currentValue )
 				result.put(userId,"=");
-			else
-				result.put(userId,"<>"+ currentValue + "  " + replicaValue);
-
+			else{
+				result.put(userId,"<>"+ currentValue + "  " + replicaValue );
+				minTopK.addFollowerReplica (userId , currentValue );
+			}
 			counter ++;
 		}
 		//System.out.println("---------------evaluation time = " + evaluationTime);

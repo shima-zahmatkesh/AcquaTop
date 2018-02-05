@@ -23,7 +23,7 @@ public class MTKNTJoinOperator extends ApproximateJoinMTKNOperator {
 		
 		HashMap<Long,String> result=new HashMap<Long,String>();
 
-		ArrayList<String> topKResult = minTopK.getTopKResult() ;
+		ArrayList<String> topKResult = minTopK.getTopBResultFromMTKN() ;
 		//System.out.println("size = " + topKResult.size() + "    middle result = " + topKResult.toString() );
 		int counter = 1;
 		Iterator<String> it= topKResult.iterator();
@@ -40,9 +40,10 @@ public class MTKNTJoinOperator extends ApproximateJoinMTKNOperator {
 			
 			if( replicaValue == currentValue )
 				result.put(userId,"=");
-			else
-				result.put(userId,"<>"+ currentValue + "  " + replicaValue);
-
+			else{
+				result.put(userId,"<>"+ currentValue + "  " + replicaValue );
+				minTopK.addFollowerReplica (userId , currentValue );
+			}
 			counter ++;
 		}
 	//	System.out.println("---------------evaluation time = " + evaluationTime);

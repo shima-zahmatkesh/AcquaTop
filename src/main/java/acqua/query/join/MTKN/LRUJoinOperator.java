@@ -71,7 +71,7 @@ public class LRUJoinOperator extends ApproximateJoinMTKNOperator{
 		while(it.hasNext()&&counter<updateBudget){
 			User temp = it.next();
 			double replicaValue=followerReplica.get(temp.userId);
-			double bkgValue=TwitterFollowerCollector.getUserFollowerFromDB(evaluationTime, temp.userId);
+			int bkgValue=TwitterFollowerCollector.getUserFollowerFromDB(evaluationTime, temp.userId);
 			if(replicaValue==bkgValue)
 				{
 				result.put(temp.userId,"=");
@@ -79,6 +79,7 @@ public class LRUJoinOperator extends ApproximateJoinMTKNOperator{
 			else 
 				{
 				result.put(temp.userId, "<>" + replicaValue + "  " + bkgValue);
+				minTopK.addFollowerReplica (temp.userId , bkgValue );
 				}
 			//System.out.printf("id "+temp.userId+">>oldness "+temp.updateTimeDiff/60000+"  cr= "+getchangerate(temp.userId)+" chachedValue>> "+ replicaValue+ " actualValue>> "+bkgValue+" \n",(evaluationTime - temp.updateTimeDiff)/60000);
 			counter++;

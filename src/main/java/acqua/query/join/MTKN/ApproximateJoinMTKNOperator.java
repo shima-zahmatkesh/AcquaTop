@@ -97,6 +97,7 @@ public abstract class ApproximateJoinMTKNOperator {
 			selectedCondidatesFileWriter.write(electedElements.toString() + "," + evaluationTime + "\n");
 		
 		
+			//System.out.println("--------------evaluation time  = "+ evaluationTime );
 			//update the users
 			for(long id : electedElements.keySet()){
 				
@@ -108,7 +109,7 @@ public abstract class ApproximateJoinMTKNOperator {
 					followerReplica.put(id,newValue);
 					estimatedLastChangeTime.put(id, evaluationTime);
 					currentChanges.put(id, newValue);
-					System.out.println("add user id = "+ id + " to the current changes with value = " + newValue + " - the old value = " + oldValue);
+					//System.out.println("add user id = "+ id + " to the current changes with value = " + newValue + " - the old value = " + oldValue);
 				} else {
 					
 				}
@@ -123,6 +124,7 @@ public abstract class ApproximateJoinMTKNOperator {
 		
 		
 			minTopK.processCurrentWindowForBKGChanges(currentCandidate , currentCandidateTime ,  currentChanges);
+			//minTopK.processCurrentWindow(currentCandidate, currentCandidateTime, currentChanges);
 			
 			ArrayList<String> topKResult =minTopK.getTopKResult() ;
 				int rank = 1;
@@ -139,6 +141,7 @@ public abstract class ApproximateJoinMTKNOperator {
 						System.out.println("----------------------------- ERRRRROR ---------------------" +userId);
 					
 					answersFileWriter.write(userId +" "+ currentCandidate.get(userId) +" "+ userFollowers +" "+ evaluationTime +  " " + score + " " + rank +"\n");
+					//System.out.println(userId +" "+ currentCandidate.get(userId) +" "+ userFollowers +" "+ evaluationTime +  " " + score + " " + rank );
 					rank ++;
 				}
 				

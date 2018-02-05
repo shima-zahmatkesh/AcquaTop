@@ -39,8 +39,11 @@ public class RNDJoinOperator extends ApproximateJoinMTKNOperator {
 			int currentValue = TwitterFollowerCollector.getUserFollowerFromDB(evaluationTime, temp);
 			if(followerReplica.get(temp)==currentValue)
 				result.put(temp,"=");
-			else
-				result.put(temp,"<>"+ currentValue + "  " + followerReplica.get(temp));
+			
+			else{
+				result.put(temp,"<>"+ currentValue + "  " + followerReplica.get(temp) );
+				minTopK.addFollowerReplica (temp , currentValue );
+			}
 			counter++;
 		}
 		return result;

@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.TreeMap;
 import java.util.Map.Entry;
+
 import acqua.config.Config;
 
 
@@ -83,7 +84,7 @@ public class MinTopK {
 					data.updateMtkn(newNode);		// all the arriving node will add to the MTKN list if they have enough score  even the same user id which come in new window
 					//System.out.println("ariving node " + newNode.getObjectId() +" with  score" + newNode.getScore()+ "   at time " + time);
 				}
-				data.printMTKN();
+				//data.printMTKN();
 				//data.printLBP();
 				//data.printActiveWindow();	
 			}
@@ -95,6 +96,8 @@ public class MinTopK {
 			int mentionNum = currentCandidate.get(objectId);
 			int followerNum = currentChanges.get(objectId);
 			long time = currentCandidateTime.get(objectId);
+			if ( objectId == 7867072l)
+				System.out.println("debug");
 			data.checkExpiredWindow(time);
 			if ( time >= beginOfcurrentWindow() &&  time < endOfCurrentWindow()){
 				Node newNode = new Node();
@@ -103,7 +106,7 @@ public class MinTopK {
 				newNode.setTime(time);
 				data.updateMtkn(newNode);
 				System.out.println("changing node " + newNode.getObjectId()+" with new score" + newNode.getScore() +  "   at time " + time);
-				data.printMTKN();
+				//data.printMTKN();
 				//data.printLBP();
 				//data.printActiveWindow();
 			}
@@ -128,9 +131,10 @@ public class MinTopK {
 			
 			//System.out.println("time " + time + "   endOfPreviouseWindow" + endOfPreviouseWindow() );
 			
-			if ( data.getCurrentWindow() == data.getInitialWindow()|| time >= endOfPreviouseWindow()){ // time < startOfNextWindow()){ //|| time >= endOfPreviouseWindow()){
+		//	if ( data.getCurrentWindow() == data.getInitialWindow()|| time >= endOfPreviouseWindow()){ // time < startOfNextWindow()){ //|| time >= endOfPreviouseWindow()){
 				Node newNode = new Node();
-				newNode.setScore(ScoringFunction.computeScore(objectId, followerNum, mentionNum));
+				float score = ScoringFunction.computeScore(objectId, followerNum, mentionNum);
+				newNode.setScore(score);
 				newNode.setObjectId(objectId);
 				newNode.setTime(time);
 
@@ -140,13 +144,13 @@ public class MinTopK {
 					data.updateMtkn(newNode);
 				}else{
 					data.updateMtkn(newNode);		// all the arriving node will add to the MTKN list if they have enough score  even the same user id which come in new window
-					//System.out.println("ariving node " + newNode.getObjectId() +" with  score" + newNode.getScore()+ "   at time " + time);
+					//System.out.println("ariving new node " + newNode.getObjectId() +" with  score" + newNode.getScore()+ "   at time " + time);
 				}
-				data.printMTKN();
+				//data.printMTKN();
 				//data.printLBP();
 				//data.printActiveWindow();	
 			}
-		}
+	//	}
 	//	System.out.println( " mtkn entry   :  " + data.getMTKNEntryOfCurrentWindow().toString());
 	}
 	public void processCurrentWindowForBKGChanges( TreeMap<Long,Integer> currentCandidate , TreeMap<Long,Long> currentCandidateTime , TreeMap<Long,Integer> currentChanges){
@@ -161,7 +165,8 @@ public class MinTopK {
 			data.checkExpiredWindow(time);
 			if ( time >= beginOfcurrentWindow() &&  time < endOfCurrentWindow()){
 				Node newNode = new Node();
-				newNode.setScore(ScoringFunction.computeScore(objectId, followerNum, mentionNum));
+				float score = ScoringFunction.computeScore(objectId, followerNum, mentionNum);
+				newNode.setScore(score);
 				newNode.setObjectId(objectId);
 				newNode.setTime(time);
 				data.updateMtkn(newNode);
@@ -260,6 +265,12 @@ public class MinTopK {
 		followerReplica.putAll(followerReplicaList);	 
 		
 	}
+	
+	public void addFollowerReplica(Long id , Integer value) {
+		
+		followerReplica.put(id , value);	 
+		
+	}
 
 	protected static HashMap<Long, Long> sortByValue (TreeMap<Long, Long> unsortMap, final boolean order)
 	{
@@ -297,13 +308,17 @@ public class MinTopK {
 		data.setCurrentWindow(window);
 	}
 
-	public ArrayList<String> getKMiddleResult() {
+	public ArrayList<String> getKMiddleResult(int i) {
 
-		return data.getKMiddleResult();
+		return data.getKMiddleResult(i);
 	}
 
 	public ArrayList<String> getMTKNList() {
 		return data.getMTKNList();
+	}
+
+	public ArrayList<String> getTopBResultFromMTKN() {
+		return data.getTopBResultFromMTKN();
 	}
 
 
