@@ -40,7 +40,9 @@ public class MTKNQueryProcessor {
 	MTKNQueryProcessor(){
 	
 		tsc= new TwitterStreamCollector();
-		tsc.extractSlides(Config.INSTANCE.getQueryWindowWidth(),Config.INSTANCE.getQueryWindowSlide(), Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"twitterStream.txt");
+		String address = Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"twitterStream.txt";
+		System.out.println(address);
+		tsc.extractSlides(Config.INSTANCE.getQueryWindowWidth(),Config.INSTANCE.getQueryWindowSlide(), address);
 
 		slidedwindows = tsc.aggregateSildedWindowsUser();
 		slidedwindowsTime=tsc.aggregateSildedWindowsUserTime();
@@ -52,14 +54,14 @@ public class MTKNQueryProcessor {
 			ScoringFunction.setMinMentions((float) tsc.getMinimumUserMentions(slidedwindows));
 
 		}	
-	}
+	} 
 
 	public void evaluateQuery(int joinType){
 		
 		//WST
-		if(joinType==1)
+		if(joinType==2)
 			join=new  WSTJoinOperator();
-		if (joinType==2)
+		if (joinType==1)
 			join = new OracleJoinOperator();
 		if (joinType==3)
 			join = new MTKNOracleJoinOperator();
@@ -86,7 +88,7 @@ public class MTKNQueryProcessor {
 			join = new MTKNWBMJoinOperator();
 		
 		join.populateMTKN(slidedwindows,slidedwindowsTime);
-		//printSlidedwindows();
+		printSlidedwindows();
 		
 		long time=Config.INSTANCE.getQueryStartingTime()+Config.INSTANCE.getQueryWindowWidth()*1000;  //evaluationtime = end time of each window
 		int windowCount=0;
@@ -107,22 +109,66 @@ public class MTKNQueryProcessor {
 
 	}
 	
-	private void printSlidedwindows() {
+	private  void printSlidedwindows() {
 		
 		for (int i = 1 ; i < slidedwindows.size() ; i++){
-			System.out.println("\nwindow     "+ i);
+			
 			Iterator <Long> it = slidedwindows.get(i).keySet().iterator();
 			while(it.hasNext()){
 				Long id = it.next();
-				System.out.println(id);
+				System.out.println(i + ","+ id + "," + slidedwindows.get(i).get(id) );
 			}
+		}
+		
+	}
+	
+	private  void printMentionNumber() {
+		
+		for (int i = 1 ; i < slidedwindows.size() ; i++){
+			int MentionNum = 0;
+			Iterator <Long> it = slidedwindows.get(i).keySet().iterator();
+			while(it.hasNext()){
+				Long id = it.next();
+				MentionNum+=slidedwindows.get(i).get(id);
+			}
+			System.out.println(i + ","+ MentionNum);
+		}
+		
+	}
+	
+	private  void computeMentionNumberPerUser() {
+		
+		HashMap<Long,Integer> result = new HashMap<Long , Integer>();
+		
+		for (int i = 1 ; i < slidedwindows.size() ; i++){
+			
+			Iterator <Long> it = slidedwindows.get(i).keySet().iterator();
+			while(it.hasNext()){
+				Long id = it.next();
+				
+				if (result.containsKey(id))
+					result.put(id, result.get(id)+ slidedwindows.get(i).get(id));
+				else
+					result.put(id, slidedwindows.get(i).get(id));
+			}
+		}
+		
+		Iterator <Long> it2 = result.keySet().iterator();
+		while(it2.hasNext()){
+			Long id = it2.next();
+			System.out.println( id + "," + result.get(id) );
 		}
 		
 	}
 
 	public static void main(String[] args){
 		
-		runDefaultExperiment();
+//		MTKNQueryProcessor qp = new MTKNQueryProcessor();
+//		qp.printSlidedwindows();
+//		qp.printMentionNumber();
+//		qp.computeMentionNumberPerUser();
+		
+//		runDefaultExperiment();
 //		runExperimentForDifferentBudgets();
 //		Config.INSTANCE.setUpdateBudget(3);
 //		runExperimentForDifferentNumberOfChanges();
@@ -133,23 +179,23 @@ public class MTKNQueryProcessor {
 //		runExperimentForDifferentDatasets(1);
 	
 	
-	for ( int i = 1 ; i <=1 ; i++){
+	for ( int i = 2 ; i <=5 ; i++){
 		
 		System.out.println("change dataset " + i);
 		Config.INSTANCE.setDatasetDb("jdbc:sqlite:synthetictest-"+i+".db");
 		Config.INSTANCE.setK(5);
 		runExperimentForDifferentBudgets(i);
-//		Config.INSTANCE.setUpdateBudget(15);
-//		runExperimentForDifferentN(i);
-//		Config.INSTANCE.setN(10);
-//		runExperimentForDifferentK(i);
-//		Config.INSTANCE.setK(5);
-		//Config.INSTANCE.setDatasetDb("jdbc:sqlite:synthetictestevening.db");
-		//runExperimentForDifferentDatasets(1);		
+		Config.INSTANCE.setUpdateBudget(15);
+		runExperimentForDifferentN(i);
+		Config.INSTANCE.setN(10);
+		runExperimentForDifferentK(i);
+		Config.INSTANCE.setK(5);
+		Config.INSTANCE.setDatasetDb("jdbc:sqlite:synthetictestevening.db");
+		runExperimentForDifferentDatasets(1);		
 	}
 		
 	
-	}
+}    
 	
 	
 	
@@ -164,6 +210,7 @@ public class MTKNQueryProcessor {
 		}
 		TopKResultAnalyser.analysisExperimentNDCG();
 		TopKResultAnalyser.analysisExperimentACCK();
+		System.out.println("----------------analysis of Evaluation  is finished-------------------");
 
 //		TopKResultAnalyserWithIRMetrics.analysisExperimentIRMetrics("accuracy");
 //		TopKResultAnalyserWithIRMetrics.analysisExperimentIRMetrics("recall");
@@ -175,9 +222,9 @@ public class MTKNQueryProcessor {
 
 	public static void runExperimentForDifferentBudgets(int dataset){
 		
-		//Integer [] budget = {1,3,57,10,15,20,25,30};
+		Integer [] budget = {1,3,57,10,15,20,25,30};
 		
-		Integer [] budget = {7};
+		//Integer [] budget = {7};
 		String path = Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder();
 
 		for (int j=0 ; j < budget.length ; j++){ 

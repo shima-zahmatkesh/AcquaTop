@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Random;
 
 import acqua.config.Config;
+import acqua.data.RemoteBKGManager;
 import acqua.data.TwitterFollowerCollector;
 
 public class RNDJoinOperator extends ApproximateJoinMTKNOperator {
@@ -36,6 +37,14 @@ public class RNDJoinOperator extends ApproximateJoinMTKNOperator {
 		int counter=0;
 		while(counter<updateBudget){
 			Long temp = A.get(indexes.get(counter));
+			
+//			int currentValue =0;
+//			if(Config.INSTANCE.getDatabaseContext().equals("twitter")){
+//				currentValue = TwitterFollowerCollector.getUserFollowerFromDB(evaluationTime, temp);
+//			}
+//			if(Config.INSTANCE.getDatabaseContext().equals("stock")){
+//				currentValue = RemoteBKGManager.INSTANCE.getCurrentStockRevenueFromDB(evaluationTime, temp);
+//			}
 			int currentValue = TwitterFollowerCollector.getUserFollowerFromDB(evaluationTime, temp);
 			if(followerReplica.get(temp)==currentValue)
 				result.put(temp,"=");

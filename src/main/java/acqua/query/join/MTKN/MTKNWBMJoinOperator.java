@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import acqua.config.Config;
+import acqua.data.RemoteBKGManager;
 import acqua.data.TwitterFollowerCollector;
 
 
@@ -30,39 +31,26 @@ public class MTKNWBMJoinOperator extends ApproximateJoinMTKNOperator {
 	
 	
 	public MTKNWBMJoinOperator() {
-		userChangeRates=new HashMap<Long, Double>();
-		Connection c = null;
-		Statement stmt = null;
-		try {
-			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());
-			c.setAutoCommit(false);
-			stmt = c.createStatement();
-			String sql="";
-			sql="SELECT USERID, CHANGERATE from User ";
-			ResultSet rs = stmt.executeQuery( sql);
 
-			try{
-				answersFileWriter = new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/"+this.getClass().getSimpleName()+"Output.txt"));
-				selectedCondidatesFileWriter= new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"Debug/"+this.getClass().getSimpleName()+"selectedupdateEntries.txt"));
-				statsFileWriter= new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"Debug/"+this.getClass().getSimpleName()+"estimationErrorPerWindow.txt"));
-				statsFileWriter.write("p,s,p&s,totalNumberOfCandidatesinML,numberOfExpiredCandidatesinML,numberOfExpiredCandidatesAfterTheMaintenanceinML,numberOfExpiredElementsInTheView,numberOfExpiredElementsInTheViewAfterTheMaintenance \n");
-			}catch(Exception e){
-				e.printStackTrace();
-			}
-			
-			while ( rs.next() ) {
-				long userId = rs.getLong("USERID");
-				double userChangeRate  = rs.getDouble("CHANGERATE");
-				userChangeRates.put(userId, userChangeRate);
-			}
-			rs.close();
-			stmt.close();
-			c.close();
-		} catch ( Exception e ) {
-			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-			System.exit(0);
+		userChangeRates=new HashMap<Long, Double>();
+		
+		if(Config.INSTANCE.getDatabaseContext().equals("stock")){
+			userChangeRates = RemoteBKGManager.INSTANCE.getStockChaneRateFromDB();
 		}
+		else if (Config.INSTANCE.getDatabaseContext().equals("twitter")){
+		
+			userChangeRates = TwitterFollowerCollector.getChaneRateFromDB();
+		}
+		try{
+			answersFileWriter = new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/"+this.getClass().getSimpleName()+"Output.txt"));
+			selectedCondidatesFileWriter= new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"Debug/"+this.getClass().getSimpleName()+"selectedupdateEntries.txt"));
+			statsFileWriter= new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"Debug/"+this.getClass().getSimpleName()+"estimationErrorPerWindow.txt"));
+			statsFileWriter.write("p,s,p&s,totalNumberOfCandidatesinML,numberOfExpiredCandidatesinML,numberOfExpiredCandidatesAfterTheMaintenanceinML,numberOfExpiredElementsInTheView,numberOfExpiredElementsInTheViewAfterTheMaintenance \n");
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+			
+			
 	
 	}
 
@@ -99,6 +87,7 @@ public class MTKNWBMJoinOperator extends ApproximateJoinMTKNOperator {
 		
 		for ( int i=0; i< MTKN.size() ; i++){
 			
+			if(candidateUserSetIterator.hasNext()){
 			long userid=candidateUserSetIterator.next();
 			if(isStale(evaluationTime, userid))
 				actuallyExpiredUsers.add(userid);
@@ -109,10 +98,9 @@ public class MTKNWBMJoinOperator extends ApproximateJoinMTKNOperator {
 				f= userChangeRates.get(userid);
 				changeCount=(int)Math.floor((double)1/f);
 			}catch(Exception ee){
-				//System.out.println("skip user "+ userid + "  because it will not expire");
 				continue;
 			}
-
+		
 			//read ~tp
 			long lastUpdateTime = userInfoUpdateTime.get(userid);
 			long nextExpirationTime=0L;
@@ -132,17 +120,14 @@ public class MTKNWBMJoinOperator extends ApproximateJoinMTKNOperator {
 			userEstimatedCurrentExpirationTime.add(new User(userid,lastExpirationTime, nextExpirationTime,f));
 			
 		}
-
+		}
 		/***************************************
 		 * Filter the candidates *
 		 ***************************************/
 		List<User> expired = new ArrayList<User>();  
 		List<User> notExpired = new ArrayList<User>();  
 
-		for(User u : 
-			userEstimatedCurrentExpirationTime
-			//				userExactExpirationTime
-				)
+		for(User u : userEstimatedCurrentExpirationTime)
 			if(u.expirationTime<=evaluationTime)
 				expired.add(u);
 			else
@@ -154,7 +139,6 @@ public class MTKNWBMJoinOperator extends ApproximateJoinMTKNOperator {
 
 		//sliding case
 		if( usersTimeStampOfTheCurrentSlidedWindow!=null){
-			//System.out.println("sliding--------------------------------------------");
 			for(User u : expired){
 				u.windowsBeforeExit = (int)Math.ceil(
 						( usersTimeStampOfTheCurrentSlidedWindow.get(u.userId)
@@ -167,22 +151,8 @@ public class MTKNWBMJoinOperator extends ApproximateJoinMTKNOperator {
 						- evaluationTime) 
 						/ (Config.INSTANCE.getQueryWindowSlide()*1000) );
 				u.score = Math.min(u.windowsBeforeExit, u.windowsToLive);
-				//System.out.println(u.windowsBeforeExit + "  " + u.windowsToLive);
 			}
 		}
-		//tumbling case
-//		else
-//			{
-//			//System.out.println("tumbling------------------------------------------------------------");
-//			for(User u : expired){
-//				u.score = 0;
-//			}	
-//			for(User u : notExpired){
-//				u.score = 0 ;
-//			}
-//			}
-
-
 
 		/************************
 		 * Order the candidates *
@@ -200,23 +170,27 @@ public class MTKNWBMJoinOperator extends ApproximateJoinMTKNOperator {
 		int countHit=0;
 		while(expiredIt.hasNext() && counter<updateBudget){
 			User temp=expiredIt.next();
-			//System.out.println("user Id: "+temp.userId+" "+"Expiration Time: "+temp.expirationTime);
 			long replicaValue = this.followerReplica.get(temp.userId);
+			
+//			int bkgValue =0;
+//			
+//			if(Config.INSTANCE.getDatabaseContext().equals("twitter")){
+//				bkgValue = TwitterFollowerCollector.getUserFollowerFromDB(evaluationTime, temp.userId);
+//			}
+//			if(Config.INSTANCE.getDatabaseContext().equals("stock")){
+//				bkgValue = RemoteBKGManager.INSTANCE.getCurrentStockRevenueFromDB(evaluationTime, temp.userId);
+//			}
 			long bkgValue = TwitterFollowerCollector.getUserFollowerFromDB(evaluationTime, temp.userId);
+			
 			if(replicaValue!=bkgValue)
 			{
 				result.put(temp.userId, "<>");
-				//System.out.printf("Expired: id "+temp.userId+" estimatedxep>> %d changerate>> "+userChangeRates.get(temp.userId)+" chachedValue>> "+ replicaValue+ " actualValue>> "+bkgValue+" \n",(evaluationTime - temp.nextExpirationTime)/60000);
 			}
 			else
 			{
 				result.put(temp.userId, "=");
-				//System.out.printf("Expired: id "+temp.userId+" estimatedxep>> %d changerate>> "+userChangeRates.get(temp.userId)+" chachedValue>> "+ replicaValue+ " actualValue>> "+bkgValue+" \n",(evaluationTime - temp.nextExpirationTime)/60000);
 			}
 			if(actuallyExpiredUsers.contains(temp.userId)) countHit++;
-			//if(temp.expirationTime==0) continue;
-			//if(currentValue==bkgValue) continue;
-			//result.add(temp.userId);
 			counter++;
 		}
 		/***********************************
@@ -231,14 +205,22 @@ public class MTKNWBMJoinOperator extends ApproximateJoinMTKNOperator {
 			while(notExpiredIt.hasNext()&&counter<updateBudget){
 				User temp=notExpiredIt.next();
 				long currentValue = this.followerReplica.get(temp.userId);
+				
+//				int bkgValue =0;
+//				
+//				if(Config.INSTANCE.getDatabaseContext().equals("twitter")){
+//					bkgValue = TwitterFollowerCollector.getUserFollowerFromDB(evaluationTime, temp.userId);
+//				}
+//				if(Config.INSTANCE.getDatabaseContext().equals("stock")){
+//					bkgValue = RemoteBKGManager.INSTANCE.getCurrentStockRevenueFromDB(evaluationTime, temp.userId);
+//				}
 				int bkgValue = TwitterFollowerCollector.getUserFollowerFromDB(evaluationTime, temp.userId);
+				
 				if(currentValue!=bkgValue){
 					result.put(temp.userId,"<>" + currentValue + "  " + bkgValue);
 					minTopK.addFollowerReplica(temp.userId, bkgValue);
-					//System.out.printf("NOT Expired: id "+temp.userId+" >>estimatedexp >> %d changerate>> "+userChangeRates.get(temp.userId)+" cachedvalue>> "+currentValue+" actualValue "+bkgValue+" \n",(evaluationTime - temp.nextExpirationTime)/60000);
 				} else {
 					result.put(temp.userId,"=");
-				//System.out.printf("NOT Expired: id "+temp.userId+" >>estimatedexp >> %d changerate>> "+userChangeRates.get(temp.userId)+" cachedvalue>> "+currentValue+" actualValue "+bkgValue+" \n",(evaluationTime - temp.nextExpirationTime)/60000);
 				}
 				if(actuallyExpiredUsers.contains(temp.userId)) 
 					countHit++;

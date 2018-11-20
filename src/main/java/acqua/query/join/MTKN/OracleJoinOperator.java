@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import acqua.config.Config;
+import acqua.data.RemoteBKGManager;
 import acqua.data.TwitterFollowerCollector;
 import acqua.maintenance.ScoringFunction;
 import acqua.query.join.JoinOperator;
@@ -40,6 +41,16 @@ public class OracleJoinOperator extends ApproximateJoinMTKNOperator{
 	public void process(long timeStamp, Map<Long,Integer> mentionList,Map<Long,Long> usersTimeStampOfTheCurrentSlidedWindow){
 		try {
 			HashMap<Long, Float> sortedUser = new HashMap<Long, Float>();
+			
+//			HashMap<Long, Integer> currentFollowerCount = new HashMap<Long, Integer>();
+//			
+//			if(Config.INSTANCE.getDatabaseContext().equals("twitter")){
+//				currentFollowerCount = TwitterFollowerCollector.getFollowerListFromDB(timeStamp);
+//			}
+//			if(Config.INSTANCE.getDatabaseContext().equals("stock")){
+//				currentFollowerCount = RemoteBKGManager.INSTANCE.getAllCurrentStockRevenue(timeStamp);
+//			}
+			
 			HashMap<Long, Integer> currentFollowerCount=TwitterFollowerCollector.getFollowerListFromDB(timeStamp);
 			
 			long windowDiff = timeStamp-Config.INSTANCE.getQueryStartingTime();
@@ -58,15 +69,12 @@ public class OracleJoinOperator extends ApproximateJoinMTKNOperator{
 				Integer userFollowers = currentFollowerCount.get(userId);
 				
 				outputWriter.write( userId + " " + mentionList.get(userId) + " " + userFollowers + " " + timeStamp + " " + sortedUser.get(userId)+" " + rank + "\n");
-				//System.out.println( userId + " " + mentionList.get(userId) + " " + userFollowers + " " + timeStamp + " " + sortedUser.get(userId)+" " + rank );
 				rank ++;
 				topk--;
 			}
-			
-//			outputWriter.flush();
+		
 			outputWriter2.flush();
-//			outputWriter.close();
-//			outputWriter2.close();
+
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

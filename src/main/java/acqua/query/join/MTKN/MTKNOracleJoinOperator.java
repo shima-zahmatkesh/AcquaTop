@@ -16,6 +16,7 @@ import java.util.TreeMap;
 import java.util.Map.Entry;
 
 import acqua.config.Config;
+import acqua.data.RemoteBKGManager;
 import acqua.data.TwitterFollowerCollector;
 import acqua.maintenance.MinTopK;
 import acqua.maintenance.MinTopKForOracle;
@@ -42,7 +43,16 @@ public class MTKNOracleJoinOperator extends ApproximateJoinMTKNOperator  {
 			if (windowDiff==0) 
 				return;
 
-			HashMap<Long, Integer> currentFollowerCount=TwitterFollowerCollector.getFollowerListFromDB(evaluationTime);
+//			HashMap<Long, Integer> currentFollowerCount = new HashMap<Long, Integer>();
+//			
+//			if(Config.INSTANCE.getDatabaseContext().equals("twitter")){
+//				currentFollowerCount = TwitterFollowerCollector.getFollowerListFromDB(evaluationTime);
+//			}
+//			if(Config.INSTANCE.getDatabaseContext().equals("stock")){
+//				currentFollowerCount = RemoteBKGManager.INSTANCE.getAllCurrentStockRevenue(evaluationTime);
+//			}
+			
+			HashMap<Long, Integer> currentFollowerCount= TwitterFollowerCollector.getFollowerListFromDB(evaluationTime);
 			
 			// MTKN algorithm
 			

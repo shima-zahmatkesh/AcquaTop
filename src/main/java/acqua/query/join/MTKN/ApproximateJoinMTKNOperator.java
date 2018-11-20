@@ -8,7 +8,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
+
 import acqua.config.Config;
+import acqua.data.RemoteBKGManager;
 import acqua.data.TwitterFollowerCollector;
 import acqua.maintenance.MinTopK;
 
@@ -36,7 +38,16 @@ public abstract class ApproximateJoinMTKNOperator {
 		estimatedLastChangeTime = new HashMap<Long, Long>();
 		bkgLastChangeTime = new HashMap<Long, Long>();
 		
-		userInfo = TwitterFollowerCollector.getInitialUserFollowersFromDB(); // ==>  firstWindow
+		if( Config.INSTANCE.getDatabaseContext().equals("twitter") ){
+			userInfo = TwitterFollowerCollector.getInitialUserFollowersFromDB(); // ==>  firstWindow
+		}
+		if(Config.INSTANCE.getDatabaseContext().equals("stock")){
+			userInfo = RemoteBKGManager.INSTANCE.getInitialBkgInfoFromDB(); // initial information(revenue) of stocks
+		}
+		
+		
+		
+		
 		Iterator<Long> it = userInfo.keySet().iterator();
 		while(it.hasNext()){
 			Long temp=it.next();
@@ -66,6 +77,13 @@ public abstract class ApproximateJoinMTKNOperator {
 		minTopK.populateFollowerReplica(followerReplica);
 	}
 	
+	public void populateMTKNCurrentWindow(HashMap<Long, Integer>  slidedwindow, HashMap<Long, Long> slidedwindowTime){
+		
+		minTopK.populateSliededWindow(slidedwindow);
+		minTopK.populateSliededWindowTime(slidedwindowTime);
+		minTopK.populateFollowerReplica(followerReplica);
+	}
+	
 	public void process(long evaluationTime, Map<Long,Integer> mentionList,Map<Long,Long> usersTimeStampOfTheCurrentSlidedWindow){			
 		try {
 			//skip the first iteration
@@ -88,9 +106,14 @@ public abstract class ApproximateJoinMTKNOperator {
 			currentCandidate.putAll(mentionList);
 			currentCandidateTime.putAll(usersTimeStampOfTheCurrentSlidedWindow);
 			
+			//System.out.println("MTKN before process currnt window");
+			//MinTopK.data.printMTKN();
 			
 			minTopK.processCurrentWindowForNewArrival(currentCandidate , currentCandidateTime ,  currentChanges);
-		
+			
+			//System.out.println("MTKN after process currnt window");
+			//MinTopK.data.printMTKN();
+			
 			
 			//invoke FollowerTable::getFollowers(user,ts) and updates the replica for a subset of users that exist in stream
 			HashMap<Long,String> electedElements = updatePolicy(mentionList.keySet().iterator(),usersTimeStampOfTheCurrentSlidedWindow, evaluationTime);
@@ -102,7 +125,17 @@ public abstract class ApproximateJoinMTKNOperator {
 			for(long id : electedElements.keySet()){
 				
 				//read the new value (= invoke the remote service)
-				Integer newValue = TwitterFollowerCollector.getUserFollowerFromDB(evaluationTime, id);
+				Integer newValue = 0;
+				
+				newValue = TwitterFollowerCollector.getUserFollowerFromDB(evaluationTime, id);
+				
+//				if(Config.INSTANCE.getDatabaseContext().equals("twitter")){
+//					newValue = TwitterFollowerCollector.getUserFollowerFromDB(evaluationTime, id);
+//				}
+//				if(Config.INSTANCE.getDatabaseContext().equals("stock")){
+//					newValue = RemoteBKGManager.INSTANCE.getCurrentStockRevenueFromDB(evaluationTime, id);
+//				}
+	
 				Integer oldValue = followerReplica.get(id);
 				
 				if(!oldValue.equals(newValue)){
@@ -113,7 +146,7 @@ public abstract class ApproximateJoinMTKNOperator {
 				} else {
 					
 				}
-				bkgLastChangeTime.put(id, TwitterFollowerCollector.getPreviousExpTime(id,evaluationTime));
+				//bkgLastChangeTime.put(id, TwitterFollowerCollector.getPreviousExpTime(id,evaluationTime));
 				userInfoUpdateTime.put(id, evaluationTime);
 			}
 			
@@ -124,7 +157,6 @@ public abstract class ApproximateJoinMTKNOperator {
 		
 		
 			minTopK.processCurrentWindowForBKGChanges(currentCandidate , currentCandidateTime ,  currentChanges);
-			//minTopK.processCurrentWindow(currentCandidate, currentCandidateTime, currentChanges);
 			
 			ArrayList<String> topKResult =minTopK.getTopKResult() ;
 				int rank = 1;
@@ -141,7 +173,6 @@ public abstract class ApproximateJoinMTKNOperator {
 						System.out.println("----------------------------- ERRRRROR ---------------------" +userId);
 					
 					answersFileWriter.write(userId +" "+ currentCandidate.get(userId) +" "+ userFollowers +" "+ evaluationTime +  " " + score + " " + rank +"\n");
-					//System.out.println(userId +" "+ currentCandidate.get(userId) +" "+ userFollowers +" "+ evaluationTime +  " " + score + " " + rank );
 					rank ++;
 				}
 				
@@ -192,7 +223,18 @@ public abstract class ApproximateJoinMTKNOperator {
 	}
 
 	protected boolean isStale(long timestamp, long id){
+
+//		int newValue =0;
+//		
+//		if(Config.INSTANCE.getDatabaseContext().equals("twitter")){
+//			newValue = TwitterFollowerCollector.getUserFollowerFromDB(timestamp, id);
+//		}
+//		if(Config.INSTANCE.getDatabaseContext().equals("stock")){
+//			newValue = RemoteBKGManager.INSTANCE.getCurrentStockRevenueFromDB(timestamp, id);
+//		}
+		
 		int newValue = TwitterFollowerCollector.getUserFollowerFromDB(timestamp, id);
+		
 		if(followerReplica.get(id).equals(newValue))
 			return false;
 		return true;

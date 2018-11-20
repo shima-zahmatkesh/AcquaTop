@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Random;
 
 import acqua.config.Config;
+import acqua.data.RemoteBKGManager;
 import acqua.data.TwitterFollowerCollector;
 
 public class MTKNRNDJoinOperator extends ApproximateJoinMTKNOperator {
@@ -44,6 +45,14 @@ protected int updateBudget = Config.INSTANCE.getUpdateBudget();
 			Integer replicaValue = followerReplica.get(userId);
 			if (replicaValue == null) replicaValue =0;
 			
+//			int currentValue =0;
+//			
+//			if(Config.INSTANCE.getDatabaseContext().equals("twitter")){
+//				currentValue = TwitterFollowerCollector.getUserFollowerFromDB(evaluationTime, userId);
+//			}
+//			if(Config.INSTANCE.getDatabaseContext().equals("stock")){
+//				currentValue = RemoteBKGManager.INSTANCE.getCurrentStockRevenueFromDB(evaluationTime, userId);
+//			}
 			int currentValue = TwitterFollowerCollector.getUserFollowerFromDB(evaluationTime, userId);
 			
 			if( replicaValue == currentValue )

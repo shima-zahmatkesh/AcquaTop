@@ -253,6 +253,34 @@ public class MinTopK {
 		}
 		
 	}
+	
+	public void populateSliededWindow( HashMap<Long, Integer> slidedWindow) {
+		
+		TreeMap<Long, Integer> temp = new TreeMap<Long, Integer>();
+		Iterator <Long> it = slidedWindow.keySet().iterator();
+		while(it.hasNext()){
+			 Long key = it.next();
+			Integer value = slidedWindow.get(key);
+			 temp.put(key, value);		 
+			}
+		slidedwindows.add(temp);
+	}
+		
+	
+	
+	public void populateSliededWindowTime( HashMap<Long, Long> slidedWindowTime) {
+		
+		TreeMap<Long, Long> temp = new TreeMap<Long, Long>();
+		Iterator <Long> it = slidedWindowTime.keySet().iterator();
+		while(it.hasNext()){
+			 Long key = it.next();
+			 Long value = slidedWindowTime.get(key);
+			 temp.put(key, value);		 
+		}
+		slidedwindowsTime.add(temp);
+		
+		
+	}
 
 	public void populateFollowerReplica(HashMap<Long, Integer> followerReplicaList) {
 		

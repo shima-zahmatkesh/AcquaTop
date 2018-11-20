@@ -35,6 +35,8 @@ import twitter4j.conf.ConfigurationBuilder;
 
 
 
+
+
 import java.nio.channels.FileChannel;
 import java.nio.file.Files;
 
@@ -890,4 +892,62 @@ public class TwitterFollowerCollector {
 		}
 		return result;
 	}
+
+
+	public void createUserTableFromBKG(int interval){
+		Connection c = null;
+		Statement stmt = null;
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());
+			//c.setAutoCommit(false);
+			stmt = c.createStatement();
+			String sql="";
+			stmt.executeUpdate("Drop table IF EXISTS User");
+			//---String sql = "CREATE TABLE  `User` as select bkg.USERID as USERID, cast(count(distinct(bkg.FOLLOWERCOUNT)) as real)/cast(count(distinct(bkg.tiMESTAMP)) as real) AS CHANGERATE from bkg group by bkg.USERID";
+			stmt.executeUpdate("create table User ( USERID BIGINT, CHANGERATE real);");
+			sql="insert into User SELECT A.USERID , round(cast(COUNT(*) as real)/cast((SELECT COUNT(TIMESTAMP) FROM BKG C WHERE C.USERID = A.USERID) as real),4) FROM BKG A, BKG B WHERE A.TIMESTAMP-B.TIMESTAMP>0 AND A.TIMESTAMP-B.TIMESTAMP< " + interval + " AND A.USERID = B.USERID AND A.FOLLOWERCOUNT<>B.FOLLOWERCOUNT GROUP BY A.USERID";
+			//String sql="";
+			System.out.println("creat user table");
+			stmt.execute(sql);
+			stmt.close();
+			c.close();
+		}catch(Exception e){e.printStackTrace();}
+	}
+
+
+	public static HashMap<Long, Double> getChaneRateFromDB(){
+
+		HashMap<Long, Double> userChangeRates = new HashMap<Long, Double>();
+		Connection c = null;
+		Statement stmt = null;
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection(Config.INSTANCE.getDatasetDb());
+			c.setAutoCommit(false);
+			stmt = c.createStatement();
+			String sql="";
+			//createUserTableFromBKG();
+			sql="SELECT USERID, CHANGERATE from User ";
+			
+			ResultSet rs = stmt.executeQuery( sql);
+			while ( rs.next() ) {
+				long userId = rs.getLong("USERID");
+				double userChangeRate  = rs.getDouble("CHANGERATE");
+				userChangeRates.put(userId, userChangeRate);
+			}
+			rs.close();
+			stmt.close();
+			c.close();
+		} catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+			System.exit(0);
+		}
+		return userChangeRates;
+	}
+
+
+
+
+
 }

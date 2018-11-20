@@ -14,9 +14,8 @@ public class DataPloting {
 
 	public static void generateDataForPlotingAlphaSelectivity( int maxline){
 	
-	//String [] percentage ={ "10", "20", "25", "30" , "40" , "50" , "60" ,"70" ,"80" , "90" };
-
-	String [] percentage ={ "30", "60"  };
+	String [] percentage ={ "10", "20", "25", "30" , "40" , "50" , "60" ,"70" ,"80" , "90" };
+	//String [] percentage ={ "30", "60"  };
 	
 			try {
 		
@@ -39,18 +38,13 @@ public class DataPloting {
 						}
 						String [] fisrtLineSplit = firstLine.split(",| ");
 						String [] lineSplit = line.split(",| ");
-						//System.out.println(fisrtLineSplit.length + " line length"+lineSplit.length);
+
 						for ( int i = 0 ; i < fisrtLineSplit.length ; i++){
 							
 							if ( fisrtLineSplit[i].equals("timestampe") ||  fisrtLineSplit[i].equals("Oracle") ||  fisrtLineSplit[i].equals("WST"))
 								continue;
-							//if ( i < 10) {
 							System.out.println("i = " + i + "p = " + p + " "+ fisrtLineSplit[i]);
 							writeLine = percentage[p]+","+db+","+ fisrtLineSplit[i]+","+ lineSplit[i]+","+(100-Integer.valueOf(percentage[p]))+"\n";
-							//}else{
-							//	System.out.println(i + "db = " + db + "percentage = "+ percentage[p] );
-							//	writeLine = percentage[p]+","+db+","+ fisrtLineSplit[i]+","+ lineSplit[i+4]+"\n";
-							//}
 							bw.write(writeLine);
 						}
 					}
@@ -68,9 +62,8 @@ public class DataPloting {
 
 	public static void generateDataForPlotingAlphaBudget(int maxline){
 	
-	//String [] budget = { "1", "2", "3" , "4" , "5" , "6" ,"7" };
-
-	String [] budget = { "3",  "5" };
+	String [] budget = { "1", "2", "3" , "4" , "5" , "6" ,"7" };
+	//String [] budget = { "3",  "5" };
 
 			try {
 		
@@ -93,16 +86,10 @@ public class DataPloting {
 						}
 						String [] fisrtLineSplit = firstLine.split(",| ");
 						String [] lineSplit = line.split(",| ");
-						//System.out.println(fisrtLineSplit.length + " line length"+lineSplit.length);
 						for ( int i = 0 ; i < fisrtLineSplit.length ; i++){
 							if ( fisrtLineSplit[i].equals("timestampe") ||  fisrtLineSplit[i].equals("Oracle") ||  fisrtLineSplit[i].equals("WST"))
 								continue;
-							//if ( i < 10) {
-								writeLine = budget[b]+","+db+","+ fisrtLineSplit[i]+","+ lineSplit[i]+"\n";
-							//}else{
-							//	System.out.println(i + "db = " + db + "percentage = "+ budget[b]);
-							//	writeLine = budget[b]+","+db+","+ fisrtLineSplit[i]+","+ lineSplit[i+4]+"\n";
-							//}
+							writeLine = budget[b]+","+db+","+ fisrtLineSplit[i]+","+ lineSplit[i]+"\n";
 							bw.write(writeLine);	
 						}
 					}
@@ -139,13 +126,10 @@ public class DataPloting {
 					System.out.println(fisrtLineSplit.length + " line length"+lineSplit.length);
 					for ( int i = 1 ; i < lineSplit.length ; i++){
 						writeLine = writeLine.concat(lineSplit[0]+","+ fisrtLineSplit[i]+","+ lineSplit[i]+"\n" ) ;
-					}
-					
+					}		
 				}
 				bw.write(writeLine);
 				bw.close();
-	
-	
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -159,9 +143,7 @@ public class DataPloting {
 		String [] distanceThershold = { "500","1000","50000" ,"62","125","250","750","12500","25000","93","187","375","625","875","77","109","156","218","85","101"};    //Filtering Distance From Threshold
 		String [] percentage = {"30"};
 
-		try {
-		
-				
+		try {	
 			BufferedWriter bw = new BufferedWriter(new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/DataForPloting_CombineAlgorithm_"+ maxline +".csv")));
 			String writeLine = "db,policy,distance,CJD,selectivity\n";
 			bw.write(writeLine);
@@ -170,7 +152,6 @@ public class DataPloting {
 					
 					for (int p=0 ; p < percentage.length ; p++){
 				
-						//BufferedReader br=new BufferedReader(new FileReader(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_"+ db +"_" + percentage[p] + "_"+ distanceThershold[dt] + ".csv")));
 						BufferedReader br=new BufferedReader(new FileReader(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/compare_"+ db +"_"+ distanceThershold[dt] + ".csv")));
 
 						String line ="" , firstLine = "";
@@ -183,7 +164,6 @@ public class DataPloting {
 						}
 						String [] fisrtLineSplit = firstLine.split(",| ");
 						String [] lineSplit = line.split(",| ");
-						//System.out.println(fisrtLineSplit.length + " line length"+lineSplit.length);
 						for ( int i = 0 ; i < fisrtLineSplit.length ; i++){
 							
 							if ( fisrtLineSplit[i].equals("timestampe") ||  
@@ -192,22 +172,17 @@ public class DataPloting {
 								 fisrtLineSplit[i].equals("RND") ||
 								 fisrtLineSplit[i].equals("RND.F") )
 								continue;
-							
 							writeLine = db +","+ fisrtLineSplit[i]+","+ distanceThershold[dt] +","+ lineSplit[i]+","+ (100-Integer.valueOf(percentage[p])) +"\n";
-							
 							bw.write(writeLine);
 						}
 					}
 				}
 			}
 			bw.close();
-			
-	
 		} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-		}
-			
+		}		
 }
 
 	public static void generateDataForPlotingSelectivity( int maxline){
@@ -235,7 +210,6 @@ public class DataPloting {
 							}
 							String [] fisrtLineSplit = firstLine.split(",| ");
 							String [] lineSplit = line.split(",| ");
-							//System.out.println(fisrtLineSplit.length + " line length"+lineSplit.length);
 							for ( int i = 0 ; i < fisrtLineSplit.length ; i++){
 								
 								if ( fisrtLineSplit[i].equals("timestampe") ||  fisrtLineSplit[i].equals("Oracle") ||  fisrtLineSplit[i].equals("WST"))
@@ -284,7 +258,6 @@ public class DataPloting {
 							}
 							String [] fisrtLineSplit = firstLine.split(",| ");
 							String [] lineSplit = line.split(",| ");
-							//System.out.println(fisrtLineSplit.length + " line length"+lineSplit.length);
 							for ( int i = 0 ; i < fisrtLineSplit.length ; i++){
 								
 								if ( fisrtLineSplit[i].equals("timestampe") ||  fisrtLineSplit[i].equals("Oracle") ||  fisrtLineSplit[i].equals("WST"))
@@ -339,7 +312,6 @@ public class DataPloting {
 							
 									if ( fisrtLineSplit[i].equals("timestampe") ||  fisrtLineSplit[i].equals("Oracle") ||  fisrtLineSplit[i].equals("WST"))
 										continue;
-									//System.out.println("i = " + i + "p = " + p + " "+ fisrtLineSplit[i]);
 									writeLine = k+","+ db +","+ fisrtLineSplit[i]+","+ lineSplit[i] +"\n";
 							
 									bw.write(writeLine);
@@ -349,8 +321,6 @@ public class DataPloting {
 					}
 				}
 				bw.close();
-	
-	
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -414,14 +384,14 @@ public class DataPloting {
 					String writeLine = measureTopic + ",db,policy,NDCG\n";
 					bw.write(writeLine);
 					
-					for (int db=1 ; db<= Config.INSTANCE.getDatabaseNumber() ; db++){
+					for (int db=1 ; db<=Config.INSTANCE.getDatabaseNumber() ; db++){
 											
 							BufferedReader br=new BufferedReader(new FileReader(new File(path+"joinOutput/"+ metric +"CompareTotal_"+ measureTopic +"_" + db + ".csv")));
 							String line ="" , firstLine = "";
 							
-							firstLine = br.readLine(); 
+							firstLine = br.readLine();
+							System.out.println ("metrics  "  + metric + "   measureTopic" + measureTopic + "   firstLine = "  + firstLine) ;
 							String [] fisrtLineSplit = firstLine.split(",| ");
-							System.out.println ("firstLine = "  + firstLine) ;	
 							while	((line = br.readLine())!= null ){
 								
 								System.out.println ("Line = "  + line) ;
@@ -497,31 +467,95 @@ public class DataPloting {
 	}
 
 	
+	public static void generateDataForPlotingFilter( String metric , String measureTopic , String type ){
+		
+		String path = Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder( );
+				try {
+			
+					BufferedWriter bw = new BufferedWriter(new FileWriter(new File(path+"joinOutput/"+ measureTopic + type + "Final.csv")));
+					String writeLine = measureTopic + ",db,policy,CJD\n";
+					bw.write(writeLine);
+					
+					for (int db=1 ; db<= Config.INSTANCE.getDatabaseNumber() ; db++){
+											
+							BufferedReader br=new BufferedReader(new FileReader(new File(path+"joinOutput/"+ measureTopic + type + ".csv")));
+							String line ="" , firstLine = "";
+							
+							firstLine = br.readLine(); 
+							String [] fisrtLineSplit = firstLine.split(",| ");
+							System.out.println ("firstLine = "  + firstLine) ;	
+							while	((line = br.readLine())!= null ){
+								
+								System.out.println ("Line = "  + line) ;
+								String [] lineSplit = line.split(",| ");
+						
+								for ( int i = 0 ; i < fisrtLineSplit.length ; i++){
+								
+								if ( fisrtLineSplit[i].equals(measureTopic) || fisrtLineSplit[i].equals("db"))
+									continue;
+							
+								writeLine = lineSplit[0]+","+ db +","+ fisrtLineSplit[i]+","+ Float.parseFloat(lineSplit[i])+"\n";
+								
+								bw.write(writeLine);
+							}
+						}
+					}
+				
+					bw.close();
+		
+		
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+	}
+	
 	public static void main(String[] args){
 	
-		//generateDataForPlotingAlphaBudget(110);
-		//generateDataForPlotingAlphaSelectivity(110);
-		//generateDataForPlotingMultiRun(28);
-		//generateDataForPlotingSelectivity(75);
-		//generateDataForPlotingBudget(139);
-		//generateDataForPlotingAllItreations1(140);
-	//	generateDataForPlotingAllItreations2(140);
+//		generateDataForPlotingAlphaBudget(110);
+//		generateDataForPlotingAlphaSelectivity(110);
+//		generateDataForPlotingMultiRun(28);
+//		generateDataForPlotingSelectivity(75);
+//		generateDataForPlotingBudget(139);
+//		generateDataForPlotingAllItreations1(140);
+//	    generateDataForPlotingAllItreations2(140);
 		 
 		
-	//	 generateDataForPlotingMTKN("NDCG" ,"budget");
-	//	 generateDataForPlotingMTKN("NDCG" ,"K");
-	//	 generateDataForPlotingMTKN("NDCG" ,"N");
-	//	 generateDataForPlotingMTKN("NDCG" ,"CH");
+//		 generateDataForPlotingMTKN("NDCG" ,"budget");
+//		 generateDataForPlotingMTKN("NDCG" ,"K");
+//		 generateDataForPlotingMTKN("NDCG" ,"N");
+//		 generateDataForPlotingMTKN("NDCG" ,"CH");
 		
-	//	 generateDataForPlotingMTKN("ACCK" ,"budget");
-		 generateDataForPlotingMTKN("ACCK" ,"K");
-	//	 generateDataForPlotingMTKN("ACCK" ,"N");
-	//	 generateDataForPlotingMTKN("ACCK" ,"CH");
+//		 generateDataForPlotingMTKN("ACCK" ,"budget");
+//		 generateDataForPlotingMTKN("ACCK" ,"K");
+//		 generateDataForPlotingMTKN("ACCK" ,"N");
+//	 	 generateDataForPlotingMTKN("ACCK" ,"CH");
 		
+// 		 150 should be removed from function
+//		 generateDataForPlotingMTKN("precision" ,"budget");
+//		 generateDataForPlotingMTKN("precision" ,"K");
+//		 generateDataForPlotingMTKN("precision" ,"N");
+//		 generateDataForPlotingMTKN("precision" ,"CH");
+		 
+//		 generateDataForPlotingMTKN("avgPrecisionAtK" ,"budget");
+//		 generateDataForPlotingMTKN("avgPrecisionAtK" ,"K");
+//		 generateDataForPlotingMTKN("avgPrecisionAtK" ,"N");
+//		 generateDataForPlotingMTKN("avgPrecisionAtK" ,"CH");
+		 
+//		 generateDataForPlotingMTKN("accuracy" ,"budget");
+//		 generateDataForPlotingMTKN("accuracy" ,"K");
+//		 generateDataForPlotingMTKN("accuracy" ,"N");
+//		 generateDataForPlotingMTKN("accuracy" ,"CH");
 		 
 
-		 generateDataForPlotingAllItreationsMTKN( "NDCGcompare-CH20-N10-B7-K5.csv");
-		 generateDataForPlotingAllItreationsMTKN( "ACCKcompare-CH20-N10-B7-K5.csv");
+		 generateDataForPlotingAllItreationsMTKN( "precisionCompare_budget_7.csv");
+//	 	 generateDataForPlotingAllItreationsMTKN( "ACCKcompare-CH20-N10-B7-K5.csv");
+		
+//		 generateDataForPlotingFilter( "CJD" , "budget" , "Simple" );
+//		 generateDataForPlotingFilter( "CJD" , "budget" , "Combine" );
+//		 generateDataForPlotingFilter( "CJD" , "selectivity" , "Simple" );
+//		 generateDataForPlotingFilter( "CJD" , "selectivity" , "Combine" );
 	}
 
 	

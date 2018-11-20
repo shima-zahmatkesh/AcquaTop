@@ -7,7 +7,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 import acqua.config.Config;
+import acqua.data.RemoteBKGManager;
 import acqua.data.TwitterFollowerCollector;
 
 
@@ -24,6 +26,7 @@ public class MTKNLRUJoinOperator extends ApproximateJoinMTKNOperator{
 	}
 	
 	protected HashMap<Long,String> updatePolicy(Iterator<Long> candidateUserSetIterator,Map<Long,Long> usersTimeStampOfTheCurrentSlidedWindow, long evaluationTime){
+		
 		//decide which rows to update and return the list
 		//it must satisfy the updateBudget constraint!
 		final class User{
@@ -58,7 +61,17 @@ public class MTKNLRUJoinOperator extends ApproximateJoinMTKNOperator{
 		while(it.hasNext()&&counter<updateBudget){
 			User temp = it.next();
 			double replicaValue=followerReplica.get(temp.userId);
+			
+//			int bkgValue =0;
+//			
+//			if(Config.INSTANCE.getDatabaseContext().equals("twitter")){
+//				bkgValue = TwitterFollowerCollector.getUserFollowerFromDB(evaluationTime, temp.userId);
+//			}
+//			if(Config.INSTANCE.getDatabaseContext().equals("stock")){
+//				bkgValue = RemoteBKGManager.INSTANCE.getCurrentStockRevenueFromDB(evaluationTime, temp.userId);
+//			}
 			int bkgValue=TwitterFollowerCollector.getUserFollowerFromDB(evaluationTime, temp.userId);
+			
 			if(replicaValue==bkgValue)
 				{
 				result.put(temp.userId,"=");
@@ -68,7 +81,6 @@ public class MTKNLRUJoinOperator extends ApproximateJoinMTKNOperator{
 				result.put(temp.userId, "<>" + replicaValue + "  " + bkgValue);
 				minTopK.addFollowerReplica (temp.userId , bkgValue );
 				}
-			//System.out.printf("id "+temp.userId+">>oldness "+temp.updateTimeDiff/60000+"  cr= "+getchangerate(temp.userId)+" chachedValue>> "+ replicaValue+ " actualValue>> "+bkgValue+" \n",(evaluationTime - temp.updateTimeDiff)/60000);
 			counter++;
 		}
 		return result;

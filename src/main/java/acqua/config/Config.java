@@ -3,7 +3,6 @@ package acqua.config;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -160,5 +159,13 @@ public class Config {
 		if(config.getString("topk.query").equals("true"))
 			return true;
 		return false;
+	}
+	
+	public String getStreamFilePath(){
+		return config.getString("streamFile.path");
+	}
+	
+	public String getDatabaseContext(){
+		return config.getString("database.context");
 	}
 }

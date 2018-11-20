@@ -74,7 +74,8 @@ public class MaintenanceData {
 		}else{
 			insertNodeToMTKN(newNode);	
 		}
-		mtknLastNode = mtkn.get(mtkn.lastKey());
+		if(!mtkn.isEmpty())
+			mtknLastNode = mtkn.get(mtkn.lastKey());
 	}
 	
 	
@@ -100,21 +101,23 @@ public class MaintenanceData {
 			int key = itac.next();
 			TopKForWindow.put(key, 0);	
 		}
-		
+		//System.out.println(TopKForWindow.toString());
 		//update LBP
 		Iterator<Key> it = mtkn.keySet().iterator();
 		while(it.hasNext()){
 			Key key = it.next();
 			Node node = mtkn.get(key);
 			for ( int i = node.getStartWin() ; i <= node.getEndWin() ; i++ ){
-				//System.out.println("i = " + i + "node = " + node.getObjectId());
-				//printLBP();
+				//System.out.println("\n i = " + i + "  node = " + node.getObjectId());
+			//	printMTKN();
+			//	printLBP();
 				TopKForWindow.replace(i, TopKForWindow.get(i)+1);
-				if ( TopKForWindow.get(i) == mtknSize )
+				if ( TopKForWindow.containsKey(i) &&  TopKForWindow.get(i) == mtknSize )
 					lbp.replace(i, node);
 				
 			}
 		}
+		
 	}
 	
 	
@@ -247,6 +250,9 @@ public class MaintenanceData {
 					}
 					// we have k elements in window, so increase the starting time one 
 					else{
+						//printMTKN();
+						//printLBP();
+						//System.out.println(mtknNode.getObjectId());
 						mtknNode.setStartWin(mtknNode.getStartWin()+1);
 						lbp.replace(key, mtknNode);
 						mtkn.replace(mtknKey, mtknNode);

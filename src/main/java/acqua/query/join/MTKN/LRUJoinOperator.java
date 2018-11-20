@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import acqua.config.Config;
+import acqua.data.RemoteBKGManager;
 import acqua.data.TwitterFollowerCollector;
 
 
@@ -33,9 +34,9 @@ public class LRUJoinOperator extends ApproximateJoinMTKNOperator{
 			long updateTimeDiff;
 			public User(long id,long t){userId=id;updateTimeDiff=t;}
 		}
+		
 		List<User> userUpdateLatency=new ArrayList<User>();
 
-		
 		while(candidateUserSetIterator.hasNext()){
 			
 			long userId=Long.parseLong(candidateUserSetIterator.next().toString());
@@ -43,8 +44,6 @@ public class LRUJoinOperator extends ApproximateJoinMTKNOperator{
 			userUpdateLatency.add(new User(userId, currentTimestamp-latestUpdateTime));			
 			
 		}
-		
-		
 		
 		Collections.sort(userUpdateLatency, new Comparator<User>() {
 
@@ -56,14 +55,6 @@ public class LRUJoinOperator extends ApproximateJoinMTKNOperator{
 			}
 		});
 		
-//		System.out.println(" LRU final sorted result = " );
-//		Iterator<User> it1 = userUpdateLatency.iterator();
-//		while(it1.hasNext()){
-//			User t = it1.next();
-//			System.out.println("user Id =" + t.userId + "  score = " + t.updateTimeDiff );
-//		}
-
-		
 		
 		HashMap<Long,String> result=new HashMap<Long,String>();
 		Iterator<User> it = userUpdateLatency.iterator();
@@ -71,6 +62,14 @@ public class LRUJoinOperator extends ApproximateJoinMTKNOperator{
 		while(it.hasNext()&&counter<updateBudget){
 			User temp = it.next();
 			double replicaValue=followerReplica.get(temp.userId);
+//			int bkgValue =0;
+//			
+//			if(Config.INSTANCE.getDatabaseContext().equals("twitter")){
+//				bkgValue = TwitterFollowerCollector.getUserFollowerFromDB(evaluationTime, temp.userId);
+//			}
+//			if(Config.INSTANCE.getDatabaseContext().equals("stock")){
+//				bkgValue = RemoteBKGManager.INSTANCE.getCurrentStockRevenueFromDB(evaluationTime, temp.userId);
+//			}
 			int bkgValue=TwitterFollowerCollector.getUserFollowerFromDB(evaluationTime, temp.userId);
 			if(replicaValue==bkgValue)
 				{
@@ -81,17 +80,8 @@ public class LRUJoinOperator extends ApproximateJoinMTKNOperator{
 				result.put(temp.userId, "<>" + replicaValue + "  " + bkgValue);
 				minTopK.addFollowerReplica (temp.userId , bkgValue );
 				}
-			//System.out.printf("id "+temp.userId+">>oldness "+temp.updateTimeDiff/60000+"  cr= "+getchangerate(temp.userId)+" chachedValue>> "+ replicaValue+ " actualValue>> "+bkgValue+" \n",(evaluationTime - temp.updateTimeDiff)/60000);
 			counter++;
 		}
-		//System.out.println("skipped users: ");
-		while(it.hasNext()){
-			User temp = it.next();
-			double replicaValue=followerReplica.get(temp.userId);
-			double bkgValue=TwitterFollowerCollector.getUserFollowerFromDB(evaluationTime, temp.userId);
-			//System.out.printf("id "+temp.userId+">>oldness "+temp.updateTimeDiff/60000+"  cr= "+getchangerate(temp.userId)+" chachedValue>> "+ replicaValue+ " actualValue>> "+bkgValue+" \n",(evaluationTime - temp.updateTimeDiff)/60000);
-		}
-		//System.out.println("time"+(evaluationTime-Config.INSTANCE.getQueryStartingTime())/60000+"--------------------------------------------------------------------------------------------------------------------");
 		return result;
 	}
 	

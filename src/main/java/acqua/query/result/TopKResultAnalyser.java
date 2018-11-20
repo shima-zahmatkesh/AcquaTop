@@ -43,7 +43,6 @@ public class TopKResultAnalyser {
 			createtable (stmt ,  "OMTKNJ");
 			createtable (stmt ,  "MTKNTJ");
 			createtable (stmt ,  "MTKNFJ");
-			//createtable (stmt ,  "MTKNFTWOKJ");
 			createtable (stmt ,  "MTKNAJ");
 			createtable (stmt ,  "WSTJ");
 			createtable (stmt ,  "RNDJ");
@@ -58,7 +57,6 @@ public class TopKResultAnalyser {
 			putOutputInDatabase( stmt ,"joinOutput/MTKNOracleJoinOperatorOutput.txt" , "OMTKNJ");
 			putOutputInDatabase( stmt ,"joinOutput/MTKNTJoinOperatorOutput.txt" , "MTKNTJ");
 			putOutputInDatabase( stmt ,"joinOutput/MTKNFJoinOperatorOutput.txt" , "MTKNFJ");
-			//putOutputInDatabase( stmt ,"joinOutput/MTKNF2KJoinOperatorOutput.txt" , "MTKNFTWOKJ");
 			putOutputInDatabase( stmt ,"joinOutput/MTKNAllJoinOperatorOutput.txt" , "MTKNAJ");
 			putOutputInDatabase( stmt ,"joinOutput/WSTJoinOperatorOutput.txt" , "WSTJ");
 			
@@ -90,7 +88,6 @@ public class TopKResultAnalyser {
 					" `RANK`             INT    NOT NULL); " + 
 					" CREATE INDEX `" + table + "timeIndex` ON `" + table + "` (`TIMESTAMP` ASC);"; 
 			stmt.executeUpdate(sql);
-			//System.out.println(sql);
 		} catch (SQLException e) { e.printStackTrace();}
 	}
 	
@@ -107,10 +104,8 @@ public class TopKResultAnalyser {
 			while((line=br.readLine())!=null){
 				
 				String[] userInfo = line.split(" ");
-				//System.out.println(line);
 				sql = "INSERT INTO " + table + " (USERID,MENTIONCOUNT,FOLLOWERCOUNT,TIMESTAMP,SCORE,RANK) " +
 						"VALUES ("+userInfo[0]+","+userInfo[1]+","+userInfo[2]+","+userInfo[3]+","+userInfo[4]+","+userInfo[5]+")"; 
-				//System.out.println(sql);
 				stmt.executeUpdate(sql);
 			}
 			br.close();
@@ -132,7 +127,6 @@ public class TopKResultAnalyser {
 
 			HashMap<Long,Double> MTKNTError=computeErrorsNDCG(getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("MTKNTJ") );
 			HashMap<Long,Double> MTKNFError=computeErrorsNDCG(getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("MTKNFJ") );
-			//HashMap<Long,Double> MTKNF2KError=computeErrorsNDCG(getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("MTKNFTWOKJ") );
 			HashMap<Long,Double> MTKNAError=computeErrorsNDCG(getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("MTKNAJ") );
 			
 			HashMap<Long,Double> RNDError=computeErrorsNDCG (getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("RNDJ") );
@@ -155,7 +149,6 @@ public class TopKResultAnalyser {
 				Double wste=WSTError.get(nextTime);
 				Double mtknte=MTKNTError.get(nextTime);
 				Double mtknfe=MTKNFError.get(nextTime);
-				//Double mtknf2ke=MTKNF2KError.get(nextTime);
 				Double mtknae=MTKNAError.get(nextTime);
 				
 				Double rnde=RNDError.get(nextTime);
@@ -172,7 +165,6 @@ public class TopKResultAnalyser {
 				cwste= cwste + (wste = wste==null?0:wste) ;
 				cmtknte = cmtknte + (mtknte = mtknte==null?0:mtknte) ;
 				cmtknfe = cmtknfe + (mtknfe = mtknfe==null?0:mtknfe) ;
-				//cmtknf2ke = cmtknf2ke + (mtknf2ke = mtknf2ke==null?0:mtknf2ke) ;
 				cmtknae = cmtknae + (mtknae = mtknae==null?0:mtknae) ;
 				
 				crnde= crnde + (rnde = rnde==null?0:rnde) ;
@@ -188,7 +180,6 @@ public class TopKResultAnalyser {
 						","+ String.format("%.5f",(cwste==null?0:cwste))+ 
 						","+ String.format("%.5f",(cmtknte==null?0:cmtknte))+ 
 						","+ String.format("%.5f",(cmtknfe==null?0:cmtknfe))+ 
-						//","+ String.format("%.5f",(cmtknf2ke==null?0:cmtknf2ke))+
 						","+ String.format("%.5f",(cmtknae==null?0:cmtknae))+ 
 						
 						","+ String.format("%.5f",(crnde==null?0:crnde))+
@@ -219,7 +210,6 @@ public class TopKResultAnalyser {
 
 			HashMap<Long,Double> MTKNTError=computeErrorsACCK(getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("MTKNTJ") );
 			HashMap<Long,Double> MTKNFError=computeErrorsACCK(getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("MTKNFJ") );
-			//HashMap<Long,Double> MTKNF2KError=computeErrorsACCK(getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("MTKNFTWOKJ") );
 			HashMap<Long,Double> MTKNAError=computeErrorsACCK(getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("MTKNAJ") );
 			
 			HashMap<Long,Double> RNDError=computeErrorsACCK (getResultsOfTimestaps("OTKJ") , getResultsOfTimestaps("RNDJ") );
@@ -242,7 +232,6 @@ public class TopKResultAnalyser {
 				Double wste=WSTError.get(nextTime);
 				Double mtknte=MTKNTError.get(nextTime);
 				Double mtknfe=MTKNFError.get(nextTime);
-				//Double mtknf2ke=MTKNF2KError.get(nextTime);
 				Double mtknae=MTKNAError.get(nextTime);
 				
 				Double rnde=RNDError.get(nextTime);
@@ -260,7 +249,6 @@ public class TopKResultAnalyser {
 				cwste= cwste + (wste = wste==null?0:wste) ;
 				cmtknte = cmtknte + (mtknte = mtknte==null?0:mtknte) ;
 				cmtknfe = cmtknfe + (mtknfe = mtknfe==null?0:mtknfe) ;
-				//cmtknf2ke = cmtknf2ke + (mtknf2ke = mtknf2ke==null?0:mtknf2ke) ;
 				cmtknae = cmtknae + (mtknae = mtknae==null?0:mtknae) ;
 				
 				crnde= crnde + (rnde = rnde==null?0:rnde) ;
@@ -276,7 +264,6 @@ public class TopKResultAnalyser {
 						","+ String.format("%.5f",(cwste==null?0:cwste))+ 
 						","+ String.format("%.5f",(cmtknte==null?0:cmtknte))+ 
 						","+ String.format("%.5f",(cmtknfe==null?0:cmtknfe))+ 
-						//","+ String.format("%.5f",(cmtknf2ke==null?0:cmtknf2ke))+
 						","+ String.format("%.5f",(cmtknae==null?0:cmtknae))+ 
 						
 						","+ String.format("%.5f",(crnde==null?0:crnde))+
@@ -337,7 +324,6 @@ public class TopKResultAnalyser {
 			while ( rs.next() ) {
 				Long timeStamp  = rs.getLong("TIMESTAMP");
 				String sql1="SELECT USERID, SCORE, RANK FROM " + table + " WHERE " + table + ".TIMESTAMP = " + timeStamp + " ORDER BY RANK ASC" ;
-				//System.out.println(sql1);
 
 				ResultSet rs1 = stmt1.executeQuery( sql1);
 				HashMap<Long , String> resultSet = new HashMap<Long , String>() ;
@@ -450,30 +436,18 @@ public class TopKResultAnalyser {
 	private static HashMap<Long ,String> setOriginalRelevancy(HashMap<Long ,String> original){
 		
 		HashMap<Long ,String> result = new HashMap<Long ,String>();
-		//int originalRelevancy = 3;
 		
-	//	System.out.println("setOriginalRelevancy");
 		Iterator<Long> it= original.keySet().iterator();
 		while(it.hasNext()){
 			long id =it.next();
 			String temp = original.get(id);
 			String [] tempSplit = temp.split(",");
 			Integer rank = Integer.valueOf(tempSplit[1]);
-			//result.put(id , originalRelevancy + "," + rank);
-			//int originalRelevancy = (  Math.floorDiv( (original.size() - Integer.parseInt(original.get(id).split(",")[1])+1 )  , Math.floorDiv(original.size(),2) ))  ;
+			
 			int originalRelevancy = original.size() - rank +1;
-			
-//			if (rank <= Math.floorDiv(original.size(), 3))
-//				originalRelevancy = 3;
-//			else if (rank > Math.floorDiv(original.size(), 3) && rank <= Math.floorDiv(original.size(), 3) * 2) 
-//				originalRelevancy = 2;
-//			else
-//				originalRelevancy = 1;
-			
 			result.put(id , originalRelevancy + "," + rank);
 			
-		//	System.out.println("id = " + id + " original relevancy = " + originalRelevancy  + " rank = "+ rank);
-			
+		
 		}
 		return result;
 	}
@@ -484,7 +458,6 @@ public class TopKResultAnalyser {
 		HashMap<Long ,String> result = new HashMap<Long ,String>();
 		int replicaRelevancy = 0;
 		
-		//System.out.println("setReplicaRelevancy");
 		Iterator<Long> it= replica.keySet().iterator();
 		while(it.hasNext()){
 			long id =it.next();
@@ -493,24 +466,11 @@ public class TopKResultAnalyser {
 			Integer rank = Integer.valueOf(tempSplit[1]);
 			if (original.containsKey(id)){
 				
-//				result.put(id , originalRelevancy + "," + rank);
-//				int originalRelevancy = ((original.size() - Integer.parseInt(original.get(id).split(",")[1]) )/(original.size()/3))+1 ;
-				
 				int originalRelevancy = original.size()-rank+1;
-				
-//				if (rank <= Math.floorDiv(original.size(), 3))
-//					originalRelevancy = 3;
-//				else if (rank > Math.floorDiv(original.size(), 3) && rank <= Math.floorDiv(original.size(), 3) * 2) 
-//					originalRelevancy = 2;
-//				else
-//					originalRelevancy = 1;
-				
 				result.put(id, originalRelevancy + "," + rank);
-//				System.out.println("id = " + id + " originalRelevancy = " + originalRelevancy  + " rank = "+ rank);
 				
 			}else{
 				result.put(id , replicaRelevancy + "," + rank);	
-//				System.out.println("id = " + id + " replica relevancy = " + replicaRelevancy + " rank = "+ rank);
 			}
 		}
 		return result;
@@ -561,7 +521,6 @@ public class TopKResultAnalyser {
 			
 			bw.write( "budget," + header);
 		
-			
 			for ( int i = 0 ; i< budgets.length ; i++){
 				
 				BufferedReader br=new BufferedReader(new FileReader(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/"+ metric +"compare_budget_"+ budgets[i] + ".csv")));
@@ -586,7 +545,6 @@ public class TopKResultAnalyser {
 			
 			bw.write( "K," + header);
 		
-			
 			for ( int i = 0 ; i< K.length ; i++){
 				
 				BufferedReader br=new BufferedReader(new FileReader(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/"+ metric +"compare_K_"+ K[i] + ".csv")));
@@ -611,7 +569,6 @@ public class TopKResultAnalyser {
 			
 			bw.write( "N," + header);
 		
-			
 			for ( int i = 0 ; i< N.length ; i++){
 				
 				BufferedReader br=new BufferedReader(new FileReader(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/"+ metric +"compare_N_"+ N[i] + ".csv")));
@@ -635,7 +592,6 @@ public class TopKResultAnalyser {
 			
 			bw.write( "DB," + header);
 		
-			
 			for ( int i = 0 ; i< ch.length ; i++){
 				
 				BufferedReader br=new BufferedReader(new FileReader(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/"+ metric +"compare_CH_"+ ch[i] + ".csv")));

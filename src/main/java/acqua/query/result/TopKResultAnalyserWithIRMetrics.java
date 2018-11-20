@@ -197,20 +197,6 @@ public class TopKResultAnalyserWithIRMetrics {
 						","+ String.format("%.5f",(cmtknlrue==null?0:cmtknlrue)) +"\n");
 				
 			}
-//			bw.write("avg,"+String.format("%.5f",cOC)+
-//					","+ String.format("%.5f",(comtke / itrations))+ 
-//					","+ String.format("%.5f",(cwste / itrations))+ 
-//
-//					","+ String.format("%.5f",(cmtknte / itrations))+ 
-//					","+ String.format("%.5f",(cmtknfe / itrations))+ 
-//					","+ String.format("%.5f",(cmtknae / itrations))+
-//										
-//					","+ String.format("%.5f",(crnde / itrations))+
-//					","+ String.format("%.5f",(cwbme / itrations)) +
-//					","+ String.format("%.5f",(clrue / itrations)) +
-//					","+ String.format("%.5f",(cmtknrnde / itrations)) +
-//					","+ String.format("%.5f",(cmtknwbme / itrations)) +
-//					","+ String.format("%.5f",(cmtknlrue / itrations)) +"\n");
 			
 			bw.flush();
 			bw.close();
