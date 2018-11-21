@@ -13,12 +13,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import acqua.config.Config;
-import acqua.data.RemoteBKGManager;
 import acqua.data.TwitterFollowerCollector;
 import acqua.maintenance.ScoringFunction;
-import acqua.query.join.JoinOperator;
 
 
 public class OracleJoinOperator extends ApproximateJoinMTKNOperator{

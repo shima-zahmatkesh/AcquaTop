@@ -88,7 +88,7 @@ public class MTKNQueryProcessor {
 			join = new MTKNWBMJoinOperator();
 		
 		join.populateMTKN(slidedwindows,slidedwindowsTime);
-		printSlidedwindows();
+		//printSlidedwindows();
 		
 		long time=Config.INSTANCE.getQueryStartingTime()+Config.INSTANCE.getQueryWindowWidth()*1000;  //evaluationtime = end time of each window
 		int windowCount=0;

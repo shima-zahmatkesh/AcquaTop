@@ -16,7 +16,6 @@ import java.util.TreeMap;
 import java.util.Map.Entry;
 
 import acqua.config.Config;
-import acqua.data.RemoteBKGManager;
 import acqua.data.TwitterFollowerCollector;
 import acqua.maintenance.MinTopK;
 import acqua.maintenance.MinTopKForOracle;

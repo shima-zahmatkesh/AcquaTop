@@ -15,9 +15,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import acqua.config.Config;
-import acqua.data.RemoteBKGManager;
 import acqua.data.TwitterFollowerCollector;
 
 
@@ -32,14 +30,15 @@ public class WBMJoinOperator extends ApproximateJoinMTKNOperator {
 	public WBMJoinOperator() {
 		
 		userChangeRates=new HashMap<Long, Double>();
+		userChangeRates = TwitterFollowerCollector.getChaneRateFromDB();
 		
-		if(Config.INSTANCE.getDatabaseContext().equals("stock")){
-			userChangeRates = RemoteBKGManager.INSTANCE.getStockChaneRateFromDB();
-		}
-		else if (Config.INSTANCE.getDatabaseContext().equals("twitter")){
-		
-			userChangeRates = TwitterFollowerCollector.getChaneRateFromDB();
-		}
+//		if(Config.INSTANCE.getDatabaseContext().equals("stock")){
+//			userChangeRates = RemoteBKGManager.INSTANCE.getStockChaneRateFromDB();
+//		}
+//		else if (Config.INSTANCE.getDatabaseContext().equals("twitter")){
+//		
+//			userChangeRates = TwitterFollowerCollector.getChaneRateFromDB();
+//		}
 		try{
 			answersFileWriter = new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/"+this.getClass().getSimpleName()+"Output.txt"));
 			selectedCondidatesFileWriter= new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"Debug/"+this.getClass().getSimpleName()+"selectedupdateEntries.txt"));

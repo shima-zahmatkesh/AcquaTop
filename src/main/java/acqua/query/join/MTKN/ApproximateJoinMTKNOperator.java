@@ -8,9 +8,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
-
 import acqua.config.Config;
-import acqua.data.RemoteBKGManager;
 import acqua.data.TwitterFollowerCollector;
 import acqua.maintenance.MinTopK;
 
@@ -38,12 +36,14 @@ public abstract class ApproximateJoinMTKNOperator {
 		estimatedLastChangeTime = new HashMap<Long, Long>();
 		bkgLastChangeTime = new HashMap<Long, Long>();
 		
-		if( Config.INSTANCE.getDatabaseContext().equals("twitter") ){
-			userInfo = TwitterFollowerCollector.getInitialUserFollowersFromDB(); // ==>  firstWindow
-		}
-		if(Config.INSTANCE.getDatabaseContext().equals("stock")){
-			userInfo = RemoteBKGManager.INSTANCE.getInitialBkgInfoFromDB(); // initial information(revenue) of stocks
-		}
+		userInfo = TwitterFollowerCollector.getInitialUserFollowersFromDB(); // ==>  firstWindow
+		
+//		if( Config.INSTANCE.getDatabaseContext().equals("twitter") ){
+//			userInfo = TwitterFollowerCollector.getInitialUserFollowersFromDB(); // ==>  firstWindow
+//		}
+//		if(Config.INSTANCE.getDatabaseContext().equals("stock")){
+//			userInfo = RemoteBKGManager.INSTANCE.getInitialBkgInfoFromDB(); // initial information(revenue) of stocks
+//		}
 		
 		
 		

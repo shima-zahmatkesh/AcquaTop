@@ -136,7 +136,7 @@ public class MaintenanceData {
 			newNode.setStartWin(calculateStartWin(newNode));
 			
 			if (!possibleToInsert(newNode)){
-				System.out.println("*********** not insert in list ***************");
+				//System.out.println("*********** not insert in list ***************");
 				return;
 			}
 				

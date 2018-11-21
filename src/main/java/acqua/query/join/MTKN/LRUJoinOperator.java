@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 import acqua.config.Config;
-import acqua.data.RemoteBKGManager;
 import acqua.data.TwitterFollowerCollector;
 
 

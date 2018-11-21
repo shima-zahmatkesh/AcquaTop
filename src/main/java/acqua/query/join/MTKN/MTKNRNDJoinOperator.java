@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Random;
 
 import acqua.config.Config;
-import acqua.data.RemoteBKGManager;
+
 import acqua.data.TwitterFollowerCollector;
 
 public class MTKNRNDJoinOperator extends ApproximateJoinMTKNOperator {

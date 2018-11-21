@@ -5,7 +5,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,10 +14,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
-
 import acqua.config.Config;
-import acqua.data.RemoteBKGManager;
 import acqua.data.TwitterFollowerCollector;
 
 
@@ -33,14 +29,15 @@ public class MTKNWBMJoinOperator extends ApproximateJoinMTKNOperator {
 	public MTKNWBMJoinOperator() {
 
 		userChangeRates=new HashMap<Long, Double>();
+		userChangeRates = TwitterFollowerCollector.getChaneRateFromDB();
 		
-		if(Config.INSTANCE.getDatabaseContext().equals("stock")){
-			userChangeRates = RemoteBKGManager.INSTANCE.getStockChaneRateFromDB();
-		}
-		else if (Config.INSTANCE.getDatabaseContext().equals("twitter")){
-		
-			userChangeRates = TwitterFollowerCollector.getChaneRateFromDB();
-		}
+//		if(Config.INSTANCE.getDatabaseContext().equals("stock")){
+//			userChangeRates = RemoteBKGManager.INSTANCE.getStockChaneRateFromDB();
+//		}
+//		else if (Config.INSTANCE.getDatabaseContext().equals("twitter")){
+//		
+//			userChangeRates = TwitterFollowerCollector.getChaneRateFromDB();
+//		}
 		try{
 			answersFileWriter = new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"joinOutput/"+this.getClass().getSimpleName()+"Output.txt"));
 			selectedCondidatesFileWriter= new FileWriter(new File(Config.INSTANCE.getProjectPath()+Config.INSTANCE.getDatasetFolder()+"Debug/"+this.getClass().getSimpleName()+"selectedupdateEntries.txt"));
